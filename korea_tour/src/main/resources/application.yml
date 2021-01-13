@@ -1,6 +1,6 @@
 #tomacat port
 server:
-  port: 9001
+  port: 9003
 #thymleaf
 spring: 
   thymeleaf:
