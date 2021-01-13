@@ -3,10 +3,10 @@ server:
   port: 9001
 #jsp
 spring: 
-  mvc: 
-    view:
-      prefix: /WEB-INF/views/
-      suffix: .jsp
+  thymeleaf:
+        prefix : classpath:templates/
+        suffix : .html
+        cache : false
   devtools:
     livereload:
       enabled: true

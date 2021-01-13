@@ -1,0 +1,29 @@
+@charset "UTF-8";
+:root{
+	--font-large:50px;
+	--font-medium:20px;
+	--font-small:14px;
+	--a:#b6b0a9;
+	--selected:#98938d;
+	--basic:#f0ece6;
+	--padding-btn: 5px 20px;
+	--b:#ccccc4;
+	--c:#acaca4
+}
+
+div{
+
+}
+
+div.footer{
+	color:green;
+	font-size:var(--small);
+}
+
+.selected{
+	background-color:var(--b);
+	color:var(--selected);
+	border:none;
+	padding:var(--padding-btn);
+	font-size:var(--font-large);
+}
