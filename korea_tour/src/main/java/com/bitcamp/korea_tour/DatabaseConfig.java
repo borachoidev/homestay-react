@@ -1,4 +1,4 @@
-package boot.tour.data;
+package com.bitcamp.korea_tour;
 
 import javax.sql.DataSource;
 
@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Primary;
 import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration
-@MapperScan(value="boot.tour.data",sqlSessionFactoryRef = "mysqlSqlSessionFactory")
+@MapperScan(value="com.bitcamp.korea_tour.model.mapper",sqlSessionFactoryRef = "mysqlSqlSessionFactory")
 public class DatabaseConfig {
 
 	@Bean(name = "mysqlDataSource", destroyMethod = "close")
@@ -33,7 +33,7 @@ public class DatabaseConfig {
 			@Qualifier("mysqlDataSource") DataSource mysqlDataSource, 
 			ApplicationContext applicationContext) throws Exception { 
 		SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
-		sqlSessionFactoryBean.setTypeAliasesPackage("boot.tour.*");
+		sqlSessionFactoryBean.setTypeAliasesPackage("com.bitcamp.korea_tour.model.mapper");
 		sqlSessionFactoryBean.setDataSource(mysqlDataSource);
 		sqlSessionFactoryBean.setMapperLocations(applicationContext.getResources("classpath:mapper/*.xml")); 
 

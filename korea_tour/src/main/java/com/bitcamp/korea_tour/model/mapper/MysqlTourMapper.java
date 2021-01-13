@@ -1,4 +1,4 @@
-package boot.tour.data;
+package com.bitcamp.korea_tour.model.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 
