@@ -1,4 +1,4 @@
-package boot.tour.maincontroller;
+package com.bitcamp.korea_tour.model.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
