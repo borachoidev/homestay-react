@@ -1,7 +1,7 @@
 #tomacat port
 server:
   port: 9001
-#jsp
+#thymleaf
 spring: 
   thymeleaf:
         prefix : classpath:templates/
