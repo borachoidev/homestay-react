@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import boot.tour.data.MysqlTourMapper;
+import com.bitcamp.korea_tour.model.mapper.MysqlTourMapper;
 
 @Controller
 public class MainController {
