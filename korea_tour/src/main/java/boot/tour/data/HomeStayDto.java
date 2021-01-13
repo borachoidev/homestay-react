@@ -23,7 +23,7 @@ public class HomeStayDto {
 	private int dogOk;
 	private int smokingOk;
 	private int price;
-	private String maxPeople;
+	private int maxPeople;
 	private String email;
 	private String hp;
 	private String userNum;

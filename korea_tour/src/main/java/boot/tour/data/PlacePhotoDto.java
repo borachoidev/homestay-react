@@ -11,5 +11,5 @@ public class PlacePhotoDto {
 	private List<String> upload;
 	private String userNum;
 	private String contentId;
-	
+	private int approveByAdmin;
 }
