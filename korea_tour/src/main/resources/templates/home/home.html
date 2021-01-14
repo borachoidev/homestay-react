@@ -1,29 +1,71 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="layout/default">
-
-<!-- index.html 고유 CSS 추가 -->
- <th:block layout:fragment="css">
- <link rel="stylesheet" th:href="@{css/home.css}">
-</th:block> 
-
-<!-- index.html 고유 스크립트 추가 -->
-<th:block layout:fragment="script" >
-	<script th:src="@{js/home.js}"></script>
-</th:block>
-
-<div layout:fragment="content">
-					
-					 <div class="main">
-					        index.html 입니다.
-					param 방법 (1)      
-					       제 이름은 <b th:text="${name}"></b>입니다.
-					  param 불러오기 (방법2) 
-					    [[${name}]]
-					    </div>
-					    <button class="selected">강조버</button>
-
-</div>
-   
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!--/* javascript */-->
+	<script th:src="@{js/main.js}" defer></script>
+	<script th:src="@{js/home.js}" defer></script>
+	<!--/* css */-->
+	<link rel="stylesheet" th:href="@{css/style.css}"/>
+	<link rel="stylesheet" th:href="@{css/home.css}"/>
+</head>
+<body>
+  <header class="header"></header>
+  <nav class="menu"></nav>
+  <!--/* 메인컨테이너*/-->
+  <main>
+	    <!--/* 통합검색*/-->
+		<div class="place-search">
+			<h1>"라온나드리"</h1>
+			<h3>와 함께 떠나요</h3>
+			<input type="text" placeholder="관광지를 입력하세요" id="searchBar">
+			<button type="button" id="searchBtn">검색</button>
+		</div>
+		 <!--/* 카드 컨테이너 */-->
+		<div class="card-box">
+		  <a th:href="@{/place}">
+			  <div class="place-card">
+				  <h3>지역별보기</h3>
+			  </div>
+		  </a>
+		  <a th:href="@{/course}">
+			  <div class="course-card">
+				  <h3>코스별보기</h3>
+			  </div>
+		  </a>
+		  <a th:href="@{/festival}">
+			  <div class="festival-card">
+				  <h3>지역축제찾기</h3>
+			  </div>
+		  </a>
+		</div>
+		<!--/* 코스 검색 */-->
+		<div class="course-search">
+		  <form th:action="@{/search/course}">
+			  <span>아름다운 대한민국을</span>
+			  <select name="who" >
+				  <option value="W1">혼자</option>
+				  <option value="W2">가족</option>
+				  <option value="W3">연인</option>
+			  </select>
+			  <select name="during" >
+				  <option value="D1">당일치기</option>
+				  <option value="D2>1박2일</option>
+				  <option value="D3">2박3일</option>
+			  </select>
+			  <select name="how" >
+				  <option value="H1">뚜벅이</option>
+				  <option value="H2">자전거</option>
+				  <option value="H3">자동차</option>
+				  <option value="H4">기차</option>
+			  </select>
+			  <span>로 여행을 떠나요</span>
+		  
+			<button type="submit" id="courseSearchBtn">맞춤코스</button>
+		</form>
+		</div>
+  </main>
+  <footer></footer>
+</body>
 </html>
