@@ -1,8 +1,11 @@
 package com.bitcamp.korea_tour.model;
 
+import org.apache.ibatis.type.Alias;
+
 import lombok.Data;
 
 @Data
+@Alias("user")
 public class UserDto {
 	private String userNum;
 	private String email;
