@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.ui.Model;
 
 import com.bitcamp.korea_tour.model.UserDto;
+import com.fasterxml.jackson.databind.JsonNode;
 
 public interface UserService {
 	
@@ -13,6 +14,7 @@ public interface UserService {
 	void deleteUser(String userNum);
 	String getKakaoToken(String code);
 	UserDto getKakaoInfo(String token);
-	boolean hasKey(String sns, String key);
-	void insertUser(UserDto dto, HttpServletRequest request);
+	boolean hasKey(String key);
+	void insertUser(UserDto dto);
+	void setSession(UserDto dto,  HttpServletRequest request);
 }
