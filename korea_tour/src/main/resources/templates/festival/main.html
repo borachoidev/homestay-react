@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorator="layout/default">
+	layout:decorator="layout/home">
 
 <!-- index.html 고유 CSS 추가 -->
 <th:block layout:fragment="css">
@@ -13,17 +13,6 @@
 </th:block>
 
 <div layout:fragment="content">
-
-	<div class="main">
-		index.html 입니다.
-		param 방법 (1)
-
-		제 이름은 <b th:text="${name}"></b>입니다.
-		param 불러오기 (방법2)
-		[[${name}]]
-	</div>
-	<button class="selected">강조버</button>
-
 </div>
 
 </html>
