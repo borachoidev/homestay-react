@@ -1,5 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="usermapper">
+	<select id="getUserList" resultType="user">
+		select * from user order by userNum desc
+	</select>
+	<select id="getUserData" parameterType="String" resultType="user">
+		select * from user where userNum=#{userNum}
+	</select>
+	<insert id="insertUser" parameterType="user">
+		INSERT INTO user (email, name, birth, gender
+		<if test="photo!=null">, photo</if> 
+		<if test="kakaoKey!=null">, kakaoKey</if>
+		<if test="kakaoKey!=null">, naverKey</if>
+		<if test="kakaoKey!=null">, googleKey</if>
+		) VALUES
+		(#{email}, #{name}, #{birth}, #{gender}
+		<if test="photo!=null">, #{photo}</if>
+		<if test="kakaoKey!=null">, #{kakaoKey}</if>
+		<if test="naverKey!=null">, #{naverKey}</if>
+		<if test="googleKey!=null">, #{googleKey}</if>
+		);
+	</insert>
+	<delete id="deleteUser" parameterType="String">
+		delete from user where userNum=#{userNum}
+	</delete>
+	<select id="hasKey" parameterType="String" resultType="int">
+		select count(*) from user where kakaoKey=#{key} or naverKey=#{key} or googleKey=#{key} 
+	</select>
 
 </mapper>

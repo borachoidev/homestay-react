@@ -13,6 +13,7 @@ public interface UserService {
 	void deleteUser(String userNum);
 	String getKakaoToken(String code);
 	UserDto getKakaoInfo(String token);
-	boolean hasKey(String sns, String key);
-	void insertUser(UserDto dto, HttpServletRequest request);
+	boolean hasKey(String key);
+	void insertUser(UserDto dto);
+	void setSession(UserDto dto,  HttpServletRequest request);
 }

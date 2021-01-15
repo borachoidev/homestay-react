@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bitcamp.korea_tour.model.UserDto;
@@ -31,22 +32,41 @@ public class LoginController {
 	}
 	
 	//사용자 로그인
-	@GetMapping("/login/{sns}")
-	public String userLogin(@PathVariable("sns") String sns, @RequestParam("code") String code, HttpServletRequest request) {
-		
-		String token="";
-		UserDto dto=userService.getKakaoInfo(token);
-		
-		if(sns.equals("kakao")) {
-			token=userService.getKakaoToken(code);
-			System.out.println("controller accessToken: "+token);
-			if(userService.hasKey(sns, dto.getKakaoKey())) {
-				userService.insertUser(dto, request);
-			}
-		}
-		return "redirect:home";
-	}
-	
-	
-	
+//	@GetMapping("/login/{sns}") 
+//	public String userLogin(@PathVariable("sns") String sns, @RequestParam String code) {
+//		
+//		
+//		
+//			System.out.println("code: "+code);
+//			String token=userService.getKakaoToken(code);
+//			System.out.println("controller accessToken: "+token);
+//			
+//			
+//		return "home";
+//	}
+//	
+//	@PostMapping("/login/{sns}")
+//	public String userLogin(@PathVariable("sns") String sns, @RequestParam String code, HttpServletRequest request) {
+//		
+//		
+//		
+//		if(sns.equals("kakao")) {
+//			String token=userService.getKakaoToken(code);
+//			System.out.println("controller accessToken: "+token);
+//			
+//			UserDto dto=userService.getKakaoInfo(token);
+//			
+//			//최초 로그인일 경우에만 db에 저장, 세션에 userdto 실어주기
+//			if(!userService.hasKey(dto.getKakaoKey())) {
+//				userService.insertUser(dto);
+//				userService.setSession(dto, request);
+//			}else {
+//				userService.setSession(dto, request);
+//			}
+//		}
+//		return "redirect:/";
+//	}
+//	
+//	
+//	
 }

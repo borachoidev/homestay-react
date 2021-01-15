@@ -7,6 +7,7 @@ import org.apache.ibatis.type.Alias;
 
 import com.bitcamp.korea_tour.model.UserDto;
 
+
 @Mapper
 @Alias("usermapper")
 public interface UserMapper {

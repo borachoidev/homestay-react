@@ -39,10 +39,16 @@ public class UserServiceImpl implements UserService,SessionNames {
 	}
 
 	@Override
-	public void insertUser(UserDto dto, HttpServletRequest request) {
-		HttpSession session = request.getSession();
+	public void insertUser(UserDto dto) {
 		
 		mapper.insertUser(dto);
+		
+	}
+	
+	@Override
+	public void setSession(UserDto dto, HttpServletRequest request) {
+
+		HttpSession session = request.getSession();
 		session.setAttribute(USER, dto);
 		
 	}
@@ -76,9 +82,9 @@ public class UserServiceImpl implements UserService,SessionNames {
 			//post요청시 요구하는 파라미터 스트림을 전송
 			BufferedWriter bw=new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
 			StringBuilder sb=new StringBuilder();
-			sb.append("grant_type=autorization_code");
+			sb.append("grant_type=authorization_code");
 			sb.append("&client_id=5d2136e7d58ec45f7275dcd5dd09cf7c");
-			sb.append("&redirect_uri=http://localhost:9003/login");
+			sb.append("&redirect_uri=http://localhost:9003/login/kakao");
 			sb.append("&code="+code);
 			bw.write(sb.toString());
 			bw.flush();
@@ -175,16 +181,10 @@ public class UserServiceImpl implements UserService,SessionNames {
 	}
 	
 	@Override
-	public boolean hasKey(String sns,String key) {
+	public boolean hasKey(String key) {
 		
-		if(sns.equals("kakao")) {
-			if(mapper.hasKey(key)==0) {
-				return true;
-			}
-		}else if(sns.equals("naver")) {
-			
-		}else {
-			
+		if(mapper.hasKey(key)!=0) {
+			return true;
 		}
 		
 		return false;
