@@ -9,6 +9,18 @@ public class FestivalController {
 	@GetMapping({"/festival/main","/festival"})
 	public String getFestivalMain() {
 		
-		return "/festival/main";
+		return "festival/main";
+	}
+	
+	@GetMapping("/festival/list")
+	public String getFestivalList() {
+		
+		return "festival/list";
+	}
+	
+	@GetMapping("/festival/detail")
+	public String getFestivalDetail() {
+		
+		return "festival/detail";
 	}
 }
