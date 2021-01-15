@@ -17,8 +17,10 @@ public class SearchController {
 	Date currDate = new Date();
 	int currentMonth = Integer.parseInt(sdf.format(currDate));
 	
+	// 전체 검색
 	@GetMapping("/search")
-	public ModelAndView getCourseMain(@RequestParam String keyword) { // 검색어를 파라미터로 받는다
+	public ModelAndView getSearchmain(@RequestParam String keyword) { // 검색어를 파라미터로 받아서 포워딩
+		// 검색어가 null일시 현재계절을 키워드로 담는다
 		if(currentMonth>=3 && currentMonth<6) {
 			keyword="봄";
 		}else if(currentMonth>=6 && currentMonth<9) {
@@ -31,8 +33,22 @@ public class SearchController {
 		
 		ModelAndView mview = new ModelAndView();
 		mview.addObject("keyword", keyword);
-		mview.setViewName("search/main");
+		mview.setViewName("search/allsearch");
 		return mview;
 	}
 	
+	// 맞춤코스 검색
+	@GetMapping("/search/course")
+	public ModelAndView getCourseSearchMain( // 태그들을 파라미터로 담아서 포워딩
+			@RequestParam String who,
+			@RequestParam String during,
+			@RequestParam String how) {
+		ModelAndView mview = new ModelAndView();
+		mview.addObject("who", who);
+		mview.addObject("during", during);
+		mview.addObject("how", how);
+		mview.setViewName("search/coursesearch");
+		
+		return mview;
+	}
 }

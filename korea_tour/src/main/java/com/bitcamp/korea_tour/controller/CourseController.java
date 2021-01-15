@@ -13,7 +13,7 @@ public class CourseController {
 	}
 	
 	@GetMapping("/course/list")
-	public String getCourseList() {
+	public String getCourseList() { // 좋아요순,최신순,who,during,how
 		
 		return "course/list";
 	}
