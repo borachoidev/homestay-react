@@ -1,4 +1,4 @@
-package com.bitcamp.korea_tour.model.controller;
+package com.bitcamp.korea_tour.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

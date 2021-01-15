@@ -1,4 +1,4 @@
-package com.bitcamp.korea_tour.model.controller;
+package com.bitcamp.korea_tour.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
