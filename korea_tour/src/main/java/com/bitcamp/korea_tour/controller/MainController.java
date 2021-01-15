@@ -20,4 +20,5 @@ public class MainController {
 		model.addObject("name", "bitcamp");
 		return model;
 	}
+	
 }

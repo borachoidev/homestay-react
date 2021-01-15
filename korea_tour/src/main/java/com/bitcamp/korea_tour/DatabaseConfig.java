@@ -33,10 +33,10 @@ public class DatabaseConfig {
 			@Qualifier("mysqlDataSource") DataSource mysqlDataSource, 
 			ApplicationContext applicationContext) throws Exception { 
 		SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
-		sqlSessionFactoryBean.setTypeAliasesPackage("com.bitcamp.korea_tour.model");
 		sqlSessionFactoryBean.setDataSource(mysqlDataSource);
 		sqlSessionFactoryBean.setMapperLocations(applicationContext.getResources("classpath:mapper/*.xml")); 
-
+		sqlSessionFactoryBean.setTypeAliasesPackage("com.bitcamp.korea_tour.*");
+		
 		return sqlSessionFactoryBean.getObject();
 	} 
 
