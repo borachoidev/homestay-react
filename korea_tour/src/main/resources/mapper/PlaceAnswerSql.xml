@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bitcamp.korea_tour.model.mapper.PlaceAnswerMapper">
+	<select id="getTotalCount" resultType="int">
+		select count(*) from place_answer
+	</select>
+	<select id="getAllDatas" resultType="placeanswerdto">
+		select * from place_answer order by placeAnswerNum desc
+	</select>
+	<insert id="insertdata" parameterType="placeanswerdto">
+		insert into place_answer (content,writeday,level,step,group,deleted,userNum,contentId)
+		 values (#{content},now(),#{level},#{step},#{group},#{deleted},#{userNum},#{contentId})
+	</insert>
+	<select id="getData" parameterType="String" resultType="placeanswerdto">
+		select * from place_answer where placeAnswerNum=#{placeAnswerNum}
+	</select>
+	<update id="updateData" parameterType="placeanswerdto">
+		update place_answer set content=#{content},
+		level=#{level},step=#{step},group=#{group},deleted=#{deleted} where placeAnswerNum=#{placeAnswerNum}
+	</update>
+	<delete id="deleteData" parameterType="String">
+		delete from place_answer where placeAnswerNum=#{placeAnswerNum}
+	</delete>
+</mapper>
