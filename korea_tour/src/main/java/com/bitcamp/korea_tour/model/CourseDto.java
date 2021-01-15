@@ -5,7 +5,7 @@ import org.apache.ibatis.type.Alias;
 import lombok.Data;
 
 @Data
-@Alias("MyCourseDto")
+@Alias("cdto")
 public class CourseDto {
 	private String courseNum;
 	private String name;
