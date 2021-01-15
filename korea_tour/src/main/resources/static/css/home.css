@@ -23,9 +23,9 @@ header.header {
   padding: 3vh;
   justify-content: space-between;
 }
-#menuBtn {
-  padding: 1vh 1vw;
-  cursor: pointer;
+
+img.main-logo {
+  width: 220px;
 }
 /* 통합검색 */
 div.search-container {
@@ -137,6 +137,13 @@ select {
   color: white;
   cursor: pointer;
 }
+.h-line {
+  width: 100%;
+  height: 3px;
+  background-color: white;
+  transition: all 0.8s;
+}
+
 @keyframes slide {
   0% {
     background-image: url(/img/slide-bg-05.jpg);
