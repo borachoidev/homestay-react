@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.ui.Model;
 
 import com.bitcamp.korea_tour.model.UserDto;
+import com.fasterxml.jackson.databind.JsonNode;
 
 public interface UserService {
 	

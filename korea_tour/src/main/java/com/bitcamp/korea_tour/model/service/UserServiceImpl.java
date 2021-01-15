@@ -5,20 +5,32 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.message.BasicNameValuePair;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 
 import com.bitcamp.korea_tour.model.UserDto;
 import com.bitcamp.korea_tour.model.mapper.UserMapper;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -29,7 +41,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService,SessionNames {
 	
-	private UserMapper mapper;
+	private final UserMapper mapper;
 	
 	@Override
 	public void getUserList(Model model) {
@@ -66,118 +78,91 @@ public class UserServiceImpl implements UserService,SessionNames {
 	
 	@Override
 	public String getKakaoToken(String code) {
+		final String RequestUrl;
+		final List<NameValuePair> postParams = new ArrayList<>();
+
+
+		RequestUrl = "https://kauth.kakao.com/oauth/token"; // Host
+		postParams.add(new BasicNameValuePair("grant_type", "authorization_code"));
+		postParams.add(new BasicNameValuePair("client_id", "5d2136e7d58ec45f7275dcd5dd09cf7c")); // REST API KEY
+		postParams.add(new BasicNameValuePair("redirect_uri", "http://localhost:9003/login/kakao")); // 리다이렉트 URI
+		postParams.add(new BasicNameValuePair("code", code)); // 로그인 과정중 얻은 code 값
+		postParams.add(new BasicNameValuePair("client_secret", "jeYn5R9K3CFHZDYqmdryIDdGpJQ8Cp9w"));
 		
-		String accessToken="";
-		String refreshToken="";
-		String reqURL="https://kauth.kakao.com/oauth/token";
+		final HttpClient client = HttpClientBuilder.create().build();
+		System.out.println(client);
+		final HttpPost post = new HttpPost(RequestUrl);
+		System.out.println(post);
+		JsonNode returnNode = null;
 		
-		try {
-			URL url=new URL(reqURL);
-			HttpURLConnection conn=(HttpURLConnection)url.openConnection();
-			
-			//post요청을 위해 기본값이 false인 setDoOutput을 true로 
-			conn.setRequestMethod("POST");
-			conn.setDoOutput(true);
-			
-			//post요청시 요구하는 파라미터 스트림을 전송
-			BufferedWriter bw=new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
-			StringBuilder sb=new StringBuilder();
-			sb.append("grant_type=authorization_code");
-			sb.append("&client_id=5d2136e7d58ec45f7275dcd5dd09cf7c");
-			sb.append("&redirect_uri=http://localhost:9003/login/kakao");
-			sb.append("&code="+code);
-			bw.write(sb.toString());
-			bw.flush();
-			
-			//결과 코드가 200이면 성공
-			int responseCode=conn.getResponseCode();
-			System.out.println("responseCode: "+responseCode);
-			
-			//요청을 통해 얻은 JSON타입의 response메세지 읽어오기
-			BufferedReader br=new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			String line="";
-			String result="";
-			
-			while((line=br.readLine())!=null) {
-				result+=line;
+
+			try {
+				post.setEntity(new UrlEncodedFormEntity(postParams));
+				final HttpResponse response = client.execute(post);
+				final int responseCode = response.getStatusLine().getStatusCode();
+				
+				System.out.println("\nSending 'POST' request to URL : " + RequestUrl);
+				System.out.println("Post parameters : " + postParams);
+				System.out.println("Response Code : " + responseCode);
+				
+				ObjectMapper mapper = new ObjectMapper();
+				returnNode = mapper.readTree(response.getEntity().getContent());
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			} catch (ClientProtocolException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
+			String accessToken= returnNode.path("access_token").asText();
 			
-			System.out.println("responseBody: "+result);
 			
-			//JSON파싱 객체 생성(Gson 라이브러리)
-			JsonParser parser=new JsonParser();
-			JsonElement element=parser.parse(result);
-			
-			accessToken=element.getAsJsonObject().get("access_token").getAsString();
-			refreshToken=element.getAsJsonObject().get("refresh_token").getAsString();
-			
-			System.out.println("accessToken: "+accessToken);
-			System.out.println("refreshToken: "+refreshToken);
-			
-			br.close();
-			bw.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
 		return accessToken;
+		
 	}
+		
 	
 	@Override
-	public UserDto getKakaoInfo(String token) {
+	public UserDto getKakaoInfo(String accessToken) {
+		String RequestUrl=null;
 		
-		UserDto dto=new UserDto();
-		String reqURL="https://kapi.kakao.com/v2/user/me";
-		
-		URL url;
-		try {
-			url = new URL(reqURL);
-			HttpURLConnection conn=(HttpURLConnection)url.openConnection();
-			conn.setRequestMethod("POST");
-			
-			//요청에 필요한 Header에 포함될 내용
-			conn.setRequestProperty("Authorization", "Bearer"+token);
-			
-			int responseCode=conn.getResponseCode();
-			System.out.println("responseCode: "+responseCode);
-			
-			BufferedReader br=new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			
-			String line="";
-			String result="";
-			
-			while((line=br.readLine())!=null) {
-				result+=line;
-			}
-			
-			System.out.println("responseBody: "+result);
-			
-			JsonParser parser=new JsonParser();
-			JsonElement element=parser.parse(result);
-
-			JsonObject id=element.getAsJsonObject().get("id").getAsJsonObject();
-			JsonObject properties=element.getAsJsonObject().get("properties").getAsJsonObject();
-			JsonObject kakaoAccount=element.getAsJsonObject().get("kakao_account").getAsJsonObject();
-			
-			String email=kakaoAccount.getAsJsonObject().get("email").getAsString();
-			String name=properties.getAsJsonObject().get("nickname").getAsString();
-			String birth=properties.getAsJsonObject().get("custom_field1").getAsString();
-			String gender=kakaoAccount.getAsJsonObject().get("gender").getAsString();
-			String photo=properties.getAsJsonObject().get("profile_image").getAsString();
-			String kakaoKey=id.getAsJsonObject().getAsString();
-			
-			dto.setEmail(email);
-			dto.setName(name);
-			dto.setBirth(birth);
-			dto.setGender(gender);
-			dto.setPhoto(photo);
-			dto.setKakaoKey(kakaoKey);
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
+		RequestUrl="https://kapi.kakao.com/v2/user/me";
+		final HttpClient client = HttpClientBuilder.create().build();
+        final HttpPost post = new HttpPost(RequestUrl);
+ 
+        // add header
+        post.addHeader("Authorization", "Bearer " + accessToken);
+ 
+        JsonNode userInfo = null;
+ 
+        try {
+            final HttpResponse response = client.execute(post);
+            final int responseCode = response.getStatusLine().getStatusCode();
+ 
+            System.out.println("\nSending 'POST' request to URL : " + RequestUrl);
+            System.out.println("Response Code : " + responseCode);
+ 
+            // JSON 형태 반환값 처리
+            ObjectMapper mapper = new ObjectMapper();
+            userInfo = mapper.readTree(response.getEntity().getContent());
+           
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            // clear resources
+        }
+        
+        UserDto dto = new UserDto();
+        dto.setKakaoKey(userInfo.path("id").asText());
+        dto.setName(userInfo.path("properties").path("nickname").asText());
+		dto.setPhoto(userInfo.path("properties").path("profile_image").asText());
+		dto.setEmail(userInfo.path("kakao_account").path("email").asText());
+		dto.setGender(userInfo.path("kakao_account").path("gender").asText());
+		System.out.println(dto);
 		return dto;
+		
 	}
 	
 	@Override
