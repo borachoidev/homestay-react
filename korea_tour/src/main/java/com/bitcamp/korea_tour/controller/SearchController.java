@@ -2,6 +2,7 @@ package com.bitcamp.korea_tour.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,9 +13,9 @@ import org.springframework.web.servlet.ModelAndView;
 public class SearchController {
 
 	// 현재 month
-	SimpleDateFormat format = new SimpleDateFormat("MM");
-	Calendar time = Calendar.getInstance();
-	int currentMonth = Integer.parseInt(format.format(time));
+	SimpleDateFormat sdf = new SimpleDateFormat("MM");
+	Date currDate = new Date();
+	int currentMonth = Integer.parseInt(sdf.format(currDate));
 	
 	@GetMapping("/search")
 	public ModelAndView getCourseMain(@RequestParam String keyword) { // 검색어를 파라미터로 받는다
@@ -33,6 +34,5 @@ public class SearchController {
 		mview.setViewName("search/main");
 		return mview;
 	}
-	
 	
 }
