@@ -21,4 +21,8 @@
 	<delete id="deleteData" parameterType="String">
 		delete from place_answer where placeAnswerNum=#{placeAnswerNum}
 	</delete>
+	
+	<select id="getAllMyAnswerCount" resultType="int">
+		select count(*) from place_answer where userNum={userNum}
+	</select>
 </mapper>

@@ -14,4 +14,5 @@ public interface PlaceAnswerMapper {
 	public PlaceAnswerDto getData(String placeAnswerNum);
 	public void updateData(PlaceAnswerDto dto);
 	public void deleteData(PlaceAnswerDto dto);
+	public int getAllMyAnswerCount();
 }
