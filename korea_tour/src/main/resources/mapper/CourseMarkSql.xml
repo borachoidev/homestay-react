@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bitcamp.korea_tour.model.mapper.CourseMarkMapper">
+	<select id="getAllMyCourseMarkCount">
+		select count(*) from course_mark where userNum=#{userNum}
+	</select>
+</mapper>
