@@ -35,7 +35,7 @@ public class DatabaseConfig {
 		SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
 		sqlSessionFactoryBean.setDataSource(mysqlDataSource);
 		sqlSessionFactoryBean.setMapperLocations(applicationContext.getResources("classpath:mapper/*.xml")); 
-		sqlSessionFactoryBean.setTypeAliasesPackage("com.bitcamp.korea_tour.*");
+		sqlSessionFactoryBean.setTypeAliasesPackage("com.bitcamp.korea_tour.model");
 		
 		return sqlSessionFactoryBean.getObject();
 	} 
