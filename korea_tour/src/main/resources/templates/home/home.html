@@ -4,12 +4,12 @@
 
 <!-- index.html 고유 CSS 추가 -->
 <th:block layout:fragment="css">
-	<link rel="stylesheet" th:href="@{css/home/home.css}">
-	<link rel="stylesheet" th:href="@{css/home/homeTablet.css}" media="all and (min-width: 768px) and (max-width: 1023px)">
-	<link rel="stylesheet" th:href="@{css/home/homeMobile.css}" media="all and (max-width:767px)">
+	<link rel="stylesheet" th:href="@{/css/home/home.css}">
+	<link rel="stylesheet" th:href="@{/css/home/homeTablet.css}" media="all and (min-width: 768px) and (max-width: 1023px)">
+	<link rel="stylesheet" th:href="@{/css/home/homeMobile.css}" media="all and (max-width:767px)">
 <!-- index.html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
-	<script th:src="@{js/home.js}" defer></script>
+	<script th:src="@{/js/home.js}" defer></script>
 </th:block>
 
 <main layout:fragment="content">	
@@ -17,7 +17,7 @@
 		<div class="load">
 			<div class="slider-content">
 			<header class="header">
-				<a th:href="@{/}"><img th:src="@{img/logo_white.png}" alt="logo" class="main-logo"></a>
+				<a th:href="@{/}"><img th:src="@{/img/logo_white.png}" alt="logo" class="main-logo"></a>
 				<div class="hamburger-menu">
 					<div class="h-line line1" ></div>
 					<div class="h-line line2" ></div>
