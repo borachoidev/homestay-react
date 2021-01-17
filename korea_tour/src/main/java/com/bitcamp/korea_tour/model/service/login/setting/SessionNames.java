@@ -1,4 +1,4 @@
-package com.bitcamp.korea_tour.model.service;
+package com.bitcamp.korea_tour.model.service.login.setting;
 
 public interface SessionNames {
    static final String USER="user";

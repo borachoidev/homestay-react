@@ -12,8 +12,8 @@ public interface UserService {
 	void getUserList(Model model);
 	void getUserData(String userNum, Model model);
 	void deleteUser(String userNum);
-	String getKakaoToken(String code);
-	UserDto getKakaoInfo(String token);
+	String getAccessToken(String sns, String code);
+	UserDto getUserInfo(String sns, String token);
 	boolean hasKey(String key);
 	void insertUser(UserDto dto);
 	void setSession(UserDto dto,  HttpServletRequest request);
