@@ -5,6 +5,7 @@ div.slider {
   background-position: center;
   width: 100%;
   height: 80vh;
+  min-height: 350px;
   animation: slide 20s infinite;
   color: var(--c-color);
 }
@@ -23,18 +24,22 @@ header.header {
   padding: 3vh;
   justify-content: space-between;
 }
-#menuBtn {
-  padding: 1vh 1vw;
-  cursor: pointer;
+
+img.main-logo {
+  width: 220px;
 }
 /* 통합검색 */
 div.search-container {
   margin: auto;
+  margin-top: 5vh;
   width: 70%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+div.search-container h1 {
+  margin: 2vh 0;
 }
 input.search-bar__input {
   all: none;
@@ -53,7 +58,7 @@ div.card-container {
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 80vh;
+  height: 100%;
 }
 
 div.card {
@@ -63,7 +68,7 @@ div.card {
   width: 21.25%;
   padding: 120px 0 230px 0;
   margin: 7vh 0;
-  color: #3b270d;
+  color: var(--brown);
 }
 
 div.place-card {
@@ -84,29 +89,32 @@ span.card-title {
 }
 
 span.card-description {
-  margin: 1vh 0 5vh 0;
+  margin: 1vh 0 0 0;
 }
 .card-btn {
+  margin-top: 5vh;
   font-size: var(--font-medium);
-  color: #3b270d;
+  color: var(--brown);
   border-radius: var(--font-medium);
-  border: 1px solid #3b270d;
+  border: 1px solid var(--brown);
   padding: var(--btn-padding);
 }
 .card-btn:hover {
   color: var(--c-color);
-  background-color: #3b270d;
+  background-color: var(--brown);
 }
 
 /* 공지 */
 div.notice {
   width: 85%;
+  height: 250px;
   margin: auto;
 }
 /* 코스검색 */
 div.course-search {
   width: 100%;
   height: 70vh;
+  min-height: 400px;
   background-image: url(/img/search-bg.jpg);
   background-size: cover;
   color: var(--c-color);
@@ -116,6 +124,7 @@ div.course-search {
 }
 form * {
   font-size: var(--font-large);
+  display: inline;
 }
 
 #courseSearchBtn {
@@ -137,6 +146,13 @@ select {
   color: white;
   cursor: pointer;
 }
+.h-line {
+  width: 100%;
+  height: 3px;
+  background-color: white;
+  transition: all 0.8s;
+}
+
 @keyframes slide {
   0% {
     background-image: url(/img/slide-bg-05.jpg);
