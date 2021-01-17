@@ -17,7 +17,7 @@
 		delete from user where userNum=#{userNum}
 	</delete>
 	<select id="hasKey" parameterType="String" resultType="int">
-		select count(*) from user where kakaoKey=#{key}
+		select count(*) from user where kakaoKey=#{key} or naverKey=#{key} or googleKey=#{key}
 	</select>
 
 </mapper>

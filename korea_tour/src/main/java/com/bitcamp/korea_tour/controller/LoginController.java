@@ -36,25 +36,13 @@ public class LoginController {
 	
 //	사용자 로그인
 	
-	public String userLogin(@PathVariable("sns") String sns, @RequestParam String code) {
-		
-		
-		
-			
-			
-			
-		return "home";
-	}
-	
-	@RequestMapping(value = "/login/{sns}",method = {RequestMethod.GET,RequestMethod.POST})
+	@RequestMapping(value = "/login1/{sns}",method = {RequestMethod.GET,RequestMethod.POST})
 	public String userLogin(@PathVariable("sns") String sns, @RequestParam String code, HttpServletRequest request) {
-		
-		
 		
 		if(sns.equals("kakao")) {
 			System.out.println("code: "+code);
-			String kakaoToken = userService.getKakaoToken(code);
-			UserDto dto = userService.getKakaoInfo(kakaoToken);
+			String kakaoToken = userService.getAccessToken(sns, code);
+			UserDto dto = userService.getUserInfo(sns, kakaoToken);
 			System.out.println(dto.getKakaoKey());
 			//최초 로그인일 경우에만 db에 저장, 세션에 userdto 실어주기
 			if(!userService.hasKey(dto.getKakaoKey())) {
@@ -62,6 +50,8 @@ public class LoginController {
 				userService.setSession(dto, request);
 			}else {
 				userService.setSession(dto, request);
+				UserDto user= (UserDto)request.getSession().getAttribute("user");
+				System.out.println(user.getName());
 			}
 		}
 		return "redirect:/";
