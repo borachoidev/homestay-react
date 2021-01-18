@@ -36,6 +36,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping(value="/login")
 @Slf4j
 public class SnsOauthController {
+	
 	private final OauthResReq oauthResReq;
 	
 	 /**
@@ -57,23 +58,25 @@ public class SnsOauthController {
     */
    @GetMapping(value = "/{snsLoginType}/callback")
    public String callback(
-           @PathVariable(name = "snsLoginType") SnsLoginType snsLoginType, @RequestParam(name = "code") String code) {
+          @PathVariable(name = "snsLoginType") SnsLoginType snsLoginType, @RequestParam(name = "code") String code) {
+	   
        log.info(">> 소셜 로그인 API 서버로부터 받은 code :: {}", code);
-       // 구글 어카운트에서 REST API 통신을 하여 얻어온 JSON (accss_token,id_token .... ) : 스트링 타입이다.
-       String googleJson = oauthResReq.requestAccessToken(snsLoginType, code);
        
+       if(snsLoginType.equals("google")) {
+    	   
+    	   // 구글 어카운트에서 REST API 통신을 하여 얻어온 JSON (accss_token,id_token .... ) : 스트링 타입이다.
+    	   String googleJson = oauthResReq.requestAccessToken(snsLoginType, code);
+    	   
+    	   
+    	   UserDto userInfo = getUserInfo(googleJson);  //getUserInfo 하는 방식은 다 다르니까 각 구현객체에서 만들어준다
+    	   
+    	   //키값 있으면 디비인서트 없이 그냥 바로 로그인(각 구현체에서 만들어주기) 
+    	   
+       }
        
-       UserDto userInfo = getUserInfo(googleJson);  //getUserInfo 하는 방식은 다 다르니까 각 구현객체에서 만들어준다
-       
-       //키값 있으면 디비인서트 없이 그냥 바로 로그인(각 구현체에서 만들어주기) 
-       
-       System.out.println();
-       
-       //rest컨트롤러는 뷰페이지로 바로 리턴해줄수 없으므로 일단 데이터를 넘기고나서 뷰에서 그 데이터를 받아서 출력할 내용을 결정해야함
-       // 프론트엔드에서 비동기니까 success / failed 결정 못하나?
-       // REST는 비동기에서 쓸려고 만드는거.
-       // 그냥 데이터만 주고 받기 위함.
-       return "redirect:/";  //이렇게 못씀
+  
+     
+       return "login";  //이렇게 못씀
        
    }		
 		

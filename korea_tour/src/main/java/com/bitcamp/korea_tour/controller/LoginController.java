@@ -26,7 +26,7 @@ public class LoginController {
 	@GetMapping("/login/main")
 	public String goLoginMain() {
 		return "login/loginform";
-	}
+	}   
 	
 	//관리자로그인폼 이동
 	@GetMapping("/login/adminlogin")

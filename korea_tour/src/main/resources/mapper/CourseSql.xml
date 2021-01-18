@@ -4,10 +4,10 @@
 	<select id="myCourseCount" resultType="int">
 		select count(*) from course where userNum=#{userNum}
 	</select>
-	<select id="getMyCourseData" resultType="cdto">
+	<select id="getMyCourseData" resultType="course">
 		select * from course where userNum=#{userNum}
 	</select>
-	<insert id="insertCourseTitle" parameterType="cdto"><!-- 일단 첫 작성은 기본 비공개로 -->
+	<insert id="insertCourseTitle" parameterType="course"><!-- 일단 첫 작성은 기본 비공개로 -->
 		insert into course (name,viewOrNot,userNum) values (#{name},2,#{userNum})
 	</insert>
 	<delete id="deleteMyCourse" parameterType="int">
