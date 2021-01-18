@@ -3,6 +3,7 @@
 const contentId = getParam('contentId');
 const areaCode = getParam('areaCode');
 const pageNum = getParam('pageNum');
+const month = getParam('month');
 //API 실행
 parseDetailInfo(contentId);
 parseDetailImage(contentId);
@@ -10,7 +11,7 @@ parseCommonInfo(contentId);
 parseDetailIntro(contentId);
 getAreaName(areaCode);
 document.querySelector('#goList').addEventListener('click', () => {
-  history.back();
+  location.href = `/festival/list?areaCode=${areaCode}&pageNum=${pageNum}&month=${month}`;
 });
 
 /* functions  */
@@ -43,6 +44,8 @@ function getAreaName(areaCode) {
     encodeURIComponent('MobileApp') +
     '=' +
     encodeURIComponent('test%20App'); /**/
+  queryParams +=
+    '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('20'); /**/
   queryParams +=
     '&' + encodeURIComponent('arrange') + '=' + encodeURIComponent('Y');
   queryParams +=
