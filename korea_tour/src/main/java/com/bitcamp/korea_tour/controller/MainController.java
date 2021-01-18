@@ -10,6 +10,7 @@ public class MainController {
 	public String getMain() { 
 		
 		return "home/home";
+
 	}
 	
 }
