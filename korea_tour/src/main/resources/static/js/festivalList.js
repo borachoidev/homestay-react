@@ -5,7 +5,7 @@ const currentYear = date.getFullYear();
 let areaCode = getParam('areaCode');
 let month;
 let totalPage;
-let pageNum = getParam('pageNum');
+let pageNum;
 
 let eventStartDate;
 let eventEndDate;
@@ -13,8 +13,7 @@ let eventEndDate;
 parseAreaBased(areaCode, pageNum, numOfRows, month, currentYear);
 getAreaName(areaCode);
 monthOnclick();
-AreaOnclick();
-pagination();
+areaOnclick();
 
 /* ----- functions ---- */
 
@@ -48,18 +47,19 @@ function getStartDate(month, currentYear) {
   eventStartDate = currentYear + (month > 10 ? month : '0' + month) + '01';
   return eventStartDate;
 }
+
 function monthOnclick() {
   let monthList = document.querySelectorAll('.month-list');
   for (const monthBtn of monthList) {
     monthBtn.addEventListener('click', function (e) {
       month = e.target.getAttribute('month');
-      console.log(`month ${month}`);
+
       parseAreaBased(areaCode, pageNum, numOfRows, month, currentYear);
     });
   }
 }
 
-function AreaOnclick() {
+function areaOnclick() {
   let areaList = document.querySelectorAll('.area-list');
   for (const areaBtn of areaList) {
     areaBtn.addEventListener('click', function (e) {
@@ -67,17 +67,6 @@ function AreaOnclick() {
       if (areaCode == 'all') {
         areaCode = '';
       }
-      parseAreaBased(areaCode, pageNum, numOfRows, month, currentYear);
-      getAreaName(areaCode);
-    });
-  }
-}
-function pagination() {
-  let pageList = document.querySelectorAll('.page-list');
-  for (const page of pageList) {
-    page.addEventListener('click', function (e) {
-      pageNum = e.target.getAttribute('page');
-      alert();
       parseAreaBased(areaCode, pageNum, numOfRows, month, currentYear);
       getAreaName(areaCode);
     });
@@ -155,7 +144,7 @@ function parseAreaBased(areaCode, pageNum, numOfRows, month, currentYear) {
     eventStartDate = getStartDate(month, currentYear);
     eventEndDate = getEndDate(month, currentYear);
   }
-
+  if (pageNum == undefined) pageNum = 1;
   let xmlStr;
   let xmlDoc;
   var xhr = new XMLHttpRequest();
@@ -209,7 +198,7 @@ function parseAreaBased(areaCode, pageNum, numOfRows, month, currentYear) {
     encodeURIComponent(eventEndDate);
 
   /**/
-  console.log(url + queryParams);
+
   xhr.open('GET', url + queryParams);
   xhr.onreadystatechange = function () {
     if (this.readyState == 4) {
@@ -222,14 +211,28 @@ function parseAreaBased(areaCode, pageNum, numOfRows, month, currentYear) {
 
       totalPage = Math.ceil(parseInt(totalCount) / numOfRows);
       console.log(totalPage);
+      if (totalPage < pageNum) pageNum = totalPage;
       let list = xmlDoc.getElementsByTagName('item');
       let n = '';
+      let contentId;
       for (let i = 0; i < list.length; i++) {
-        n += `<div class='card'>`;
-        n += `<img src='${
-          list[i].getElementsByTagName('firstimage2')[0].childNodes[0].nodeValue
-        }' class='thumbnail'/>`;
-        n += `<div class='info'><span class='title'>${
+        contentId = list[i].getElementsByTagName('contentid')[0].childNodes[0]
+          .nodeValue;
+        n += `<a href='/festival/detail?contentId=${contentId}&areaCode=${areaCode}&pageNum=${pageNum}&month=${month}'
+      ><div class='card'>`;
+        if (list[i].getElementsByTagName('firstimage')[0] != undefined) {
+          n += `<img src='${
+            list[i].getElementsByTagName('firstimage')[0].childNodes[0]
+              .nodeValue
+          }' class='thumbnail' contentid='${
+            list[i].getElementsByTagName('contentid')[0].childNodes[0].nodeValue
+          }'/>`;
+        } else {
+          n += `<span class='thumbnail'>대표이미지 없음</span>`;
+        }
+        n += `<div class='info'><span class='title' contentid='${
+          list[i].getElementsByTagName('contentid')[0].childNodes[0].nodeValue
+        }'>${
           list[i].getElementsByTagName('title')[0].childNodes[0].nodeValue
         }</span>`;
         n += `<span class="date">${
@@ -243,18 +246,27 @@ function parseAreaBased(areaCode, pageNum, numOfRows, month, currentYear) {
         n += `<span class='place'>${
           list[i].getElementsByTagName('addr1')[0].childNodes[0].nodeValue
         }</span>`;
-        n += `</div>`;
+        n += `</div></div></a>`;
       }
       document.querySelector('.list').innerHTML = n;
-      //페이징
 
+      //페이징
+      let p = '';
       for (let i = 0; i < totalPage; i++) {
-        let li = document.createElement('li');
-        li.classList.add('page-list');
-        console.log(li);
-        document.querySelector('.pagination').appendChild(li);
+        p += `<li page='${i + 1}' class='page-list'>${i + 1}</li>`;
+      }
+      document.querySelector('.pagination').innerHTML = p;
+      let pageList = document.querySelectorAll('.page-list');
+      for (const page of pageList) {
+        page.addEventListener('click', function (e) {
+          pageNum = e.target.getAttribute('page');
+          if (totalPage < pageNum) pageNum = totalPage;
+          parseAreaBased(areaCode, pageNum, numOfRows, month, currentYear);
+          getAreaName(areaCode);
+        });
       }
     }
   };
+
   xhr.send(null);
 }
