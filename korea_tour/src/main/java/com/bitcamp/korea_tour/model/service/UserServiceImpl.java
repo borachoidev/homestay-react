@@ -159,8 +159,10 @@ public class UserServiceImpl implements UserService,SessionNames {
 	        dto.setKakaoKey(userInfo.path("id").asText());
 	        dto.setName(userInfo.path("properties").path("nickname").asText());
 			dto.setPhoto(userInfo.path("properties").path("profile_image").asText());
-			dto.setEmail(userInfo.path("kakao_account").path("email").asText());
-			dto.setGender(userInfo.path("kakao_account").path("gender").asText());
+			/*
+			 * dto.setEmail(userInfo.path("kakao_account").path("email").asText());
+			 * dto.setGender(userInfo.path("kakao_account").path("gender").asText());
+			 */
 
 		}else if(sns.equals("naver")) {
 			

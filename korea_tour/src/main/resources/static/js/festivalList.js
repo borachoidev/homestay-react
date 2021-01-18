@@ -138,7 +138,7 @@ function getAreaName(areaCode) {
 //api 데이터
 function parseAreaBased(areaCode, pageNum, numOfRows, month, currentYear) {
   if (month == 'all' || month == undefined) {
-    eventStartDate = '';
+    eventStartDate = getStartDate(month, currentYear);
     eventEndDate = '';
   } else {
     eventStartDate = getStartDate(month, currentYear);

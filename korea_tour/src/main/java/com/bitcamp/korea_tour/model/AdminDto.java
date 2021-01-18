@@ -7,6 +7,8 @@ import lombok.Data;
 @Data
 @Alias("admin")
 public class AdminDto {
+	private int adminNum;
 	private String id;
 	private String password;
+	private int level;
 }
