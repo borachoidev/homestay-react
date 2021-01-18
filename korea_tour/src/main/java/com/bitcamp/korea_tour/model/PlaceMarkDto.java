@@ -1,10 +1,13 @@
 package com.bitcamp.korea_tour.model;
 
+import org.apache.ibatis.type.Alias;
+
 import lombok.Data;
 
 @Data
+@Alias("placemark")
 public class PlaceMarkDto {
-	private String markNum;
-	private String userNum;
-	private String contentId;
+	private int markNum;
+	private int userNum;
+	private int placeNum;
 }

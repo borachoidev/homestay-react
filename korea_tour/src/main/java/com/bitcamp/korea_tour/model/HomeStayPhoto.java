@@ -5,9 +5,10 @@ import org.apache.ibatis.type.Alias;
 import lombok.Data;
 
 @Data
-@Alias("homestaymark")
-public class HomeStayMarkDto {
-	private int homeStayMarkNum;
+@Alias("homestayphoto")
+public class HomeStayPhoto {
+	private int homeStayPhotoNum;
 	private int userNum;
 	private int homeStayNum;
+	private String photoName;
 }
