@@ -2,13 +2,16 @@
 
 const contentId = getParam('contentId');
 const areaCode = getParam('areaCode');
-
+const pageNum = getParam('pageNum');
 //API 실행
-paseDetailInfo(contentId);
-paseDetailImage(contentId);
-paseCommonInfo(contentId);
-paseDetailIntro(contentId);
+parseDetailInfo(contentId);
+parseDetailImage(contentId);
+parseCommonInfo(contentId);
+parseDetailIntro(contentId);
 getAreaName(areaCode);
+document.querySelector('#goList').addEventListener('click', () => {
+  history.back();
+});
 
 /* functions  */
 
@@ -70,7 +73,7 @@ function getAreaName(areaCode) {
 }
 
 //종합정보
-function paseCommonInfo(contentId) {
+function parseCommonInfo(contentId) {
   let xmlStr;
   let xmlDoc;
   var xhr = new XMLHttpRequest();
@@ -179,7 +182,7 @@ function paseCommonInfo(contentId) {
 }
 
 //디테일소개
-function paseDetailIntro(contentId) {
+function parseDetailIntro(contentId) {
   let xmlStr;
   let xmlDoc;
   var xhr = new XMLHttpRequest();
@@ -245,7 +248,7 @@ function paseDetailIntro(contentId) {
 }
 
 //디테일 정보
-function paseDetailInfo(contentId) {
+function parseDetailInfo(contentId) {
   let xmlStr;
   let xmlDoc;
   var xhr = new XMLHttpRequest();
@@ -301,7 +304,7 @@ function paseDetailInfo(contentId) {
 }
 
 //사진가져오기
-function paseDetailImage(contentId) {
+function parseDetailImage(contentId) {
   let xmlStr;
   let xmlDoc;
   var xhr = new XMLHttpRequest();
