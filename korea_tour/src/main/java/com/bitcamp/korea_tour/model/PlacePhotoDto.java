@@ -13,4 +13,5 @@ public class PlacePhotoDto {
 	private int placeNum;
 	private int approval;
 	private String image;
+	private String loginId;
 }

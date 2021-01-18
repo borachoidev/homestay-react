@@ -17,5 +17,10 @@ public class HomeStayReservationDto {
 	private int numberOfPeople;
 	private int approval;
 	private Timestamp writeday;
-	
+	private String addr1;
+	private String addr2;
+	private int gender;
+	private String year;
+	private String month;
+	private String day;
 }
