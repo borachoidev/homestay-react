@@ -57,4 +57,6 @@ public class GoogleOauth implements OauthService {
 		}
 		return "구글 로그인 요청 처리 실패";
 	}
+	
+	
 }
