@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<<<<<<< HEAD
-<mapper namespace="com.bitcamp.korea_tour.mapper.NoticeMapper">
 
-</mapper>
-=======
 <mapper namespace="com.bitcamp.korea_tour.model.mapper.NoticeMapper">
 	<select id="getTotalCount" resultType="int">
 		select count(*) from shop
@@ -28,4 +24,4 @@
    </delete>
 
 </mapper>
->>>>>>> 1a877bca3817169b1b92de358faec21e416ecfad
+
