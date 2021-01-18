@@ -1,21 +1,46 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorator="layout/home">
+	layout:decorator="layout/default">
 
 <!-- index.html 고유 CSS 추가 -->
 <th:block layout:fragment="css">
-	<link rel="stylesheet" th:href="@{css/festivalMain.css}">
+	<link rel="stylesheet" th:href="@{/css/festival/festivalMain.css}">
 </th:block>
 
 <!-- index.html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
-	<script th:src="@{js/festivalMain.js}"></script>
+	<script th:src="@{/js/festivalMain.js}" defer ></script>
+	<script th:src="@{/js/festivalMainApi.js}" defer ></script>
 </th:block>
 
-<div layout:fragment="content">
+<layout:fragment layout:fragment="content">
 
-<div class="region"></div>
-div.
-</div>
+	<ul class="area">
+		<li class='area-list' th:area='all'><a href="/festival/list?areaCode=&"전체</li>
+		<li class='area-list' th:area='1'><a href="/festival/list?areaCode=1&"서울</li>
+		<li class='area-list' th:area='2'><a href="/festival/list?areaCode=2&"인천</li>
+		<li class='area-list' th:area='31'><a href="/festival/list?areaCode=31&"경기</li>
+		<li class='area-list' th:area='32'><a href="/festival/list?areaCode=32&"강원</li>
+		<li class='area-list' th:area='3'><a href="/festival/list?areaCode=3&"대전</li>
+		<li class='area-list' th:area='8'><a href="/festival/list?areaCode=8&"세종</li>
+		<li class='area-list' th:area='33'><a href="/festival/list?areaCode=33&"충북</li>
+		<li class='area-list' th:area='34'><a href="/festival/list?areaCode=34&"충남</li>
+		<li class='area-list' th:area='4'><a href="/festival/list?areaCode=4&"대구</li>
+		<li class='area-list' th:area='6'><a href="/festival/list?areaCode=6&"부산</li>
+		<li class='area-list' th:area='7'><a href="/festival/list?areaCode=7&"울산</li>
+		<li class='area-list' th:area='35'><a href="/festival/list?areaCode=35&"경북</li>
+		<li class='area-list' th:area='36'><a href="/festival/list?areaCode=36&"경남</li>
+		<li class='area-list' th:area='5'><a href="/festival/list?areaCode=5&"광주</li>
+		<li class='area-list' th:area='37'><a href="/festival/list?areaCode=37&"전북</li>
+		<li class='area-list' th:area='38'><a href="/festival/list?areaCode=38&"전남</li>
+		<li class='area-list' th:area='39'><a href="/festival/list?areaCode=39&"제주</li>
+	<Code=/ul>
+	<div class="festival-calendar">
+ 캘린다 표시
+	</div>
+	<div></div>
+</layout:fragment>
+
+
 
 </html>
