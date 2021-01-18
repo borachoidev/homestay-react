@@ -8,7 +8,7 @@ import org.apache.ibatis.type.Alias;
 import lombok.Data;
 
 @Data
-@Alias("homestayreviewphoto")
+@Alias("homestayreview")
 public class HomeStayReviewDto {
 	private int photoNum;
 	private int homeStayReviewNum;
