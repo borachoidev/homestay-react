@@ -62,7 +62,7 @@ public class SnsOauthController {
 	   
        log.info(">> 소셜 로그인 API 서버로부터 받은 code :: {}", code);
        
-       if(snsLoginType.equals("google")) {
+       if(snsLoginType.equals(SnsLoginType.GOOGLE)) {
     	   
     	   // 구글 어카운트에서 REST API 통신을 하여 얻어온 JSON (accss_token,id_token .... ) : 스트링 타입이다.
     	   String googleJson = oauthResReq.requestAccessToken(snsLoginType, code);
@@ -72,11 +72,11 @@ public class SnsOauthController {
     	   
     	   //키값 있으면 디비인서트 없이 그냥 바로 로그인(각 구현체에서 만들어주기) 
     	   
+    	   System.out.println(userInfo);
        }
        
-  
      
-       return "login";  //이렇게 못씀
+       return "login";  //이렇게 못씀 responsecode로 성공여부를 넘겨주면 뷰단에서 판단 후 페이지 출력
        
    }		
 		
