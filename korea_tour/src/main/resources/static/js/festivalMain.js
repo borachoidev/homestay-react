@@ -1,19 +1,22 @@
 'use strict';
 const date = new Date();
 const currentYear = date.getFullYear();
-let month;
+let currMonth = date.getMonth() + 1;
 let day;
 let eventStartDate;
 let eventEndDate;
+let month = currMonth;
 
-parseAreaBased(month, currentYear);
+document.querySelector('.cal-month').innerHTML = month;
+writeCalendar(currentYear, currMonth);
+parseAreaBased(currMonth, currentYear);
 
 /* ----- functions ---- */
 
 //eventEndDate 구하기
-function getEndDate(month, currentYear) {
+function getEndDate(currMonth, currentYear) {
   let endDate = '';
-  switch (month) {
+  switch (currMonth) {
     case '4':
     case '6':
     case '9':
@@ -34,22 +37,23 @@ function getEndDate(month, currentYear) {
       endDate = 31;
       break;
   }
-  return currentYear + (month > 10 ? month : '0' + month) + endDate;
+  return currentYear + (currMonth > 10 ? currMonth : '0' + currMonth) + endDate;
 }
 
-function getStartDate(month, day, currentYear) {
+function getStartDate(currMonth, day, currentYear) {
   if (day == undefined) day = '01';
-  eventStartDate = currentYear + (month > 10 ? month : '0' + month) + day;
+  eventStartDate =
+    currentYear + (currMonth > 10 ? currMonth : '0' + currMonth) + day;
   return eventStartDate;
 }
 
-function writeCalendar(year, month) {
-  let mydate = new Date(year, month - 1, 1);
+function writeCalendar(currentYear, currMonth) {
+  let mydate = new Date(currentYear, currMonth, 1);
   let Week = mydate.getDay();
   let endDate;
 
   //월의 날자수 구하기
-  switch (month) {
+  switch (currMonth) {
     case 4:
     case 6:
     case 9:
@@ -57,7 +61,10 @@ function writeCalendar(year, month) {
       endDate = 30;
       break;
     case 2:
-      if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
+      if (
+        (currentYear % 4 == 0 && currentYear % 100 != 0) ||
+        currentYear % 400 == 0
+      ) {
         endDate = 29;
       } else {
         endDate = 28;
@@ -67,57 +74,62 @@ function writeCalendar(year, month) {
       endDate = 31;
       break;
   }
-
+  let p = '';
+  for (let i = 0; i < endDate; i++) {
+    p += `<span>${i + 1}<span>`;
+  }
+  document.querySelector('.festival-calendar').innerHTML = p;
   //테이블 요일 출력
-  tdtr += "<table class='cal'>";
-  tdtr += "<thead><tr class='week'>";
-  for (let i = 0; i < weeks.length; i++) {
-    tdtr += '<td>' + weeks[i] + '</td>';
-  }
-  tdtr += '</tr>';
-  tdtr += '</thead><tbody>';
-  tdtr += '<tr>';
-  for (let i = 0; i < myWeek; i++) {
-    if (myWeek == 0) {
-      break;
-    }
-    tdtr += '<td> </td>';
-  }
-  //날짜 넣기
-  for (let i = 1; i <= myDay; i++) {
-    myWeek++;
+  //   tdtr += "<table class='cal'>";
+  //   tdtr += "<thead><tr class='week'>";
+  //   for (let i = 0; i < weeks.length; i++) {
+  //     tdtr += '<td>' + weeks[i] + '</td>';
+  //   }
+  //   tdtr += '</tr>';
+  //   tdtr += '</thead><tbody>';
+  //   tdtr += '<tr>';
+  //   for (let i = 0; i < myWeek; i++) {
+  //     if (myWeek == 0) {
+  //       break;
+  //     }
+  //     tdtr += '<td> </td>';
+  //   }
+  //   //날짜 넣기
+  //   for (let i = 1; i <= myDay; i++) {
+  //     myWeek++;
 
-    tdtr +=
-      "<td class='" +
-      i +
-      "'><span>" +
-      i +
-      "</span><div class='sch'></div></td>";
+  //     tdtr +=
+  //       "<td class='" +
+  //       i +
+  //       "'><span>" +
+  //       i +
+  //       "</span><div class='sch'></div></td>";
 
-    if (myWeek % 7 == 0 && i != myDay) {
-      tdtr += '</tr><tr>';
-    }
-    if (i == myDay) {
-      tdtr += '</tr>';
-    }
-  }
+  //     if (myWeek % 7 == 0 && i != myDay) {
+  //       tdtr += '</tr><tr>';
+  //     }
+  //     if (i == myDay) {
+  //       tdtr += '</tr>';
+  //     }
+  //   }
 
-  //출력
-  tdtr += '</tbody></table>';
-  $('#myCalendar').html(tdtr);
-  printData();
-  localApply();
+  //   //출력
+  //   tdtr += '</tbody></table>';
+  //   $('#myCalendar').html(tdtr);
+  //   printData();
+  //   localApply();
+  //
 }
 
 //api 데이터
-function parseAreaBased(month, currentYear) {
-  if (month == 'all' || month == undefined) {
-    month = date.getMonth() + 1;
-    eventStartDate = getStartDate(month, day, currentYear);
+function parseAreaBased(currMonth, currentYear) {
+  if (currMonth == 'all' || currMonth == undefined) {
+    currMonth = date.getMonth() + 1;
+    eventStartDate = getStartDate(currMonth, day, currentYear);
     eventEndDate = '';
   } else {
-    eventStartDate = getStartDate(month, day, currentYear);
-    eventEndDate = getEndDate(month, currentYear);
+    eventStartDate = getStartDate(currMonth, day, currentYear);
+    eventEndDate = getEndDate(currMonth, currentYear);
   }
   let xmlStr;
   let xmlDoc;
