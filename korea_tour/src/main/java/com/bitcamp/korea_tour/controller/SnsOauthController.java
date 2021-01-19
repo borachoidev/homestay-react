@@ -1,31 +1,18 @@
 package com.bitcamp.korea_tour.controller;
 
-import java.io.IOException;
+import javax.servlet.http.HttpServletRequest;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties.Jwt;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.interfaces.DecodedJWT;
 import com.bitcamp.korea_tour.model.UserDto;
+import com.bitcamp.korea_tour.model.service.UserService;
 import com.bitcamp.korea_tour.model.service.login.setting.SnsLoginType;
 import com.bitcamp.korea_tour.model.service.login.user.OauthResReq;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -38,6 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 public class SnsOauthController {
 	
 	private final OauthResReq oauthResReq;
+	private final UserService userService;
 	
 	 /**
      * 사용자로부터 SNS 로그인 요청을 SnsLoginType 을 받아 처리
@@ -58,56 +46,43 @@ public class SnsOauthController {
     */
    @GetMapping(value = "/{snsLoginType}/callback")
    public String callback(
-          @PathVariable(name = "snsLoginType") SnsLoginType snsLoginType, @RequestParam(name = "code") String code) {
+		   @PathVariable(name = "snsLoginType") SnsLoginType snsLoginType, @RequestParam(name = "code") String code, HttpServletRequest request) {
+	   
+	   String jsonData=oauthResReq.requestAccessToken(snsLoginType, code);
+	   UserDto userDto=oauthResReq.getUserInfo(snsLoginType, jsonData);
+	   String sns=snsLoginType.toString();
 	   
        log.info(">> 소셜 로그인 API 서버로부터 받은 code :: {}", code);
        
-       if(snsLoginType.equals(SnsLoginType.GOOGLE)) {
-    	   
-    	   // 구글 어카운트에서 REST API 통신을 하여 얻어온 JSON (accss_token,id_token .... ) : 스트링 타입이다.
-    	   String googleJson = oauthResReq.requestAccessToken(snsLoginType, code);
-    	   
-    	   
-    	   UserDto userInfo = getUserInfo(googleJson);  //getUserInfo 하는 방식은 다 다르니까 각 구현객체에서 만들어준다
-    	   
-    	   //키값 있으면 디비인서트 없이 그냥 바로 로그인(각 구현체에서 만들어주기) 
-    	   
-    	   System.out.println(userInfo);
+       if(snsLoginType.equals(SnsLoginType.KAKAO)) {
+    	   String kakaoKey=userDto.getKakaoKey();
+    	   doSnsLogin(sns, kakaoKey, userDto, request);
+       }else if(snsLoginType.equals(SnsLoginType.NAVER)) {
+    	   String naverKey=userDto.getNaverKey();
+    	   doSnsLogin(sns, naverKey, userDto, request);
+       }else if(snsLoginType.equals(SnsLoginType.GOOGLE)) {
+    	   String googleKey=userDto.getGoogleKey();
+    	   doSnsLogin(sns, googleKey, userDto, request);
+       }else {
+    	   return "잘못된 로그인 시도입니다.";
        }
        
-     
        return "login";  //이렇게 못씀 responsecode로 성공여부를 넘겨주면 뷰단에서 판단 후 페이지 출력
        
    }		
 		
-   
-   /**
-    * 구글로옮기기
-    * 암호화된 jwt param
-    * 
-    * @param googleJson
-    * @return UserDto
-    */
-   
-   private UserDto getUserInfo(String googleJson) {
-	   
-	   
-	   JsonParser jsonParser = new JsonParser();
-       JsonElement parse = jsonParser.parse(googleJson);
-       JsonObject asJsonObject = parse.getAsJsonObject();
-       
-       //받아온 id_token이 JWT이므로 복호화하여 사용한다.
-       JWT jwt = new JWT();
-       DecodedJWT decodeJwt = jwt.decodeJwt(asJsonObject.get("id_token").getAsString());
-       
-       UserDto userDto = new UserDto();
-       userDto.setName(decodeJwt.getClaims().get("name").asString());
-       userDto.setGoogleKey(decodeJwt.getHeaderClaim("kid").asString());
-       userDto.setPhoto(decodeJwt.getClaims().get("picture").asString());
-
-       return userDto;
-	   
+   //최초 로그인일 경우 받아온 정보 db에 저장, 세션에 실어주기
+   //기존 사용자일 경우 기존 db데이터 세션에 실어주기
+   public void doSnsLogin(String sns, String key, UserDto userDto, HttpServletRequest request) {
+	   if(!userService.hasKey(sns, key)) {
+			userService.insertUser(userDto);
+			userService.setSession(userDto, request);
+	   }else {
+			UserDto userByKey=userService.getUserByKey(sns, key);
+			userService.setSession(userByKey, request);
+	   }
    }
+   
 	
 	
 }
