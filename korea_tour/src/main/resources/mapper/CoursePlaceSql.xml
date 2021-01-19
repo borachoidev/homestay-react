@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bitcamp.korea_tour.model.mapper.CoursePlaceMapper">
+
+<insert id="insertCoursePlace" parameterType="courseplace">
+	insert into coursePlace (userNum,courseNum,placeNum,orderNum) values (#{userNum},#{courseNum},#{placeNum},#{orderNum})
+</insert>
+<delete id="deleteCoursePlace" parameterType="HashMap">
+	delete from coursePlace where placeNum=#{placeNum} and courseNum=#{courseNum}
+</delete>
+<select id="getTotalCoursePlace" parameterType="int">	<!-- 코스안의 관광지 개수 -->
+	select count(*) from coursePlace where courseNum=#{courseNum}
+</select>
+
+<!-- 수정(태그, 순서, 삭제, 제목)
+<update id="updateCourseOrderUp">
+	update <if test="">
+	</if> 
+</update> -->
+</mapper>
