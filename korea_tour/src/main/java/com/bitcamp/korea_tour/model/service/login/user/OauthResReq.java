@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Service;
 
+import com.bitcamp.korea_tour.model.UserDto;
 import com.bitcamp.korea_tour.model.service.login.setting.SnsLoginType;
 
 import lombok.RequiredArgsConstructor;
@@ -38,6 +39,14 @@ public class OauthResReq{
 		OauthService oauthService=this.findOauthByType(snsLoginType);
 		
 		return oauthService.requestAccessToken(code);
+	}
+	
+	//토큰(jsonData)으로 요청하여 받아온 사용자 정보(json) dto에 넣어주기
+	public UserDto getUserInfo(SnsLoginType snsLoginType, String jsonData) {
+		//snsLoginType에 맞는 OauthService 객체로 초기화
+		OauthService oauthService=this.findOauthByType(snsLoginType);
+		
+		return oauthService.getUserInfo(jsonData);
 	}
 	
 	//snsLoginType에 맞는 OauthService 객체를 반환하는 함수

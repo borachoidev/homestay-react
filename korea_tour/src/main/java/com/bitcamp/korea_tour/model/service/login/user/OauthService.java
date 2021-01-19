@@ -1,5 +1,6 @@
 package com.bitcamp.korea_tour.model.service.login.user;
 
+import com.bitcamp.korea_tour.model.UserDto;
 import com.bitcamp.korea_tour.model.service.login.setting.SnsLoginType;
 
 public interface OauthService {
@@ -16,6 +17,14 @@ public interface OauthService {
      * @return API 서버로 부터 응답받은 Json 형태의 결과를 string으로 반환
      */
     String requestAccessToken(String code);
+    
+    /**
+     * 
+     * @param token
+     * @return token URL에 요청하여 받아온 String타입 JSON 데이터를 UserDto로 반환
+     */
+    UserDto getUserInfo(String jsonData);
+   
     
     default SnsLoginType type() {
     	if(this instanceof KakaoOauth) {
