@@ -1,7 +1,7 @@
 'use strict';
 
 const contentId = getParam('contentId');
-const areaCode = getParam('areaCode');
+let areaCode;
 const pageNum = getParam('pageNum');
 const month = getParam('month');
 //API 실행
@@ -9,7 +9,7 @@ parseDetailInfo(contentId);
 parseDetailImage(contentId);
 parseCommonInfo(contentId);
 parseDetailIntro(contentId);
-getAreaName(areaCode);
+
 document.querySelector('#goList').addEventListener('click', () => {
   location.href = `/festival/list?areaCode=${areaCode}&pageNum=${pageNum}&month=${month}`;
 });
@@ -224,7 +224,9 @@ function parseDetailIntro(contentId) {
       xmlParser = new DOMParser();
       xmlDoc = xmlParser.parseFromString(xmlStr, 'text/xml');
       let list = xmlDoc.getElementsByTagName('item');
-
+      areaCode = list[0].getElementsByTagName('areacode')[0].childNodes[0]
+        .nodeValue;
+      getAreaName(areaCode);
       let s = '';
       s += `<li><b>주최기관</b><span>${
         list[0].getElementsByTagName('sponsor1')[0].childNodes[0].nodeValue

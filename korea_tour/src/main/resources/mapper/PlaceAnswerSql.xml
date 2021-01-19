@@ -4,17 +4,17 @@
 	<select id="getTotalCount" resultType="int">
 		select count(*) from place_answer
 	</select>
-	<select id="getAllDatas" resultType="placeanswerdto">
+	<select id="getAllDatas" resultType="placeanswer">
 		select * from place_answer order by placeAnswerNum desc
 	</select>
-	<insert id="insertdata" parameterType="placeanswerdto">
+	<insert id="insertdata" parameterType="placeanswer">
 		insert into place_answer (content,writeday,level,step,group,deleted,userNum,contentId)
 		 values (#{content},now(),#{level},#{step},#{group},#{deleted},#{userNum},#{contentId})
 	</insert>
-	<select id="getData" parameterType="String" resultType="placeanswerdto">
+	<select id="getData" parameterType="String" resultType="placeanswer">
 		select * from place_answer where placeAnswerNum=#{placeAnswerNum}
 	</select>
-	<update id="updateData" parameterType="placeanswerdto">
+	<update id="updateData" parameterType="placeanswer">
 		update place_answer set content=#{content},
 		level=#{level},step=#{step},group=#{group},deleted=#{deleted} where placeAnswerNum=#{placeAnswerNum}
 	</update>

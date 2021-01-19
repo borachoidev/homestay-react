@@ -7,15 +7,16 @@ import org.apache.ibatis.type.Alias;
 import lombok.Data;
 
 @Data
-@Alias("placeanswerdto")
+@Alias("placeanswer")
 public class PlaceAnswerDto {
-	private String placeAnswerNum;
+	private int placeAnswerNum;
+	private int placeNum;
+	private String loginId;
+	private String loginPhoto;
 	private String content;
 	private Timestamp writeDay;
 	private int level;
 	private int step;
 	private int group;
 	private int deleted;
-	private String userNum;
-	private String contentId;
 }

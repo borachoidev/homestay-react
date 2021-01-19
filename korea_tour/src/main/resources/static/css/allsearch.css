@@ -1,0 +1,9 @@
+@charset "UTF-8";
+
+#sidebar {
+	position: absolute;
+    top:20px;
+    right:-150px;
+    width:130px;
+    background-color: pink;
+}
