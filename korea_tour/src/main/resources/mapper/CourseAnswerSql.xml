@@ -12,7 +12,7 @@
 	<insert id="insertCourseAnswerRE" parameterType="courseanswer">
 		insert into
 		courseAnswer
-		(userNum,courseNum,content,writeday,level,group,loginId,loginPhoto,deleted)
+		(userNum,courseNum,content,writeDay,level,group,loginId,loginPhoto,deleted)
 		values
 		(#{userNum},#{courseNum},#{content},now(),1,#{group},#{loginId},#{loginPhoto},#{deleted})
 	</insert>
@@ -26,10 +26,10 @@
 		select * from courseAnswer order by group asc,level asc
 	</select>
 	<select id="getUserAnswer" parameterType="HashMap">
-		select * from courseAnswer where userNum=#{userNum} and level=#{level} order by couresAnswerNum desc 
+		select * from courseAnswer where userNum=#{userNum} and level=#{level} order by courseAnswerNum desc 
 	</select>
 	<select id="getAdminAnswer" parameterType="int">
-		select * from courseAnswer where level=#{level} order by couresAnswerNum desc
+		select * from courseAnswer where level=#{level} order by courseAnswerNum desc
 	</select>
 	
 </mapper>
