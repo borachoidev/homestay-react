@@ -7,7 +7,7 @@ import org.apache.ibatis.type.Alias;
 import lombok.Data;
 
 @Data
-@Alias("joinCourse")
+@Alias("joincourse")
 public class JoinCourseDto {
 //	course
 	private int courseNum;
