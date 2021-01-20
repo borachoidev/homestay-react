@@ -16,4 +16,5 @@ public class CourseDto {
 	private String who;
 	private String during;
 	private String how;
+	private int totalLike;
 }
