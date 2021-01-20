@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bitcamp.korea_tour.model.mapper.CourseMapper">
-	<select id="myCourseCount" resultType="int">
+	<select id="myCourseCount" resultType="int"><!-- mypage에서 내코스 개수만 -->
 		select count(*) from course where userNum=#{userNum}
 	</select>
-	<select id="getMyCourseData" resultType="course">
+	<select id="getMyCourseData" resultType="course"><!-- coursedetail목록 -->
 		select * from course where userNum=#{userNum}
 	</select>
 	<insert id="insertCourseTitle" parameterType="course"><!-- 일단 첫 작성은 기본 비공개로 -->
-		insert into course (name,viewOrNot,userNum) values (#{name},2,#{userNum})
+		insert into course (name,userNum) values (#{name},#{userNum})
 	</insert>
 	<delete id="deleteMyCourse" parameterType="int">
-			delete from course where courseNum=#{courseNum}
+		delete from course where courseNum=#{courseNum}
 	</delete>
+	<update id="updateCourseName" parameterType="course"><!-- 코스 모든걸 바꾸기(place빼고) -->
+		update course set name=#{name},content=#{content},open=#{open},who=#{who},during=#{during},how=#{how} where courseNum=#{courseNum} 
+	</update>
+	<update id="updateShare" parameterType="int"><!-- share하면 공유+1 -->
+		update course set share=share+1 where courseNum=#{courseNum} 
+	</update>
+	
+	
 </mapper>

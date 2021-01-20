@@ -6,6 +6,6 @@ import org.apache.ibatis.type.Alias;
 import com.bitcamp.korea_tour.model.CourseDto;
 
 @Mapper
-public interface CourseDetailMapper {
+public interface CoursePlaceMapper {
 
 }

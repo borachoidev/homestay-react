@@ -13,4 +13,7 @@ public class CourseDto {
 	private String content;
 	private int open;
 	private int share;
+	private String who;
+	private String during;
+	private String how;
 }
