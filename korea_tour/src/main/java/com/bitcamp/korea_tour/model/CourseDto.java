@@ -1,16 +1,19 @@
 package com.bitcamp.korea_tour.model;
 
+import org.apache.ibatis.type.Alias;
+
 import lombok.Data;
 
 @Data
+@Alias("course")
 public class CourseDto {
-	private String courseNum;
+	private int courseNum;
+	private int userNum;
 	private String name;
-	private String customTag;
-	private String selectTag;
 	private String content;
-	private int viewOrNot;
-	private String contentIds;
-	private int timesOfShare;
-	private String userNum;
+	private int open;
+	private int share;
+	private String who;
+	private String during;
+	private String how;
 }
