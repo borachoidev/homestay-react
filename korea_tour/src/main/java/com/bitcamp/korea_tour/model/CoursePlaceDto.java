@@ -10,7 +10,7 @@ public class CoursePlaceDto {
 	private int courseDetailNum;
 	private int userNum;
 	private int courseNum;
-	private int placeNum;
+	private int contentId;
 	private int orderNum;
 	
 }
