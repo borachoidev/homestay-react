@@ -52,8 +52,18 @@
 		 join placePhoto r on (p.contentId=r.contentId) where contentId=#{contentId} and approval=1 order by placeApiPhotoNum desc, photoNum desc
 	</select>
 	
-	<!-- 키워드검색 관광지list -->
+	<!-- 코스담기 -->
+	<select id="getCourseByUser" parameterType="int" resultType="course">
+		select * from course where userNum=#{userNum}
+	</select>
+	<insert id="insertPlaceIntoCourse" parameterType="courseplace">
+		insert into coursePlace (userNum,courseNum,contentId,orderNum)
+		values (#{userNum},#{courseNum},#{contentId},#{orderNum})
+	</insert>
+	<select id="getMaxOrderNum" parameterType="int" resultType="coursePlace">
+		select max(orderNum) from coursePlace where coursePlaceNum=#{coursePlaceNum}
+	</select>
 	
-	<!-- 마이페이지 -->
+	<!-- 키워드검색 관광지list -->
 	
 </mapper>
