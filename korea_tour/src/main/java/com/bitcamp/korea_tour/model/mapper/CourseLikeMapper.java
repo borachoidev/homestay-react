@@ -14,5 +14,4 @@ public interface CourseLikeMapper {
 	int getTotalCourseLike(int courseNum);
 	void insertCourseLike(CourseLikeDto dto);
 	void deleteCourseLike(Map<String, String> map);
-	
 }
