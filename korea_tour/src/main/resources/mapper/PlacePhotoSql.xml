@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bitcamp.korea_tour.model.mapper.PlacePhotoMapper">
-	<resultMap type="" id="placeAllPhotos">
+	<!-- <resultMap type="" id="placeAllPhotos">
 		
-	</resultMap>
+	</resultMap> -->
 	
 	<!-- 관광지Detail -->
 	<select id="getAllDatas" parameterType="int" resultMap="placeAllPhotos"> <!-- 뺄수도 있음 -->
