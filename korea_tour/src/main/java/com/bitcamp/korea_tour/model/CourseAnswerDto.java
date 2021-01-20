@@ -12,7 +12,7 @@ public class CourseAnswerDto {
 	private int courseAnswerNum;
 	private int userNum;
 	private int courseNum;
-	private String comment;
+	private String content;
 	private Timestamp writeday;
 	private int level;
 	private int step;

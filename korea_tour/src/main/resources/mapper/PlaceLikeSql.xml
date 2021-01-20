@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bitcamp.korea_tour.model.mapper.PlaceLikeMapper">
+	<select id="getAllPlaceLikeCount" resultType="int">
+		select count(*) from placeLike where placeNum=#{placeNum}
+	</select>
+	<insert id="plusLikes" parameterType="placelike">
+		insert into placeLike (placeNum,contentId) values (#{placeNum},#{contentId})
+	</insert>
+	<delete id="deleteLikes" parameterType="String">
+		delete from placeLike where placeNum=#{placeNum} AND contentId=#{contentId}
+	</delete>
 
 </mapper>
