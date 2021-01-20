@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.bitcamp.korea_tour.model.CourseDto;
+import com.bitcamp.korea_tour.model.JoinCourseDto;
 
 
 @ExtendWith(SpringExtension.class)
@@ -19,17 +20,10 @@ class JoinCourseMapperTest {
 	
 	@Autowired JoinCourseMapper joinCourseMapper;
 	
-	
 	@Test
 	void test() {
-		System.out.println(joinCourseMapper);
-		System.out.println("aaaaa");
-		List<CourseDto> list = joinCourseMapper.getList();
-		
-		list.stream()
-			.forEach(System.out::println);
-		System.out.println(list.size());
-		assertEquals(list.size(),2 );
+		List<JoinCourseDto> list = joinCourseMapper.getList();
+		assertEquals(list.size(),11 );
 		
 	}
 
