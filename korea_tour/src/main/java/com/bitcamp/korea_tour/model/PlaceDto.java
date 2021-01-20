@@ -1,10 +1,13 @@
 package com.bitcamp.korea_tour.model;
 
+import org.apache.ibatis.type.Alias;
+
 import lombok.Data;
 
 @Data
+@Alias("place")
 public class PlaceDto {
-	private int ContentId;
+	private int contentId;
 	private String title;
 	private String firstImage1;
 	private String firstImage2;
