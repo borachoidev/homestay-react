@@ -7,7 +7,7 @@ import org.apache.ibatis.type.Alias;
 import lombok.Data;
 
 @Data
-@Alias("placephoto")
+@Alias("placePhoto")
 public class PlacePhotoDto {
 	private int photoNum;
 	private int placeNum;
