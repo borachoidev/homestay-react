@@ -1,0 +1,54 @@
+ul.area {
+  display: flex;
+  flex-direction: row;
+}
+.festival-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+div.fes-main-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: auto;
+}
+.fes-card {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+.fes-img {
+  width: 100%;
+  min-width: 200px;
+  max-width: 400px;
+  height: 300px;
+  border-radius: 5%;
+}
+
+div.cal-dates {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+span.cal-date {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  margin: 1px;
+  border-radius: 40px;
+  background-color: var(--c-color);
+}
+
+.area {
+  border: 1px solid var(--b-color);
+  border-radius: 40px;
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.area-list {
+  margin: 2px 5px;
+}

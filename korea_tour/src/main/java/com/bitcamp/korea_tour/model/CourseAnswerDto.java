@@ -16,6 +16,7 @@ public class CourseAnswerDto {
 	private Timestamp writeday;
 	private int relevel;
 	private int regroup;
+	private int loginNum;
 	private String loginId;
 	private String loginPhoto;
 	private int deleted;

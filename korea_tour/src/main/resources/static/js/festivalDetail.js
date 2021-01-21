@@ -10,10 +10,6 @@ parseDetailImage(contentId);
 parseCommonInfo(contentId);
 parseDetailIntro(contentId);
 
-document.querySelector('#goList').addEventListener('click', () => {
-  location.href = `/festival/list?areaCode=${areaCode}&pageNum=${pageNum}&month=${month}`;
-});
-
 /* functions  */
 
 //parameter 가져오기
@@ -70,6 +66,9 @@ function getAreaName(areaCode) {
             .nodeValue;
       }
       document.querySelector('.area').innerHTML = areaName;
+      document.querySelector('#goList').addEventListener('click', () => {
+        location.href = `/festival/list?areaCode=${areaCode}&pageNum=${pageNum}&month=${month}`;
+      });
     }
   };
   xhr.send(null);
@@ -132,7 +131,9 @@ function parseCommonInfo(contentId) {
       xmlParser = new DOMParser();
       xmlDoc = xmlParser.parseFromString(xmlStr, 'text/xml');
       let list = xmlDoc.getElementsByTagName('item');
-
+      areaCode = list[0].getElementsByTagName('areacode')[0].childNodes[0]
+        .nodeValue;
+      getAreaName(areaCode);
       let poster = `<img src='${
         list[0].getElementsByTagName('firstimage')[0].childNodes[0].nodeValue
       }'  >`;
@@ -224,9 +225,7 @@ function parseDetailIntro(contentId) {
       xmlParser = new DOMParser();
       xmlDoc = xmlParser.parseFromString(xmlStr, 'text/xml');
       let list = xmlDoc.getElementsByTagName('item');
-      areaCode = list[0].getElementsByTagName('areacode')[0].childNodes[0]
-        .nodeValue;
-      getAreaName(areaCode);
+
       let s = '';
       s += `<li><b>주최기관</b><span>${
         list[0].getElementsByTagName('sponsor1')[0].childNodes[0].nodeValue

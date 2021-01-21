@@ -26,7 +26,7 @@
 		select * from courseAnswer order by group asc,relevel asc
 	</select>
 	<select id="getUserAnswer" parameterType="HashMap" resultType="courseanswer">
-		select * from courseAnswer where userNum=#{userNum} and relevel=#{relevel} order by courseAnswerNum desc 
+		select * from courseAnswer where loginNum=#{loginNum} and relevel=#{relevel} order by courseAnswerNum desc 
 	</select>
 	<select id="getAdminAnswer" parameterType="int" resultType="courseanswer">
 		select * from courseAnswer where relevel=#{relevel} order by courseAnswerNum desc
