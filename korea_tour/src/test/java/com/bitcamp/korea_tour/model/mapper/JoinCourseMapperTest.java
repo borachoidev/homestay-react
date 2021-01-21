@@ -3,6 +3,7 @@ package com.bitcamp.korea_tour.model.mapper;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
+import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,9 +25,15 @@ class JoinCourseMapperTest {
 	
 	@Test
 	void test() {
-		List<JoinCourseDto> list = joinCourseMapper.getList();
-		assertEquals(list.size(),11 );
-		log.info("list size: " + list.size());
+//		List<JoinCourseDto> testList1=List<JoinCourseDto> getMyCourseList(int loginNum);  //세션 로그인num 받아오기
+//		List<JoinCourseDto> testList2=JoinCourseDto getMyCourseDetail(int courseNum);
+//		List<JoinCourseDto> testList3=List<JoinCourseDto> getMyMarkCourse(int loginNum);  //세션 로그인num 받아오기
+//		List<JoinCourseDto> testList4=List<JoinCourseDto> getAllCourseByTime();
+//		List<JoinCourseDto> testList5=List<JoinCourseDto> getAllCourseByLike();
+//		List<JoinCourseDto> testList6=List<JoinCourseDto> getTagCourseByTime(Map<String, String> tag);
+//		List<JoinCourseDto> testList7=List<JoinCourseDto> getTagCourseByLike(Map<String, String> tag);
+		
+//		log.info("testList1 size: " + testList1.size());
 		
 	}
 
