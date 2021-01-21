@@ -5,16 +5,16 @@
 	<insert id="insertCourseAnswer" parameterType="courseanswer">
 		insert into
 		courseAnswer
-		(userNum,courseNum,comment,writeday,level,group,loginId,loginPhoto,deleted)
+		(userNum,courseNum,comment,writeday,relevel,regroup,loginId,loginPhoto,deleted)
 		values
-		(#{userNum},#{courseNum},#{comment},now(),0,#{group+1},#{loginId},#{loginPhoto},#{deleted})
+		(#{userNum},#{courseNum},#{comment},now(),0,#{regroup+1},#{loginId},#{loginPhoto},#{deleted})
 	</insert>
 	<insert id="insertCourseAnswerRE" parameterType="courseanswer">
 		insert into
 		courseAnswer
-		(userNum,courseNum,comment,writeDay,level,group,loginId,loginPhoto,deleted)
+		(userNum,courseNum,comment,writeDay,relevel,regroup,loginId,loginPhoto,deleted)
 		values
-		(#{userNum},#{courseNum},#{comment},now(),1,#{group},#{loginId},#{loginPhoto},#{deleted})
+		(#{userNum},#{courseNum},#{comment},now(),1,#{regroup},#{loginId},#{loginPhoto},#{deleted})
 	</insert>
 	<update id="deleteCourseAnswerByUser" parameterType="int">
 		update courseAnswer set deleted=1 where courseAnswerNum=#{courseAnswerNum}
@@ -23,13 +23,13 @@
 		update courseAnswer set deleted=2 where courseAnswerNum=#{courseAnswerNum}
 	</update>
 	<select id="getAnswerOfCourse" resultType="courseanswer">
-		select * from courseAnswer order by group asc,level asc
+		select * from courseAnswer order by group asc,relevel asc
 	</select>
 	<select id="getUserAnswer" parameterType="HashMap" resultType="courseanswer">
-		select * from courseAnswer where userNum=#{userNum} and level=#{level} order by courseAnswerNum desc 
+		select * from courseAnswer where userNum=#{userNum} and relevel=#{relevel} order by courseAnswerNum desc 
 	</select>
 	<select id="getAdminAnswer" parameterType="int" resultType="courseanswer">
-		select * from courseAnswer where level=#{level} order by courseAnswerNum desc
+		select * from courseAnswer where relevel=#{relevel} order by courseAnswerNum desc
 	</select>
 	
 </mapper>
