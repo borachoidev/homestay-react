@@ -8,7 +8,8 @@ public interface NoticeService {
 	public int getTotalCount();
 	public List<NoticeDto> getAllDatas();
 	public void insertNotice(NoticeDto dto);
-	public NoticeDto getData(String num);
+	public List<NoticeDto> getData(int noticeNum);
 	public void updateNotice(NoticeDto dto);
-	public void deleteNotice(String num);
+	public void deleteNotice(int noticeNum);
+	public List<NoticeDto> getNewNotice();
 }
