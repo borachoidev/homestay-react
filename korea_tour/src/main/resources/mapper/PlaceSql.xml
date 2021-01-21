@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bitcamp.korea_tour.model.mapper.PlaceMapper">
-	<!-- <resultMap type="" id="placeDetailDto">
+	<insert id="insertApiPlaces" parameterType="place">
+		insert into place (contentId,title,overview,addr1,addr2,mapX,mapY,mLevel,areaCode,linkedURL,firstImage)
+		values (#{contentId},#{title},#{overview},#{addr1},#{addr2},#{mapX},#{mapY},#{mLevel},#{areaCode},#{linkedURL},#{firstImage})
+	</insert>
+	<!-- 
+	<resultMap type="" id="placeDetailDto">
 		
 	</resultMap>
 	
@@ -42,7 +47,7 @@
 			 from place p join (select contentId, count(loginId) as cnt from placeLike group by contentId) l on (p.contentId=l.contentId)
 			 where areaCode=#{areaCode} order by cnt desc
 		</if>
-	</select>
+	</select> 
 	
 	관광지Detail
 	<select id="getData" parameterType="int" resultMap="placeDetailDto">
