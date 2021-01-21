@@ -41,9 +41,13 @@ function getEndDate(month, currentYear) {
       endDate = 31;
       break;
   }
+  console.log(endDate);
   return currentYear + (month > 10 ? month : '0' + month) + endDate;
 }
 function getStartDate(month, currentYear) {
+  if (month == 'all' || month == undefined) {
+    month = date.getMonth() + 1;
+  }
   eventStartDate = currentYear + (month > 10 ? month : '0' + month) + '01';
   return eventStartDate;
 }
@@ -198,7 +202,7 @@ function parseAreaBased(areaCode, pageNum, numOfRows, month, currentYear) {
     encodeURIComponent(eventEndDate);
 
   /**/
-
+  console.log(url + queryParams);
   xhr.open('GET', url + queryParams);
   xhr.onreadystatechange = function () {
     if (this.readyState == 4) {

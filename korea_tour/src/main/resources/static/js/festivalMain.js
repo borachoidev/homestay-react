@@ -1,59 +1,36 @@
 'use strict';
 const date = new Date();
 const currentYear = date.getFullYear();
-let currMonth = date.getMonth() + 1;
-let day;
-let eventStartDate;
-let eventEndDate;
+const currMonth = date.getMonth() + 1;
+const currDate = date.getDate();
+let day = currDate;
 let month = currMonth;
 
-document.querySelector('.cal-month').innerHTML = month;
 writeCalendar(currentYear, currMonth);
-parseAreaBased(currMonth, currentYear);
-
-/* ----- functions ---- */
-
-//eventEndDate 구하기
-function getEndDate(currMonth, currentYear) {
-  let endDate = '';
-  switch (currMonth) {
-    case '4':
-    case '6':
-    case '9':
-    case '11':
-      endDate = 30;
-      break;
-    case '2':
-      if (
-        (currentYear % 4 == 0 && currentYear % 100 != 0) ||
-        currentYear % 400 == 0
-      ) {
-        endDate = 29;
-      } else {
-        endDate = 28;
-      }
-      break;
-    default:
-      endDate = 31;
-      break;
+parseAreaBased(month, day);
+document.querySelector('.pre-month').addEventListener('click', () => {
+  if (month == 1) {
+    month = 1;
+  } else {
+    month = month - 1;
   }
-  return currentYear + (currMonth > 10 ? currMonth : '0' + currMonth) + endDate;
-}
 
-function getStartDate(currMonth, day, currentYear) {
-  if (day == undefined) day = '01';
-  eventStartDate =
-    currentYear + (currMonth > 10 ? currMonth : '0' + currMonth) + day;
-  return eventStartDate;
-}
+  writeCalendar(currentYear, month);
+});
+document.querySelector('.next-month').addEventListener('click', function () {
+  if (month == 12) {
+    month = 12;
+  } else {
+    month = month + 1;
+  }
 
-function writeCalendar(currentYear, currMonth) {
-  let mydate = new Date(currentYear, currMonth, 1);
-  let Week = mydate.getDay();
+  writeCalendar(currentYear, month);
+});
+/* ----- functions ---- */
+//eventEndDate 구하기
+function getEndDate(year, month) {
   let endDate;
-
-  //월의 날자수 구하기
-  switch (currMonth) {
+  switch (month) {
     case 4:
     case 6:
     case 9:
@@ -61,10 +38,7 @@ function writeCalendar(currentYear, currMonth) {
       endDate = 30;
       break;
     case 2:
-      if (
-        (currentYear % 4 == 0 && currentYear % 100 != 0) ||
-        currentYear % 400 == 0
-      ) {
+      if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
         endDate = 29;
       } else {
         endDate = 28;
@@ -74,63 +48,53 @@ function writeCalendar(currentYear, currMonth) {
       endDate = 31;
       break;
   }
+
+  return endDate;
+}
+
+function getEventDate(month, day) {
+  if (day == undefined) day = '1';
+  month = parseInt(month);
+
+  let eventDate =
+    currentYear +
+    '' +
+    (month > 9 ? month : '0' + month) +
+    '' +
+    (day > 9 ? day : '0' + day);
+  return eventDate;
+}
+
+function writeCalendar(year, month) {
+  let endDate = getEndDate(year, month);
+
+  //월의 날자수 구하기
+
   let p = '';
   for (let i = 0; i < endDate; i++) {
-    p += `<span>${i + 1}<span>`;
+    p += `<span class='cal-date'>${i + 1}</span>`;
   }
-  document.querySelector('.festival-calendar').innerHTML = p;
-  //테이블 요일 출력
-  //   tdtr += "<table class='cal'>";
-  //   tdtr += "<thead><tr class='week'>";
-  //   for (let i = 0; i < weeks.length; i++) {
-  //     tdtr += '<td>' + weeks[i] + '</td>';
-  //   }
-  //   tdtr += '</tr>';
-  //   tdtr += '</thead><tbody>';
-  //   tdtr += '<tr>';
-  //   for (let i = 0; i < myWeek; i++) {
-  //     if (myWeek == 0) {
-  //       break;
-  //     }
-  //     tdtr += '<td> </td>';
-  //   }
-  //   //날짜 넣기
-  //   for (let i = 1; i <= myDay; i++) {
-  //     myWeek++;
-
-  //     tdtr +=
-  //       "<td class='" +
-  //       i +
-  //       "'><span>" +
-  //       i +
-  //       "</span><div class='sch'></div></td>";
-
-  //     if (myWeek % 7 == 0 && i != myDay) {
-  //       tdtr += '</tr><tr>';
-  //     }
-  //     if (i == myDay) {
-  //       tdtr += '</tr>';
-  //     }
-  //   }
-
-  //   //출력
-  //   tdtr += '</tbody></table>';
-  //   $('#myCalendar').html(tdtr);
-  //   printData();
-  //   localApply();
-  //
+  document.querySelector('.current-month').innerHTML = month + '월';
+  document.querySelector('.cal-dates').innerHTML = p;
+  const caldates = document.querySelectorAll('.cal-date');
+  for (const date of caldates) {
+    date.addEventListener('click', () => {
+      day = date.innerHTML;
+      parseAreaBased(month, day);
+    });
+  }
 }
 
 //api 데이터
-function parseAreaBased(currMonth, currentYear) {
-  if (currMonth == 'all' || currMonth == undefined) {
-    currMonth = date.getMonth() + 1;
-    eventStartDate = getStartDate(currMonth, day, currentYear);
-    eventEndDate = '';
+function parseAreaBased(month, day) {
+  let eventDate;
+  if (month == 'all' || month == undefined) {
+    month = date.getMonth() + 1;
+    eventDate = getEventDate(month, day);
   } else {
-    eventStartDate = getStartDate(currMonth, day, currentYear);
-    eventEndDate = getEndDate(currMonth, currentYear);
+    eventDate = getEventDate(month, day);
   }
+  console.log(eventDate);
   let xmlStr;
   let xmlDoc;
   var xhr = new XMLHttpRequest();
@@ -142,7 +106,7 @@ function parseAreaBased(currMonth, currentYear) {
     '=' +
     'CaXsuilSjIPz3L19P%2F6ufv6lKG6DwvhRg5x2lK5lzUTP66WyVxrNQcvBdb6CxuXHRNrbDXoscBHGwPy5aQd4sw%3D%3D'; /*Service Key*/
   queryParams +=
-    '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('4'); /**/
+    '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('10'); /**/
   queryParams +=
     '&' + encodeURIComponent('pageNo') + '=' + encodeURIComponent('1'); /**/
   queryParams +=
@@ -158,7 +122,7 @@ function parseAreaBased(currMonth, currentYear) {
     '=' +
     encodeURIComponent('15'); /**/
   queryParams +=
-    '&' + encodeURIComponent('arrange') + '=' + encodeURIComponent('B'); /**/
+    '&' + encodeURIComponent('arrange') + '=' + encodeURIComponent('R'); /**/
   queryParams +=
     '&' + encodeURIComponent('listYN') + '=' + encodeURIComponent('Y');
 
@@ -166,12 +130,12 @@ function parseAreaBased(currMonth, currentYear) {
     '&' +
     encodeURIComponent('eventStartDate') +
     '=' +
-    encodeURIComponent(eventStartDate);
+    encodeURIComponent(eventDate);
   queryParams +=
     '&' +
     encodeURIComponent('eventEndDate') +
     '=' +
-    encodeURIComponent(eventEndDate);
+    encodeURIComponent(eventDate);
 
   /**/
   console.log(url + queryParams);
@@ -184,6 +148,66 @@ function parseAreaBased(currMonth, currentYear) {
       xmlDoc = xmlParser.parseFromString(xmlStr, 'text/xml');
 
       let list = xmlDoc.getElementsByTagName('item');
+
+      let s = '';
+      if (list.length > 6) {
+        s += `<a href='/festival/detail?contentId=${
+          list[6].getElementsByTagName('contentid')[0].childNodes[0].nodeValue
+        }`;
+        s += `&areaCode=${
+          list[6].getElementsByTagName('areacode')[0].childNodes[0].nodeValue
+        }&pageNum=1&month=undefined'>`;
+        s += "<div class='fes-main-card'>";
+        s += ` <img src='${
+          list[6].getElementsByTagName('firstimage')[0].childNodes[0].nodeValue
+        }' class='fes-main-img'/>`;
+
+        s += `<span class='fes-title'>${
+          list[6].getElementsByTagName('title')[0].childNodes[0].nodeValue
+        }</span></div></a>`;
+      } else {
+        s += `<a href='/festival/detail?contentId=${
+          list[0].getElementsByTagName('contentid')[0].childNodes[0].nodeValue
+        }`;
+        s += `&areaCode=${
+          list[0].getElementsByTagName('areacode')[0].childNodes[0].nodeValue
+        }&pageNum=1&month=undefined'>`;
+        s += "<div class='fes-main-card'>";
+        s += ` <img src='${
+          list[0].getElementsByTagName('firstimage')[0].childNodes[0].nodeValue
+        }' class='fes-main-img'/>`;
+
+        s += `<span class='fes-title'>${
+          list[0].getElementsByTagName('title')[0].childNodes[0].nodeValue
+        }</span></div></a>`;
+      }
+      document.querySelector('.festival-main').innerHTML = s;
+      let l = '';
+
+      for (let i = 1; i < 4; i++) {
+        l += `<a href='/festival/detail?contentId=${
+          list[i].getElementsByTagName('contentid')[0].childNodes[0].nodeValue
+        }`;
+        l += `&areaCode=${
+          list[i].getElementsByTagName('areacode')[0].childNodes[0].nodeValue
+        }&pageNum=1&month=undefined'>`;
+        l += "<div class='fes-card'>";
+        l += ` <img src='${
+          list[i].getElementsByTagName('firstimage')[0].childNodes[0].nodeValue
+        }' class='fes-img'/>`;
+        l += `<span class ='fes-date'>${
+          list[i].getElementsByTagName('eventstartdate')[0].childNodes[0]
+            .nodeValue
+        } ~${
+          list[i].getElementsByTagName('eventenddate')[0].childNodes[0]
+            .nodeValue
+        }</span>`;
+        l += `<span class='fes-title'>${
+          list[i].getElementsByTagName('title')[0].childNodes[0].nodeValue
+        }</span></div></a>`;
+      }
+
+      document.querySelector('.festival-list').innerHTML = l;
     }
   };
 
