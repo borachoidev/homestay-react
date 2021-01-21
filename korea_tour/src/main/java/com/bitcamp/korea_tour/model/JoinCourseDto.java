@@ -20,12 +20,14 @@ public class JoinCourseDto {
 	private String during;
 	private String how;
 	private int totalLike;
+	
 //	courseplace
 	private int courseDetailNum;
 //	private int userNum;
 //	private int courseNum;
 	private int contentId;
 	private int orderNum;
+	
 //	place
 //	private int contentId;
 	private String title;
@@ -33,10 +35,12 @@ public class JoinCourseDto {
 	private String overview;
 	private String addr1;
 	private int areaCode;
+	
 //	coursemark
 	private int courseMarkNum;
 //	private int userNum;
 //	private int courseNum;
+	
 //	courseanswer
 	private int courseAnswerNum;
 //	private int userNum;
