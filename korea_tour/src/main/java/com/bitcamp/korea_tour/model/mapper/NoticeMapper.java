@@ -8,12 +8,12 @@ import com.bitcamp.korea_tour.model.NoticeDto;
 
 @Mapper
 public interface NoticeMapper {
-	int getTotalCount();
-	List<NoticeDto> getAllDatas();
+	int getTotalCount(); 
+	List<NoticeDto> getAllDatas(); 
 	void insertNotice(NoticeDto dto);
-	NoticeDto getData(String num);
+	List<NoticeDto> getData(int noticeNum);
 	void updateNotice(NoticeDto dto);
-	void deleteNotice(String num);
-	
+	void deleteNotice(int noticeNum);
+	List<NoticeDto> getNewNotice();
 	
 }

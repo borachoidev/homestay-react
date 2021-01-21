@@ -3,25 +3,28 @@
 
 <mapper namespace="com.bitcamp.korea_tour.model.mapper.NoticeMapper">
 	<select id="getTotalCount" resultType="int">
-		select count(*) from shop
+		select count(*) from notice
 	</select>
 	<select id="getAllDatas" resultType="notice">
-	      select * from shop order by noticeNum
+	      select * from notice order by noticeNum
    </select>
    <insert id="insertNotice" parameterType="notice">
       insert into notice (title,content,writeDay,view)
        values (#{title},#{content},#{view},now())
    </insert>
-   <select id="getData" parameterType="String" resultType="notice">
-      select * from shop where noticeNum=#{noticeNum}
+   <select id="getData" parameterType="int" resultType="notice">
+      select * from notice where noticeNum=#{noticeNum}
    </select>
-   <update id="updateShop" parameterType="notice">
+   <update id="updateNotice" parameterType="notice">
       update shop set title=#{title},content=#{content}
        where noticeNum=#{noticeNum}
    </update>
-   <delete id="deleteShop" parameterType="String">
-      delete from shop where noticeNum=#{noticeNum}
+   <delete id="deleteNotice" parameterType="int">
+      delete from Notice where noticeNum=#{noticeNum}
    </delete>
+   <select id="getNewNotice" resultType="notice"> <!-- 메인페이지 공지사항 -->
+   		select * from notice order by writeDay desc limit 0, 3
+   </select>
 
 </mapper>
 
