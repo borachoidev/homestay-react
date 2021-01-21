@@ -5,16 +5,16 @@
 	<insert id="insertCourseAnswer" parameterType="courseanswer">
 		insert into
 		courseAnswer
-		(userNum,courseNum,comment,writeday,relevel,regroup,loginNum,loginId,loginPhoto,deleted)
+		(userNum,courseNum,comment,writeday,
+		relevel,regroup,loginId,loginPhoto,deleted)
 		values
-		(#{userNum},#{courseNum},#{comment},now(),0,#{regroup+1},#{loginNum},#{loginId},#{loginPhoto},#{deleted})
-	</insert>
-	<insert id="insertCourseAnswerRE" parameterType="courseanswer">
-		insert into
-		courseAnswer
-		(userNum,courseNum,comment,writeDay,relevel,regroup,loginNum,loginId,loginPhoto,deleted)
-		values
-		(#{userNum},#{courseNum},#{comment},now(),1,#{regroup},#{loginNum},#{loginId},#{loginPhoto},#{deleted})
+		(#{userNum},#{courseNum},#{comment},now()
+		<if test="courseAnswerNum==null">,0
+			<if test="max(courseAnswerNum)==null">,0</if>
+			<if test="max(courseAnswerNum)!=null">,max(courseAnswerNum)+1</if>
+		</if>
+		<if test="courseAnswerNum!=null">1,#{regroup}</if>
+		,#{loginId},#{loginPhoto},#{deleted})
 	</insert>
 	<update id="deleteCourseAnswerByUser" parameterType="int">
 		update courseAnswer set deleted=1 where courseAnswerNum=#{courseAnswerNum}
