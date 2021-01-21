@@ -11,9 +11,6 @@ import com.bitcamp.korea_tour.model.mapper.PlaceAnswerMapper;
 @Controller
 public class PlaceController {
 
-	@Autowired
-	PlaceAnswerMapper mapper;
-	
 	@GetMapping("/place")
 	public String getPlaceMain() { 
 		
