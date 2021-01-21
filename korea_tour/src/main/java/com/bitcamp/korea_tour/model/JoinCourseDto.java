@@ -41,17 +41,4 @@ public class JoinCourseDto {
 //	private int userNum;
 //	private int courseNum;
 	
-//	courseanswer
-	private int courseAnswerNum;
-//	private int userNum;
-//	private int courseNum;
-	private String comment;
-	private Timestamp writeday;
-	private int level;
-	private int step;
-	private int group;
-	private String loginId;
-	private String loginPhoto;
-	private int deleted;
-	
 }
