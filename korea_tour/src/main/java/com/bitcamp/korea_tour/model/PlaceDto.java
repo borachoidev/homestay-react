@@ -9,8 +9,7 @@ import lombok.Data;
 public class PlaceDto {
 	private int contentId;
 	private String title;
-	private String firstImage1;
-	private String firstImage2;
+	private String firstImage;
 	private String overview;
 	private String addr1;
 	private String addr2;
@@ -19,4 +18,5 @@ public class PlaceDto {
 	private int mLevel;
 	private int areaCode;
 	private String linkedURL;
+	
 }
