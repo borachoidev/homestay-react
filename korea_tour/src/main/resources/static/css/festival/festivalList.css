@@ -1,0 +1,67 @@
+@charset "UTF-8";
+
+.categories{
+   background-color: var(--c-color);
+    border-radius: 1rem;
+    width:20vw;
+    padding:var(--input-padding);
+    position: fixed;
+    top: 100px;
+    right: 20vw;
+    
+}
+
+.area-list{
+    display: inline-block;   
+}
+
+.month-list{
+    display: inline-block;   
+}
+
+.categories ul {
+   border-top: 0.1em solid var(--d-color);
+   border-bottom: 0.1em solid var(--d-color);
+}
+
+.card {
+   display: flex;
+   flex-direction:row;
+   justify-content:center;
+   align-items:center;
+   position: inherit;
+   width: 50vw;
+   margin: 1vh 1vw;
+   border-top: 0.1em solid var(--d-color);
+   border-bottom: 0.1em solid var(--d-color);
+   padding: 1em;
+   height: 20vh;
+   background-color: yellow;
+}
+
+.card img {
+   max-width:10vw;
+   width:10vw;
+   max-height: 20vh;
+   height:20vh;
+   border: 1px solid gray;
+   vertical-align: middle;
+   
+}
+
+.list-container {
+   float:left;
+   width:50vw;
+}
+
+.info {
+   width: 35vw;
+   float: right;
+   padding: 1em;
+   background-color: pink;
+   
+}
+
+.date, .place, .title {
+   display: block;
+}'
