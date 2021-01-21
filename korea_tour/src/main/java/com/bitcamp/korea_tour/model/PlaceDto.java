@@ -19,4 +19,5 @@ public class PlaceDto {
 	private int mLevel;
 	private int areaCode;
 	private String linkedURL;
+	
 }
