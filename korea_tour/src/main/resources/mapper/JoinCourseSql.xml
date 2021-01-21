@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.bitcamp.korea_tour.model.mapper.AdminMapper">
-
+<mapper namespace="com.bitcamp.korea_tour.model.mapper.JoinCourseMapper">
+	<select id="getList" resultType="joincourse">
+		SELECT *
+		FROM course a left join coursePlace b on a.courseNum=b.courseNum
+		left join place c on b.contentId=c.contentId 
+		left join courseMark d on d.courseNum=a.courseNum
+		left join courseAnswer e on e.courseNum=a.courseNum
+		union all
+		SELECT *
+		FROM course a right join coursePlace b on a.courseNum=b.courseNum
+		right join place c on b.contentId=c.contentId 
+		right join courseMark d on d.courseNum=a.courseNum
+		right join courseAnswer e on e.courseNum=a.courseNum
+	</select>
 </mapper>
