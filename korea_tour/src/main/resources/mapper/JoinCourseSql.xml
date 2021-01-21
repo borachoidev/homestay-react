@@ -14,4 +14,79 @@
 		right join courseMark d on d.courseNum=a.courseNum
 		right join courseAnswer e on e.courseNum=a.courseNum
 	</select>
+	<!-- mypage 기준 -->
+	<!-- 내코스 목록보기 ->(사진은 어차피 1번만가져오면 되니까 orderNum으로 구분) -->
+	<select id="getMyCourseList" resultType="joincourse">
+		select * from course inner join coursePlace on
+		course.courseNum=coursePlace.courseNum inner join place on
+		place.contentId=coursePlace.contentId where orderNum=1;
+	</select>
+
+	<!-- 내코스 자세히보기 -->
+	<select id="getMyCourseDetail" resultType="joincourse">
+		select * from course inner join coursePlace on
+		course.courseNum=coursePlace.courseNum inner join place on
+		place.contentId=coursePlace.contentId;
+	</select>
+
+	<!-- 내 즐겨찾기 코스 모아보기 ->userNum으로 내 즐겨찾기만 모아볼수 있도록(사진은 어차피 1번만가져오면 되니까 orderNum으로 구분) -->
+	<select id="getMyMarkCourse" resultType="joincourse" parameterType="int">
+		SELECT *
+		FROM courseMark a left join course b on a.courseNum=b.courseNum
+		left join coursePlace c on b.courseNum=c.courseNum 
+		left join place d on d.contentId=c.contentId where a.userNum=#{userNum} and c.orderNum=1;
+	</select>
+	
+	<!-- 내 댓글 모아보기 -->
+	<select id="getAllMyAnswer" resultType="joincourse" parameterType="int">
+		SELECT *
+		FROM user a left join course b on a.userNum=b.userNum
+		left join courseAnswer c on b.courseNum=c.userNum 
+		left join coursePlace d on c.courseNum=d.courseNum
+		left join place e on d.contentId=e.contentId
+        left join placeAnswer f on e.contentId=f.contentId
+        where c.relevel=0 or f.relevel=0 and a.userNum=#{userNum};
+	</select>
+	
+	<!-- 내 답글 모아보기 -->
+	<select id="getAllMyREAnswer" resultType="joincourse" parameterType="int">
+		SELECT *
+		FROM user a left join course b on a.userNum=b.userNum
+		left join courseAnswer c on b.courseNum=c.userNum 
+		left join coursePlace d on c.courseNum=d.courseNum
+		left join place e on d.contentId=e.contentId
+        left join placeAnswer f on e.contentId=f.contentId
+        where c.relevel=1 or f.relevel=1 and a.userNum=#{userNum};
+	</select>
+	
+	<!-- main페이지 기준 -->
+	<!-- 모든코스 모아보기(최신순) -->
+	<select id="getAllCourseByTime" resultType="joincourse">
+		SELECT *
+		FROM course a left join coursePlace b on a.courseNum=b.courseNum
+		left join place c on b.contentId=c.contentId where b.orderNum=1 order by a.courseNum desc;
+	</select>
+	
+	<!-- 모든코스 모아보기(인기순) -->
+	<select id="getAllCourseByLike" resultType="joincourse">
+		SELECT *
+		FROM course a left join coursePlace b on a.courseNum=b.courseNum
+		left join place c on b.contentId=c.contentId where b.orderNum=1 order by a.totalLike desc;
+	</select>
+	
+	<!-- Nav로 태그 검색한 코스보기(최신순) -->
+	<select id="getTagCourseByTime" resultType="joincourse" parameterType="HashMap">
+		SELECT *
+		FROM course a left join coursePlace b on a.courseNum=b.courseNum
+		left join place c on b.contentId=c.contentId
+		where b.orderNum=1 and a.who=#{who} or a.during=#{during} or a.how=#{how} order by a.courseNum desc;
+	</select>
+	
+	<!-- Nav로 태그 검색한 코스보기(인기순) -->
+	<select id="getTagCourseByLike" resultType="joincourse" parameterType="HashMap">
+		SELECT *
+		FROM course a left join coursePlace b on a.courseNum=b.courseNum
+		left join place c on b.contentId=c.contentId
+		where b.orderNum=1 and a.who=#{who} or a.during=#{during} or a.how=#{how} order by a.totalLike desc;
+	</select>
 </mapper>
