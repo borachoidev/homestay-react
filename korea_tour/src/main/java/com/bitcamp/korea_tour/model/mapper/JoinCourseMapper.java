@@ -10,9 +10,11 @@ import com.bitcamp.korea_tour.model.JoinCourseDto;
 @Mapper
 public interface JoinCourseMapper {
 	/*
+	 * <mypage>
 	내코스 목록보기 
 	내코스 자세히보기 
 	내 즐겨찾기 코스 모아보기 
+	<main>
 	모든코스 모아보기(최신순) 
 	모든코스 모아보기(인기순) 
 	Nav로 태그 검색한 코스보기(최신순)
