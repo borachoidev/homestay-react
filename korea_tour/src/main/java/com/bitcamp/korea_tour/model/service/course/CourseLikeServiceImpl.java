@@ -1,4 +1,4 @@
-package com.bitcamp.korea_tour.model.service;
+package com.bitcamp.korea_tour.model.service.course;
 
 import java.util.HashMap;
 import java.util.Map;
