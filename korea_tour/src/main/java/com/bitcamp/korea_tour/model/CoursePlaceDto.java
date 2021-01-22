@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 @Alias("courseplace")
 public class CoursePlaceDto {
-	private int courseDetailNum;
+	private int coursePlaceNum;
 	private int userNum;
 	private int courseNum;
 	private int contentId;

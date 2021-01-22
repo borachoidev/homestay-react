@@ -8,13 +8,12 @@
 <delete id="deleteCoursePlace" parameterType="HashMap">
 	delete from coursePlace where placeNum=#{placeNum} and courseNum=#{courseNum}
 </delete>
-<select id="getTotalCoursePlace" parameterType="int">	<!-- 코스안의 관광지 개수 -->
+<select id="getTotalCoursePlace" parameterType="int" resultType="int">	<!-- 코스안의 관광지 개수 -->
 	select count(*) from coursePlace where courseNum=#{courseNum}
 </select>
 
-<!-- 수정(태그, 순서, 삭제, 제목)
-<update id="updateCourseOrderUp">
-	update <if test="">
-	</if> 
-</update> -->
+<update id="updateCourseName" parameterType="int"><!-- 코스detail에서 orderNum 수정 -->
+	update coursePlace set orderNum=#{orderNum} where courseNum=#{courseNum} 
+</update>
+
 </mapper>

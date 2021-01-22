@@ -19,4 +19,5 @@ public class PlaceAnswerDto {
 	private int step;
 	private int group;
 	private int deleted;
+	private int userNum;
 }

@@ -1,5 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bitcamp.korea_tour.model.mapper.PlaceMapper">
+	<insert id="insertApiPlaces" parameterType="place">
+		insert into place (contentId,title,overview,addr1,addr2,mapX,mapY,mLevel,areaCode,linkedURL,firstImage)
+		values (#{contentId},#{title},#{overview},#{addr1},#{addr2},#{mapX},#{mapY},#{mLevel},#{areaCode},#{linkedURL},#{firstImage})
+	</insert>
+	<!-- 
+	<resultMap type="" id="placeDetailDto">
+		
+	</resultMap>
+	
+	<resultMap type="" id="placeByLike">
+		
+	</resultMap> -->
+	
+	<!-- 관광지main -->
+	<!-- <select id="getFourDatasByRandom" resultType="place">
+		select * from place order by random() limit 4
+	</select>
+	
+	관광지list 태그검색
+	<select id="getTotalCount" resultType="int">
+		select count(*) from place
+	</select>
+	<select id="getTotalCountInArea" parameterType="int" resultType="int">
+		select count(*) from place where areaCode=#{areaCode}
+	</select>
+	제목순/좋아요순/지역태그
+	<select id="searchPlaceByTitle" parameterType="hashMap" resultType="place"> param={"order" : "like"or"title", "areaCode":areacode or 100}
+		<if test="(order.equals('title')) and areaCode==100">
+			select * from place order by binary title asc
+		</if>
+		<if test="(order.equals('title')) and areaCode!=100">
+			select * from place order by binary title asc where areaCode=#{areaCode}
+		</if>
+	</select>
+	<select id="searchPlaceByLike" parameterType="hashMap" resultMap="placeByLike">
+		<if test="(order.equals('like')) and areaCode==100">
+			join + 서브쿼리 + group by
+			select p.contentId,p.title,p.overview,p.addr1,p.addr2,p.mapX,p.mapY,p.mLevel,p.areaCode,p.linkedURL,p.firstImage,l.contentId,l.cnt
+		 	 from place p join (select contentId, count(loginId) as cnt from placeLike group by contentId) l on p.contentId=l.contentId
+		 	 order by cnt desc
+		</if>
+		<if test="(order.equals('like')) and areaCode!=100">
+			select p.contentId,p.title,p.overview,p.addr1,p.addr2,p.mapX,p.mapY,p.mLevel,p.areaCode,p.linkedURL,p.firstImage,l.contentId,l.cnt
+			 from place p join (select contentId, count(loginId) as cnt from placeLike group by contentId) l on (p.contentId=l.contentId)
+			 where areaCode=#{areaCode} order by cnt desc
+		</if>
+	</select> 
+	
+	관광지Detail
+	<select id="getData" parameterType="int" resultMap="placeDetailDto">
+		select p.contentId,p.title,p.overview,p.addr1,p.addr2,p.mapX,p.mapY,p.mLevel,p.areaCode,p.linkedURL,
+		 q.contentId,q.placeApiPhotoNum,q.originImgUrl,r.contentId,r.photoNum,r.approval,r.image,r.loginId
+		 from place p join placeApiPhoto q on (p.contentId=q.contentId)
+		 join placePhoto r on (p.contentId=r.contentId) where contentId=#{contentId} and approval=1 order by placeApiPhotoNum desc, photoNum desc
+	</select>
+	
+	코스담기
+	<select id="getCourseByUser" parameterType="int" resultType="course">
+		select * from course where userNum=#{userNum}
+	</select>
+	<insert id="insertPlaceIntoCourse" parameterType="courseplace">
+		insert into coursePlace (userNum,courseNum,contentId,orderNum)
+		values (#{userNum},#{courseNum},#{contentId},#{orderNum})
+	</insert>
+	<select id="getMaxOrderNum" parameterType="int" resultType="coursePlace">
+		select max(orderNum) from coursePlace where coursePlaceNum=#{coursePlaceNum}
+	</select>
+	
+	키워드검색 관광지list -->
 	
 </mapper>

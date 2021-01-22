@@ -11,10 +11,15 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class NoticeServiceImpl implements NoticeService{
+public class NoticeServiceImpl implements NoticeService {
 	
-	private NoticeMapper mapper;
-	
+	private final NoticeMapper mapper;
+
+	@Override
+	public int getTotalCount() {
+		// TODO Auto-generated method stub
+		return mapper.getTotalCount();
+	}
 
 	@Override
 	public List<NoticeDto> getAllDatas() {
@@ -29,9 +34,9 @@ public class NoticeServiceImpl implements NoticeService{
 	}
 
 	@Override
-	public NoticeDto getData(String num) {
+	public List<NoticeDto> getData(int noticeNum) {
 		// TODO Auto-generated method stub
-		return mapper.getData(num);
+		return mapper.getData(noticeNum);
 	}
 
 	@Override
@@ -41,16 +46,19 @@ public class NoticeServiceImpl implements NoticeService{
 	}
 
 	@Override
-	public void deleteNotice(String num) {
+	public void deleteNotice(int noticeNum) {
 		// TODO Auto-generated method stub
-		mapper.deleteNotice(num);
+		mapper.deleteNotice(noticeNum);
+		
 	}
 
 	@Override
-	public int getTotalCount() {
+	public List<NoticeDto> getNewNotice() {
 		// TODO Auto-generated method stub
-		return mapper.getTotalCount();
+		return mapper.getNewNotice();
 	}
+
+	
 	
 
 }

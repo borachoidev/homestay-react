@@ -14,11 +14,10 @@ public class CourseAnswerDto {
 	private int courseNum;
 	private String comment;
 	private Timestamp writeday;
-	private int level;
-	private int step;
-	private int group;
+	private int relevel;
+	private int regroup;
+	private int loginNum;
 	private String loginId;
 	private String loginPhoto;
 	private int deleted;
-
 }

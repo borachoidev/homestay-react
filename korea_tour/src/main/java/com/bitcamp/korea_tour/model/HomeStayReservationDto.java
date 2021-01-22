@@ -23,4 +23,7 @@ public class HomeStayReservationDto {
 	private String year;
 	private String month;
 	private String day;
+	private int loginNum;
+	private String loginId;
+	private String loginPhoto;
 }

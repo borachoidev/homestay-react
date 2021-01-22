@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 @Alias("placelike")
 public class PlaceLikeDto {
-	private int placelikeNum;
+	private int placeLikeNum;
 	private int placeNum;
 	private String loginId;
 	private int likeCheck;
