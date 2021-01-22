@@ -10,7 +10,7 @@ import lombok.Data;
 @Alias("placePhoto")
 public class PlacePhotoDto {
 	private int photoNum;
-	private int placeNum;
+	private int contentId;
 	private int approval;
 	private String image;
 	private String loginId;
