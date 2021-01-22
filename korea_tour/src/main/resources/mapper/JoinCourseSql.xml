@@ -32,30 +32,73 @@
 		<include refid="courseB"/>
 		WHERE courseMark.userNum=#{loginNum} AND coursePlace.orderNum=1 ORDER BY course.courseNum LIMIT 0,10
 	</select>
+	
+	<!-- 내 즐겨찾기 관광지 모아보기 -->
+	<select id="getMyMarkPlace">
+		SELECT * FROM placeMark 
+		INNER JOIN place ON placeMark.contentId=place.contentId 
+		WHERE placeMark.userNum=#{loginNum}
+	</select>
 
 	
 	<!-- main페이지 기준 -->
 	<!-- 모든코스 모아보기(최신순) -->
 	<select id="getAllCourseByTime" resultType="joincourse">
-		<include refid="courseB"/>
+		<include refid="courseA"/>
 		WHERE coursePlace.orderNum=1 AND course.open=1 ORDER BY course.courseNum DESC LIMIT 0,10
 	</select>
 	
 	<!-- 모든코스 모아보기(인기순) -->
 	<select id="getAllCourseByLike" resultType="joincourse">
-		<include refid="courseB"/>
+		<include refid="courseA"/>
 		WHERE coursePlace.orderNum=1 AND course.open=1 ORDER BY course.totalLike DESC LIMIT 0,10
 	</select>
 	
 	<!-- Nav로 태그 검색한 코스보기(최신순) -->
 	<select id="getTagCourseByTime" resultType="joincourse" parameterType="HashMap">
-		<include refid="courseB"/>
+		<include refid="courseA"/>
 		WHERE coursePlace.orderNum=1 AND course.open=1 AND course.who=#{who} OR course.during=#{during} OR course.how=#{how} ORDER BY course.courseNum DESC LIMIT 0,10
 	</select>
 	
 	<!-- Nav로 태그 검색한 코스보기(인기순) -->
 	<select id="getTagCourseByLike" resultType="joincourse" parameterType="HashMap">
-		<include refid="courseB"/>
+		<include refid="courseA"/>
 		WHERE coursePlace.orderNum=1 AND course.open=1 course.who=#{who} OR course.during=#{during} OR course.how=#{how} ORDER BY course.totalLike DESC LIMIT 0,10
 	</select>
+	
+	<!-- 코스(검색어에 해당하는 관광지가 들어있는 코스까지) 검색쿼리 최신순-->
+	<select id="getAllCourseOfSearch">
+		<include refid="courseB"/>
+        WHERE coursePlace.orderNum = 1 AND course.open=1
+        AND course.name like '%#{keyword}%' OR course.content like '%#{keyword}%'
+        OR place.title like '%#{keyword}%' OR place.areacode like '%#{keyword}%'
+        order by course.courseNum DESC LIMIT 0,10
+	</select>
+	
+	<!-- 코스(검색어에 해당하는 관광지가 들어있는 코스까지) 검색쿼리 인기순-->
+	<select id="getAllCourseOfSearch">
+		<include refid="courseB"/>
+       	WHERE coursePlace.orderNum = 1 AND course.open=1
+        AND course.name like '%#{keyword}%' OR course.content like '%#{keyword}%'
+        OR place.title like '%#{keyword}%' OR place.areacode like '%#{keyword}%'
+        order by course.totalLike DESC LIMIT 0,10
+	</select>
+	
+	<!-- 맞춤코스 검색(최신순) -->
+	<select id="getAllCourseByTime" resultType="joincourse">
+		<include refid="courseA"/>
+		WHERE coursePlace.orderNum=1 AND course.open=1
+        AND course.who=#{who} AND course.during=#{during} AND course.how=#{how}
+        ORDER BY course.courseNum DESC LIMIT 0,10
+	</select>
+	
+	<!-- 맞춤코스 검색(인기순) -->
+	<select id="getAllCourseByTime" resultType="joincourse">
+		<include refid="courseA"/>
+		WHERE coursePlace.orderNum=1 AND course.open=1
+        AND course.who=#{who} AND course.during=#{during} AND course.how=#{how}
+        ORDER BY course.totalLike DESC LIMIT 0,10
+	</select>
+	
+	
 </mapper>

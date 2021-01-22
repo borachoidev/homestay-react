@@ -5,13 +5,10 @@
 		select count(*) from courseMark where userNum=#{userNum}
 	</select>
 	<insert id="insertCourseMark" parameterType="coursemark">
-		insert into courseMark (userNum,courseNum) values (#{userNum},#{courseNum})
+		insert into courseMark (userNum,courseNum) values (#{loginNum},#{courseNum})
 	</insert>
 	<delete id="deleteCourseMark" parameterType="HashMap">
-		delete from courseMark where userNum=#{useNum} and courseNum=#{courseNum}
+		delete from courseMark where userNum=#{loginNum} and courseNum=#{courseNum}
 	</delete>
 	
-<!-- 	<select id="getCourseMark">
-		select from courseMark where userNum=#{userNum}
-	</select> -->
 </mapper>

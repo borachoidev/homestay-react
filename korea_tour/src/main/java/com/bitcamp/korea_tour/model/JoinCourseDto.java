@@ -1,7 +1,5 @@
 package com.bitcamp.korea_tour.model;
 
-import java.sql.Timestamp;
-
 import org.apache.ibatis.type.Alias;
 
 import lombok.Data;
@@ -9,7 +7,7 @@ import lombok.Data;
 @Data
 @Alias("joincourse")
 public class JoinCourseDto {
-//	course
+//	course_tb
 	private int courseNum;
 	private int userNum;
 	private String name;
@@ -21,14 +19,14 @@ public class JoinCourseDto {
 	private String how;
 	private int totalLike;
 	
-//	courseplace
+//	courseplace_tb
 	private int courseDetailNum;
 //	private int userNum;
 //	private int courseNum;
 	private int contentId;
 	private int orderNum;
 	
-//	place
+//	place_tb
 //	private int contentId;
 	private String title;
 	private String firstImage;
@@ -36,7 +34,7 @@ public class JoinCourseDto {
 	private String addr1;
 	private int areaCode;
 	
-//	coursemark
+//	coursemark_tb
 	private int courseMarkNum;
 //	private int userNum;
 //	private int courseNum;
