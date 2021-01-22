@@ -33,14 +33,6 @@
 		WHERE courseMark.userNum=#{loginNum} AND coursePlace.orderNum=1 ORDER BY course.courseNum LIMIT 0,10
 	</select>
 	
-	<!-- 내 즐겨찾기 관광지 모아보기 -->
-	<select id="getMyMarkPlace">
-		SELECT * FROM placeMark 
-		INNER JOIN place ON placeMark.contentId=place.contentId 
-		WHERE placeMark.userNum=#{loginNum}
-	</select>
-
-	
 	<!-- main페이지 기준 -->
 	<!-- 모든코스 모아보기(최신순) -->
 	<select id="getAllCourseByTime" resultType="joincourse">
@@ -66,8 +58,8 @@
 		WHERE coursePlace.orderNum=1 AND course.open=1 course.who=#{who} OR course.during=#{during} OR course.how=#{how} ORDER BY course.totalLike DESC LIMIT 0,10
 	</select>
 	
-	<!-- 코스(검색어에 해당하는 관광지가 들어있는 코스까지) 검색쿼리 최신순-->
-	<select id="getAllCourseOfSearch">
+	<!-- 통합검색코스(검색어에 해당하는 관광지가 들어있는 코스까지) 검색쿼리 최신순-->
+	<select id="getSearchCourseByTime" parameterType="String" resultType="joincourse">
 		<include refid="courseB"/>
         WHERE coursePlace.orderNum = 1 AND course.open=1
         AND course.name like '%#{keyword}%' OR course.content like '%#{keyword}%'
@@ -75,8 +67,8 @@
         order by course.courseNum DESC LIMIT 0,10
 	</select>
 	
-	<!-- 코스(검색어에 해당하는 관광지가 들어있는 코스까지) 검색쿼리 인기순-->
-	<select id="getAllCourseOfSearch">
+	<!-- 통합검색코스(검색어에 해당하는 관광지가 들어있는 코스까지) 검색쿼리 인기순-->
+	<select id="getSearchCourseByLike" parameterType="String" resultType="joincourse">
 		<include refid="courseB"/>
        	WHERE coursePlace.orderNum = 1 AND course.open=1
         AND course.name like '%#{keyword}%' OR course.content like '%#{keyword}%'
@@ -85,7 +77,7 @@
 	</select>
 	
 	<!-- 맞춤코스 검색(최신순) -->
-	<select id="getAllCourseByTime" resultType="joincourse">
+	<select id="getCustomCourseByTime" parameterType="hashmap" resultType="joincourse">
 		<include refid="courseA"/>
 		WHERE coursePlace.orderNum=1 AND course.open=1
         AND course.who=#{who} AND course.during=#{during} AND course.how=#{how}
@@ -93,7 +85,7 @@
 	</select>
 	
 	<!-- 맞춤코스 검색(인기순) -->
-	<select id="getAllCourseByTime" resultType="joincourse">
+	<select id="getCustomCourseByLike" parameterType="hashmap" resultType="joincourse">
 		<include refid="courseA"/>
 		WHERE coursePlace.orderNum=1 AND course.open=1
         AND course.who=#{who} AND course.during=#{during} AND course.how=#{how}
