@@ -1,22 +1,76 @@
-package com.bitcamp.korea_tour.model.service;
+package com.bitcamp.korea_tour.model.service.paging;
+
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
-import com.bitcamp.korea_tour.model.mapper.CourseMapper;
+import com.bitcamp.korea_tour.model.JoinCourseDto;
+import com.bitcamp.korea_tour.model.UserDto;
+import com.bitcamp.korea_tour.model.mapper.JoinCourseMapper;
+import com.bitcamp.korea_tour.model.mapper.UserMapper;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class PagingServiceImpl implements PagingService {
-
-	private final CourseMapper courseMapper;
-	//private final PlaceMapper placeMapper;
-	private int totalCount; 
+	
+	private final JoinCourseMapper joinCourseMapper;
+	private final UserMapper userMapper;
+	//private final TourAnswerMapper tourAnswerMapper;
+	//private final JoinPlaceMapper joinPlaceMapper;
+	
+	
+	@Override
+	public List<JoinCourseDto> getAllCourseByTime() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public List<JoinCourseDto> getAllCourseByLike() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public List<JoinCourseDto> getMyCourseList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public List<JoinCourseDto> getTagCourseByTime() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public List<JoinCourseDto> getTagCourseByLike() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public List<JoinCourseDto> getMyMarkCourse() {
+		
+		return null;
+	}
+	
+	@Override
+	public List<UserDto> getUserList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public int getTotalCount(List<Object> pagingList) {
+		return pagingList.size();
+	} 
 
 	@Override
-	public void dealPaging(String page, Model model) {
+	public void dealPaging(String page) {
 		
 //		if(page.equals("courses")) {
 //			
