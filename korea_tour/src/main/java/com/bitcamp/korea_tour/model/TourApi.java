@@ -101,15 +101,15 @@ public class TourApi {
 		} else {
 			rd = new BufferedReader(new InputStreamReader(conn.getErrorStream(), "utf-8"));
 		}
-		StringBuilder sb1 = new StringBuilder();
+		StringBuilder sb2 = new StringBuilder();
 		String line;
 		while ((line = rd.readLine()) != null) {
-			sb1.append(line);
+			sb2.append(line);
 		}
 		rd.close(); 
 		conn.disconnect();
 		
-		return sb1.toString();
+		return sb2.toString();
 	}
 
 	public ArrayList<PlaceDto> insertPlaceList() throws IOException, ParserConfigurationException, SAXException {
@@ -125,14 +125,13 @@ public class TourApi {
 		NodeList nodeList = doc.getElementsByTagName("item");/* xml태그이름 중 item 부분을 전부 긁어모음 */
 		PlaceDto dto = new PlaceDto();
 		for (int i = 0; i < nodeList.getLength(); i++) {
-			System.out.println(i);
 			Node node = nodeList.item(i);
 			// 태그안에 있는 요소를 가져오기위해 Element를 형변환 하여 다시 담아줌
 			Element e = (Element) node;
 			try {
 				dto.setContentId(Integer.parseInt(e.getElementsByTagName("contentid").item(0).getTextContent()));
 			} catch (NullPointerException e3) {
-				dto.setContentId(0);
+				dto.setContentId(8);
 			}
 			try {
 				dto.setAddr1(e.getElementsByTagName("addr1").item(0).getTextContent());
@@ -152,7 +151,7 @@ public class TourApi {
 			try {
 				dto.setMLevel(Integer.parseInt(e.getElementsByTagName("mlevel").item(0).getTextContent()));
 			} catch (NullPointerException e3) {
-				dto.setMLevel(0);
+				dto.setMLevel(6);
 			}
 			try {
 				dto.setMapX(e.getElementsByTagName("mapx").item(0).getTextContent());
@@ -191,11 +190,12 @@ public class TourApi {
 			} catch (NullPointerException e3) {
 				dto.setFirstImage(null);
 			}
-			
+			System.out.println(i);
 			System.out.println(dto);
 			list.add(dto);
-		}
 		
+		}
+		System.out.println("list 개수 : " +list.size());
 		return list;
 	}
 	

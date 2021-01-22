@@ -36,6 +36,7 @@ public class MainController {
 		TourApi api = new TourApi();
 		ArrayList<PlaceDto> list = api.insertPlaceList();
 		for(PlaceDto dto : list) {
+			System.out.println(dto.getContentId());
 			service.insertApiPlaces(dto); 
 		}
 		
