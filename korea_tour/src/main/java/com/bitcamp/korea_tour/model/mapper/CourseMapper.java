@@ -19,4 +19,5 @@ public interface CourseMapper {
 	void insertCourseTitle(CourseDto dto);
 	void deleteMyCourse(int courseNum);
 	void updateShare(int courseNum);
+	void updateCourseName(int courseNum);
 }
