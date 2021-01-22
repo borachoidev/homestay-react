@@ -16,8 +16,8 @@
 	<update id="updateShare" parameterType="int"><!-- share하면 공유+1 -->
 		update course set share=share+1 where courseNum=#{courseNum} 
 	</update>
-	<!-- <update id="updateCourseName" parameterType="course">코스 모든걸 바꾸기(place빼고)
+	<update id="updateCourseName" parameterType="int"><!-- 코스detail에서 내 코스 수정(orderNum뺴고 : coursePlace) -->
 		update course set name=#{name},content=#{content},open=#{open},who=#{who},during=#{during},how=#{how} where courseNum=#{courseNum} 
-	</update> -->
+	</update>
 	
 </mapper>
