@@ -27,14 +27,14 @@ public interface JoinCourseMapper {
 	*/
 	List<JoinCourseDto> getAllCourseByTime(Map<String, Integer> paging);
 	List<JoinCourseDto> getAllCourseByLike(Map<String, Integer> paging);
-	JoinCourseDto getMyCourseDetail(Map<String, Integer> nums);
-	List<JoinCourseDto> getMyCourseList(Map<String, Integer> num, Map<String, Integer> paging);  //세션 로그인num 받아오기
-	List<JoinCourseDto> getMyMarkCourse(Map<String, Integer> num, Map<String, Integer> paging);  //세션 로그인num 받아오기
-	List<JoinCourseDto> getTagCourseByTime(Map<String, String> navTag, Map<String, Integer> paging);
-	List<JoinCourseDto> getTagCourseByLike(Map<String, String> navTag, Map<String, Integer> paging);
-	List<JoinCourseDto> getSearchCourseByTime(Map<String, String> searchKeyword, Map<String, Integer> paging);
-	List<JoinCourseDto> getSearchCourseByLike(Map<String, String> searchKeyword, Map<String, Integer> Paging);
-	List<JoinCourseDto> getCustomCourseByTime(Map<String, String> tags, Map<String, Integer> paging);
-	List<JoinCourseDto> getCustomCourseByLike(Map<String, String> tags, Map<String, Integer> paging);
-	JoinCourseDto getCourseDetail(int courseNum);
+	List<JoinCourseDto> getMyCourseDetail(Map<String, Integer> nums);
+	List<JoinCourseDto> getMyCourseList(Map<String, Object> obj);  //세션 로그인num 받아오기
+	List<JoinCourseDto> getMyMarkCourse(Map<String, Object> obj);  //세션 로그인num 받아오기
+	List<JoinCourseDto> getTagCourseByTime(Map<String, Object> obj);
+	List<JoinCourseDto> getTagCourseByLike(Map<String, Object> obj);
+	List<JoinCourseDto> getSearchCourseByTime(Map<String, Object> obj);
+	List<JoinCourseDto> getSearchCourseByLike(Map<String, Object> obj);
+	List<JoinCourseDto> getCustomCourseByTime(Map<String, Object> obj);
+	List<JoinCourseDto> getCustomCourseByLike(Map<String, Object> obj);
+	List<JoinCourseDto> getCourseDetail(int courseNum);
 }
