@@ -9,16 +9,16 @@
 	</sql>
 	<sql id="courseB">
 		SELECT * FROM courseMark 
-		LEFR JOIN course ON courseMark.courseNum=course.courseNum
-		LEFR JOIN coursePlace ON course.courseNum=coursePlace.courseNum 
-		LEFR JOIN place ON place.contentId=coursePlace.contentId 
+		LEFT JOIN course ON courseMark.courseNum=course.courseNum
+		LEFT JOIN coursePlace ON course.courseNum=coursePlace.courseNum 
+		LEFT JOIN place ON place.contentId=coursePlace.contentId 
 	</sql>
 	
 	<!-- mypage 기준 -->
 	<!-- 내코스 목록보기 ->(사진은 어차피 1번만가져오면 되니까 orderNum으로 구분) -->
 	<select id="getMyCourseList" parameterType="hashmap" resultType="joincourse">
 		<include refid="courseA"/>
-		WHERE place.orderNum=1 AND course.userNum=#{loginNum} ORDER BY course.courseNum LIMIT #{start},#{perPage}
+		WHERE coursePlace.orderNum=1 AND course.userNum=#{loginNum} ORDER BY course.courseNum LIMIT #{start},#{perPage}
 	</select>
 
 	<!-- 내코스 자세히보기(수정폼) -->
@@ -94,7 +94,7 @@
 	
 	<!-- 메인페이지 코스 자세히보기 -->
 	<select id="getCourseDetail" parameterType="int" resultType="joincourse">
-		<include refid="courseA"/>
+		<include refid="courseB"/>
 		WHERE course.courseNum=#{courseNum}
 	</select>
 	

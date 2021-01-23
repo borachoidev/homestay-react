@@ -5,8 +5,8 @@
 	select count(*) from courseLike where courseNum=#{courseNum}
 </select>
 <insert id="insertCourseLike" parameterType="courselike">
-	insert into courseLike (userNum,courseNum,loginId) values (#{userNum},#{courseNum},#{loginId})
-</insert>
+	insert into courseLike (userNum,courseNum,loginNum) values (#{userNum},#{courseNum},#{loginNum})
+</insert> 
 <delete id="deleteCourseLike" parameterType="HashMap">
 	delete from courseLike where loginId=#{loginId} and courseNum=#{courseNum}
 </delete>

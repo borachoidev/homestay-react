@@ -1,8 +1,12 @@
 package com.bitcamp.korea_tour.model.service.course;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.stereotype.Service;
 
 import com.bitcamp.korea_tour.model.CourseDto;
+import com.bitcamp.korea_tour.model.mapper.CourseLikeMapper;
 import com.bitcamp.korea_tour.model.mapper.CourseMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -10,44 +14,30 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class CourseServiceImpl implements CourseService {
-	private final CourseMapper mapper;
+	private final CourseMapper courseMapper;
 
 	@Override
-	public int myCourseCount(int userNum) {
-		// TODO Auto-generated method stub
-		return mapper.myCourseCount(userNum);
-	}
-
-	@Override
-	public CourseDto getMyCourseData(int userNum) {
-		// TODO Auto-generated method stub
-		return mapper.getMyCourseData(userNum);
-	}
-
-	@Override
-	public void insertCourseTitle(CourseDto dto) {
-		// TODO Auto-generated method stub
-		mapper.insertCourseTitle(dto);
-		
+	public void insertCourseTitle(String name, int loginNum) {
+		Map<String, String> title=new HashMap<String, String>();
+		Map<String, Integer> num=new HashMap<String, Integer>();
+		title.put("name", name);
+		num.put("loginNum", loginNum);
+		courseMapper.insertCourseTitle(title, num);
 	}
 
 	@Override
 	public void deleteMyCourse(int courseNum) {
-		// TODO Auto-generated method stub
-		mapper.deleteMyCourse(courseNum);
+		courseMapper.deleteMyCourse(courseNum);
 	}
 
 	@Override
 	public void updateShare(int courseNum) {
-		// TODO Auto-generated method stub
-		mapper.updateShare(courseNum);
+		courseMapper.updateShare(courseNum);
 	}
 
 	@Override
-	public void updateCourseName(int courseNum) {
-		// TODO Auto-generated method stub
-		mapper.updateCourseName(courseNum);
+	public void updateCourseDetail(CourseDto dto) {
+		courseMapper.updateCourseDetail(dto);
 	}
-	
 	
 }
