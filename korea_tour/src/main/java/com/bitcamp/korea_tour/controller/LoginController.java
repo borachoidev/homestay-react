@@ -50,7 +50,9 @@ public class LoginController {
     */
    @GetMapping(value = "/{snsLoginType}/callback")
    public void callback(
-		   @PathVariable(name = "snsLoginType") SnsLoginType snsLoginType, @RequestParam(name = "code") String code, HttpServletRequest request) {
+		   @PathVariable(name = "snsLoginType") SnsLoginType snsLoginType, 
+		   @RequestParam(name = "code") String code, 
+		   HttpServletRequest request) {
 	   
 	   String jsonData=oauthResReq.requestAccessToken(snsLoginType, code);
 	   UserDto userDto=oauthResReq.getUserInfo(snsLoginType, jsonData);
