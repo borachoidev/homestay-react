@@ -1,15 +1,25 @@
 package com.bitcamp.korea_tour.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.bitcamp.korea_tour.model.JoinCourseDto;
+import com.bitcamp.korea_tour.model.service.course.JoinCourseService;
+
+import lombok.RequiredArgsConstructor;
+
 @Controller
+@RequiredArgsConstructor
 public class CourseController {
 	
+	private JoinCourseService joinCourseService;
+	
 	@GetMapping("/course")
-	public String getCourseMain() {
+	public List<JoinCourseDto> getCourseMain() {
 		
-		return "course/main";
+		return joinCourseService.getAllCourseByTime(0, 10);
 	}
 	
 	@GetMapping("/course/list")
