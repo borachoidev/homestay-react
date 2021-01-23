@@ -9,9 +9,9 @@
 	</sql>
 	<sql id="courseB">
 		SELECT * FROM courseMark 
-		LEFR JOIN course ON courseMark.courseNum=course.courseNum
-		LEFR JOIN coursePlace ON course.courseNum=coursePlace.courseNum 
-		LEFR JOIN place ON place.contentId=coursePlace.contentId 
+		LEFT JOIN course ON courseMark.courseNum=course.courseNum
+		LEFT JOIN coursePlace ON course.courseNum=coursePlace.courseNum 
+		LEFT JOIN place ON place.contentId=coursePlace.contentId 
 	</sql>
 	
 	<!-- mypage 기준 -->
