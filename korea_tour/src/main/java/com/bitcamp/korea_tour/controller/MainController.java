@@ -21,13 +21,13 @@ public class MainController {
 	}
 	
 	//로그인페이지 이동
-	@GetMapping("/login/main")
+	@GetMapping("/login")
 	public String goLoginMain() {
 		return "login/loginform";
 	}
 	
 	//관리자 로그인폼 이동
-	@GetMapping("/login/adminlogin")
+	@GetMapping("/login/admin")
 	public String goAdminLogin() {
 		return "login/adminloginform";
 	}
