@@ -16,4 +16,10 @@
 	<update id="updataCourseTotalLike" parameterType="HashMap">
 		update course set totalLike=#{totalLike} where courseNum=#{courseNum}
 	</update>
+	<select id="getCourseData" parameterType="int" resultType="course">
+		select * from course where courseNum=#{courseNum}
+	</select>
+	<select id="getMyCourseData" parameterType="HashMap" resultType="course">
+		select * from course where courseNum=#{courseNum} and userNum=#{loginNum}
+	</select>
 </mapper>
