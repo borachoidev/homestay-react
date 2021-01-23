@@ -16,10 +16,6 @@
  	<select id="getAllMyPlaceMarkCount" parameterType="int" resultType="int">
 		select count(*) from place_mark where userNum=#{loginNum}
 	</select>
-	<!-- 내가 즐겨찾기한 관광지들 목록보기 -->
-	<select id="getAllMyPlaceMark">
-		SELECT * FROM placeMark  
-		LEFT JOIN place ON placeMark.contentId=place.contentId
-        WHERE userNum=#{loginNum}
-	</select>
+
+
 </mapper>
