@@ -135,6 +135,5 @@ public class NaverOauth implements OauthService {
 			userDto.setGoogleKey(null);
 		
 		return userDto;
-		
 	}
 }
