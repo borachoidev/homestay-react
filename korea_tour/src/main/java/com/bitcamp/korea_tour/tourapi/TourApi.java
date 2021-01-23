@@ -71,7 +71,7 @@ public class TourApi {
 		StringBuilder urlBuilder2 = new StringBuilder(
 				"http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon"); /* URL */
 		urlBuilder2.append("?" + URLEncoder.encode("ServiceKey", "UTF-8")
-				+ "=OtWyJbpRLfMubGxjo0Gn2U7GWakAgxQ7AfLFLIBW7kTz%2F2yDAu%2FytW%2FFklDjFvGYDN84eZleGTf5QBHbxyI%2BrA%3D%3D"); 
+				+ "=J6mYbSnY7wAwpPP3JTK2bE67pCi7ph2qbw%2B%2FG4Wb1RZY47YJPVGavCpYegxJ6tAypnZmKB8Zncy0UTHFbYZgrw%3D%3D"); 
 		urlBuilder2.append("&" + URLEncoder.encode("contentTypeId", "UTF-8") + "=" + URLEncoder.encode("12", "UTF-8"));
 		urlBuilder2.append("&" + URLEncoder.encode("contentId", "UTF-8") + "=" + URLEncoder.encode(contentid, "UTF-8"));
 		urlBuilder2.append("&" + URLEncoder.encode("MobileOS", "UTF-8") + "=" + URLEncoder.encode("ETC", "UTF-8"));
@@ -110,9 +110,9 @@ public class TourApi {
 	public static String photoXmlDownload(String contentId)
 			throws IOException {/* 정적 메소드정의?-> 정적 메소드를 사용하면 JSP에서 객체의 선언 없이 바로 클래스 이름 뒤에 붙여서 활용가능 */
 		StringBuilder urlBuilder = new StringBuilder(
-				"http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList"); /* URL */
+				"http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailImage"); /* URL */
 		urlBuilder.append("?" + URLEncoder.encode("ServiceKey", "UTF-8")
-				+ "=J6mYbSnY7wAwpPP3JTK2bE67pCi7ph2qbw%2B%2FG4Wb1RZY47YJPVGavCpYegxJ6tAypnZmKB8Zncy0UTHFbYZgrw%3D%3D"); 
+				+ "=zoMLmuPPCaKa32otA342dJYIJoxkm%2FkWyNka0iDgtNJwgKi%2BzK%2FpGPJ122JSSTJfTeLQMicc8BLLZ66qlaLgEw%3D%3D"); 
 		urlBuilder.append("&" + URLEncoder.encode("contentTypeId", "UTF-8") + "=" + URLEncoder.encode("12", "UTF-8"));
 		urlBuilder.append("&" + URLEncoder.encode("MobileOS", "UTF-8") + "=" + URLEncoder.encode("ETC", "UTF-8"));
 		urlBuilder.append("&" + URLEncoder.encode("MobileApp", "UTF-8") + "=" + URLEncoder.encode("TourAPI3.0_Guide", "UTF-8"));
@@ -259,9 +259,8 @@ public class TourApi {
 			dto.setContentId(Integer.parseInt(contentId));
 			try {
 				dto.setOriginImgUrl(e.getElementsByTagName("originimgurl").item(0).getTextContent());
-			} catch (NullPointerException e2) {
+			} catch (NullPointerException e3) {
 				dto.setOriginImgUrl(null);
-				System.out.println("엑세스키 트래픽초과?");
 			}
 			System.out.println(dto);
 			list.add(dto);

@@ -73,10 +73,12 @@ public class PlaceApiController {
 		for(int i=service2.getCountGroupByContentId(); i<plist.size(); i++) {
 			System.out.println(i);
 			pdto = plist.get(i);
-			List<PlaceApiPhotoDto> list = api.getAllApiPhotos(String.valueOf(pdto.getContentId()));
-			for (PlaceApiPhotoDto dto : list) {
-//				System.out.println(dto);
-				service2.insertApiPhoto(dto);
+			if(service2.checkIsNewData(pdto.getContentId()) == 0) {
+				List<PlaceApiPhotoDto> list = api.getAllApiPhotos(String.valueOf(pdto.getContentId()));
+				for (PlaceApiPhotoDto dto : list) {
+//					System.out.println(dto);
+					service2.insertApiPhoto(dto);
+				}
 			}
 		}
 		

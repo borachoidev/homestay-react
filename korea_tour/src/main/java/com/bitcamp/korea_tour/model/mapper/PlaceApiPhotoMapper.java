@@ -9,4 +9,5 @@ public interface PlaceApiPhotoMapper {
 	
 	void insertApiPhoto(PlaceApiPhotoDto dto);
 	int getCountGroupByContentId();
+	int checkIsNewData(int contentId);
 }

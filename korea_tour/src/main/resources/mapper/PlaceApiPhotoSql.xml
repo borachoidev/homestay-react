@@ -7,4 +7,7 @@
 	<select id="getCountGroupByContentId" resultType="int">
 		select count(*) from (select contentId, count(*) from placeApiPhoto group by contentId) p
 	</select>
+	<select id="checkIsNewData" parameterType="int" resultType="int">
+		select count(*) from placeApiPhoto where contentId=#{contentId}
+	</select>
 </mapper>
