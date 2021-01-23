@@ -5,11 +5,14 @@ import org.apache.ibatis.type.Alias;
 import lombok.Data;
 
 @Data
-@Alias("joincourse")
-public class JoinCourseDto {
+@Alias("joincoursemark")
+public class JoinCourseMarkDto {
+//	coursemark_tb
+	private int courseMarkNum;
+	private int loginNum;
+	
 //	course_tb
 	private int courseNum;
-	private int userNum;
 	private String name;
 	private String content;
 	private String who;
@@ -22,4 +25,5 @@ public class JoinCourseDto {
 //	place_tb
 	private String firstImage;
 	private String addr1;
+	
 }

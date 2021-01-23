@@ -34,12 +34,11 @@ public class CourseLikeServiceImpl implements CourseLikeService {
 	}
 
 	@Override
-	public void deleteCourseLike(String loginId, int courseNum) {
+	public void deleteCourseLike(int loginNum, int courseNum) {
 		// TODO Auto-generated method stub
-		String CN = Integer.toString(courseNum);
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("loginId", loginId);
-		map.put("courseNum", CN);
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("loginNum", loginNum);
+		map.put("courseNum", courseNum);
 		courseLikeMapper.deleteCourseLike(map);
 		
 	}

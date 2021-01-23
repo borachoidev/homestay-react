@@ -7,4 +7,7 @@
 	<delete id="deleteCourseMark" parameterType="int">
 		delete from courseMark where courseMarkNum=#{courseMarkNum}
 	</delete>
+	<select id="getCourseMark" parameterType="int" resultType="courseMark">
+		select * from courseMark where courseNum=#{courseNum} 
+	</select>
 </mapper>
