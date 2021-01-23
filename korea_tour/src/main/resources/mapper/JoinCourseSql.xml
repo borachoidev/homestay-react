@@ -26,13 +26,13 @@
 	</select>
 
 	<!-- 내코스 자세히보기(수정폼) -->
-	<select id="getMyCourseDetail" parameterType="HashMap" resultType="joincourse">
+	<select id="getMyCourseDetail" parameterType="HashMap" resultType="joincoursedetail">
 		<include refid="courseB"/>
 		WHERE coursePlace.courseNum=#{courseNum} AND coursePlace.userNum=#{loginNum}
 	</select>
 
 	<!-- 내 즐겨찾기 코스 모아보기 ->userNum으로 내 즐겨찾기만 모아볼수 있도록(사진은 어차피 1번만가져오면 되니까 orderNum으로 구분) -->
-	<select id="getMyMarkCourse" resultType="joincourse" parameterType="HashMap">
+	<select id="getMyMarkCourse" resultType="joincoursemark" parameterType="HashMap">
 		<include refid="courseC"/>
 		WHERE courseMark.loginNum=#{loginNum} AND coursePlace.orderNum=1 ORDER BY courseMark.courseMarkNum LIMIT #{start},#{perPage}
 	</select>
@@ -84,7 +84,7 @@
 	<select id="getCustomCourseByTime" parameterType="hashmap" resultType="joincourse">
 		<include refid="courseA"/>
 		WHERE coursePlace.orderNum=1 AND course.open=1
-        AND course.who LIKE CONCAT('%', #{keyword}, '%') AND course.during LIKE CONCAT('%', #{keyword}, '%') AND course.how LIKE CONCAT('%', #{keyword}, '%')
+        AND course.who LIKE CONCAT('%', #{who}, '%') AND course.during LIKE CONCAT('%', #{during}, '%') AND course.how LIKE CONCAT('%', #{how}, '%')
         ORDER BY course.courseNum DESC LIMIT #{start},#{perPage}
 	</select>
 	
@@ -92,12 +92,12 @@
 	<select id="getCustomCourseByLike" parameterType="hashmap" resultType="joincourse">
 		<include refid="courseA"/>
 		WHERE coursePlace.orderNum=1 AND course.open=1
-        AND course.who LIKE CONCAT('%', #{keyword}, '%') AND course.during LIKE CONCAT('%', #{keyword}, '%') AND course.how LIKE CONCAT('%', #{keyword}, '%')
+        AND course.who LIKE CONCAT('%', #{who}, '%') AND course.during LIKE CONCAT('%', #{during}, '%') AND course.how LIKE CONCAT('%', #{how}, '%')
         ORDER BY course.totalLike DESC LIMIT #{start},#{perPage}
 	</select>
 	
 	<!-- 메인페이지 코스 자세히보기 -->
-	<select id="getCourseDetail" parameterType="int" resultType="joincourse">
+	<select id="getCourseDetail" parameterType="int" resultType="joincoursedetail">
 		<include refid="courseB"/>
 		WHERE coursePlace.courseNum=#{courseNum}
 	</select>

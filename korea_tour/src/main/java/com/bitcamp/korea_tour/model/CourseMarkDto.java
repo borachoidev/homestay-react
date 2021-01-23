@@ -10,5 +10,5 @@ public class CourseMarkDto {
 	private int courseMarkNum;
 	private int userNum;
 	private int courseNum;
-	
+	private int loginNum;
 }
