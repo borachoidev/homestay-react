@@ -5,14 +5,13 @@
 <insert id="insertCoursePlace" parameterType="courseplace"><!-- 코스 순서 수정시 orderNum 다시넣기 -->
 	insert into coursePlace (userNum,courseNum,placeNum,orderNum) values (#{userNum},#{courseNum},#{placeNum},#{orderNum})
 </insert>
-<delete id="deleteCoursePlace" parameterType="HashMap"> <!-- 코스에서 관광지 하나 지웠을 때 -->
-	delete from coursePlace where placeNum=#{placeNum} and courseNum=#{courseNum}
-</delete>
-<select id="getTotalCoursePlace" parameterType="int" resultType="int">	<!-- 코스안의 관광지 개수 -->
-	select count(*) from coursePlace where courseNum=#{courseNum}
-</select>
+
 <delete id="deleteForNewCoursePlace" parameterType="int">	<!-- 코스 순서 수정시 orderNum 지워버리기 -->
 	delete from coursePlace where courseNum=#{courseNum}
 </delete>
+
+<select id="getTotalCoursePlace" parameterType="int" resultType="int">	<!-- 코스안의 관광지 개수 -->
+	select count(*) from coursePlace where courseNum=#{courseNum}
+</select>
 
 </mapper>
