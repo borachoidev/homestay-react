@@ -5,8 +5,9 @@ import org.apache.ibatis.type.Alias;
 import lombok.Data;
 
 @Data
-@Alias("place")
-public class PlaceDto {
+@Alias("joinPlaceList")
+public class JoinPlaceListDto {
+	//place_tb
 	private int contentId;
 	private String title;
 	private String overview;
@@ -18,4 +19,6 @@ public class PlaceDto {
 	private int areaCode;
 	private String linkedURL;
 	private String firstImage;
+	
+	private int likeCount;
 }

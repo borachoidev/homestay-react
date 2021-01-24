@@ -1,14 +1,11 @@
-package com.bitcamp.korea_tour.model.mapper;
+package com.bitcamp.korea_tour.model.service;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Mapper;
-
 import com.bitcamp.korea_tour.model.PlacePhotoDto;
 
-@Mapper
-public interface PlacePhotoMapper {
-	
+public interface PlacePhotoService {
+
 	void insertData(PlacePhotoDto dto);
 	void deleteData(int photoNum);
 	List<PlacePhotoDto> getDisapprovedDatas();
