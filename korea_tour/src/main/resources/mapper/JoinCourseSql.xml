@@ -8,29 +8,33 @@
 		INNER JOIN place ON place.contentId=coursePlace.contentId
 	</sql>
 	<sql id="courseB">
+		SELECT * FROM coursePlace 
+		INNER JOIN place ON place.contentId=coursePlace.contentId
+	</sql>
+	<sql id="courseC">
 		SELECT * FROM courseMark 
-		LEFR JOIN course ON courseMark.courseNum=course.courseNum
-		LEFR JOIN coursePlace ON course.courseNum=coursePlace.courseNum 
-		LEFR JOIN place ON place.contentId=coursePlace.contentId 
+		LEFT JOIN course ON courseMark.courseNum=course.courseNum
+		LEFT JOIN coursePlace ON course.courseNum=coursePlace.courseNum 
+		LEFT JOIN place ON place.contentId=coursePlace.contentId 
 	</sql>
 	
 	<!-- mypage 기준 -->
 	<!-- 내코스 목록보기 ->(사진은 어차피 1번만가져오면 되니까 orderNum으로 구분) -->
 	<select id="getMyCourseList" parameterType="hashmap" resultType="joincourse">
 		<include refid="courseA"/>
-		WHERE place.orderNum=1 AND course.userNum=#{loginNum} ORDER BY course.courseNum LIMIT #{start},#{perPage}
+		WHERE coursePlace.orderNum=1 AND course.userNum=#{loginNum} ORDER BY course.courseNum LIMIT #{start},#{perPage}
 	</select>
 
 	<!-- 내코스 자세히보기(수정폼) -->
-	<select id="getMyCourseDetail" parameterType="HashMap" resultType="joincourse">
-		<include refid="courseA"/>
-		WHERE course.courseNum=#{courseNum} AND course.userNum=#{loginNum}
+	<select id="getMyCourseDetail" parameterType="HashMap" resultType="joincoursedetail">
+		<include refid="courseB"/>
+		WHERE coursePlace.courseNum=#{courseNum} AND coursePlace.userNum=#{loginNum}
 	</select>
 
 	<!-- 내 즐겨찾기 코스 모아보기 ->userNum으로 내 즐겨찾기만 모아볼수 있도록(사진은 어차피 1번만가져오면 되니까 orderNum으로 구분) -->
-	<select id="getMyMarkCourse" resultType="joincourse" parameterType="HashMap">
-		<include refid="courseB"/>
-		WHERE courseMark.userNum=#{loginNum} AND coursePlace.orderNum=1 ORDER BY course.courseNum LIMIT #{start},#{perPage}
+	<select id="getMyMarkCourse" resultType="joincoursemark" parameterType="HashMap">
+		<include refid="courseC"/>
+		WHERE courseMark.loginNum=#{loginNum} AND coursePlace.orderNum=1 ORDER BY courseMark.courseMarkNum LIMIT #{start},#{perPage}
 	</select>
 	
 	<!-- main페이지 기준 -->
@@ -49,30 +53,30 @@
 	<!-- Nav로 태그 검색한 코스보기(최신순) -->
 	<select id="getTagCourseByTime" resultType="joincourse" parameterType="HashMap">
 		<include refid="courseA"/>
-		WHERE coursePlace.orderNum=1 AND course.open=1 AND course.who=#{tag} OR course.during=#{tag} OR course.how=#{tag} ORDER BY course.courseNum DESC LIMIT #{start},#{perPage}
+		WHERE coursePlace.orderNum=1 AND course.open=1 AND course.who like #{tag} OR course.during like #{tag} OR course.how like #{tag} ORDER BY course.courseNum DESC LIMIT #{start},#{perPage}
 	</select>
 	
 	<!-- Nav로 태그 검색한 코스보기(인기순) -->
 	<select id="getTagCourseByLike" resultType="joincourse" parameterType="HashMap">
 		<include refid="courseA"/>
-		WHERE coursePlace.orderNum=1 AND course.open=1 course.who=#{tag} OR course.during=#{tag} OR course.how=#{tag} ORDER BY course.totalLike DESC LIMIT #{start},#{perPage}
+		WHERE coursePlace.orderNum=1 AND course.open=1 AND course.who like #{tag} OR course.during like #{tag} OR course.how like #{tag} ORDER BY course.totalLike DESC LIMIT #{start},#{perPage}
 	</select>
 	
 	<!-- 통합검색코스(검색어에 해당하는 관광지가 들어있는 코스까지) 검색쿼리 최신순-->
 	<select id="getSearchCourseByTime" parameterType="HashMap" resultType="joincourse">
-		<include refid="courseB"/>
+		<include refid="courseA"/>
         WHERE coursePlace.orderNum = 1 AND course.open=1
-        AND course.name like '%#{keyword}%' OR course.content like '%#{keyword}%'
-        OR place.title like '%#{keyword}%' OR place.areacode like '%#{keyword}%'
+        AND course.name LIKE CONCAT('%', #{keyword}, '%') OR course.content LIKE CONCAT('%', #{keyword}, '%')
+        OR place.title LIKE CONCAT('%', #{keyword}, '%') OR place.addr1 LIKE CONCAT('%', #{keyword}, '%')
         order by course.courseNum DESC LIMIT #{start},#{perPage}
 	</select>
 	
 	<!-- 통합검색코스(검색어에 해당하는 관광지가 들어있는 코스까지) 검색쿼리 인기순-->
 	<select id="getSearchCourseByLike" parameterType="HashMap" resultType="joincourse">
-		<include refid="courseB"/>
+		<include refid="courseA"/>
        	WHERE coursePlace.orderNum = 1 AND course.open=1
-        AND course.name like '%#{keyword}%' OR course.content like '%#{keyword}%'
-        OR place.title like '%#{keyword}%' OR place.areacode like '%#{keyword}%'
+        AND course.name LIKE CONCAT('%', #{keyword}, '%') OR course.content LIKE CONCAT('%', #{keyword}, '%')
+        OR place.title LIKE CONCAT('%', #{keyword}, '%') OR place.addr1 LIKE CONCAT('%', #{keyword}, '%')
         order by course.totalLike DESC LIMIT #{start},#{perPage}
 	</select>
 	
@@ -80,7 +84,7 @@
 	<select id="getCustomCourseByTime" parameterType="hashmap" resultType="joincourse">
 		<include refid="courseA"/>
 		WHERE coursePlace.orderNum=1 AND course.open=1
-        AND course.who=#{who} AND course.during=#{during} AND course.how=#{how}
+        AND course.who LIKE CONCAT('%', #{who}, '%') AND course.during LIKE CONCAT('%', #{during}, '%') AND course.how LIKE CONCAT('%', #{how}, '%')
         ORDER BY course.courseNum DESC LIMIT #{start},#{perPage}
 	</select>
 	
@@ -88,14 +92,14 @@
 	<select id="getCustomCourseByLike" parameterType="hashmap" resultType="joincourse">
 		<include refid="courseA"/>
 		WHERE coursePlace.orderNum=1 AND course.open=1
-        AND course.who=#{who} AND course.during=#{during} AND course.how=#{how}
+        AND course.who LIKE CONCAT('%', #{who}, '%') AND course.during LIKE CONCAT('%', #{during}, '%') AND course.how LIKE CONCAT('%', #{how}, '%')
         ORDER BY course.totalLike DESC LIMIT #{start},#{perPage}
 	</select>
 	
 	<!-- 메인페이지 코스 자세히보기 -->
-	<select id="getCourseDetail" parameterType="int" resultType="joincourse">
-		<include refid="courseA"/>
-		WHERE course.courseNum=#{courseNum}
+	<select id="getCourseDetail" parameterType="int" resultType="joincoursedetail">
+		<include refid="courseB"/>
+		WHERE coursePlace.courseNum=#{courseNum}
 	</select>
 	
 </mapper>

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.bitcamp.korea_tour.model.CourseLikeDto;
 import com.bitcamp.korea_tour.model.mapper.CourseLikeMapper;
+import com.bitcamp.korea_tour.model.mapper.CourseMapper;
 
 import lombok.RequiredArgsConstructor;
 
@@ -14,29 +15,32 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CourseLikeServiceImpl implements CourseLikeService {
 
-	private final CourseLikeMapper mapper;
+	private final CourseLikeMapper courseLikeMapper;
+	private final CourseMapper courseMapper;
 
 	@Override
 	public int getTotalCourseLike(int courseNum) {
 		// TODO Auto-generated method stub
-		return mapper.getTotalCourseLike(courseNum);
+		return courseLikeMapper.getTotalCourseLike(courseNum);
 	}
 
 	@Override
 	public void insertCourseLike(CourseLikeDto dto) {
-		// TODO Auto-generated method stub
-		mapper.insertCourseLike(dto);
+		courseLikeMapper.insertCourseLike(dto);
+		Map<String, Integer> courseLike=new HashMap<String, Integer>();
+		courseLike.put("courseNum", dto.getCourseNum());
+		courseLike.put("totalLike", this.getTotalCourseLike(dto.getCourseNum()));
+		courseMapper.updateCourseTotalLike(courseLike);
 	}
 
 	@Override
-	public void deleteCourseLike(String loginId, int courseNum) {
+	public void deleteCourseLike(int loginNum, int courseNum) {
 		// TODO Auto-generated method stub
-		String CN = Integer.toString(courseNum);
-		Map<String, String>map = new HashMap<String, String>();
-		map.put("loginId", loginId);
-		map.put("courseNum", CN);
-		mapper.deleteCourseLike(map);
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("loginNum", loginNum);
+		map.put("courseNum", courseNum);
+		courseLikeMapper.deleteCourseLike(map);
+		
 	}
-	
 	
 }

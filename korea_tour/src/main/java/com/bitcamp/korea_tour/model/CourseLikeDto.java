@@ -10,5 +10,5 @@ public class CourseLikeDto {
 	private int likeNum;
 	private int userNum;
 	private int courseNum;
-	private String loginId;
+	private String loginNum;
 }

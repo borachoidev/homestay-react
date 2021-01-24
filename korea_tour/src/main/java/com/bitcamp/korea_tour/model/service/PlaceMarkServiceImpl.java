@@ -13,12 +13,6 @@ import lombok.RequiredArgsConstructor;
 public class PlaceMarkServiceImpl implements PlaceMarkService {
 	
 	private final PlaceMarkMapper mapper; 
-	
-	@Override
-	public int getTotalPlaceMark(int userNum) {
-		// TODO Auto-generated method stub
-		return mapper.getTotalPlaceMark(userNum);
-	}
 
 	@Override
 	public void insertPlaceMark(PlaceMarkDto dto) {
