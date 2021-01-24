@@ -9,5 +9,5 @@ import lombok.Data;
 public class PlaceMarkDto {
 	private int markNum;
 	private int userNum;
-	private int placeNum;
+	private int contentId;
 }

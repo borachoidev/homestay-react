@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -52,7 +51,7 @@ public class PlaceApiController {
 		List<PlaceDto> list = service.getAllApiPlace();
 		PlaceDto dto;
 		int fixContentId;
-		for(int i=service.getUpdateStartNum(); i<list.size(); i++) {
+		for(int i=0; i<list.size(); i++) {
 			dto= list.get(i);
 			fixContentId = dto.getContentId();
 			if(service.checkPlace(fixContentId) == 1) {
@@ -61,7 +60,7 @@ public class PlaceApiController {
 			}
 		}
 		
-		return "관광지 디테일 수정 성공";
+		return "contentId " + service.getUpdateStartNum() + "번까지 관광지 디테일 수정 성공";
 	}
 	
 	@ResponseBody
@@ -70,16 +69,22 @@ public class PlaceApiController {
 		TourApi api = new TourApi();
 		List<PlaceDto> plist = service.getAllApiPlace();
 		PlaceDto pdto;
-		for(int i=service2.getCountGroupByContentId(); i<plist.size(); i++) {
+		int insertCount = 0;
+		//int i=service2.getCountToContentId()
+		for(int i=0; i<plist.size(); i++) {
 			System.out.println(i);
 			pdto = plist.get(i);
-			List<PlaceApiPhotoDto> list = api.getAllApiPhotos(String.valueOf(pdto.getContentId()));
-			for (PlaceApiPhotoDto dto : list) {
-//				System.out.println(dto);
-				service2.insertApiPhoto(dto);
+			if(service2.checkIsNewData(pdto.getContentId()) == 0) {
+				List<PlaceApiPhotoDto> list = api.getAllApiPhotos(String.valueOf(pdto.getContentId()));
+				insertCount++;
+				for (PlaceApiPhotoDto dto : list) {
+//					System.out.println(dto);
+					service2.insertApiPhoto(dto);
+				}
+				System.out.println("현재 i:" +i+ "번째, 주입개수:"+insertCount);
 			}
 		}
 		
-		return "관광지 사진 업로드 성공";
+		return service2.getCountToContentId() + "개 관광지 사진 업로드 성공";
 	}
 }

@@ -22,9 +22,15 @@ public class PlaceApiPhotoServiceImpl implements PlaceApiPhotoService {
 	}
 
 	@Override
-	public int getCountGroupByContentId() {
+	public int checkIsNewData(int contentId) {
 		// TODO Auto-generated method stub
-		return mapper.getCountGroupByContentId();
+		return mapper.checkIsNewData(contentId);
+	}
+
+	@Override
+	public int getCountToContentId() {
+		// TODO Auto-generated method stub
+		return mapper.getCountToContentId();
 	}
 
 }
