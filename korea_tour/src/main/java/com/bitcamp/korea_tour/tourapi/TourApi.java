@@ -25,12 +25,14 @@ import com.bitcamp.korea_tour.model.PlaceDto;
 
 public class TourApi {
 
+	public static final String SERVICEKEY = "NW6tljk7s7SPB8RRynBQP4m0MhbdUMZPYMKrZmlAxQR%2BKPiY24jFfQJ979ndXeTT5EEeC3GooG9KMxKJo0ryZg%3D%3D"; 
+	
 	public static String xmlDownload(String a)
 			throws IOException {/* 정적 메소드정의?-> 정적 메소드를 사용하면 JSP에서 객체의 선언 없이 바로 클래스 이름 뒤에 붙여서 활용가능 */
 		StringBuilder urlBuilder1 = new StringBuilder(
 				"http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList"); /* URL */
 		urlBuilder1.append("?" + URLEncoder.encode("ServiceKey", "UTF-8")
-				+ "=rBYqkzdDbvRy%2B75qtmMeAj36uvTFAFtjU0kjR3VImh0OcxuepKe7BvjaOowdie%2FIPYSZI4EiIwFGxJIZwCilVA%3D%3D"); 
+				+ "=" + SERVICEKEY); 
 		urlBuilder1.append("&" + URLEncoder.encode("contentTypeId", "UTF-8") + "=" + URLEncoder.encode("12", "UTF-8"));
 		urlBuilder1.append("&" + URLEncoder.encode("areaCode", "UTF-8") + "=" + URLEncoder.encode("", "UTF-8"));
 		/* areaCode {1:서울, 2:인천, 3:대전, 4:대구, 5:광주, 6:부산, 7:울산, 8:세종특별자치시, 31:경기도, 32:강원도, 
@@ -71,7 +73,7 @@ public class TourApi {
 		StringBuilder urlBuilder2 = new StringBuilder(
 				"http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon"); /* URL */
 		urlBuilder2.append("?" + URLEncoder.encode("ServiceKey", "UTF-8")
-				+ "=J6mYbSnY7wAwpPP3JTK2bE67pCi7ph2qbw%2B%2FG4Wb1RZY47YJPVGavCpYegxJ6tAypnZmKB8Zncy0UTHFbYZgrw%3D%3D"); 
+				+ "=" + SERVICEKEY); 
 		urlBuilder2.append("&" + URLEncoder.encode("contentTypeId", "UTF-8") + "=" + URLEncoder.encode("12", "UTF-8"));
 		urlBuilder2.append("&" + URLEncoder.encode("contentId", "UTF-8") + "=" + URLEncoder.encode(contentid, "UTF-8"));
 		urlBuilder2.append("&" + URLEncoder.encode("MobileOS", "UTF-8") + "=" + URLEncoder.encode("ETC", "UTF-8"));
@@ -112,7 +114,7 @@ public class TourApi {
 		StringBuilder urlBuilder = new StringBuilder(
 				"http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailImage"); /* URL */
 		urlBuilder.append("?" + URLEncoder.encode("ServiceKey", "UTF-8")
-				+ "=zoMLmuPPCaKa32otA342dJYIJoxkm%2FkWyNka0iDgtNJwgKi%2BzK%2FpGPJ122JSSTJfTeLQMicc8BLLZ66qlaLgEw%3D%3D"); 
+				+ "=" + SERVICEKEY); 
 		urlBuilder.append("&" + URLEncoder.encode("contentTypeId", "UTF-8") + "=" + URLEncoder.encode("12", "UTF-8"));
 		urlBuilder.append("&" + URLEncoder.encode("MobileOS", "UTF-8") + "=" + URLEncoder.encode("ETC", "UTF-8"));
 		urlBuilder.append("&" + URLEncoder.encode("MobileApp", "UTF-8") + "=" + URLEncoder.encode("TourAPI3.0_Guide", "UTF-8"));
