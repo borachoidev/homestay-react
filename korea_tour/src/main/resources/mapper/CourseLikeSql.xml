@@ -13,4 +13,8 @@
 	<select id="getCourseLike" parameterType="int" resultType="courselike">
 		select * from courseLike where courseNum=#{courseNum}
 	</select>
+		<!-- 해당 코스 좋아요된 개수 -->
+	<select id="getCoursLikeTotal" parameterType="int" resultType="int">
+		select count(*) from courseLike where courseNum=#{courseNum}
+	</select>
 </mapper>

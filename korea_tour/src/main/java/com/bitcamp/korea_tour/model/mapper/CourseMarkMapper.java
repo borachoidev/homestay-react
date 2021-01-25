@@ -17,4 +17,5 @@ public interface CourseMarkMapper {
 	void deleteCourseMark(int courseMarkNum);
 	List<CourseMarkDto> getCourseMark(int courseNum);
 	int getMyCourseMarkCount(int loginNum);
+	int getCourseMarkTotal(int courseNum);
 }

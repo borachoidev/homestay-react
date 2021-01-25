@@ -6,8 +6,10 @@ import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bitcamp.korea_tour.model.CourseDto;
 import com.bitcamp.korea_tour.model.JoinCourseDto;
 import com.bitcamp.korea_tour.model.service.course.JoinCourseMainService;
 import com.bitcamp.korea_tour.model.service.course.JoinCourseSearchService;
@@ -28,10 +30,10 @@ public class CourseMainController {
 	 * @param currentPage
 	 * @return 전체 코스 목록
 	 */
-	@GetMapping("/courses/{sortType}/{currentPage}")
+	@GetMapping(value="/courses/{sortType}/{currentPage}")
 	public JsonData<List<JoinCourseDto>> getAllCourse(
-			@PathVariable String sortType, 
-			@PathVariable int currentPage
+			@PathVariable(value="sortType") String sortType, 
+			@PathVariable(value="currentPage") int currentPage
 			) {
 		int totalCount;
 		int start;
@@ -51,11 +53,11 @@ public class CourseMainController {
 		return new JsonData<List<JoinCourseDto>>(list);
 	}
 	
-	@GetMapping("/courses/{searchType}/{sortType}/{currentPage}")
+	@GetMapping(value="/courses/{searchType}/{sortType}/{currentPage}")
 	public JsonData<List<JoinCourseDto>> getSearchCourse(
-			@PathVariable String searchType,
-			@PathVariable String sortType, 
-			@PathVariable int currentPage,
+			@PathVariable(value="searchType") String searchType,
+			@PathVariable(value="sortType") String sortType, 
+			@PathVariable(value="currentPage") int currentPage,
 			@ModelAttribute SearchDto searchDto
 			) {
 		int start;
@@ -112,6 +114,24 @@ public class CourseMainController {
 		return new JsonData<List<JoinCourseDto>>(list);
 	}
 	
+	@GetMapping(value="/courses")
+	public JsonData<List<CourseName>> getCourseNameList(
+			@RequestParam(value="loginNum") int loginNum
+			) {
+
+		List<CourseDto> course=joinCourseMainService.getMyCourseName(loginNum);
+		
+		List<CourseName> list=new ArrayList<CourseName>();
+
+		for(CourseDto c:course) {
+			CourseName courseName=new CourseName(c.getCourseNum(), c.getName());
+			list.add(courseName);
+		}
+		
+		return new JsonData<List<CourseName>>(list);
+	}
+	
+	
 	@Data
 	@AllArgsConstructor
 	static class JsonData<T> {
@@ -127,4 +147,12 @@ public class CourseMainController {
 		private String during;
 		private String how;
 	}
+	
+	@Data
+	@AllArgsConstructor
+	static class CourseName {
+		private int courseNum;
+		private String courseName;
+	}
+	
 }

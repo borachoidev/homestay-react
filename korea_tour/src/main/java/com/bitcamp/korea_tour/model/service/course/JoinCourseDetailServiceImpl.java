@@ -64,4 +64,15 @@ public class JoinCourseDetailServiceImpl implements JoinCourseDetailService {
 		List<JoinCourseDetailDto> list=joinCourseDetailMapper.getMyCourseDetail(nums);
 		return list;
 	}
+	
+	@Override
+	public int getCourseMarkTotal(int courseNum) {
+		return courseMarkMapper.getCourseMarkTotal(courseNum);
+	}
+	
+	@Override
+	public int getCourseLikeTotal(int courseNum) {
+		return courseLikeMapper.getCoursLikeTotal(courseNum);
+	}
+	
 }
