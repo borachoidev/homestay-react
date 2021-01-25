@@ -43,7 +43,7 @@ public class JoinCourseMyServiceImpl implements JoinCourseMyService {
 	}
 	
 	@Override
-	public int getMartTotalCount(int loginNum) {
+	public int getMarkTotalCount(int loginNum) {
 		return joinCourseMyMapper.getMarkTotalCount(loginNum);
 	}
 	

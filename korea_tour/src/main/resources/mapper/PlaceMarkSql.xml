@@ -14,7 +14,7 @@
 	</delete>
 	<!-- 내가 즐겨찾기한 관광지의 개수 -->
  	<select id="getAllMyPlaceMarkCount" parameterType="int" resultType="int">
-		select count(*) from place_mark where userNum=#{loginNum}
+		select count(*) from placeMark where userNum=#{loginNum}
 	</select>
 
 
