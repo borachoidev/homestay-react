@@ -8,9 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.bitcamp.korea_tour.model.CourseDto;
 import com.bitcamp.korea_tour.model.CourseLikeDto;
-import com.bitcamp.korea_tour.model.CourseMarkDto;
 import com.bitcamp.korea_tour.model.JoinCourseDetailDto;
-import com.bitcamp.korea_tour.model.JoinCourseDto;
 import com.bitcamp.korea_tour.model.mapper.CourseLikeMapper;
 import com.bitcamp.korea_tour.model.mapper.CourseMapper;
 import com.bitcamp.korea_tour.model.mapper.CourseMarkMapper;
@@ -39,8 +37,16 @@ public class JoinCourseDetailServiceImpl implements JoinCourseDetailService {
 	}
 	
 	@Override
-	public List<CourseMarkDto> getCourseMark(int courseNum) {
-		return courseMarkMapper.getCourseMark(courseNum);
+	public int getCourseMarkTotalCount(int courseNum) {
+		return courseMarkMapper.getCourseMarkTotalCount(courseNum);
+	}
+	
+	@Override
+	public int hasCourseMark(int courseNum, int loginNum) {
+		Map<String, Integer> nums=new HashMap<String, Integer>();
+		nums.put("courseNum", courseNum);
+		nums.put("loginNum", loginNum);
+		return courseMarkMapper.hasCourseMark(nums);
 	}
 	
 	@Override

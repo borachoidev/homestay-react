@@ -23,6 +23,8 @@ public class JoinCourseMainServiceImpl implements JoinCourseMainService {
 		paging.put("start", start);
 		paging.put("perPage", perPage);
 		List<JoinCourseDto> list=joinCourseMainMapper.getAllCourseByTime(paging);
+		
+		System.out.println(joinCourseMainMapper);
 		return list;
 	}
 
