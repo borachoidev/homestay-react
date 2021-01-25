@@ -10,4 +10,8 @@
 	<select id="getCourseMark" parameterType="int" resultType="courseMark">
 		select * from courseMark where courseNum=#{courseNum} 
 	</select>
+	<!-- 내가 즐겨찾기한 코스의 개수 -->
+ 	<select id="getMyCourseMarkCount" parameterType="int" resultType="int">
+		select count(*) from courseMark where userNum=#{loginNum}
+	</select>
 </mapper>
