@@ -3,7 +3,6 @@ package com.bitcamp.korea_tour.controller;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,6 +34,8 @@ public class CourseController {
 		start=pagingService.getPagingData(totalCount, currentPage).get("start");
 		perPage=pagingService.getPagingData(totalCount, currentPage).get("perPage");
 		List<JoinCourseDto> list=joinCourseMainService.getAllCourseByTime(start, perPage);
+		System.out.println(currentPage);  
+		System.out.println("controller:"+start+","+perPage);
 		return new JsonData<List<JoinCourseDto>>(list);
 	}
 	
@@ -43,18 +44,6 @@ public class CourseController {
 		CourseDto courseDto=joinCourseDetailService.getCourseData(courseNum);
 		List<JoinCourseDetailDto> list=joinCourseDetailService.getCourseDetail(courseNum);
 		return new JsonDataList(courseDto, list);
-	}
-	
-	@GetMapping("/courses/{searchType}/{sortType}")  ///courses/{searchType}/{sortType}?who=?&how=...
-	public void getString(
-			@PathVariable String searchType,
-			@PathVariable String sortType, 
-			@ModelAttribute MyDto model) {
-
-		System.out.println(model);
-		
-		
-		
 	}
 	
 	
@@ -71,14 +60,4 @@ public class CourseController {
 		private List<JoinCourseDetailDto> list;  //list
 	}
 
-	
-	@Data
-	@AllArgsConstructor
-	static class MyDto {
-		private String tag;
-		private String keyword;
-		private String who;
-		private String during;
-		private String how;
-	}
 }

@@ -17,5 +17,4 @@ public class JoinCourseDetailDto {
 	private String firstImage;
 	private String overview;
 	private String addr1;
-	
 }
