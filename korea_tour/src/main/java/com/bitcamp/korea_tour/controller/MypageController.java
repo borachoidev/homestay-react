@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -106,7 +107,7 @@ public class MypageController implements SessionNames {
 		HttpSession session = request.getSession();
 		UserDto user = (UserDto)session.getAttribute(USER);
 		int loginNum = user.getUserNum();
-		
+
 		totalCount=jcms.getMyTotalCount(loginNum);
 		start=pagingService.getPagingData(totalCount, currentPage).get("start");
 		perPage=pagingService.getPagingData(totalCount, currentPage).get("perPage");
@@ -119,6 +120,12 @@ public class MypageController implements SessionNames {
 	public String getMyCourseList() {
 
 		return "mypage/courselist";
+	}
+
+	//My페이지에서 즐겨찾기 취소
+	@DeleteMapping(value = "/coursemarks/{courseMarkNum}")
+	public void deleteMark(@PathVariable int courseMarkNum) {
+		cms.deleteCourseMark(courseMarkNum);
 	}
 
 	//////////////////////////////////////////////////////////////////////
