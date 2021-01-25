@@ -3,9 +3,7 @@ package com.bitcamp.korea_tour.model.mapper;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.type.Alias;
 
-import com.bitcamp.korea_tour.model.CourseDto;
 import com.bitcamp.korea_tour.model.CoursePlaceDto;
 
 @Mapper
@@ -15,6 +13,7 @@ public interface CoursePlaceMapper {
 	//3. 코스안에 관광지 개수 세기
 
 	void insertCoursePlace(CoursePlaceDto dto);
-	void deleteForNewCoursePlace(int courseNum);
+	void deleteCoursePlace(int coursePlaceNum);
 	int getTotalCoursePlace(int courseNum);
+	void updateCoursePlace(Map<String, Integer> map);
 }
