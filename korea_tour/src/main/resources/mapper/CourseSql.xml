@@ -25,4 +25,8 @@
 	<select id="getMyCourseData" parameterType="HashMap" resultType="course">
 		select * from course where courseNum=#{courseNum} and userNum=#{loginNum}
 	</select>
+	<!-- 내 코스 이름 보기 -->
+	<select id="getMyCourseName" parameterType="int" resultType="course">
+		select * from course where userNum=#{loginNum}
+	</select>
 </mapper>

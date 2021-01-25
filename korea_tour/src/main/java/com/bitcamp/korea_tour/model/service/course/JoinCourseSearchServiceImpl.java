@@ -82,6 +82,7 @@ public class JoinCourseSearchServiceImpl implements JoinCourseSearchService {
 
 	@Override
 	public int getTagTotalCount(String tag) {
+		System.out.println("service:"+joinCourseSearchMapper.getTagTotalCount(tag));
 		return joinCourseSearchMapper.getTagTotalCount(tag);
 	}
 
