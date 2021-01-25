@@ -7,4 +7,5 @@ public interface CourseService {
 	void deleteMyCourse(int courseNum);
 	void updateShare(int courseNum);
 	void updateCourseDetail(CourseDto dto);
+	int getMyCourseCount(int loginNum);
 }

@@ -26,9 +26,9 @@ public class PlaceMarkServiceImpl implements PlaceMarkService {
 	}
 
 	@Override
-	public int getAllMyPlaceMarkCount() {
+	public int getAllMyPlaceMarkCount(int loginNum) {
 		// TODO Auto-generated method stub
-		return mapper.getAllMyPlaceMarkCount();
+		return mapper.getAllMyPlaceMarkCount(loginNum);
 	}
 
 }
