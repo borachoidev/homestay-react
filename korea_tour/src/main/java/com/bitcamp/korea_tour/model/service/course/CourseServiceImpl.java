@@ -38,5 +38,11 @@ public class CourseServiceImpl implements CourseService {
 	public void updateCourseDetail(CourseDto dto) {
 		courseMapper.updateCourseDetail(dto);
 	}
+
+	@Override
+	public int getMyCourseCount(int loginNum) {
+		// TODO Auto-generated method stub
+		return courseMapper.getMyCourseCount(loginNum);
+	}
 	
 }

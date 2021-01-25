@@ -13,6 +13,9 @@
 	<update id="updateCourseDetail" parameterType="course"><!-- 코스detail에서 내 코스 수정(orderNum뺴고 : coursePlace) -->
 		update course set name=#{name},content=#{content},open=#{open},who=#{who},during=#{during},how=#{how} where courseNum=#{courseNum} 
 	</update>
+ 	<select id="getMyCourseCount" parameterType="int" resultType="int"><!-- 내가 만든 코스의 개수 -->
+		select count(*) from course where userNum=#{loginNum}
+	</select>
 	<update id="updataCourseTotalLike" parameterType="HashMap">
 		update course set totalLike=#{totalLike} where courseNum=#{courseNum}
 	</update>
