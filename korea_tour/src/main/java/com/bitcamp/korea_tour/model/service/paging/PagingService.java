@@ -1,5 +1,8 @@
 package com.bitcamp.korea_tour.model.service.paging;
 
+import java.util.List;
+import java.util.Map;
+
 import com.bitcamp.korea_tour.model.PagingDto;
 
 public interface PagingService {
@@ -22,5 +25,5 @@ public interface PagingService {
 		17. 메인페이지 코스검색목록(and로 모든 코스태그 일치하는 데이터만 출력) -`페이징`  JoinCourseMapper
 		23. 사용자 목록
 	*/
-	PagingDto getPagingData(int totalCount, int currentPage);
+	Map<String, Integer> getPagingData(int totalCount, int currentPage);
 }

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bitcamp.korea_tour.model.mapper.JoinCourseSearchMapper">
+
+	<sql id="courseA">  <!-- 메인코스목록 / 마이코스목록 / 검색코스 목록-->
+		SELECT * FROM course 
+		INNER JOIN coursePlace ON course.courseNum=coursePlace.courseNum 
+		INNER JOIN place ON place.contentId=coursePlace.contentId
+	</sql>
+	<sql id="courseCnt">
+		SELECT count(*) FROM course 
+		INNER JOIN coursePlace ON course.courseNum=coursePlace.courseNum 
+		INNER JOIN place ON place.contentId=coursePlace.contentId
+	</sql>
+
+	<!-- Nav로 태그 검색한 코스보기(최신순) -->
+	<select id="getTagCourseByTime" resultType="joincourse" parameterType="HashMap">
+		<include refid="courseA"/>
+		WHERE coursePlace.orderNum=1 AND course.open=1 
+		AND course.who like #{tag} 
+		OR course.during like #{tag} 
+		OR course.how like #{tag} 
+		ORDER BY course.courseNum DESC 
+		LIMIT #{start},#{perPage}
+	</select>
+	
+	<!-- Nav로 태그 검색한 코스보기(인기순) -->
+	<select id="getTagCourseByLike" resultType="joincourse" parameterType="HashMap">
+		<include refid="courseA"/>
+		WHERE coursePlace.orderNum=1 AND course.open=1 
+		AND course.who like #{tag} 
+		OR course.during like #{tag} 
+		OR course.how like #{tag} 
+		ORDER BY course.totalLike DESC 
+		LIMIT #{start},#{perPage}
+	</select>
+	
+	<!-- 통합검색코스(검색어에 해당하는 관광지가 들어있는 코스까지) 검색쿼리 최신순-->
+	<select id="getSearchCourseByTime" parameterType="HashMap" resultType="joincourse">
+		<include refid="courseA"/>
+        WHERE coursePlace.orderNum = 1 AND course.open=1
+        AND course.name LIKE CONCAT('%', #{keyword}, '%') 
+        OR course.content LIKE CONCAT('%', #{keyword}, '%')
+        OR place.title LIKE CONCAT('%', #{keyword}, '%') 
+        OR place.addr1 LIKE CONCAT('%', #{keyword}, '%')
+        ORDER BY course.courseNum DESC 
+        LIMIT #{start},#{perPage}
+	</select>
+	
+	<!-- 통합검색코스(검색어에 해당하는 관광지가 들어있는 코스까지) 검색쿼리 인기순-->
+	<select id="getSearchCourseByLike" parameterType="HashMap" resultType="joincourse">
+		<include refid="courseA"/>
+       	WHERE coursePlace.orderNum = 1 AND course.open=1
+        AND course.name LIKE CONCAT('%', #{keyword}, '%') 
+        OR course.content LIKE CONCAT('%', #{keyword}, '%')
+        OR place.title LIKE CONCAT('%', #{keyword}, '%') 
+        OR place.addr1 LIKE CONCAT('%', #{keyword}, '%')
+        ORDER BY course.totalLike DESC 
+        LIMIT #{start},#{perPage}
+	</select>
+	
+	<!-- 맞춤코스 검색(최신순) -->
+	<select id="getCustomCourseByTime" parameterType="hashmap" resultType="joincourse">
+		<include refid="courseA"/>
+		WHERE coursePlace.orderNum=1 AND course.open=1
+        AND course.who LIKE CONCAT('%', #{who}, '%') 
+        AND course.during LIKE CONCAT('%', #{during}, '%') 
+        AND course.how LIKE CONCAT('%', #{how}, '%')
+        ORDER BY course.courseNum DESC 
+        LIMIT #{start},#{perPage}
+	</select>
+	
+	<!-- 맞춤코스 검색(인기순) -->
+	<select id="getCustomCourseByLike" parameterType="hashmap" resultType="joincourse">
+		<include refid="courseA"/>
+		WHERE coursePlace.orderNum=1 AND course.open=1
+        AND course.who LIKE CONCAT('%', #{who}, '%') 
+        AND course.during LIKE CONCAT('%', #{during}, '%') 
+        AND course.how LIKE CONCAT('%', #{how}, '%')
+        ORDER BY course.totalLike DESC 
+        LIMIT #{start},#{perPage}
+	</select>
+	
+	
+	<!-- 코스검색 목록 총갯수 -->
+	<!-- Nav태그 검색 -->
+	<select id="getTagTotalCount" resultType="int" parameterType="String">
+		<include refid="courseCnt"/>
+			WHERE coursePlace.orderNum=1 AND course.open=1 
+			AND course.who like #{tag} 
+			OR course.during like #{tag} 
+			OR course.how like #{tag}
+	</select>	
+	
+	<!-- 통합검색 -->
+	<select id="getSearchTotalCount" resultType="int" parameterType="String">
+		<include refid="courseCnt"/>
+			WHERE coursePlace.orderNum = 1 AND course.open=1
+	        AND course.name LIKE CONCAT('%', #{keyword}, '%') 
+	        OR course.content LIKE CONCAT('%', #{keyword}, '%')
+	        OR place.title LIKE CONCAT('%', #{keyword}, '%') 
+	        OR place.addr1 LIKE CONCAT('%', #{keyword}, '%')
+	</select>	
+	
+	<!-- 맞춤코스 검색 -->
+	<select id="getCustomTotalCount" resultType="int" parameterType="HashMap">
+		<include refid="courseCnt"/>
+			WHERE coursePlace.orderNum=1 AND course.open=1
+	        AND course.who LIKE CONCAT('%', #{who}, '%') 
+	        AND course.during LIKE CONCAT('%', #{during}, '%') 
+	        AND course.how LIKE CONCAT('%', #{how}, '%')
+	</select>
+</mapper>

@@ -3,7 +3,6 @@ package com.bitcamp.korea_tour.model.service;
 import org.springframework.stereotype.Service;
 
 import com.bitcamp.korea_tour.model.PlaceMarkDto;
-import com.bitcamp.korea_tour.model.mapper.CourseMarkMapper;
 import com.bitcamp.korea_tour.model.mapper.PlaceMarkMapper;
 
 import lombok.RequiredArgsConstructor;

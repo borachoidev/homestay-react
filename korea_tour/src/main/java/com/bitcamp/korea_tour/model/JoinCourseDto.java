@@ -17,7 +17,6 @@ public class JoinCourseDto {
 	private String how;
 	
 //	courseplace_tb
-	private int contentId;
 	
 //	place_tb
 	private String firstImage;
