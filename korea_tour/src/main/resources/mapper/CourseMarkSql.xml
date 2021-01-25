@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bitcamp.korea_tour.model.mapper.CourseMarkMapper">
 	<insert id="insertCourseMark" parameterType="coursemark">
-		insert into courseMark (userNum,courseNum) values (#{loginNum},#{courseNum})
+		insert into courseMark (userNum,courseNum,loginNum) values (#{userNum},#{courseNum},#{loginNum})
 	</insert>
 	<delete id="deleteCourseMark" parameterType="int">
 		delete from courseMark where courseMarkNum=#{courseMarkNum}
@@ -12,6 +12,6 @@
 	</select>
 	<!-- 내가 즐겨찾기한 코스의 개수 -->
  	<select id="getMyCourseMarkCount" parameterType="int" resultType="int">
-		select count(*) from courseMark where userNum=#{loginNum}
+		select count(*) from courseMark where loginNum=#{loginNum}
 	</select>
 </mapper>
