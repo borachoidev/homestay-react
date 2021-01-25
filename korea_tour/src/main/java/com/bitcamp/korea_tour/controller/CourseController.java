@@ -58,7 +58,6 @@ public class CourseController {
 	}
 	
 	
-	
 	@Data
 	@AllArgsConstructor
 	static class JsonData<T> {
