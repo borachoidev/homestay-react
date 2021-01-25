@@ -127,8 +127,8 @@ public class NaverOauth implements OauthService {
 	        } finally {
 	            // clear resources
 	        }
-	        
-	        userDto.setName(userInfo.path("response").path("nickname").asText());
+	        System.out.println(userInfo.path("response").path("name").asText());
+	        userDto.setName(userInfo.path("response").path("name").asText());
 	        userDto.setPhoto(userInfo.path("response").path("profile_image").asText());
 	        userDto.setNaverKey(userInfo.path("response").path("id").asText());
 	        userDto.setKakaoKey(null);
