@@ -20,16 +20,20 @@
 		select count(*) from place where areaCode=#{areaCode}
 	</select>
 	<!-- 제목순/좋아요순/지역태그 : param={"order" : "like"or"title", "areaCode":areacode or 100(전체)} -->
-	<select id="searchPlaceByTitle" parameterType="hashmap" resultType="place"> 
+	<select id="searchPlaceByTitle" parameterType="hashmap" resultType="joinPlaceList"> 
 		<if test="(order.equals('title')) and areaCode==100"> <!-- 제목순,전체 -->
-			select * from place ORDER BY (CASE 
+			select p.contentId,p.title,p.overview,p.addr1,p.addr2,p.mapX,p.mapY,p.mLevel,p.areaCode,p.linkedURL,p.firstImage,l.likeCount 
+		 	from place p join (select contentId, count(loginId) as likeCount from placeLike group by contentId) l on p.contentId=l.contentId 
+		 	ORDER BY (CASE 
 			WHEN SUBSTRING(title,1) BETWEEN '가' AND '힣' THEN 1 
 			WHEN ASCII(SUBSTRING(title,1)) BETWEEN 65 AND 90 THEN 2 
 			WHEN ASCII(SUBSTRING(title,1)) BETWEEN 97 AND 122 THEN 3 
 			WHEN ASCII(SUBSTRING(title,1)) BETWEEN 48 AND 57 THEN 4 ELSE 5 END), title LIMIT #{start},#{perPage}
 		</if>
 		<if test="(order.equals('title')) and areaCode!=100"> <!-- 제목순,지역태그 -->
-			select * from place where areaCode=#{areaCode} ORDER BY (CASE 
+			select p.contentId,p.title,p.overview,p.addr1,p.addr2,p.mapX,p.mapY,p.mLevel,p.areaCode,p.linkedURL,p.firstImage,l.likeCount 
+		 	from place p join (select contentId, count(loginId) as likeCount from placeLike group by contentId) l on p.contentId=l.contentId 
+		 	where p.contentId=#{contentId} ORDER BY (CASE 
 			WHEN SUBSTRING(title,1) BETWEEN '가' AND '힣' THEN 1 
 			WHEN ASCII(SUBSTRING(title,1)) BETWEEN 65 AND 90 THEN 2 
 			WHEN ASCII(SUBSTRING(title,1)) BETWEEN 97 AND 122 THEN 3 

@@ -47,7 +47,7 @@ public class JoinPlaceServiceImpl implements JoinPlaceService{
 	}
 
 	@Override
-	public List<PlaceDto> searchPlaceByTitle(Map<String, Object> map) {
+	public List<JoinPlaceListDto> searchPlaceByTitle(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return mapper.searchPlaceByTitle(map);
 	}

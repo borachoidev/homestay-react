@@ -19,7 +19,7 @@ public interface JoinPlaceMapper {
 	List<PlaceDto> getFourDatasByRandom();
 	int getTotalCount();
 	int getTotalCountInArea(int areaCode);
-	List<PlaceDto> searchPlaceByTitle(Map<String, Object> map);
+	List<JoinPlaceListDto> searchPlaceByTitle(Map<String, Object> map);
 	List<JoinPlaceListDto> searchPlaceByLike(Map<String, Object> map);
 	PlaceDto getPlaceDetail(int contentId);
 	List<PlaceApiPhotoDto> getPlaceDetailApiPhotos(int contentId);

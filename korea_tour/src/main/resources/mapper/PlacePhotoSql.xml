@@ -15,7 +15,7 @@
 	<!-- 관광지Detail -->
 	<insert id="insertData" parameterType="placePhoto">
 		insert into placePhoto (contentId,approval,image,loginId) 
-		values(#{contentId},#{approval},#{image},#{loginId})
+		values(#{contentId},0,#{image},#{loginId})
 	</insert>
 	<delete id="deleteData" parameterType="int">
 		delete * from placePhoto where photoNum=#{photoNum}
