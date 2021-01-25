@@ -9,6 +9,8 @@ public class PagingDto {
 	private int endPage;
 	private int totalCount;
 	private int totalPage;
+	private int perPage;
+	private int perBlock;
 	private int start;
 	private int end;
 }

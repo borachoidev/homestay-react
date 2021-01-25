@@ -6,7 +6,6 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import com.bitcamp.korea_tour.model.CourseDto;
-import com.bitcamp.korea_tour.model.mapper.CourseLikeMapper;
 import com.bitcamp.korea_tour.model.mapper.CourseMapper;
 
 import lombok.RequiredArgsConstructor;
