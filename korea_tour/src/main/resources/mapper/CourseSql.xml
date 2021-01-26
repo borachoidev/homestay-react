@@ -16,9 +16,6 @@
  	<select id="getMyCourseCount" parameterType="int" resultType="int"><!-- 내가 만든 코스의 개수 -->
 		select count(*) from course where userNum=#{loginNum}
 	</select>
-	<update id="updataCourseTotalLike" parameterType="HashMap">
-		update course set totalLike=#{totalLike} where courseNum=#{courseNum}
-	</update>
 	<select id="getCourseData" parameterType="int" resultType="course">
 		select * from course where courseNum=#{courseNum}
 	</select>
