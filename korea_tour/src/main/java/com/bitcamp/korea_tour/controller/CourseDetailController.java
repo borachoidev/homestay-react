@@ -61,7 +61,7 @@ public class CourseDetailController {
 		return new JsonDataList(courseDto, coursePlaceList, markLikeData);
 	}
 	//디테일페이지에서 코스 좋아요하기
-	@PostMapping(value = "/coursemarks")
+	@PostMapping(value = "/courselikes")
 	public void insertCourseLike(@RequestBody CourseLikeDto dto) {
 		cls.insertCourseLike(dto);
 	}
