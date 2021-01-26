@@ -3,6 +3,8 @@ import { Button, TextField } from '@material-ui/core';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
+import MapContainer from './MapContainer';
+import PostCodeSearch from './PostCodeSearch';
 
 export default function FormHostInfo(props) {
   const [state, setState] = useState({
@@ -19,7 +21,7 @@ export default function FormHostInfo(props) {
 
   return (
     <div>
-      <Button></Button>
+      <MapContainer />
       <TextField
         label="주소"
         margin="normal"
@@ -41,7 +43,6 @@ export default function FormHostInfo(props) {
         name="email1"
         onChange={handleChange}
       />
-
       <TextField
         label="도메인"
         margin="normal"
@@ -70,6 +71,7 @@ export default function FormHostInfo(props) {
         name="hp"
         onChange={handleChange}
       />
+      <PostCodeSearch />c
     </div>
   );
 }
