@@ -41,7 +41,7 @@ public class MypageController implements SessionNames {
 	private final CourseService cs;
 	private final JoinCourseMyService jcms;
 	private final TourAnswerService tas;
-	
+
 	//페이징	
 	private final PagingService pagingService;
 
@@ -65,11 +65,14 @@ public class MypageController implements SessionNames {
 		int totalmycourse = cs.getMyCourseCount(loginNum);
 
 		//나의 댓글 개수 찾기
-
+		int myanswer = tas.getTotalCountCourseAnswer(loginNum);
+		int myreanswer = tas.getTotalCountCourseReAnswer(loginNum);
+		int totalmyanswer = myanswer+myreanswer;
 		//보내기
 		Map<String, Integer> mypagecount = new HashMap<String, Integer>();
 		mypagecount.put("totalMark", totalMark);
 		mypagecount.put("totalmycourse", totalmycourse);
+		mypagecount.put("totalmyanswer", totalmyanswer);
 		//System.out.println(mypagecount);
 
 		Gson gson = new Gson();
