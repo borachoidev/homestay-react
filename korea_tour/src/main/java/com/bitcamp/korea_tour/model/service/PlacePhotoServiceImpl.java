@@ -1,5 +1,6 @@
 package com.bitcamp.korea_tour.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -28,15 +29,21 @@ public class PlacePhotoServiceImpl implements PlacePhotoService{
 	}
 
 	@Override
-	public List<PlacePhotoDto> getDisapprovedDatas() {
+	public List<PlacePhotoDto> getDisapprovedDatas(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub
-		return mapper.getDisapprovedDatas();
+		return mapper.getDisapprovedDatas(map);
 	}
 
 	@Override
 	public void approvePhoto(int photoNum) {
 		// TODO Auto-generated method stub
 		mapper.approvePhoto(photoNum);
+	}
+
+	@Override
+	public int getTotalCount() {
+		// TODO Auto-generated method stub
+		return mapper.getTotalCount();
 	}
 
 }

@@ -20,38 +20,34 @@
 		select count(*) from place where areaCode=#{areaCode}
 	</select>
 	<!-- 제목순/좋아요순/지역태그 : param={"order" : "like"or"title", "areaCode":areacode or 100(전체)} -->
-	<select id="searchPlaceByTitle" parameterType="hashmap" resultType="joinPlaceList"> 
-		<if test="(order.equals('title')) and areaCode==100"> <!-- 제목순,전체 -->
-			select p.contentId,p.title,p.overview,p.addr1,p.addr2,p.mapX,p.mapY,p.mLevel,p.areaCode,p.linkedURL,p.firstImage,l.likeCount 
-		 	from place p join (select contentId, count(loginId) as likeCount from placeLike group by contentId) l on p.contentId=l.contentId 
-		 	ORDER BY (CASE 
-			WHEN SUBSTRING(title,1) BETWEEN '가' AND '힣' THEN 1 
-			WHEN ASCII(SUBSTRING(title,1)) BETWEEN 65 AND 90 THEN 2 
-			WHEN ASCII(SUBSTRING(title,1)) BETWEEN 97 AND 122 THEN 3 
-			WHEN ASCII(SUBSTRING(title,1)) BETWEEN 48 AND 57 THEN 4 ELSE 5 END), title LIMIT #{start},#{perPage}
-		</if>
-		<if test="(order.equals('title')) and areaCode!=100"> <!-- 제목순,지역태그 -->
-			select p.contentId,p.title,p.overview,p.addr1,p.addr2,p.mapX,p.mapY,p.mLevel,p.areaCode,p.linkedURL,p.firstImage,l.likeCount 
-		 	from place p join (select contentId, count(loginId) as likeCount from placeLike group by contentId) l on p.contentId=l.contentId 
-		 	where p.contentId=#{contentId} ORDER BY (CASE 
-			WHEN SUBSTRING(title,1) BETWEEN '가' AND '힣' THEN 1 
-			WHEN ASCII(SUBSTRING(title,1)) BETWEEN 65 AND 90 THEN 2 
-			WHEN ASCII(SUBSTRING(title,1)) BETWEEN 97 AND 122 THEN 3 
-			WHEN ASCII(SUBSTRING(title,1)) BETWEEN 48 AND 57 THEN 4 ELSE 5 END), title LIMIT #{start},#{perPage}
-		</if>
+	<select id="searchPlaceByTitleInArea" parameterType="hashmap" resultType="joinPlaceList"> <!-- 제목순,지역태그 --> 
+		select p.contentId,p.title,p.overview,p.addr1,p.addr2,p.mapX,p.mapY,p.mLevel,p.areaCode,p.linkedURL,p.firstImage,l.likeCount 
+	 	from place p join (select contentId, count(loginId) as likeCount from placeLike group by contentId) l on p.contentId=l.contentId 
+	 	where p.areaCode=#{areaCode} ORDER BY (CASE 
+		WHEN SUBSTRING(title,1) BETWEEN '가' AND '힣' THEN 1 
+		WHEN ASCII(SUBSTRING(title,1)) BETWEEN 65 AND 90 THEN 2 
+		WHEN ASCII(SUBSTRING(title,1)) BETWEEN 97 AND 122 THEN 3 
+		WHEN ASCII(SUBSTRING(title,1)) BETWEEN 48 AND 57 THEN 4 ELSE 5 END), title LIMIT #{start},#{perPage}
 	</select>
-	<select id="searchPlaceByLike" parameterType="hashmap" resultType="joinPlaceList">
-		<if test="(order.equals('like')) and areaCode==100"> <!-- 좋아요순,전체 -->
-			<!-- join + 서브쿼리 + group by -->
-			select p.contentId,p.title,p.overview,p.addr1,p.addr2,p.mapX,p.mapY,p.mLevel,p.areaCode,p.linkedURL,p.firstImage,l.likeCount 
-		 	from place p join (select contentId, count(loginId) as likeCount from placeLike group by contentId) l on p.contentId=l.contentId 
-		 	order by likeCount desc,p.contentId asc LIMIT #{start},#{perPage}
-		</if>
-		<if test="(order.equals('like')) and areaCode!=100"> <!-- 좋아요순,지역태그 -->
-			select p.contentId,p.title,p.overview,p.addr1,p.addr2,p.mapX,p.mapY,p.mLevel,p.areaCode,p.linkedURL,p.firstImage,l.likeCount
-			 from place p join (select contentId, count(loginId) as likeCount from placeLike group by contentId) l on (p.contentId=l.contentId)
-			 where areaCode=#{areaCode} order by likeCount desc,p.contentId asc LIMIT #{start},#{perPage}
-		</if>
+	<select id="searchPlaceByTitleInNation" parameterType="hashmap" resultType="joinPlaceList">  <!--  제목순,전체 -->
+		select p.contentId,p.title,p.overview,p.addr1,p.addr2,p.mapX,p.mapY,p.mLevel,p.areaCode,p.linkedURL,p.firstImage,l.likeCount 
+	 	from place p join (select contentId, count(loginId) as likeCount from placeLike group by contentId) l on p.contentId=l.contentId 
+	 	ORDER BY (CASE 
+		WHEN SUBSTRING(title,1) BETWEEN '가' AND '힣' THEN 1 
+		WHEN ASCII(SUBSTRING(title,1)) BETWEEN 65 AND 90 THEN 2 
+		WHEN ASCII(SUBSTRING(title,1)) BETWEEN 97 AND 122 THEN 3 
+		WHEN ASCII(SUBSTRING(title,1)) BETWEEN 48 AND 57 THEN 4 ELSE 5 END), title LIMIT #{start},#{perPage}
+	</select>
+	<select id="searchPlaceByLikeInArea" parameterType="hashmap" resultType="joinPlaceList"> <!-- 좋아요순,전체 -->
+		select p.contentId,p.title,p.overview,p.addr1,p.addr2,p.mapX,p.mapY,p.mLevel,p.areaCode,p.linkedURL,p.firstImage,l.likeCount
+		from place p join (select contentId, count(loginId) as likeCount from placeLike group by contentId) l on (p.contentId=l.contentId)
+		where areaCode=#{areaCode} order by likeCount desc,p.contentId asc LIMIT #{start},#{perPage}
+	</select> 
+	<select id="searchPlaceByLikeInNation" parameterType="hashmap" resultType="joinPlaceList"> <!-- 좋아요순,지역태그 -->
+		join + 서브쿼리 + group by
+		select p.contentId,p.title,p.overview,p.addr1,p.addr2,p.mapX,p.mapY,p.mLevel,p.areaCode,p.linkedURL,p.firstImage,l.likeCount 
+	 	from place p join (select contentId, count(loginId) as likeCount from placeLike group by contentId) l on p.contentId=l.contentId 
+	 	order by likeCount desc,p.contentId asc LIMIT #{start},#{perPage}
 	</select> 
 	
 	<!-- 관광지Detail -->
@@ -82,9 +78,13 @@
 	
 	<!-- 키워드검색 관광지list -->
 	<!-- 제목순 -->
+	<select id="getTotalCountByKeywordSearch" parameterType="String" resultType="int">
+		select count(*) from (select * from place where title LIKE CONCAT('%', #{keyword}, '%') 
+		OR overview LIKE CONCAT('%', #{keyword}, '%') OR addr1 LIKE CONCAT('%', #{keyword}, '%')) p
+	</select>
 	<select id="keywordSearchPlaceByTitle" parameterType="hashmap" resultType="joinPlaceList">
 		select p.contentId,p.title,p.overview,p.addr1,p.addr2,p.mapX,p.mapY,p.mLevel,p.areaCode,p.linkedURL,p.firstImage,l.likeCount 
-		 	from place p join (select contentId, count(loginId) as likeCount from placeLike group by contentId) l on p.contentId=l.contentId 
+		 	from place p left join (select contentId, count(loginId) as likeCount from placeLike group by contentId) l on p.contentId=l.contentId 
 			where p.title LIKE CONCAT('%', #{keyword}, '%') OR p.overview LIKE CONCAT('%', #{keyword}, '%')
         	OR p.addr1 LIKE CONCAT('%', #{keyword}, '%') ORDER BY (CASE 
 			WHEN SUBSTRING(title,1) BETWEEN '가' AND '힣' THEN 1 
@@ -95,7 +95,7 @@
 	<!-- 인기순 -->
 	<select id="keywordSearchPlaceBylike" parameterType="hashmap" resultType="joinPlaceList">
 		select p.contentId,p.title,p.overview,p.addr1,p.addr2,p.mapX,p.mapY,p.mLevel,p.areaCode,p.linkedURL,p.firstImage,l.likeCount 
-		 	from place p join (select contentId, count(loginId) as likeCount from placeLike group by contentId) l on p.contentId=l.contentId 
+		 	from place p left join (select contentId, count(loginId) as likeCount from placeLike group by contentId) l on p.contentId=l.contentId 
 			where p.title LIKE CONCAT('%', #{keyword}, '%') OR p.overview LIKE CONCAT('%', #{keyword}, '%')
         	OR p.addr1 LIKE CONCAT('%', #{keyword}, '%') ORDER BY likeCount desc LIMIT #{start},#{perPage}
 	</select>

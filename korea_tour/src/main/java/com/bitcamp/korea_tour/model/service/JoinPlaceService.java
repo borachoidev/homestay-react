@@ -1,5 +1,6 @@
 package com.bitcamp.korea_tour.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,8 +17,10 @@ public interface JoinPlaceService {
 	List<PlaceDto> getFourDatasByRandom();
 	int getTotalCount();
 	int getTotalCountInArea(int areaCode);
-	List<JoinPlaceListDto> searchPlaceByTitle(Map<String, Object> map);
-	List<JoinPlaceListDto> searchPlaceByLike(Map<String, Object> map);
+	List<JoinPlaceListDto> searchPlaceByTitleInArea(HashMap<String, Object> map);
+	List<JoinPlaceListDto> searchPlaceByTitleInNation(HashMap<String, Object> map);
+	List<JoinPlaceListDto> searchPlaceByLikeInArea(HashMap<String, Object> map);
+	List<JoinPlaceListDto> searchPlaceByLikeInNation(HashMap<String, Object> map);
 	PlaceDto getPlaceDetail(int contentId);
 	List<PlaceApiPhotoDto> getPlaceDetailApiPhotos(int contentId);
 	List<PlacePhotoDto> getPlaceDetailPhotos(int contentId);
@@ -25,6 +28,7 @@ public interface JoinPlaceService {
 	List<CourseDto> getCourseByUser(int userNum);
 	void insertPlaceIntoCourse(CoursePlaceDto dto);
 	int getMaxOrderNum(int coursePlaceNum);
-	List<JoinPlaceListDto> keywordSearchPlaceByTitle(Map<String, Object> map);
-	List<JoinPlaceListDto> keywordSearchPlaceBylike(Map<String, Object> map);
+	int getTotalCountByKeywordSearch(String keyword);
+	List<JoinPlaceListDto> keywordSearchPlaceByTitle(HashMap<String, Object> map);
+	List<JoinPlaceListDto> keywordSearchPlaceBylike(HashMap<String, Object> map);
 }

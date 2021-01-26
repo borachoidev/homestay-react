@@ -1,5 +1,6 @@
 package com.bitcamp.korea_tour.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -47,18 +48,6 @@ public class JoinPlaceServiceImpl implements JoinPlaceService{
 	}
 
 	@Override
-	public List<JoinPlaceListDto> searchPlaceByTitle(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return mapper.searchPlaceByTitle(map);
-	}
-
-	@Override
-	public List<JoinPlaceListDto> searchPlaceByLike(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return mapper.searchPlaceByLike(map);
-	}
-
-	@Override
 	public PlaceDto getPlaceDetail(int contentId) {
 		// TODO Auto-generated method stub
 		return mapper.getPlaceDetail(contentId);
@@ -101,15 +90,46 @@ public class JoinPlaceServiceImpl implements JoinPlaceService{
 	}
 
 	@Override
-	public List<JoinPlaceListDto> keywordSearchPlaceByTitle(Map<String, Object> map) {
+	public List<JoinPlaceListDto> keywordSearchPlaceByTitle(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub
 		return mapper.keywordSearchPlaceByTitle(map);
 	}
 
 	@Override
-	public List<JoinPlaceListDto> keywordSearchPlaceBylike(Map<String, Object> map) {
+	public List<JoinPlaceListDto> keywordSearchPlaceBylike(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub
 		return mapper.keywordSearchPlaceBylike(map);
 	}
+
+	@Override
+	public List<JoinPlaceListDto> searchPlaceByTitleInArea(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		return mapper.searchPlaceByTitleInArea(map);
+	}
+
+	@Override
+	public List<JoinPlaceListDto> searchPlaceByTitleInNation(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		return mapper.searchPlaceByTitleInNation(map);
+	}
+
+	@Override
+	public List<JoinPlaceListDto> searchPlaceByLikeInArea(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		return mapper.searchPlaceByLikeInArea(map);
+	}
+
+	@Override
+	public List<JoinPlaceListDto> searchPlaceByLikeInNation(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		return mapper.searchPlaceByLikeInNation(map);
+	}
+
+	@Override
+	public int getTotalCountByKeywordSearch(String keyword) {
+		// TODO Auto-generated method stub
+		return mapper.getTotalCountByKeywordSearch(keyword);
+	}
+
 
 }
