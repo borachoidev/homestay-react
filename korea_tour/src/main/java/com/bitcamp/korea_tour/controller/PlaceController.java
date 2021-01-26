@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.bitcamp.korea_tour.fileupload.SpringFileWriter;
+//import com.bitcamp.korea_tour.fileupload.SpringFileWriter;
 import com.bitcamp.korea_tour.model.CourseDto;
 import com.bitcamp.korea_tour.model.JoinPlaceListDto;
 import com.bitcamp.korea_tour.model.PagingDto;
