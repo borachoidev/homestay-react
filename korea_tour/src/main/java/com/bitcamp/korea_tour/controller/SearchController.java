@@ -1,54 +1,135 @@
 package com.bitcamp.korea_tour.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-@Controller
+import com.bitcamp.korea_tour.model.JoinPlaceListDto;
+import com.bitcamp.korea_tour.model.service.JoinPlaceService;
+import com.bitcamp.korea_tour.model.service.paging.PagingService;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
+
+@RestController
+@RequiredArgsConstructor
 public class SearchController {
 
+	private final JoinPlaceService service;
+	private final PagingService pagingService;
+	int totalCount = 0;
+	int start = 0;
+	int perPage = 0;
+	
+	@Data
+	@AllArgsConstructor
+	static class JsonSearchPlace {
+		private List<HashMap<String, Object>> place;
+	}
+	
 	// 현재 month
 	SimpleDateFormat sdf = new SimpleDateFormat("MM");
 	Date currDate = new Date();
 	int currentMonth = Integer.parseInt(sdf.format(currDate));
 	
-	// 전체 검색
-	@GetMapping("/search")
-	public ModelAndView getSearchmain(@RequestParam String keyword) { // 검색어를 파라미터로 받아서 포워딩
+	@GetMapping("/search/title/{currentPage}/{keyword}")
+	public JsonSearchPlace getKeywordSearchByTitle(
+			@PathVariable(name="currentPage") int currentPage,
+			@PathVariable(name="keyword") String keyword
+			) {
 		// 검색어가 null일시 현재계절을 키워드로 담는다
-		if(currentMonth>=3 && currentMonth<6) {
-			keyword="봄";
-		}else if(currentMonth>=6 && currentMonth<9) {
-			keyword="여름";
-		}else if(currentMonth>=9 && currentMonth<12) {
-			keyword="가을";
-		}else {
-			keyword="겨울";
+		if(keyword.equals("empty")) {
+			System.out.println("키워드가 널!!");
+			if(currentMonth>=3 && currentMonth<6) {
+				keyword="봄";
+			}else if(currentMonth>=6 && currentMonth<9) {
+				keyword="여름";
+			}else if(currentMonth>=9 && currentMonth<12) {
+				System.out.println(currentMonth);
+				keyword="가을";
+			}else {
+				keyword="겨울";
+			}
 		}
 		
-		ModelAndView mview = new ModelAndView();
-		mview.addObject("keyword", keyword);
-		mview.setViewName("search/allsearch");
-		return mview;
+		HashMap<String, Object> req = new HashMap<String, Object>();
+		req.put("keyword", keyword);
+		int totalCount = service.getTotalCountByKeywordSearch(keyword);
+		Map<String, Integer> paging = pagingService.getPagingData(totalCount, currentPage);
+		req.put("start", paging.get("start"));
+		req.put("perPage", paging.get("perPage"));
+		
+		List<HashMap<String, Object>> place = new ArrayList<HashMap<String,Object>>();
+		HashMap<String, Object> map = null;
+		List<JoinPlaceListDto> list = service.keywordSearchPlaceByTitle(req);
+		for(JoinPlaceListDto jdto: list) {
+			map = new HashMap<String, Object>();
+			map.put("contentId", jdto.getContentId());
+			map.put("title", jdto.getTitle());
+			map.put("firstImage", jdto.getFirstImage());
+			map.put("addr1", jdto.getAddr1());
+			map.put("areaCode", jdto.getAreaCode());
+			map.put("likeCount", jdto.getLikeCount());
+			place.add(map);
+		}
+		
+		return new JsonSearchPlace(place);
 	}
 	
-	// 맞춤코스 검색
-	@GetMapping("/search/course")
-	public ModelAndView getCourseSearchMain( // 태그들을 파라미터로 담아서 포워딩
-			@RequestParam String who,
-			@RequestParam String during,
-			@RequestParam String how) {
-		ModelAndView mview = new ModelAndView();
-		mview.addObject("who", who);
-		mview.addObject("during", during);
-		mview.addObject("how", how);
-		mview.setViewName("search/coursesearch");
+	@GetMapping("/search/like/{currentPage}/{keyword}")
+	public JsonSearchPlace getKeywordSearchByLike(
+			@PathVariable(name="currentPage") int currentPage,
+			@PathVariable(name="keyword") String keyword
+			) {
+		// 검색어가 null일시 현재계절을 키워드로 담는다
+		if(keyword.equals("empty")) {
+			System.out.println("키워드가 널!!");
+			if(currentMonth>=3 && currentMonth<6) {
+				keyword="봄";
+			}else if(currentMonth>=6 && currentMonth<9) {
+				keyword="여름";
+			}else if(currentMonth>=9 && currentMonth<12) {
+				System.out.println(currentMonth);
+				keyword="가을";
+			}else {
+				keyword="겨울";
+			}
+		}
 		
-		return mview;
+		HashMap<String, Object> req = new HashMap<String, Object>();
+		req.put("keyword", keyword);
+		int totalCount = service.getTotalCountByKeywordSearch(keyword);
+		Map<String, Integer> paging = pagingService.getPagingData(totalCount, currentPage);
+		req.put("start", paging.get("start"));
+		req.put("perPage", paging.get("perPage"));
+		
+		List<HashMap<String, Object>> place = new ArrayList<HashMap<String,Object>>();
+		HashMap<String, Object> map = null;
+		List<JoinPlaceListDto> list = service.keywordSearchPlaceBylike(req);
+		for(JoinPlaceListDto jdto: list) {
+			map = new HashMap<String, Object>();
+			map.put("contentId", jdto.getContentId());
+			map.put("title", jdto.getTitle());
+			map.put("firstImage", jdto.getFirstImage());
+			map.put("addr1", jdto.getAddr1());
+			map.put("areaCode", jdto.getAreaCode());
+			map.put("likeCount", jdto.getLikeCount());
+			place.add(map);
+		}
+		
+		return new JsonSearchPlace(place);
 	}
+	
 }
