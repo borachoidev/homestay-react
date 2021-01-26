@@ -188,44 +188,38 @@ public class PlaceController {
 	
 	// 사진 추가
 	// realpath
-//	@PostMapping("/place/detail/photo")
-//	public void insertUserPhoto(
-//			@RequestBody JsonPhotoRequest paramList
-////			,HttpServletRequest request
-//			) {
-////		// 파일 업로드 경로
-////		String path = request.getSession().getServletContext().getRealPath("placeImg");
-////		System.out.println(path);
-////		SpringFileWriter writer = new SpringFileWriter();
-////		String upload = "";
-////		List<MultipartFile> files = paramList.getImage();
-////		for(MultipartFile file: files) {
-////			// 업로드 안한경우 첫파일의 파일명이 빈문자열
-////			if(file.getOriginalFilename().length() == 0) {
-////				upload = "no";
-////				break;
-////			}
-////			
-////			// 파일명 변경후 upload에 추가
-////			upload = writer.changeFilename(file.getOriginalFilename());
-////			// 이미지 save 폴더에 저장
-////			writer.writeFile(file, changeName, path);
-////		}
-////		// 마지막 컴마 제거
-////		if(!upload.equals("no")) {
-////			upload = upload.substring(0, upload.length()-1);
-////		}
-////		// dto에 저장
-////		dto.setUpload(upload);
-////		// db insert
-////		service.insertBoard(dto);
-//		
-//		PlacePhotoDto dto = new PlacePhotoDto();
-//		dto.setContentId(param.getContentId());
-//		dto.setImage(param.getImage());
-//		dto.setLoginId(param.getLoginId());
-//		service2.insertData(dto);
-//	}
+	@PostMapping("/place/detail/photo")
+	public void insertUserPhoto(
+			@RequestBody JsonPhotoRequest paramList
+			,HttpServletRequest request
+			) {
+		// 파일 업로드 경로
+		String path = request.getSession().getServletContext().getRealPath("placeImg");
+		System.out.println(path);
+		SpringFileWriter writer = new SpringFileWriter();
+		String upload = "";
+		List<MultipartFile> files = paramList.getImage();
+		int contentId = paramList.getContentId();
+		String loginId = paramList.getLoginId();
+		for(MultipartFile file: files) {
+			// 업로드 안한경우 첫파일의 파일명이 빈문자열
+			if(file.getOriginalFilename().length() == 0) {
+				upload = "no";
+				break;
+			}
+			
+			upload = writer.changeFilename(file.getOriginalFilename());
+			// 이미지 save 폴더에 저장
+			writer.writeFile(file, upload, path);
+			
+			PlacePhotoDto dto = new PlacePhotoDto();
+			dto.setContentId(contentId);
+			dto.setImage(upload);
+			dto.setLoginId(loginId);
+			service2.insertData(dto);
+		}
+		
+	}
 	
 	
 	// 사진 삭제
