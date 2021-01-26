@@ -1,5 +1,6 @@
 package com.bitcamp.korea_tour.controller;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.bitcamp.korea_tour.fileupload.SpringFileWriter;
 //import com.bitcamp.korea_tour.fileupload.SpringFileWriter;
 import com.bitcamp.korea_tour.model.CourseDto;
 import com.bitcamp.korea_tour.model.JoinPlaceListDto;
@@ -81,13 +83,6 @@ public class PlaceController {
 		private List<PlacePhotoDto> photo;
 	}
 	
-	@Data
-	@AllArgsConstructor
-	static class JsonPhotoRequest {
-		private int contentId;
-		private List<MultipartFile> image;
-		private String loginId;
-	}
 	// 관광지 메인페이지 (4개 랜덤 출력)
 	@GetMapping("/place")
 	public JsonPlaceMain<List<PlaceDto>> getPlaceMain() { 
@@ -187,21 +182,19 @@ public class PlaceController {
 	}
 	
 	// 사진 추가
-	// realpath
 	@PostMapping("/place/detail/photo")
 	public void insertUserPhoto(
-			@RequestBody JsonPhotoRequest paramList
+			@RequestParam int contentId,
+			@RequestParam List<MultipartFile> images,
+			@RequestParam String loginId
 			,HttpServletRequest request
 			) {
 		// 파일 업로드 경로
-		String path = request.getSession().getServletContext().getRealPath("placeImg");
+		String path = request.getSession().getServletContext().getRealPath("WEB-INF/placeImg");
 		System.out.println(path);
 		SpringFileWriter writer = new SpringFileWriter();
 		String upload = "";
-		List<MultipartFile> files = paramList.getImage();
-		int contentId = paramList.getContentId();
-		String loginId = paramList.getLoginId();
-		for(MultipartFile file: files) {
+		for(MultipartFile file: images) {
 			// 업로드 안한경우 첫파일의 파일명이 빈문자열
 			if(file.getOriginalFilename().length() == 0) {
 				upload = "no";
@@ -221,11 +214,23 @@ public class PlaceController {
 		
 	}
 	
-	
-	// 사진 삭제
-	// realpath
-	@DeleteMapping("/place/detail/photo/{photoNum}")
-	public void deleteData(@PathVariable(name="photoNum") int photoNum) {
+	// 관리자 사진 삭제
+	@DeleteMapping("/admin/place/photo/{photoNum}")
+	public void deleteData(@PathVariable(name="photoNum") int photoNum
+			,HttpServletRequest request) {
+		// 파일 업로드 경로
+		String path = request.getSession().getServletContext().getRealPath("WEB-INF/placeImg");
+		System.out.println(path);
+		// db에 저장된 파일명들 얻기
+		String deleteFile = service2.getData(photoNum).getImage();
+		// 저장된 파일들 먼저 삭제
+		if(!deleteFile.equals("no")) {
+			File file = new File(path +"/"+ deleteFile);
+			if(file.exists()) {
+				file.delete();
+			}
+		}
+		// db데이터 삭제
 		service2.deleteData(photoNum);
 	}
 	
