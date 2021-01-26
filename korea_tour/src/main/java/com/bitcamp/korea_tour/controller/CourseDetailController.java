@@ -64,11 +64,13 @@ public class CourseDetailController {
 		cls.deleteCourseLike(loginNum, courseNum);
 	}
 
-	//디테일페이지에서 즐겨찾기 취소
-	@DeleteMapping(value = "/coursemarks/{courseMarkNum}")
-	public void deleteMark(@PathVariable int courseMarkNum) {
-		cms.deleteCourseMark(courseMarkNum);
-	}
+	/*
+	 * //디테일페이지에서 즐겨찾기 취소
+	 * 
+	 * @DeleteMapping(value = "/coursemarks/{courseMarkNum}") public void
+	 * deleteMark(@PathVariable int courseMarkNum) {
+	 * cms.deleteCourseMark(courseMarkNum); }
+	 */
 
 	@Data
 	@AllArgsConstructor
