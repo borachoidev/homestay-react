@@ -22,7 +22,7 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public List<NoticeDto> getAllDatas() {
+	public List<NoticeDto> getAllDatas(int start, int perPage) {
 		// TODO Auto-generated method stub
 		return mapper.getAllDatas();
 	}
@@ -53,7 +53,7 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public List<NoticeDto> getNewNotice() {
+	public List<NoticeDto> getNewNotice(int start, int perPage) {
 		// TODO Auto-generated method stub
 		return mapper.getNewNotice();
 	}

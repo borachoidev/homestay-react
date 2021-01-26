@@ -39,15 +39,15 @@ public class TourAnswerServiceImpl implements TourAnswerService{
 	}
 
 	@Override
-	public List<TourAnswerDto> getUserAnswerPlace(int loginNum, int relevel) {
+	public List<TourAnswerDto> getUserAnswerPlace(int loginNum, int start, int perPage) {
 		// TODO Auto-generated method stub
-		return mapper.getUserAnswerPlace(loginNum, relevel);
+		return mapper.getUserAnswerPlace(loginNum);
 	}
 
 	@Override
-	public List<TourAnswerDto> getUserReAnswerPlace(int loginNum, int relevel) {
+	public List<TourAnswerDto> getUserReAnswerPlace(int loginNum, int start, int perPage) {
 		// TODO Auto-generated method stub
-		return mapper.getUserReAnswerPlace(loginNum, relevel);
+		return mapper.getUserReAnswerPlace(loginNum);
 	}
 
 	@Override
@@ -75,15 +75,15 @@ public class TourAnswerServiceImpl implements TourAnswerService{
 	}
 
 	@Override
-	public List<TourAnswerDto> getUserAnswerCourse(int loginNum, int relevel) {
+	public List<TourAnswerDto> getUserAnswerCourse(int loginNum, int start, int perPage) {
 		// TODO Auto-generated method stub
-		return mapper.getUserAnswerCourse(loginNum, relevel);
+		return mapper.getUserAnswerCourse(loginNum);
 	}
 
 	@Override
-	public List<TourAnswerDto> getUserReAnswerCourse(int loginNum, int relevel) {
+	public List<TourAnswerDto> getUserReAnswerCourse(int loginNum, int start, int perPage) {
 		// TODO Auto-generated method stub
-		return mapper.getUserAnswerCourse(loginNum, relevel);
+		return mapper.getUserAnswerCourse(loginNum);
 	}
 
 	@Override
@@ -96,6 +96,30 @@ public class TourAnswerServiceImpl implements TourAnswerService{
 	public List<TourAnswerDto> getAdminReAnswer() {
 		// TODO Auto-generated method stub
 		return mapper.getAdminReAnswer();
+	}
+
+	@Override
+	public int getTotalCountPlaceAnswer(int loginNum) {
+		// TODO Auto-generated method stub
+		return mapper.getTotalCountPlaceAnswer(loginNum);
+	}
+
+	@Override
+	public int getTotalCountPlaceReAnswer(int loginNum) {
+		// TODO Auto-generated method stub
+		return mapper.getTotalCountPlaceReAnswer(loginNum);
+	}
+
+	@Override
+	public int getTotalCountCourseAnswer(int loginNum) {
+		// TODO Auto-generated method stub
+		return mapper.getTotalCountCourseAnswer(loginNum);
+	}
+
+	@Override
+	public int getTotalCountCourseReAnswer(int loginNum) {
+		// TODO Auto-generated method stub
+		return mapper.getTotalCountCourseReAnswer(loginNum);
 	}
 
 }

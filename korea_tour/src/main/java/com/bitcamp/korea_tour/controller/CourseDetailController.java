@@ -73,6 +73,7 @@ public class CourseDetailController {
 			@Param("loginNum") int loginNum, @Param("courseNum") int courseNum) {
 		cls.deleteCourseLike(loginNum, courseNum);
 	}
+
 	
 	//디테일페이지에서 즐겨찾기하기
 	@PostMapping(value = "/coursemarks")
@@ -89,7 +90,6 @@ public class CourseDetailController {
 	
 	
 	
-////////////////////////////////////////////////////////////////////////////////////////////////////
 	@Data
 	@AllArgsConstructor
 	static class JsonDataList {
