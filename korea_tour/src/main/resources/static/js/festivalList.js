@@ -57,7 +57,12 @@ function monthOnclick() {
   for (const monthBtn of monthList) {
     monthBtn.addEventListener('click', function (e) {
       month = e.target.getAttribute('month');
+      const children = monthBtn.parentElement.children;
+      for (const child of children) {
+        child.classList.remove('active');
+      }
 
+      monthBtn.classList.add('active');
       parseAreaBased(areaCode, pageNum, numOfRows, month, currentYear);
     });
   }
@@ -71,6 +76,12 @@ function areaOnclick() {
       if (areaCode == 'all') {
         areaCode = '';
       }
+      const children = areaBtn.parentElement.children;
+      for (const child of children) {
+        child.classList.remove('active');
+      }
+
+      areaBtn.classList.add('active');
       parseAreaBased(areaCode, pageNum, numOfRows, month, currentYear);
       getAreaName(areaCode);
     });
