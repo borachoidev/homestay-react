@@ -122,12 +122,6 @@ public class MypageController implements SessionNames {
 		return "mypage/courselist";
 	}
 
-	//My페이지에서 즐겨찾기 취소
-	@DeleteMapping(value = "/coursemarks/{courseMarkNum}")
-	public void deleteMark(@PathVariable int courseMarkNum) {
-		cms.deleteCourseMark(courseMarkNum);
-	}
-
 	//////////////////////////////////////////////////////////////////////
 	@Data
 	@AllArgsConstructor
