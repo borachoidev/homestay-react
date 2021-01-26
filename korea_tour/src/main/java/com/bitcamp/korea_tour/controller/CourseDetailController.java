@@ -68,10 +68,9 @@ public class CourseDetailController {
 	
 	
 	//디테일페이지에서 좋아요 취소
-	@DeleteMapping(value = "/courselikes/{courseLikeNum}")
-	public void deleteLike(@PathVariable int courseLikeNum,
-			@Param("loginNum") int loginNum, @Param("courseNum") int courseNum) {
-		cls.deleteCourseLike(loginNum, courseNum);
+	@DeleteMapping(value = "/courselikes/{likeNum}")
+	public void deleteLike(@PathVariable(value = "likeNum") int likeNum) {
+		cls.deleteCourseLike(likeNum);
 	}
 
 	

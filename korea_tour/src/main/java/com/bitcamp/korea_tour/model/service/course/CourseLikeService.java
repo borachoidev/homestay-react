@@ -5,5 +5,5 @@ import com.bitcamp.korea_tour.model.CourseLikeDto;
 public interface CourseLikeService {
 	int getTotalCourseLike(int courseNum);
 	void insertCourseLike(CourseLikeDto dto);
-	void deleteCourseLike(int loginNum, int courseNum);
+	void deleteCourseLike(int likeNum);
 }
