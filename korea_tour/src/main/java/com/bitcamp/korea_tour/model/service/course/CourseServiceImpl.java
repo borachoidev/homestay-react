@@ -3,6 +3,7 @@ package com.bitcamp.korea_tour.model.service.course;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import com.bitcamp.korea_tour.model.CourseDto;
@@ -16,12 +17,11 @@ public class CourseServiceImpl implements CourseService {
 	private final CourseMapper courseMapper;
 
 	@Override
-	public void insertCourseTitle(String name, int loginNum) {
-		Map<String, String> title=new HashMap<String, String>();
-		Map<String, Integer> num=new HashMap<String, Integer>();
-		title.put("name", name);
-		num.put("loginNum", loginNum);
-		courseMapper.insertCourseTitle(title, num);
+	public void insertCourseTitle(@Param("name") String name, @Param("loginNum") int loginNum) {
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("name", name);
+		map.put("loginNum", loginNum);
+		courseMapper.insertCourseTitle(map);
 	}
 
 	@Override
@@ -37,6 +37,12 @@ public class CourseServiceImpl implements CourseService {
 	@Override
 	public void updateCourseDetail(CourseDto dto) {
 		courseMapper.updateCourseDetail(dto);
+	}
+
+	@Override
+	public int getMyCourseCount(int loginNum) {
+		// TODO Auto-generated method stub
+		return courseMapper.getMyCourseCount(loginNum);
 	}
 	
 }

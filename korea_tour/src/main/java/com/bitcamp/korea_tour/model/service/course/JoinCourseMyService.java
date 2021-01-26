@@ -8,5 +8,5 @@ public interface JoinCourseMyService {
 	List<JoinCourseDto> getMyCourseList(int loginNum, int start, int perPage);  //세션 로그인num 받아오기
 	List<JoinCourseMarkDto> getMyMarkCourse(int loginNum, int start, int perPage);  //세션 로그인num 받아오기
 	int getMyTotalCount(int loginNum);
-	int getMartTotalCount(int loginNum);
+	int getMarkTotalCount(int loginNum);
 }

@@ -7,7 +7,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bitcamp.korea_tour.model.CourseDto;
 import com.bitcamp.korea_tour.model.JoinCourseDto;
+import com.bitcamp.korea_tour.model.mapper.CourseMapper;
 import com.bitcamp.korea_tour.model.mapper.JoinCourseMainMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -16,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class JoinCourseMainServiceImpl implements JoinCourseMainService {
 	private final JoinCourseMainMapper joinCourseMainMapper;
+	private final CourseMapper courseMapper;
 
 	@Override
 	public List<JoinCourseDto> getAllCourseByTime(int start, int perPage) {
@@ -38,6 +41,11 @@ public class JoinCourseMainServiceImpl implements JoinCourseMainService {
 	@Override
 	public int getAllTotalCount() {
 		return joinCourseMainMapper.getAllTotalCount();
+	}
+	
+	@Override
+	public List<CourseDto> getMyCourseName(int loginNum) {
+		return courseMapper.getMyCourseName(loginNum);
 	}
 
 }

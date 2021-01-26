@@ -3,7 +3,7 @@
 <mapper namespace="com.bitcamp.korea_tour.model.mapper.TourAnswerMapper">
 	<!-- 플레이스 답글 쿼리 -->
 	   <insert id="insertPlaceAnswer" parameterType="touranswer">
-      INSERT INTO tourAnswer (contentId, loginNum, loginId, loginPhoto, content, writeday, relevel, regroup)
+      INSERT INTO tourAnswer (contentId, loginNum, loginId, loginPhoto, content, writeDay, relevel, regroup)
       VALUES 
       (#{contentId}, #{loginNum}, #{loginId}, #{loginPhoto}, #{content}, now(),
          <if test="tourAnswerNum==null">0,
@@ -14,6 +14,12 @@
          <if test="tourAnswerNum!=null">1,#{regroup}</if>
       )
    </insert>
+   <select id="getTotalCountPlaceAnswer" parameterType="int" resultType="int"><!-- courseNum이 널값인 경우에 Place로 구분 -->
+   		select count(*) from tourAnswer where relevel=0 and courseNum is null and loginNum=#{loginNum}
+   </select>
+   <select id="getTotalCountPlaceReAnswer" parameterType="int" resultType="int">
+   		select count(*) from tourAnswer where relevel=1 and courseNum is null and loginNum=#{loginNum}
+   </select>
 	<update id="deletePlaceAnswerByUser" parameterType="int">
 		update tourAnswer set deleted=1 where tourAnswerNum=#{tourAnswerNum}
 	</update>
@@ -23,13 +29,12 @@
 	<select id="getAnswerOfPlace" parameterType="int" resultType="touranswer">
 		select * from tourAnswer where contentId=#{contentId} order by regroup asc,relevel asc
 	</select>
-	<select id="getUserAnswerPlace" parameterType="HashMap" resultType="touranswer">
+	<select id="getUserAnswerPlace" parameterType="int" resultType="touranswer">
 		select * from tourAnswer where loginNum=#{loginNum} and relevel=0 order by tourAnswerNum desc 
 	</select>
-	<select id="getUserReAnswerPlace" parameterType="HashMap" resultType="touranswer">
+	<select id="getUserReAnswerPlace" parameterType="int" resultType="touranswer">
 		select * from tourAnswer where loginNum=#{loginNum} and relevel=1 order by tourAnswerNum desc 
 	</select>
-	
 
 	<!-- 코스답글 쿼리 -->
 	   <insert id="insertCourseAnswer" parameterType="touranswer">
@@ -53,12 +58,18 @@
 	<select id="getAnswerOfCourse" resultType="touranswer">
 		select * from tourAnswer where courseNum=#{courseNum} order by group asc,relevel asc
 	</select>
-	<select id="getUserAnswerCourse" parameterType="HashMap" resultType="touranswer">
+	<select id="getUserAnswerCourse" parameterType="int" resultType="touranswer">
 		select * from tourAnswer where loginNum=#{loginNum} and relevel=#{relevel} order by tourAnswerNum desc 
 	</select>
-	<select id="getUserReAnswerCourse" parameterType="HashMap" resultType="touranswer">
+	<select id="getUserReAnswerCourse" parameterType="int" resultType="touranswer">
 		select * from tourAnswer where loginNum=#{loginNum} and relevel=1 order by tourAnswerNum desc 
 	</select>
+	 <select id="getTotalCountCourseAnswer" parameterType="int" resultType="int">
+   		select count(*) from tourAnswer where relevel=0 and courseNum is not null and loginNum=#{loginNum}
+   </select>
+   <select id="getTotalCountCourseReAnswer" parameterType="int" resultType="int">
+   		select count(*) from tourAnswer where relevel=1 and courseNum is not null and loginNum=#{loginNum}
+   </select>
 	
 	<!-- 관리자용 전체 답글 출력 쿼리 -->
 	<select id="getAdminAnswer" parameterType="int" resultType="touranswer">

@@ -2,16 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bitcamp.korea_tour.model.mapper.CoursePlaceMapper">
 
-<insert id="insertCoursePlace" parameterType="courseplace"><!-- 코스 순서 수정시 orderNum 다시넣기 -->
-	insert into coursePlace (userNum,courseNum,placeNum,orderNum) values (#{userNum},#{courseNum},#{placeNum},#{orderNum})
-</insert>
-
-<delete id="deleteForNewCoursePlace" parameterType="int">	<!-- 코스 순서 수정시 orderNum 지워버리기 -->
-	delete from coursePlace where courseNum=#{courseNum}
-</delete>
-
-<select id="getTotalCoursePlace" parameterType="int" resultType="int">	<!-- 코스안의 관광지 개수 -->
-	select count(*) from coursePlace where courseNum=#{courseNum}
-</select>
-
+	<insert id="insertCoursePlace" parameterType="courseplace"><!-- 코스 순서 수정시 orderNum 다시넣기 -->
+		insert into coursePlace (userNum,courseNum,placeNum,orderNum) values (#{userNum},#{courseNum},#{placeNum},#{orderNum})
+	</insert>
+	
+	<delete id="deleteCoursePlace" parameterType="int">	<!-- 코스 순서 수정시 orderNum 지워버리기 -->
+		delete from coursePlace where coursePlaceNum=#{coursePlaceNum}
+	</delete>
+	
+	<select id="getTotalCoursePlace" parameterType="int" resultType="int">	<!-- 코스안의 관광지 개수 -->
+		select count(*) from coursePlace where courseNum=#{courseNum}
+	</select>
+	<update id="updateCoursePlace" parameterType="hashmap">
+		update coursePlace set orderNum=#{orderNum} where coursePlaceNum=#{coursePlaceNum}
+	</update>
 </mapper>

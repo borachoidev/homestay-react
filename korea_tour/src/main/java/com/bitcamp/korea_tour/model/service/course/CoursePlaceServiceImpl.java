@@ -1,5 +1,8 @@
 package com.bitcamp.korea_tour.model.service.course;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.stereotype.Service;
 
 import com.bitcamp.korea_tour.model.CoursePlaceDto;
@@ -19,9 +22,9 @@ public class CoursePlaceServiceImpl implements CoursePlaceService{
 	}
 
 	@Override
-	public void deleteForNewCoursePlace(int courseNum) {
+	public void deleteCoursePlace(int coursePlaceNum) {
 		// TODO Auto-generated method stub
-		mapper.deleteForNewCoursePlace(courseNum);
+		mapper.deleteCoursePlace(coursePlaceNum);
 	}
 
 	@Override
@@ -30,6 +33,12 @@ public class CoursePlaceServiceImpl implements CoursePlaceService{
 		return mapper.getTotalCoursePlace(courseNum);
 	}
 	
-	
+	@Override
+	public void updateCoursePlace(int coursePlaceNum, int orderNum) {
+		Map<String, Integer> map=new HashMap<String, Integer>();
+		map.put("coursePlaceNum", coursePlaceNum);
+		map.put("orderNum", orderNum);
+		mapper.updateCoursePlace(map);
+	}
 
 }
