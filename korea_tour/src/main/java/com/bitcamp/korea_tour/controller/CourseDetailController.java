@@ -61,17 +61,16 @@ public class CourseDetailController {
 		return new JsonDataList(courseDto, coursePlaceList, markLikeData);
 	}
 	//디테일페이지에서 코스 좋아요하기
-	@PostMapping(value = "/coursemarks")
+	@PostMapping(value = "/courselikes")
 	public void insertCourseLike(@RequestBody CourseLikeDto dto) {
 		cls.insertCourseLike(dto);
 	}
 	
 	
 	//디테일페이지에서 좋아요 취소
-	@DeleteMapping(value = "/courselikes/{courseLikeNum}")
-	public void deleteLike(@PathVariable int courseLikeNum,
-			@Param("loginNum") int loginNum, @Param("courseNum") int courseNum) {
-		cls.deleteCourseLike(loginNum, courseNum);
+	@DeleteMapping(value = "/courselikes/{likeNum}")
+	public void deleteLike(@PathVariable(value = "likeNum") int likeNum) {
+		cls.deleteCourseLike(likeNum);
 	}
 
 	

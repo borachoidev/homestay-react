@@ -1,5 +1,6 @@
 package com.bitcamp.korea_tour.model.service.course;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,6 +47,33 @@ public class JoinCourseMainServiceImpl implements JoinCourseMainService {
 	@Override
 	public List<CourseDto> getMyCourseName(int loginNum) {
 		return courseMapper.getMyCourseName(loginNum);
+	}
+	
+	@Override
+	public String getSeason(String keyword) {
+		Date date=new Date();
+		int currMonth=0;
+		currMonth=(int)date.getMonth()+1;
+		
+		switch (currMonth) {
+		case 3: case 4: case 5:
+			keyword="봄"; 
+			break;
+		case 6: case 7: case 8:
+			keyword="봄"; 
+			break;
+		case 9:	case 10: case 11:
+			keyword="봄"; 
+			break;
+		case 12: case 1: case 2 :
+			keyword="봄"; 
+			break;
+
+		default:
+			break;
+		}
+		
+		return keyword;
 	}
 
 }
