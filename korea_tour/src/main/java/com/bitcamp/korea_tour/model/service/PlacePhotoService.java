@@ -12,4 +12,5 @@ public interface PlacePhotoService {
 	int getTotalCount();
 	List<PlacePhotoDto> getDisapprovedDatas(HashMap<String, Object> map);
 	void approvePhoto(int photoNum);
+	PlacePhotoDto getData(int photoNum);
 }

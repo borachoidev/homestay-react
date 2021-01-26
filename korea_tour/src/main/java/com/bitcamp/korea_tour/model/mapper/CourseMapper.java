@@ -20,7 +20,6 @@ public interface CourseMapper {
 	void updateShare(int courseNum);
 	void updateCourseDetail(CourseDto courseDto);
 	int getMyCourseCount(int loginNum);
-	void updateCourseTotalLike(Map<String, Integer> courseLike);
 	CourseDto getCourseData(int courseNum);
 	CourseDto getMyCourseData(Map<String, Integer> nums);
 	List<CourseDto> getMyCourseName(int loginNum);

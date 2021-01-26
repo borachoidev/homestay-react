@@ -1,0 +1,14 @@
+#reviewList{
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 50px;
+}
+
+
+#star{
+    vertical-align: middle;
+}
+
+#scoreText{
+    font-weight: bold;
+}
