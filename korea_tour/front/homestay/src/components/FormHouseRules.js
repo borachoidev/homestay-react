@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import AddPerson from './AddPerson';
-
 import DateFnsUtils from '@date-io/date-fns';
 import Grid from '@material-ui/core/Grid';
 import {
@@ -13,7 +12,7 @@ import FormAmenities from './FormAmenities';
 export default function FormHouseRules() {
   const [checkinTime, setCheckinTime] = useState(new Date());
   const [checkoutTime, setCheckoutTime] = useState(new Date());
-  const [count, setCount] = useState('0');
+  const [maxValue, setMaxValue] = useState(5);
   const handleCheckinTimeChange = date => {
     setCheckinTime(date);
     console.log(checkinTime);
@@ -46,7 +45,7 @@ export default function FormHouseRules() {
           />
         </Grid>
       </MuiPickersUtilsProvider>
-      <AddPerson />
+      <AddPerson maxValue={maxValue} />
       <FormAmenities />
     </div>
   );
