@@ -41,7 +41,7 @@ function getEndDate(month, currentYear) {
       endDate = 31;
       break;
   }
-  console.log(endDate);
+  // console.log(endDate);
   return currentYear + (month > 10 ? month : '0' + month) + endDate;
 }
 function getStartDate(month, currentYear) {
@@ -213,7 +213,7 @@ function parseAreaBased(areaCode, pageNum, numOfRows, month, currentYear) {
     encodeURIComponent(eventEndDate);
 
   /**/
-  console.log(url + queryParams);
+  // console.log(url + queryParams);
   xhr.open('GET', url + queryParams);
   xhr.onreadystatechange = function () {
     if (this.readyState == 4) {
@@ -225,7 +225,7 @@ function parseAreaBased(areaCode, pageNum, numOfRows, month, currentYear) {
         .childNodes[0].nodeValue;
 
       totalPage = Math.ceil(parseInt(totalCount) / numOfRows);
-      console.log(totalPage);
+      // console.log(totalCount);
       if (totalPage < pageNum) pageNum = totalPage;
       let list = xmlDoc.getElementsByTagName('item');
       let n = '';
@@ -243,7 +243,7 @@ function parseAreaBased(areaCode, pageNum, numOfRows, month, currentYear) {
             list[i].getElementsByTagName('contentid')[0].childNodes[0].nodeValue
           }'/>`;
         } else {
-          n += `<span class='thumbnail'>대표이미지 없음</span>`;
+          n += `<span class='thumbnail'>대표이미지 없음 🖼 </span>`;
         }
         n += `<div class='info'><span class='title' contentid='${
           list[i].getElementsByTagName('contentid')[0].childNodes[0].nodeValue
@@ -264,7 +264,10 @@ function parseAreaBased(areaCode, pageNum, numOfRows, month, currentYear) {
         n += `</div></div></a>`;
       }
       document.querySelector('.list').innerHTML = n;
-
+      if (totalCount == 0) {
+        document.querySelector('.list').innerHTML =
+          '<span class="alert-msg">해당하는 조건의 축제가 없습니다!😱</span>';
+      }
       //페이징
       let p = '';
       for (let i = 0; i < totalPage; i++) {
