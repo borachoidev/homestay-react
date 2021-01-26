@@ -46,4 +46,10 @@ public class PlacePhotoServiceImpl implements PlacePhotoService{
 		return mapper.getTotalCount();
 	}
 
+	@Override
+	public PlacePhotoDto getData(int photoNum) {
+		// TODO Auto-generated method stub
+		return mapper.getData(photoNum);
+	}
+
 }

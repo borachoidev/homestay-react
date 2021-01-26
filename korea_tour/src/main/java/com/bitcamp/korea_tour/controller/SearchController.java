@@ -91,10 +91,10 @@ public class SearchController {
 	@GetMapping("/search/like/{currentPage}/{keyword}")
 	public JsonSearchPlace getKeywordSearchByLike(
 			@PathVariable(name="currentPage") int currentPage,
-			@PathVariable(name="keyword") String keyword
+			@PathVariable(name="keyword", required = false) String keyword
 			) {
 		// 검색어가 null일시 현재계절을 키워드로 담는다
-		if(keyword.equals("empty")) {
+		if(keyword.trim().equals("")) {
 			System.out.println("키워드가 널!!");
 			if(currentMonth>=3 && currentMonth<6) {
 				keyword="봄";
