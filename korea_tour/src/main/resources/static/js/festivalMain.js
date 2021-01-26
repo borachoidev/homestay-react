@@ -74,15 +74,45 @@ function writeCalendar(year, month) {
   for (let i = 0; i < endDate; i++) {
     p += `<span class='cal-date'>${i + 1}</span>`;
   }
-  document.querySelector('.current-month').innerHTML = month + '월';
+
   document.querySelector('.cal-dates').innerHTML = p;
   const caldates = document.querySelectorAll('.cal-date');
   for (const date of caldates) {
     date.addEventListener('click', () => {
       day = date.innerHTML;
+
+      const children = date.parentElement.children;
+      for (const child of children) {
+        child.classList.remove('active');
+      }
+
+      date.classList.add('active');
+
       parseAreaBased(month, day);
     });
   }
+  let monthTitle = month;
+  switch (month) {
+    case 12:
+    case 1:
+    case 2:
+      monthTitle = '⛄️' + monthTitle;
+      break;
+    case 3:
+    case 4:
+    case 5:
+      monthTitle = '🌸' + monthTitle;
+      break;
+    case 6:
+    case 7:
+    case 8:
+      monthTitle = '🏖' + monthTitle;
+      break;
+    default:
+      monthTitle = '🍁' + monthTitle;
+      break;
+  }
+  document.querySelector('.current-month').innerHTML = monthTitle + '월';
 }
 
 //api 데이터
@@ -94,7 +124,7 @@ function parseAreaBased(month, day) {
   } else {
     eventDate = getEventDate(month, day);
   }
-  console.log(eventDate);
+  // console.log(eventDate);
   let xmlStr;
   let xmlDoc;
   var xhr = new XMLHttpRequest();
@@ -137,8 +167,8 @@ function parseAreaBased(month, day) {
     '=' +
     encodeURIComponent(eventDate);
 
-  /**/
-  console.log(url + queryParams);
+  /*url 확인*/
+  // console.log(url + queryParams);
   xhr.open('GET', url + queryParams);
   xhr.onreadystatechange = function () {
     if (this.readyState == 4) {
@@ -151,50 +181,64 @@ function parseAreaBased(month, day) {
 
       let s = '';
       if (list.length > 6) {
-        s += `<a href='/festival/detail?contentId=${
+        let url = `/festival/detail?contentId=${
           list[6].getElementsByTagName('contentid')[0].childNodes[0].nodeValue
-        }`;
-        s += `&areaCode=${
+        }&areaCode=${
           list[6].getElementsByTagName('areacode')[0].childNodes[0].nodeValue
-        }&pageNum=1&month=undefined'>`;
-        s += "<div class='fes-main-card'>";
-        s += ` <img src='${
-          list[6].getElementsByTagName('firstimage')[0].childNodes[0].nodeValue
-        }' class='fes-main-img'/>`;
-
+        }&pageNum=1&month=undefined`;
+        let src = list[6].getElementsByTagName('firstimage')[0].childNodes[0]
+          .nodeValue;
+        s += `<a href='${url}'>`;
+        s += `<div class='fes-main-card' style='background:url(${src}) no-repeat center bottom;  background-size: cover;'>`;
+        s += "<div class='overlay'>";
+        s += `<span class ='fes-date'>${
+          list[6].getElementsByTagName('eventstartdate')[0].childNodes[0]
+            .nodeValue
+        } ~${
+          list[6].getElementsByTagName('eventenddate')[0].childNodes[0]
+            .nodeValue
+        }</span>`;
         s += `<span class='fes-title'>${
           list[6].getElementsByTagName('title')[0].childNodes[0].nodeValue
-        }</span></div></a>`;
+        }</span></div></div></a>`;
       } else {
-        s += `<a href='/festival/detail?contentId=${
+        let url = `/festival/detail?contentId=${
           list[0].getElementsByTagName('contentid')[0].childNodes[0].nodeValue
-        }`;
-        s += `&areaCode=${
+        }&areaCode=${
           list[0].getElementsByTagName('areacode')[0].childNodes[0].nodeValue
-        }&pageNum=1&month=undefined'>`;
-        s += "<div class='fes-main-card'>";
-        s += ` <img src='${
-          list[0].getElementsByTagName('firstimage')[0].childNodes[0].nodeValue
-        }' class='fes-main-img'/>`;
-
+        }&pageNum=1&month=undefined`;
+        let src = list[0].getElementsByTagName('firstimage')[0].childNodes[0]
+          .nodeValue;
+        s += `<a href='${url}'>`;
+        s += `<div class='fes-main-card' style='background:url(${src}) no-repeat center bottom;  background-size: cover;'>`;
+        s += "<div class='overlay'>";
+        s += `<span class ='fes-date'>${
+          list[0].getElementsByTagName('eventstartdate')[0].childNodes[0]
+            .nodeValue
+        } ~${
+          list[0].getElementsByTagName('eventenddate')[0].childNodes[0]
+            .nodeValue
+        }</span>`;
         s += `<span class='fes-title'>${
           list[0].getElementsByTagName('title')[0].childNodes[0].nodeValue
-        }</span></div></a>`;
+        }</span></div></div></a>`;
       }
       document.querySelector('.festival-main').innerHTML = s;
       let l = '';
 
       for (let i = 1; i < 4; i++) {
-        l += `<a href='/festival/detail?contentId=${
+        let url = `/festival/detail?contentId=${
           list[i].getElementsByTagName('contentid')[0].childNodes[0].nodeValue
-        }`;
-        l += `&areaCode=${
+        }&areaCode=${
           list[i].getElementsByTagName('areacode')[0].childNodes[0].nodeValue
-        }&pageNum=1&month=undefined'>`;
-        l += "<div class='fes-card'>";
-        l += ` <img src='${
-          list[i].getElementsByTagName('firstimage')[0].childNodes[0].nodeValue
-        }' class='fes-img'/>`;
+        }&pageNum=1&month=undefined`;
+
+        l += `<a href='${url}'>`;
+        let src = list[i].getElementsByTagName('firstimage')[0].childNodes[0]
+          .nodeValue;
+        l += `<div class='fes-card' style='background:url(${src}) no-repeat center bottom;  background-size: cover;'>`;
+        l += "<div class='overlay'>";
+
         l += `<span class ='fes-date'>${
           list[i].getElementsByTagName('eventstartdate')[0].childNodes[0]
             .nodeValue
@@ -204,7 +248,7 @@ function parseAreaBased(month, day) {
         }</span>`;
         l += `<span class='fes-title'>${
           list[i].getElementsByTagName('title')[0].childNodes[0].nodeValue
-        }</span></div></a>`;
+        }</span></div></div></a>`;
       }
 
       document.querySelector('.festival-list').innerHTML = l;
