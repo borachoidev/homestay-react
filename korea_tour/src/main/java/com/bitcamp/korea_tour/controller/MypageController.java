@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -18,6 +19,8 @@ import com.bitcamp.korea_tour.model.JoinCourseDto;
 import com.bitcamp.korea_tour.model.JoinCourseMarkDto;
 import com.bitcamp.korea_tour.model.TourAnswerDto;
 import com.bitcamp.korea_tour.model.UserDto;
+import com.bitcamp.korea_tour.model.joinPlaceDto;
+import com.bitcamp.korea_tour.model.service.JoinPlaceService;
 import com.bitcamp.korea_tour.model.service.PlaceMarkService;
 import com.bitcamp.korea_tour.model.service.TourAnswerService;
 import com.bitcamp.korea_tour.model.service.course.CourseMarkService;
@@ -41,7 +44,7 @@ public class MypageController implements SessionNames {
 	private final CourseService cs;
 	private final JoinCourseMyService jcms;
 	private final TourAnswerService tas;
-
+	private final JoinPlaceService jps;
 	//페이징	
 	private final PagingService pagingService;
 
@@ -99,6 +102,64 @@ public class MypageController implements SessionNames {
 		System.out.println("즐겨찾기 코스모아보기 토탈개수: "+totalCount);
 		return new JsonData<List<JoinCourseMarkDto>>(list);
 	}
+	//mypage 내가 즐겨찾기한 관광지 모아보기
+	@GetMapping("/mypage/placemarks/{currentPage}")
+	public JsonData<List<joinPlaceDto>> getMyPlaceMarks(@PathVariable(value = "currentPage") int currentPage, HttpServletRequest request) {
+		//세션가져오기
+		HttpSession session = request.getSession();
+		UserDto user = (UserDto)session.getAttribute(USER);
+		int loginNum = user.getUserNum();
+
+		totalCount=jps.getTotalCountMyPlaceMark(loginNum);
+		start=pagingService.getPagingData(totalCount, currentPage).get("start");
+		perPage=pagingService.getPagingData(totalCount, currentPage).get("perPage");
+		HashMap<String, Object> map=new HashMap<String, Object>();
+		
+		List<joinPlaceDto> list = jps.getTotalPlaceMark(loginNum, map);
+		//System.out.println(list);
+		System.out.println("즐겨찾기 관광지 모아보기 토탈개수: "+totalCount);
+		return new JsonData<List<joinPlaceDto>>(list);
+	}
+	
+	//내가 단 댓글
+	@GetMapping("/mypage/answer/{currentPage}")
+	public JsonAnswer<List<TourAnswerDto>> getMyAnswer(@PathVariable(value="currentPage") int currentPage, HttpServletRequest request) {
+	    HttpSession session = request.getSession();
+	    UserDto user = (UserDto)session.getAttribute(USER);
+	    int loginNum = user.getUserNum();
+	    		
+	    totalCount=tas.getTotalCountAnswer(loginNum);
+	    System.out.println(totalCount);
+	    start=pagingService.getPagingData(totalCount, currentPage).get("start");
+		perPage=pagingService.getPagingData(totalCount, currentPage).get("perPage");
+		HashMap<String, Object> map=new HashMap<String, Object>();
+		map.put("start", start);
+		map.put("perPage", perPage);
+		
+		List<TourAnswerDto> answerlist= tas.getUserAnswer(loginNum, map); 
+		
+		return new JsonAnswer<List<TourAnswerDto>>(answerlist);
+	   
+    }
+	 //내가 단 답글
+	 @GetMapping("/mypage/reanswer/{currentPage}")
+	 public JsonReAnswer<List<TourAnswerDto>> getMyReAnswer(@PathVariable(value="currentPage") int currentPage, HttpServletRequest request) {
+	    HttpSession session = request.getSession();
+		UserDto user = (UserDto)session.getAttribute(USER);
+		int loginNum = user.getUserNum();
+		    		
+		totalCount=tas.getTotalCountReAnswer(loginNum);
+		start=pagingService.getPagingData(totalCount, currentPage).get("start");
+		perPage=pagingService.getPagingData(totalCount, currentPage).get("perPage");
+		HashMap<String, Object> map=new HashMap<String, Object>();
+		map.put("start", start);
+		map.put("perPage", perPage);
+		
+		List<TourAnswerDto> reanswerlist= tas.getUserReAnswer(loginNum, map); 
+
+		return new JsonReAnswer<List<TourAnswerDto>>(reanswerlist);
+		   
+	 }
 
 	//나의 코스(내가만든코스)모아보기
 	@GetMapping("/mypage/courses/{currentPage}")
@@ -115,80 +176,20 @@ public class MypageController implements SessionNames {
 		System.out.println("내가만든 코스모아보기 토탈개수: "+totalCount);
 		return new JsonData<List<JoinCourseDto>>(list);
 	}
-
-
-	//내가 단 코스 댓글
-	@GetMapping("/mypage/courseanswer/{currentPage}")
-	public JsonData<List<TourAnswerDto>> getCourseAnswer(@PathVariable(value="currentPage") int currentPage, HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		UserDto user = (UserDto)session.getAttribute(USER);
-		int loginNum = user.getUserNum();
-
-		totalCount=tas.getTotalCountCourseAnswer(loginNum);
-		start=pagingService.getPagingData(totalCount, currentPage).get("start");
-		perPage=pagingService.getPagingData(totalCount, currentPage).get("perPage");
-		List<TourAnswerDto> courseanswer= new ArrayList<TourAnswerDto>();
-		courseanswer = tas.getUserAnswerCourse(loginNum, start, perPage); 
-		return new JsonData<List<TourAnswerDto>>(courseanswer);
-
-	}
-	//내가 단 코스 답글
-	@GetMapping("/mypage/coursereanswer/{currentPage}")
-	public JsonData<List<TourAnswerDto>> getCourseReAnswer(@PathVariable(value="currentPage") int currentPage, HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		UserDto user = (UserDto)session.getAttribute(USER);
-		int loginNum = user.getUserNum();
-
-		totalCount=tas.getTotalCountCourseReAnswer(loginNum);
-		start=pagingService.getPagingData(totalCount, currentPage).get("start");
-		perPage=pagingService.getPagingData(totalCount, currentPage).get("perPage");
-		List<TourAnswerDto> coursereanswer= new ArrayList<TourAnswerDto>();
-		coursereanswer = tas.getUserReAnswerCourse(loginNum, start, perPage); 
-		return new JsonData<List<TourAnswerDto>>(coursereanswer);
-
-	}
-	//내가 단 관광지 댓글
-	@GetMapping("/mypage/placeanswer/{currentPage}")
-	public JsonData<List<TourAnswerDto>> getPlaceAnswer(@PathVariable(value="currentPage") int currentPage, HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		UserDto user = (UserDto)session.getAttribute(USER);
-		int loginNum = user.getUserNum();
-
-		totalCount=tas.getTotalCountPlaceAnswer(loginNum);
-		start=pagingService.getPagingData(totalCount, currentPage).get("start");
-		perPage=pagingService.getPagingData(totalCount, currentPage).get("perPage");
-		List<TourAnswerDto> placeanswer = new ArrayList<TourAnswerDto>();
-		placeanswer = tas.getUserAnswerPlace(loginNum, start, perPage); 
-		return new JsonData<List<TourAnswerDto>>(placeanswer);
-
-	}
-	//내가 단 관광지 답글
-	@GetMapping("/mypage/placereanswer/{currentPage}")
-	public JsonData<List<TourAnswerDto>> getPlaceReAnswer(@PathVariable(value="currentPage") int currentPage, HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		UserDto user = (UserDto)session.getAttribute(USER);
-		int loginNum = user.getUserNum();
-
-		totalCount=tas.getTotalCountPlaceReAnswer(loginNum);
-		start=pagingService.getPagingData(totalCount, currentPage).get("start");
-		perPage=pagingService.getPagingData(totalCount, currentPage).get("perPage");
-		List<TourAnswerDto> placereanswer = new ArrayList<TourAnswerDto>();
-		placereanswer = tas.getUserReAnswerPlace(loginNum, start, perPage); 
-		return new JsonData<List<TourAnswerDto>>(placereanswer);
-
-	}	 
-
-
+	
 	// 댓글,답글 삭제
-	@DeleteMapping(value = "/myanswer/{tourAnswerNum}")
+	@PostMapping(value = "/myanswer/{tourAnswerNum}")
 	public void deleteAnswer(@PathVariable int tourAnswerNum) {
 		tas.deleteCourseAnswerByUser(tourAnswerNum);
 		tas.deletePlaceAnswerByUser(tourAnswerNum);
 	}
 
-	
-	
-	///////////////////////////////////////////////////////////////
+	@GetMapping("/mypage/courselist")
+	public String getMyCourseList() {
+
+		return "mypage/courselist";
+	}
+
 
 	@Data
 	@AllArgsConstructor
@@ -209,5 +210,19 @@ public class MypageController implements SessionNames {
 	@AllArgsConstructor
 	static class MyPageDto{
 		private String num;
+	}
+	
+	@Data
+	@AllArgsConstructor
+	static class JsonAnswer<T>{
+
+		private T Myanswer;
+	}
+	
+	@Data
+	@AllArgsConstructor
+	static class JsonReAnswer<T>{
+
+		private T MyReanswer;
 	}
 }
