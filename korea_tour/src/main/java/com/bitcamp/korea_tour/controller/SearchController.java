@@ -42,10 +42,27 @@ public class SearchController {
 		private List<HashMap<String, Object>> place;
 	}
 	
+	@Data
+	@AllArgsConstructor
+	static class JsonSearchTotalPage {
+		private int totalPage;
+	}
+	
 	// 현재 month
 	SimpleDateFormat sdf = new SimpleDateFormat("MM");
 	Date currDate = new Date();
 	int currentMonth = Integer.parseInt(sdf.format(currDate));
+	
+	@GetMapping("/search/place/{keyword}/totalPage")
+	public JsonSearchTotalPage getTotalCountBySearch(
+			@PathVariable(name="keyword") String keyword) throws UnsupportedEncodingException {
+		String keywordEncode = URLDecoder.decode(keyword, "UTF-8");
+		System.out.println(keywordEncode);
+		int totalCount = service.getTotalCountByKeywordSearch(keywordEncode);
+		System.out.println("totalCount :" + totalCount);
+		int totalPage = pagingService.getTotalPage(totalCount);
+		return new JsonSearchTotalPage(totalPage);
+	}
 	
 	@GetMapping("/search/title/{currentPage}/{keyword}")
 	public JsonSearchPlace getKeywordSearchByTitle(
