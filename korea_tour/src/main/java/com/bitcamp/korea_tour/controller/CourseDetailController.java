@@ -33,6 +33,10 @@ public class CourseDetailController {
 	private final CourseMarkService cms;
 
 
+	/**
+	 * @param courseNum
+	 * @return 메인코스 디테일
+	 */
 	@GetMapping(value="/courses/{courseNum}")
 	public JsonDataList getCourseDetail(
 			@PathVariable(value="courseNum") int courseNum
@@ -60,28 +64,38 @@ public class CourseDetailController {
 
 		return new JsonDataList(courseDto, coursePlaceList, markLikeData);
 	}
+	
+	/**
 	//디테일페이지에서 코스 좋아요하기
+	 * @param dto
+	 */
 	@PostMapping(value = "/courselikes")
 	public void insertCourseLike(@RequestBody CourseLikeDto dto) {
 		cls.insertCourseLike(dto);
 	}
 	
-	
+	/**
 	//디테일페이지에서 좋아요 취소
+	 * @param likeNum
+	 */
 	@DeleteMapping(value = "/courselikes/{likeNum}")
 	public void deleteLike(@PathVariable(value = "likeNum") int likeNum) {
 		cls.deleteCourseLike(likeNum);
 	}
 
-	
+	/**
 	//디테일페이지에서 즐겨찾기하기
+	 * @param dto
+	 */
 	@PostMapping(value = "/coursemarks")
 	public void insertCourseMark(@RequestBody CourseMarkDto dto) {
 		cms.insertCourseMark(dto);
 	}
 	
-	
-	//디테일페이지에서 즐겨찾기 취소 ->해당 코스의 즐겨찾기 개수 +1
+	/**
+	//디테일페이지에서 즐겨찾기 취소 
+	 * @param courseMarkNum
+	 */
 	@DeleteMapping(value = "/coursemarks/{courseMarkNum}")
 	public void deleteMark(@PathVariable int courseMarkNum) {
 		cms.deleteCourseMark(courseMarkNum);
