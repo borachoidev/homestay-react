@@ -22,10 +22,8 @@ public class UserServiceImpl implements UserService,SessionNames {
 	private final UserMapper mapper;
 	
 	@Override
-	public void getUserList(Model model) {
-		List<UserDto> userList=mapper.getUserList();
-		model.addAttribute("list", userList);
-
+	public List<UserDto> getUserList() {
+		return mapper.getUserList();
 	}
 
 	@Override
@@ -34,13 +32,12 @@ public class UserServiceImpl implements UserService,SessionNames {
 	}
 
 	@Override
-	public void getUserData(String userNum, Model model) {
-		UserDto userDto=mapper.getUserData(userNum);
-		model.addAttribute("user", userDto);
+	public UserDto getUserData(int userNum) {
+		return mapper.getUserData(userNum);
 	}
 
 	@Override
-	public void deleteUser(String userNum) {
+	public void deleteUser(int userNum) {
 		mapper.deleteUser(userNum);
 	}
 

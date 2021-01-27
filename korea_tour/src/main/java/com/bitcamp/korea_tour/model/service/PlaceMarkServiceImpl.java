@@ -3,7 +3,6 @@ package com.bitcamp.korea_tour.model.service;
 import org.springframework.stereotype.Service;
 
 import com.bitcamp.korea_tour.model.PlaceMarkDto;
-import com.bitcamp.korea_tour.model.mapper.CourseMarkMapper;
 import com.bitcamp.korea_tour.model.mapper.PlaceMarkMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -13,12 +12,6 @@ import lombok.RequiredArgsConstructor;
 public class PlaceMarkServiceImpl implements PlaceMarkService {
 	
 	private final PlaceMarkMapper mapper; 
-	
-	@Override
-	public int getTotalPlaceMark(int userNum) {
-		// TODO Auto-generated method stub
-		return mapper.getTotalPlaceMark(userNum);
-	}
 
 	@Override
 	public void insertPlaceMark(PlaceMarkDto dto) {
@@ -33,9 +26,9 @@ public class PlaceMarkServiceImpl implements PlaceMarkService {
 	}
 
 	@Override
-	public int getAllMyPlaceMarkCount() {
+	public int getAllMyPlaceMarkCount(int loginNum) {
 		// TODO Auto-generated method stub
-		return mapper.getAllMyPlaceMarkCount();
+		return mapper.getAllMyPlaceMarkCount(loginNum);
 	}
 
 }

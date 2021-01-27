@@ -9,9 +9,9 @@ import lombok.Data;
 @Data
 @Alias("notice")
 public class NoticeDto {
-	private int noticeNum;
-	private String title;
-	private String content;
-	private Timestamp writeDay;
-	private int view;
+   private int noticeNum;
+   private String title;
+   private String content;
+   private Timestamp writeDay;
+   private int views;
 }

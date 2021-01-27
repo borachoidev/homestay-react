@@ -11,19 +11,55 @@
 
 <!-- index.html 고유 스크립트 추가 -->
 <th:block layout:fragment="script" >
-	<script th:src="@{js/home.js}"></script>
+      <script th:src="@{js/home.js}" defer ></script>
+      <script th:src="@{js/mypage.js}" defer ></script>
 </th:block>
 
 <div layout:fragment="content">
-            <h1>마이페이지</h1>
+      <div id="topBox">
+            <h1 class="top-box__h1">마이페이지</h1>
             <hr>
-            <div id="myPageBox">
-                  <div>user</div>
-                  <div>코스</div>
-                  <div>즐겨찾기</div>
-                  <div>댓글</div>
+      </div>
+      <div id="mainBox">
+            <div id="myPageBoxTop">
+                  <div id="mainProfileBox" class="mypage-box">
+                        <div id="profileBox">
+                              <div id="profileBoxSub">
+                                    <div class="login-menu">
+                                          <i class="fas fa-ellipsis-v menu-icon"></i>
+                                          <div class="login-bar">RR</div>
+                                    </div>
+                                    
+                                    <div class="profile-image">프사</div>
+                                    <div class="user-name">user</div>
+                              </div>
+                        </div>
+                  </div>
+
+                  <div id="mainCourseBox" class="mypage-box">
+                        <div class="mypage-box__text-box"> 
+                              <p>코스</p><br /><br />
+                              <p class="mypage-box__text">4</p>
+                        </div>
+                  </div>
+            </div>
+            <div id="myPageBoxBottom">
+                  <div id="mainFavoriteBox" class="mypage-box">
+                        <div class="mypage-box__text-box"> 
+                              <p>즐겨찾기</p><br /><br />
+                              <p class="mypage-box__text">4</p>
+                        </div>      
+                  </div>
+                  <div id="mainAnswerBox" class="mypage-box">
+                        <div class="mypage-box__text-box"> 
+                              <p>댓글</p><br /><br />
+                              <p class="mypage-box__text">4</p>
+                        </div>
+                  </div>
 
             </div>
+
+      </div>
 </div>
    
 </html>

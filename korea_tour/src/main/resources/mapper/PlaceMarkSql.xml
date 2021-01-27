@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bitcamp.korea_tour.model.mapper.PlaceMarkMapper">
+	<!-- 관광지의 즐겨찾기 개수 -->
 	<select id="getTotalPlaceMark" parameterType="int" resultType="int">
-		select count(*) from placeMark where userNum=#{userNum}
+		select count(*) from placeMark where contentId=#{contentId}
 	</select>
-	
+	<!-- 사용자가 즐겨찾기를 눌렀을때 -->
 	<insert id="insertPlaceMark" parameterType="placemark">
-		insert into placeMark (userNum,placeNum) values (#{userNum},#{placeNum})
+		insert into placeMark (userNum,contentId) values (#{loginNum},#{contentId})
 	</insert>
 	<delete id="deletePlaceMark" parameterType="int">
 		delete from placeMark where markNum=#{markNum} 
 	</delete>
- 	<select id="getAllMyPlaceMarkCount">
-		select count(*) from place_mark where userNum=#{userNum}
+	<!-- 내가 즐겨찾기한 관광지의 개수 -->
+ 	<select id="getAllMyPlaceMarkCount" parameterType="int" resultType="int">
+		select count(*) from placeMark where userNum=#{loginNum}
 	</select>
+
 
 </mapper>

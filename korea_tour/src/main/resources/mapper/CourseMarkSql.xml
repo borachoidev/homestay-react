@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bitcamp.korea_tour.model.mapper.CourseMarkMapper">
-	<select id="getTotalCourseMark" parameterType="int" resultType="int">
-		select count(*) from courseMark where userNum=#{userNum}
-	</select>
 	<insert id="insertCourseMark" parameterType="coursemark">
-		insert into courseMark (userNum,courseNum) values (#{userNum},#{courseNum})
+		insert into courseMark (userNum,courseNum,loginNum) values (#{userNum},#{courseNum},#{loginNum})
 	</insert>
-	<delete id="deleteCourseMark" parameterType="HashMap">
-		delete from courseMark where userNum=#{useNum} and courseNum=#{courseNum}
+	<delete id="deleteCourseMark" parameterType="int">
+		delete from courseMark where courseMarkNum=#{courseMarkNum}
 	</delete>
-	
-<!-- 	<select id="getCourseMark">
-		select from courseMark where userNum=#{userNum}
-	</select> -->
+	<select id="getCourseMark" parameterType="int" resultType="coursemark">
+		select * from courseMark where courseNum=#{courseNum} 
+	</select>
+	<!-- 내가 즐겨찾기한 코스의 개수 -->
+ 	<select id="getMyCourseMarkCount" parameterType="int" resultType="int">
+		select count(*) from courseMark where loginNum=#{loginNum}
+	</select>
+	<!-- 해당 코스 즐겨찾기된 개수 -->
+	<select id="getCourseMarkTotal" parameterType="int" resultType="int">
+		select count(*) from courseMark where courseNum=#{courseNum}
+	</select>
 </mapper>
