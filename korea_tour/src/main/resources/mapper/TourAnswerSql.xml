@@ -69,10 +69,16 @@
    </select>
    
    <!-- 관리자용 전체 답글 출력 쿼리 -->
-   <select id="getAdminAnswer" parameterType="int" resultType="touranswer">
+   <select id="getTotalCountAnswerAdmin"  resultType="int">
       select * from tourAnswer where relevel=0 order by tourAnswerNum desc
    </select>
-   <select id="getAdminReAnswer" parameterType="int" resultType="touranswer">
+   <select id="getAdminAnswer"  resultType="touranswer">
+      select * from tourAnswer where relevel=0 order by tourAnswerNum desc
+   </select>
+   <select id="getTotalCountReAnswerAdmin" resultType="int">
       select * from tourAnswer where relevel=1 order by tourAnswerNum desc
+   </select>
+   <select id="getAdminReAnswer"  resultType="touranswer">
+      select * from tourAnswer where relevel=0 order by tourAnswerNum desc
    </select>
 </mapper>
