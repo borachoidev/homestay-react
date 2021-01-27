@@ -68,8 +68,8 @@ public class MypageController implements SessionNames {
 		int totalmycourse = cs.getMyCourseCount(loginNum);
 
 		//나의 댓글 개수 찾기
-		int myanswer = tas.getTotalCountCourseAnswer(loginNum);
-		int myreanswer = tas.getTotalCountCourseReAnswer(loginNum);
+		int myanswer = tas.getTotalCountAnswer(loginNum);
+		int myreanswer = tas.getTotalCountReAnswer(loginNum);
 		int totalmyanswer = myanswer+myreanswer;
 		//보내기
 		Map<String, Integer> mypagecount = new HashMap<String, Integer>();
