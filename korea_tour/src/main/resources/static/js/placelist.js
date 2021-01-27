@@ -1,69 +1,204 @@
 'use strict';
 
-//슬라이드 
-let slideIndex = 0; //slide index
-
-// HTML 로드가 끝난 후 동작
 window.onload=function(){
-  showSlides(slideIndex);
-
-  // Auto Move Slide
-  let sec = 5000;
-  setInterval(function(){
-    slideIndex++;
-    showSlides(slideIndex);
-
-  }, sec);
+ let clickFirst=document.getElementById("namelist");
+  clickFirst.click();
 }
 
-
-// Next/previous controls
-function moveSlides(n) {
-  slideIndex = slideIndex + n
-  showSlides(slideIndex);
-}
-
-// Thumbnail image controls
-function currentSlide(n) {
-  slideIndex = n;
-  showSlides(slideIndex);
-}
-
-function showSlides(n) {
-
-  let slides = document.getElementsByClassName("mySlides");
-  let dots = document.getElementsByClassName("dot");
-  let size = slides.length;
-
-  let i="";
-  if ((n+1) > size) {
-    slideIndex = 0; n = 0;
-  }else if (n < 0) {
-    slideIndex = (size-1);
-    n = (size-1);
-  }
-
-  
-
-  for (i = 0; i < slides.length; i++) {
-      slides[i].style.display = "none";
-  }
-  for (i = 0; i < dots.length; i++) {
-      dots[i].className = dots[i].className.replace(" active", "");
-  }
-
-  slides[n].style.display = "block";
-  dots[n].className += " active";
-}
-
-//슬라이드 끝
-
-//클릭이벤트
 function printName(event){
- var name = event;
- document.getElementById("mainCity").innerHTML = (name);
+
+ let name = event.value;
+ document.getElementById("mainCity").value = (name);
+
+
 }
 
-var sc = document.getElementById("mainCity");
-if (document.getElementById("mainCity").style.display = 'none')
-  document.getElementById("main")
+const choiceList = () =>{
+	let list = document.getElementsByClassName("list");
+	
+ function handleClick(event) {
+        if (event.target.classList.contains === "choice") {
+          event.target.classList.remove("choice");
+        } else {
+          for (let i = 0; i < list.length; i++) {
+            list[i].classList.remove("choice");
+          }
+
+          event.target.classList.add("choice");
+        }
+      }
+
+      function init() {
+        for (let i = 0; i < list.length; i++) {
+          list[i].addEventListener("click", handleClick);
+        }
+      }
+
+      init();
+}
+
+
+//상단 슬라이드
+let slideUp = (target, duration=500) => {
+    target.style.transitionProperty = 'height, margin, padding';
+    target.style.transitionDuration = duration + 'ms';
+    target.style.boxSizing = 'border-box';
+    target.style.height = target.offsetHeight + 'px';
+    target.offsetHeight;
+    target.style.overflow = 'hidden';
+    target.style.height = 0;
+    target.style.paddingTop = 0;
+    target.style.paddingBottom = 0;
+    target.style.marginTop = 0;
+    target.style.marginBottom = 0;
+    window.setTimeout( () => {
+      target.style.display = 'none';
+      target.style.removeProperty('height');
+      target.style.removeProperty('padding-top');
+      target.style.removeProperty('padding-bottom');
+      target.style.removeProperty('margin-top');
+      target.style.removeProperty('margin-bottom');
+      target.style.removeProperty('overflow');
+      target.style.removeProperty('transition-duration');
+      target.style.removeProperty('transition-property');
+      //alert("!");
+    }, duration);
+  }
+let slideDown = (target, duration=500) => {
+    target.style.removeProperty('display');
+    let display = window.getComputedStyle(target).display;
+
+    if (display === 'none')
+      display = 'block';
+
+    target.style.display = display;
+    let height = target.offsetHeight;
+    target.style.overflow = 'hidden';
+    target.style.height = 0;
+    target.style.paddingTop = 0;
+    target.style.paddingBottom = 0;
+    target.style.marginTop = 0;
+    target.style.marginBottom = 0;
+    target.offsetHeight;
+    target.style.boxSizing = 'border-box';
+    target.style.transitionProperty = "height, margin, padding";
+    target.style.transitionDuration = duration + 'ms';
+    target.style.height = height + 'px';
+    target.style.removeProperty('padding-top');
+    target.style.removeProperty('padding-bottom');
+    target.style.removeProperty('margin-top');
+    target.style.removeProperty('margin-bottom');
+    window.setTimeout( () => {
+      target.style.removeProperty('height');
+      target.style.removeProperty('overflow');
+      target.style.removeProperty('transition-duration');
+      target.style.removeProperty('transition-property');
+    }, duration);
+  }
+let slideToggle = (target, duration = 500) => {
+  if (window.getComputedStyle(target).display === 'none') {
+    return slideDown(target, duration);
+  } else {
+    return slideUp(target, duration);
+  }
+}
+   
+// ====  
+  
+let speedAnimation = 400;
+let targetId = document.getElementById("target");
+
+let slideBtnClick = (cl, sl) => 
+document.querySelector(cl).addEventListener('click', () => sl(targetId, speedAnimation));
+
+
+
+slideBtnClick('.slide-img', slideToggle);
+slideBtnClick('.fa-times', slideToggle);
+
+
+/*
+      function handleClick(event) {
+        if (event.target.classList.contains === "clicked") {
+          event.target.classList.remove("clicked");
+        } else {
+          for (let i = 0; i < cityList.length; i++) {
+            cityList[i].classList.remove("clicked");
+          }
+
+          event.target.classList.add("clicked");
+        }
+      }
+
+      function init() {
+        for (let i = 0; i < cityList.length; i++) {
+          cityList[i].addEventListener("click", handleClick);
+        }
+      }
+
+      init();
+*/
+
+/*if(i.style.display == "none")
+{*/
+ 
+/*}else{
+ let preant = document.getElementById("p");
+ preant.removeChild(i);
+}*/
+
+/*var clickTimes = 0;
+
+       clickTimes++;
+       let n = (clickTimes%2)+1
+       switch(n) {
+           case 1:
+              var newSpan = document.createElement("span");
+              newSpan.innerHTML = name;
+              newSpan.setAttribute("id",name);
+              newSpan.setAttribute("th:value",name);
+              newSpan.style.backgroundColor="yellow";
+              var p = document.getElementById("p"); // <p "id=p"> 태그의 DOM 객체 찾기
+              p.appendChild(newSpan);
+               break;
+           default:
+         
+                 // 삭제할 ID 정보 찾기
+                var target = name.parentNode.getAttribute('name');
+                 // 삭제할 element 찾기
+                 var field = document.getElementById('name');
+                 // #field 에서 삭제할 element 제거하기
+                 document.getElementById('p').removeChild(field);
+               break;
+       }
+       //Do something else
+}*/
+
+
+//태그 계속 추가할 수 있는것
+//let newSpan = document.createElement("span");
+// newSpan.innerHTML = n;
+// newSpan.setAttribute("id",n);
+// newSpan.setAttribute("th:value",n);
+// newSpan.setAttribute("region","");
+// newSpan.style.backgroundColor="yellow";
+// let p = document.getElementById("p"); // <p "id=p"> 태그의 DOM 객체 찾기
+// p.appendChild(newSpan);
+
+
+
+
+// let n;
+// let x  =document.getElementById("mainCity").value.split(" ");
+//if(!document.getElementById("mainCity").value.includes(name))
+// document.getElementById("mainCity").value += " "+(name);
+//if(document.getElementById("mainCity").value.split(" ").indexOf(name)==1)
+//n=document.getElementById("mainCity").value.replace(name,"");
+//alert(n)
+//const str2 = name;
+//const result = [...new Set(str1.split(" ").filter(name => !str2.includes(name)))].join(" ");
+//console.log(result);
+
+//if(x.indexOf(name) == 1)
+// document.getElementById("mainCity").value -= " "+(name);
+

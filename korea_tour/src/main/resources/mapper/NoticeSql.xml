@@ -2,15 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.bitcamp.korea_tour.model.mapper.NoticeMapper">
-	<select id="getTotalCount" resultType="int">
-		select count(*) from notice
-	</select>
-	<select id="getAllDatas" resultType="notice">
-	      select * from notice order by noticeNum
+   <select id="getTotalCount" resultType="int">
+      select count(*) from notice
+   </select>
+   <select id="getAllDatas"  parameterType="hashmap" resultType="notice">
+         select * from notice order by noticeNum desc limit #{start}, #{perPage}
    </select>
    <insert id="insertNotice" parameterType="notice">
-      insert into notice (title,content,writeDay,view)
-       values (#{title},#{content},#{view},now())
+      insert into notice (title,content,views,writeDay)
+       values (#{title},#{content},#{views},now())
    </insert>
    <select id="getData" parameterType="int" resultType="notice">
       select * from notice where noticeNum=#{noticeNum}
@@ -23,8 +23,7 @@
       delete from Notice where noticeNum=#{noticeNum}
    </delete>
    <select id="getNewNotice" resultType="notice"> <!-- 메인페이지 공지사항 -->
-   		select * from notice order by writeDay desc limit 0, 3
+         select * from notice order by writeDay desc limit 0, 3
    </select>
 
 </mapper>
-

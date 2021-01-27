@@ -17,6 +17,7 @@
 
 	<div class="festival-calendar">
 		<h1>지금 열리는 지역축제</h1>
+		
 		<div class='cal-month'>
 			<span class='pre-month'><i class="fas fa-angle-left"></i></span>
 			<span class='current-month'></span>
@@ -30,7 +31,9 @@
 	<div class="festival-list">
 		
 	</div>
+	<div class="festival-area">
 	<h1> 지역으로 보기</h1>
+	
 	<ul class="area">
 		<li class='area-list' th:area='all'><a href="/festival/list?areaCode=&pageNum=1&month=">전국</a></li>
 		<li class='area-list' th:area='1'><a href="/festival/list?areaCode=1&pageNum=1&month=">서울</a></li>
@@ -51,6 +54,7 @@
 		<li class='area-list' th:area='38'><a href="/festival/list?areaCode=38&pageNum=1&month=">전남</a></li>
 		<li class='area-list' th:area='39'><a href="/festival/list?areaCode=39&pageNum=1&month=">제주</a></li>
 	</ul>
+</div>
 </div >
 
 

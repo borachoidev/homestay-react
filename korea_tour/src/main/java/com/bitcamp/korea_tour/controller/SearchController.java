@@ -47,10 +47,10 @@ public class SearchController {
 	@GetMapping("/search/title/{currentPage}/{keyword}")
 	public JsonSearchPlace getKeywordSearchByTitle(
 			@PathVariable(name="currentPage") int currentPage,
-			@PathVariable(name="keyword") String keyword
+			@RequestParam(required = false) String keyword
 			) {
 		// 검색어가 null일시 현재계절을 키워드로 담는다
-		if(keyword.equals("empty")) {
+		if(keyword==null) {
 			System.out.println("키워드가 널!!");
 			if(currentMonth>=3 && currentMonth<6) {
 				keyword="봄";
@@ -88,13 +88,13 @@ public class SearchController {
 		return new JsonSearchPlace(place);
 	}
 	
-	@GetMapping("/search/like/{currentPage}/{keyword}")
+	@GetMapping("/search/like/{currentPage}")
 	public JsonSearchPlace getKeywordSearchByLike(
 			@PathVariable(name="currentPage") int currentPage,
-			@PathVariable(name="keyword", required = false) String keyword
+			@RequestParam(required = false) String keyword
 			) {
 		// 검색어가 null일시 현재계절을 키워드로 담는다
-		if(keyword.trim().equals("")) {
+		if(keyword==null) {
 			System.out.println("키워드가 널!!");
 			if(currentMonth>=3 && currentMonth<6) {
 				keyword="봄";
