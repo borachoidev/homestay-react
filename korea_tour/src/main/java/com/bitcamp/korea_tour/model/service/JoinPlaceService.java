@@ -16,7 +16,7 @@ import com.bitcamp.korea_tour.model.joinPlaceDto;
 public interface JoinPlaceService {
    List<joinPlaceDto> getTotalPlaceMark(int loginNum, HashMap<String, Object> map);
    int getTotalCountMyPlaceMark(int userNum);
-   List<PlaceDto> getFourDatasByRandom();
+   List<PlaceDto> getFourDatasByRandom(int areaCode);
    int getTotalCount();
    int getTotalCountInArea(int areaCode);
    List<JoinPlaceListDto> searchPlaceByTitleInArea(HashMap<String, Object> map);

@@ -84,9 +84,10 @@ public class PlaceController {
 	}
 	
 	// 관광지 메인페이지 (4개 랜덤 출력)
-	@GetMapping("/place/main")
-	public JsonPlaceMain<List<PlaceDto>> getPlaceMain() { 
-		List<PlaceDto> list = service.getFourDatasByRandom();
+	@GetMapping("/place/main/{areaCode}")
+	public JsonPlaceMain<List<PlaceDto>> getPlaceMain(
+			@PathVariable(name="areaCode") int areaCode) { 
+		List<PlaceDto> list = service.getFourDatasByRandom(areaCode);
 		return new JsonPlaceMain<List<PlaceDto>>(list);
 	}
 	

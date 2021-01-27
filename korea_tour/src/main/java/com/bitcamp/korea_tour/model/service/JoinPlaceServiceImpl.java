@@ -31,9 +31,9 @@ public class JoinPlaceServiceImpl implements JoinPlaceService{
    }
 
    @Override
-   public List<PlaceDto> getFourDatasByRandom() {
+   public List<PlaceDto> getFourDatasByRandom(int areaCode) {
       // TODO Auto-generated method stub
-      return mapper.getFourDatasByRandom();
+      return mapper.getFourDatasByRandom(areaCode);
    }
 
    @Override
