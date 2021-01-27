@@ -17,7 +17,7 @@ public interface PagingService {
 			{검색어->코스이름, 코스내용, 코스관광지 지역, 코스관광지 이름, 코스관광지 설명}
 		6. 관광지통합검색&메인페이지관광지검색((1)가나다순/(2)인기순) -`페이징` JoinPlaceMapper
 			{검색어->코스이름, 코스내용, 코스관광지 지역, 코스관광지 이름, 코스관광지 설명}
-		10. 마이코스목록(최신순) -`페이징` JoinCourseMapper 
+		10. 마이코스목록(최신순) -`페이징` JoinCourseMapper
 		11. 마이즐찾코스목록(최신순) -`페이징` JoinCourseMapper 
 		12. 마이즐찾관광지목록(최신순) -`페이징` JoinPlaceMapper
 		13. 마이댓글목록(관광지num/ 코스num)  -`페이징` TourAnswerMapper
