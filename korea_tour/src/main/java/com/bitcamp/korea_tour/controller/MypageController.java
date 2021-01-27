@@ -51,6 +51,7 @@ public class MypageController implements SessionNames {
 	int totalCount=0;
 	int start=0;
 	int perPage=0;
+	int totalPage=0;
 
 	//mypage 첫 페이지
 	@GetMapping("/mypage")
@@ -96,11 +97,12 @@ public class MypageController implements SessionNames {
 		totalCount=jcms.getMarkTotalCount(loginNum);
 		start=pagingService.getPagingData(totalCount, currentPage).get("start");
 		perPage=pagingService.getPagingData(totalCount, currentPage).get("perPage");
+		totalPage=pagingService.getPagingData(totalCount, currentPage).get("totalPage");
 		List<JoinCourseMarkDto> list = new ArrayList<JoinCourseMarkDto>();
 		list = jcms.getMyMarkCourse(loginNum, start, perPage);
 		//System.out.println(list);
 		System.out.println("즐겨찾기 코스모아보기 토탈개수: "+totalCount);
-		return new JsonData<List<JoinCourseMarkDto>>(list);
+		return new JsonData<List<JoinCourseMarkDto>>(list, totalPage);
 	}
 	//mypage 내가 즐겨찾기한 관광지 모아보기
 	@GetMapping("/mypage/placemarks/{currentPage}")
@@ -113,12 +115,13 @@ public class MypageController implements SessionNames {
 		totalCount=jps.getTotalCountMyPlaceMark(loginNum);
 		start=pagingService.getPagingData(totalCount, currentPage).get("start");
 		perPage=pagingService.getPagingData(totalCount, currentPage).get("perPage");
+		totalPage=pagingService.getPagingData(totalCount, currentPage).get("totalPage");
 		HashMap<String, Object> map=new HashMap<String, Object>();
 		
 		List<joinPlaceDto> list = jps.getTotalPlaceMark(loginNum, map);
 		//System.out.println(list);
 		System.out.println("즐겨찾기 관광지 모아보기 토탈개수: "+totalCount);
-		return new JsonData<List<joinPlaceDto>>(list);
+		return new JsonData<List<joinPlaceDto>>(list, totalPage);
 	}
 	
 	//내가 단 댓글
@@ -132,13 +135,14 @@ public class MypageController implements SessionNames {
 	    System.out.println(totalCount);
 	    start=pagingService.getPagingData(totalCount, currentPage).get("start");
 		perPage=pagingService.getPagingData(totalCount, currentPage).get("perPage");
+		totalPage=pagingService.getPagingData(totalCount, currentPage).get("totalPage");
 		HashMap<String, Object> map=new HashMap<String, Object>();
 		map.put("start", start);
 		map.put("perPage", perPage);
 		
 		List<TourAnswerDto> answerlist= tas.getUserAnswer(loginNum, map); 
 		
-		return new JsonAnswer<List<TourAnswerDto>>(answerlist);
+		return new JsonAnswer<List<TourAnswerDto>>(answerlist, totalPage);
 	   
     }
 	 //내가 단 답글
@@ -151,13 +155,14 @@ public class MypageController implements SessionNames {
 		totalCount=tas.getTotalCountReAnswer(loginNum);
 		start=pagingService.getPagingData(totalCount, currentPage).get("start");
 		perPage=pagingService.getPagingData(totalCount, currentPage).get("perPage");
+		totalPage=pagingService.getPagingData(totalCount, currentPage).get("totalPage");
 		HashMap<String, Object> map=new HashMap<String, Object>();
 		map.put("start", start);
 		map.put("perPage", perPage);
 		
 		List<TourAnswerDto> reanswerlist= tas.getUserReAnswer(loginNum, map); 
 
-		return new JsonReAnswer<List<TourAnswerDto>>(reanswerlist);
+		return new JsonReAnswer<List<TourAnswerDto>>(reanswerlist, totalPage);
 		   
 	 }
 
@@ -172,9 +177,10 @@ public class MypageController implements SessionNames {
 		totalCount=jcms.getMyTotalCount(loginNum);
 		start=pagingService.getPagingData(totalCount, currentPage).get("start");
 		perPage=pagingService.getPagingData(totalCount, currentPage).get("perPage");
+		totalPage=pagingService.getPagingData(totalCount, currentPage).get("totalPage");
 		List<JoinCourseDto> list = jcms.getMyCourseList(loginNum, start, perPage);
 		System.out.println("내가만든 코스모아보기 토탈개수: "+totalCount);
-		return new JsonData<List<JoinCourseDto>>(list);
+		return new JsonData<List<JoinCourseDto>>(list, totalPage);
 	}
 	
 	// 댓글,답글 삭제
@@ -195,6 +201,7 @@ public class MypageController implements SessionNames {
 	@AllArgsConstructor
 	static class JsonData<T> {
 		private T list;
+		int totalPage;
 	}
 
 
@@ -217,6 +224,7 @@ public class MypageController implements SessionNames {
 	static class JsonAnswer<T>{
 
 		private T Myanswer;
+		int totalPage;
 	}
 	
 	@Data
@@ -224,5 +232,6 @@ public class MypageController implements SessionNames {
 	static class JsonReAnswer<T>{
 
 		private T MyReanswer;
+		int totalPage;
 	}
 }

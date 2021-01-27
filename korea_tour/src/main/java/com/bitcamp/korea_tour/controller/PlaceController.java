@@ -60,6 +60,7 @@ public class PlaceController {
 	static class JsonPlaceList {
 		private List<JoinPlaceListDto> place;
 		private int totalCount;
+		private int totalPage;
 	}
 	
 	@Data
@@ -100,12 +101,15 @@ public class PlaceController {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		List<JoinPlaceListDto> place = null;
 		int totalCount = 0;
+		int totalPage = 0;
 		map.put("orderBy", "title");
 		map.put("areaCode", areaCode);
 		if(areaCode!=100) { // 지역 검색
 			totalCount = service.getTotalCountInArea(areaCode);
+			totalPage = totalCount/10 + (totalCount%10>0?1:0);
 		}else { // 전국
 			totalCount = service.getTotalCount();
+			totalPage = totalCount/10 + (totalCount%10>0?1:0);
 		}
 		int start=pagingService.getPagingData(totalCount, currentPage).get("start");
 	    int perPage=pagingService.getPagingData(totalCount, currentPage).get("perPage");
@@ -118,7 +122,7 @@ public class PlaceController {
 			place = service.searchPlaceByTitleInArea(map);
 		}
 //		System.out.println(place);
-		return new JsonPlaceList(place, totalCount);
+		return new JsonPlaceList(place, totalCount, totalPage);
 	}
 	
 	//관광지 리스트 좋아요순
@@ -130,12 +134,15 @@ public class PlaceController {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		List<JoinPlaceListDto> place = null;
 		int totalCount = 0;
+		int totalPage = 0;
 		map.put("orderBy", "title");
 		map.put("areaCode", areaCode);
 		if(areaCode!=100) { // 지역 검색
 			totalCount = service.getTotalCountInArea(areaCode);
+			totalPage = totalCount/10 + (totalCount%10>0?1:0);
 		}else { // 전국
 			totalCount = service.getTotalCount();
+			totalPage = totalCount/10 + (totalCount%10>0?1:0);
 		}
 		int start=pagingService.getPagingData(totalCount, currentPage).get("start");
 	    int perPage=pagingService.getPagingData(totalCount, currentPage).get("perPage");
@@ -148,7 +155,7 @@ public class PlaceController {
 			place = service.searchPlaceByLikeInArea(map);
 		}
 //		System.out.println(place);
-		return new JsonPlaceList(place, totalCount);
+		return new JsonPlaceList(place, totalCount, totalPage);
 	}
 	
 	// 관광지 디테일 페이지

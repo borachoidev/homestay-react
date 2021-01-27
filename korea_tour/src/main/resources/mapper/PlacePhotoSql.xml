@@ -1,17 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bitcamp.korea_tour.model.mapper.PlacePhotoMapper">
-	<!-- <select id="getAllDatas" parameterType="int" resultMap="placeAllPhotos">
-		select q.contentId,q.placeApiPhotoNum,q.originImgUrl,r.contentId,r.photoNum,r.approval,r.image,r.loginId
-		 from placeApiPhoto q join placePhoto r on (p.contentId=r.contentId) 
-		 where contentId=#{contentId} and approval=1 order by placeApiPhotoNum desc, photoNum desc
-	</select> -->
-	<!-- <select id="getTotalCount" parameterType="int" resultType="int">
-		select count(*) as cnt from (select q.contentId,q.placeApiPhotoNum,q.originImgUrl,r.contentId,r.photoNum,r.approval,r.image,r.loginId
-		 from placeApiPhoto q join placePhoto r on (p.contentId=r.contentId) 
-		 where contentId=#{contentId}) and approval=1 group by contentId
-	</select> -->
-	
 	<!-- 관광지Detail -->
 	<insert id="insertData" parameterType="placePhoto">
 		insert into placePhoto (contentId,approval,image,loginId) 
