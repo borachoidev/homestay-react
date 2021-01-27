@@ -30,9 +30,11 @@
 					<br>
 				</div>
 				<div class="insert-wrap">
-					<input type="text" placeholder="Username" /> <input type="password"
-						placeholder="Password" />
+				<form th:action="adminlogin" method="post">
+					<input type="text" placeholder="Username" name="id"/> 
+					<input type="password" placeholder="Password" name="password" />
 					<button type="submit">Login</button>
+				</form>
 				</div>
 			</div>
 		</form>

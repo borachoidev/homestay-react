@@ -25,15 +25,17 @@
 <div class="all-summernote">
 <div class="notice-wrap">
 <h2>공지 작성란</h2><br>
-<input type="text" class="notice-title" id="notice-title" name="title" />
+ <form method="post">
+<input type="text" class="notice-title" id="notice-title" name="title"  />
 	<textarea name="content" id="summernote" class="summernote" th:text="*{content}"></textarea>
 <div class="notice-buttons">
-<button id="subBtn" type="button">저장</button>
-<button id="subBtn" type="button">뒤로가기</button>
+<button id="subBtn" type="submit">저장하기</button>
+</div>
+</form>
 </div>
 </div>
 </div>
-</div>
+
 
 
 
