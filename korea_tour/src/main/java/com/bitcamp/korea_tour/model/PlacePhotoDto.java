@@ -15,7 +15,6 @@ public class PlacePhotoDto {
 	private int approval;
 	private String image;
 	private String loginId;
-	private List<MultipartFile> files;
 	
 	// 이미지일경우 true리턴
 	public boolean isImage(String filename) {

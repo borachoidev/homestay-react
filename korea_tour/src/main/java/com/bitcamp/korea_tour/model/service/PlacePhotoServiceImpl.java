@@ -29,9 +29,9 @@ public class PlacePhotoServiceImpl implements PlacePhotoService{
 	}
 
 	@Override
-	public List<PlacePhotoDto> getDisapprovedDatas(HashMap<String, Object> map) {
+	public List<PlacePhotoDto> getDisapprovedDatas() {
 		// TODO Auto-generated method stub
-		return mapper.getDisapprovedDatas(map);
+		return mapper.getDisapprovedDatas();
 	}
 
 	@Override

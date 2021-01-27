@@ -17,8 +17,8 @@
 	<select id="getData" parameterType="int" resultType="placePhoto">
 		select * from placePhoto where photoNum=#{photoNum}
 	</select>
-	<select id="getDisapprovedDatas" parameterType="hashmap" resultType="placePhoto">
-		select * from placePhoto where approval=0 limit #{start},#{perPage}
+	<select id="getDisapprovedDatas" resultType="placePhoto">
+		select * from placePhoto where approval=0
 	</select>
 	<update id="approvePhoto" parameterType="int">
 		update placePhoto set approval=1 where photoNum=#{photoNum}
