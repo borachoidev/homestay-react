@@ -79,6 +79,6 @@
       select * from tourAnswer where relevel=1 order by tourAnswerNum desc
    </select>
    <select id="getAdminReAnswer"  resultType="touranswer">
-      select * from tourAnswer where relevel=0 order by tourAnswerNum desc
+      select * from tourAnswer where relevel=1 order by tourAnswerNum desc
    </select>
 </mapper>
