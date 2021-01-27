@@ -36,7 +36,7 @@ public class NoticeController implements SessionNames {
    int totalCount=0;
    int start=0;
    int perPage=0;
-   
+   int totalPage=0;
 
    @GetMapping("/notice/{currentPage}")
    public JsonData<List<NoticeDto>> getNoticeList(@PathVariable(name = "currentPage") int currentPage) {
@@ -45,13 +45,14 @@ public class NoticeController implements SessionNames {
       /* System.out.println(totalCount); */
       start=pagingService.getPagingData(totalCount, currentPage).get("start");
       perPage=pagingService.getPagingData(totalCount, currentPage).get("perPage");
+      totalPage=pagingService.getPagingData(totalPage, currentPage).get("totalPage");
       HashMap<String, Object> map=new HashMap<String, Object>();
       map.put("start", start);
       map.put("perPage", perPage);
    
       List<NoticeDto> list = ns.getAllDatas(map);
 
-      return new JsonData<List<NoticeDto>>(list);
+      return new JsonData<List<NoticeDto>>(list, totalPage);
       
    }
    
@@ -85,6 +86,7 @@ public class NoticeController implements SessionNames {
    @AllArgsConstructor
    static class JsonData<T> {
       private T notices;
+      int totalPage;
    }
    
    @Data
