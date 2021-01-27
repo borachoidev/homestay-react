@@ -17,13 +17,11 @@ public class HomeStayReservationDto {
 	private int numberOfPeople;
 	private int approval;
 	private Timestamp writeday;
-	private String addr1;
-	private String addr2;
+	private String email1;
+	private String email2;
 	private int gender;
-	private String year;
-	private String month;
-	private String day;
-	private int loginNum;
-	private String loginId;
-	private String loginPhoto;
+	private String birthYear;
+	private String birthMonth;
+	private String birthDay;
+	private int deleted;
 }
