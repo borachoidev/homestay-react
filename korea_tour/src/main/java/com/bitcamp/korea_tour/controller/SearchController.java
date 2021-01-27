@@ -1,5 +1,7 @@
 package com.bitcamp.korea_tour.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -47,8 +49,9 @@ public class SearchController {
 	@GetMapping("/search/title/{currentPage}/{keyword}")
 	public JsonSearchPlace getKeywordSearchByTitle(
 			@PathVariable(name="currentPage") int currentPage,
-			@PathVariable(name="keyword") String keyword) {
-		
+			@PathVariable(name="keyword") String keyword) throws UnsupportedEncodingException {
+		String keywordEncode = URLEncoder.encode(keyword, "UTF-8");
+		System.out.println(keywordEncode);
 		
 		HashMap<String, Object> req = new HashMap<String, Object>();
 		req.put("keyword", keyword);
@@ -77,10 +80,11 @@ public class SearchController {
 	@GetMapping("/search/like/{currentPage}/{keyword}")
 	public JsonSearchPlace getKeywordSearchByLike(
 			@PathVariable(name="currentPage") int currentPage,
-			@PathVariable(name="keyword") String keyword) {
-		
+			@PathVariable(name="keyword") String keyword) throws UnsupportedEncodingException  {
+		String keywordEncode = URLEncoder.encode(keyword, "UTF-8");
+		System.out.println(keywordEncode);
 		HashMap<String, Object> req = new HashMap<String, Object>();
-		req.put("keyword", keyword);
+		req.put("keyword", keywordEncode);
 		int totalCount = service.getTotalCountByKeywordSearch(keyword);
 		Map<String, Integer> paging = pagingService.getPagingData(totalCount, currentPage);
 		req.put("start", paging.get("start"));

@@ -49,7 +49,7 @@ public class PagingServiceImpl implements PagingService {
 		Map<String, Integer> paging=new HashMap<String, Integer>();
 		paging.put("start", start);
 		paging.put("perPage", perPage);
-		
+		paging.put("totalPage", totalPage);
 		return paging;		
 	}
 	
