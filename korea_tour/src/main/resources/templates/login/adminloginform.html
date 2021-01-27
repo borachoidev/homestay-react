@@ -30,7 +30,7 @@
 					<br>
 				</div>
 				<div class="insert-wrap">
-				<form th:action="adminlogin" method="post">
+				<form th:action="@{/login/admin/success}" method="post">
 					<input type="text" placeholder="Username" name="id"/> 
 					<input type="password" placeholder="Password" name="password" />
 					<button type="submit">Login</button>
