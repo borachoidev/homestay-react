@@ -10,8 +10,8 @@
       select count(*) from placeMark where userNum=#{loginNum}
    </select>
    <!-- 관광지main : 랜덤으로 상위 4곳만 출력-->
-   <select id="getFourDatasByRandom" resultType="place">
-      select * from place order by rand() limit 4
+   <select id="getFourDatasByRandom" parameterType="int" resultType="place">
+      select * from place where areaCode=#{areaCode} order by rand() limit 4
    </select>
    
    <!-- 관광지list : 지역태그검색 -->
