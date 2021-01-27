@@ -156,6 +156,19 @@ select {
   transition: all 0.8s;
 }
 
+#userPhoto {
+	height:70px;
+	width:70px;
+	border-radius: 50%;
+	text-align: center;
+}
+
+#homeLogout{
+	font-size:15px;
+	border:1px solid-brown;
+	text-align: center;
+}
+
 @keyframes slide {
   0% {
     background-image: url(/img/slide-bg-05.jpg);
