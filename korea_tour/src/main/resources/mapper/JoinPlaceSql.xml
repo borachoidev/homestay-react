@@ -24,7 +24,7 @@
    <!-- 제목순/좋아요순/지역태그 : param={"order" : "like"or"title", "areaCode":areacode or 100(전체)} -->
    <select id="searchPlaceByTitleInArea" parameterType="hashmap" resultType="joinPlaceList"> <!-- 제목순,지역태그 --> 
       select p.contentId,p.title,p.overview,p.addr1,p.addr2,p.mapX,p.mapY,p.mLevel,p.areaCode,p.linkedURL,p.firstImage,l.likeCount 
-       from place p join (select contentId, count(loginId) as likeCount from placeLike group by contentId) l on p.contentId=l.contentId 
+       from place p left join (select contentId, count(loginId) as likeCount from placeLike group by contentId) l on p.contentId=l.contentId 
        where p.areaCode=#{areaCode} ORDER BY (CASE 
       WHEN SUBSTRING(title,1) BETWEEN '가' AND '힣' THEN 1 
       WHEN ASCII(SUBSTRING(title,1)) BETWEEN 65 AND 90 THEN 2 
@@ -33,7 +33,7 @@
    </select>
    <select id="searchPlaceByTitleInNation" parameterType="hashmap" resultType="joinPlaceList">  <!--  제목순,전체 -->
       select p.contentId,p.title,p.overview,p.addr1,p.addr2,p.mapX,p.mapY,p.mLevel,p.areaCode,p.linkedURL,p.firstImage,l.likeCount 
-       from place p join (select contentId, count(loginId) as likeCount from placeLike group by contentId) l on p.contentId=l.contentId 
+       from place p left join (select contentId, count(loginId) as likeCount from placeLike group by contentId) l on p.contentId=l.contentId 
        ORDER BY (CASE 
       WHEN SUBSTRING(title,1) BETWEEN '가' AND '힣' THEN 1 
       WHEN ASCII(SUBSTRING(title,1)) BETWEEN 65 AND 90 THEN 2 
@@ -42,13 +42,12 @@
    </select>
    <select id="searchPlaceByLikeInArea" parameterType="hashmap" resultType="joinPlaceList"> <!-- 좋아요순,전체 -->
       select p.contentId,p.title,p.overview,p.addr1,p.addr2,p.mapX,p.mapY,p.mLevel,p.areaCode,p.linkedURL,p.firstImage,l.likeCount
-      from place p join (select contentId, count(loginId) as likeCount from placeLike group by contentId) l on (p.contentId=l.contentId)
+      from place p left join (select contentId, count(loginId) as likeCount from placeLike group by contentId) l on (p.contentId=l.contentId)
       where areaCode=#{areaCode} order by likeCount desc,p.contentId asc LIMIT #{start},#{perPage}
    </select> 
    <select id="searchPlaceByLikeInNation" parameterType="hashmap" resultType="joinPlaceList"> <!-- 좋아요순,지역태그 -->
-      join + 서브쿼리 + group by
       select p.contentId,p.title,p.overview,p.addr1,p.addr2,p.mapX,p.mapY,p.mLevel,p.areaCode,p.linkedURL,p.firstImage,l.likeCount 
-       from place p join (select contentId, count(loginId) as likeCount from placeLike group by contentId) l on p.contentId=l.contentId 
+       from place p left join (select contentId, count(loginId) as likeCount from placeLike group by contentId) l on p.contentId=l.contentId 
        order by likeCount desc,p.contentId asc LIMIT #{start},#{perPage}
    </select> 
    
