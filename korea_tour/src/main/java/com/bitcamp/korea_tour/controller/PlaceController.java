@@ -243,14 +243,9 @@ public class PlaceController {
 	}
 	
 	// 관리자 사진 목록 조회
-	@GetMapping("/admin/place/photo/{currentPage}")
-	public JsonAdminPhotos getDisapprovedDatas(@PathVariable int currentPage) {
-		int totalCount = service2.getTotalCount();
-		Map<String, Integer> paging = pagingService.getPagingData(totalCount, currentPage);
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("start",paging.get("start"));
-		map.put("perPage", paging.get("perPage"));
-		List<PlacePhotoDto> photo = service2.getDisapprovedDatas(map);
+	@GetMapping("/admin/place/photo")
+	public JsonAdminPhotos getDisapprovedDatas() {
+		List<PlacePhotoDto> photo = service2.getDisapprovedDatas();
 		
 		return new JsonAdminPhotos(photo);
 	}
