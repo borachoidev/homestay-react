@@ -1,11 +1,8 @@
 package com.bitcamp.korea_tour.controller;
 
-<<<<<<< HEAD
-=======
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
->>>>>>> ff8b42ca0c08c761da49a49961d00bc36b44c786
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,15 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class MainSearchController {
-<<<<<<< HEAD
-	
-	@GetMapping("/search")
-	public String goSearch(@RequestParam(defaultValue="1") int currentPage,@RequestParam String keyword,Model model ) {
-		
-		model.addAttribute("currentPage", currentPage);
-		model.addAttribute("keyword", keyword);	
-		return "/search/allsearch";
-=======
 	SimpleDateFormat sdf = new SimpleDateFormat("MM");
 	Date currDate = new Date();
 	int currentMonth = Integer.parseInt(sdf.format(currDate));
@@ -64,6 +52,5 @@ public class MainSearchController {
 		return "course/search";
 		
 		
->>>>>>> ff8b42ca0c08c761da49a49961d00bc36b44c786
 	}
 }
