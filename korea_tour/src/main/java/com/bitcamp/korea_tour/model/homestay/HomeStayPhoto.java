@@ -1,4 +1,4 @@
-package com.bitcamp.korea_tour.model;
+package com.bitcamp.korea_tour.model.homestay;
 
 import org.apache.ibatis.type.Alias;
 
