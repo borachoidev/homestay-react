@@ -40,11 +40,6 @@ public class SearchController {
 	@AllArgsConstructor
 	static class JsonSearchPlace {
 		private List<HashMap<String, Object>> place;
-	}
-	
-	@Data
-	@AllArgsConstructor
-	static class JsonSearchTotalPage {
 		private int totalPage;
 	}
 	
@@ -52,17 +47,6 @@ public class SearchController {
 	SimpleDateFormat sdf = new SimpleDateFormat("MM");
 	Date currDate = new Date();
 	int currentMonth = Integer.parseInt(sdf.format(currDate));
-	
-	@GetMapping("/search/place/{keyword}/totalPage")
-	public JsonSearchTotalPage getTotalCountBySearch(
-			@PathVariable(name="keyword") String keyword) throws UnsupportedEncodingException {
-		String keywordEncode = URLDecoder.decode(keyword, "UTF-8");
-		System.out.println(keywordEncode);
-		int totalCount = service.getTotalCountByKeywordSearch(keywordEncode);
-		System.out.println("totalCount :" + totalCount);
-		int totalPage = pagingService.getTotalPage(totalCount);
-		return new JsonSearchTotalPage(totalPage);
-	}
 	
 	@GetMapping("/search/title/{currentPage}/{keyword}")
 	public JsonSearchPlace getKeywordSearchByTitle(
@@ -72,8 +56,9 @@ public class SearchController {
 		System.out.println(keywordEncode);
 		
 		HashMap<String, Object> req = new HashMap<String, Object>();
-		req.put("keyword", keyword);
+		req.put("keyword", keywordEncode);
 		int totalCount = service.getTotalCountByKeywordSearch(keyword);
+		int totalPage = totalCount/10 + (totalCount%10>0?1:0);
 		Map<String, Integer> paging = pagingService.getPagingData(totalCount, currentPage);
 		req.put("start", paging.get("start"));
 		req.put("perPage", paging.get("perPage"));
@@ -92,7 +77,7 @@ public class SearchController {
 			place.add(map);
 		}
 		
-		return new JsonSearchPlace(place);
+		return new JsonSearchPlace(place,totalPage);
 	}
 	
 	@GetMapping("/search/like/{currentPage}/{keyword}")
@@ -104,6 +89,7 @@ public class SearchController {
 		HashMap<String, Object> req = new HashMap<String, Object>();
 		req.put("keyword", keywordEncode);
 		int totalCount = service.getTotalCountByKeywordSearch(keyword);
+		int totalPage = totalCount/10 + (totalCount%10>0?1:0);
 		Map<String, Integer> paging = pagingService.getPagingData(totalCount, currentPage);
 		req.put("start", paging.get("start"));
 		req.put("perPage", paging.get("perPage"));
@@ -122,7 +108,7 @@ public class SearchController {
 			place.add(map);
 		}
 		
-		return new JsonSearchPlace(place);
+		return new JsonSearchPlace(place,totalPage);
 	}
 	
 }
