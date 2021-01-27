@@ -26,4 +26,5 @@ public interface PagingService {
 		23. 사용자 목록
 	*/
 	Map<String, Integer> getPagingData(int totalCount, int currentPage);
+	int getTotalPage(int totalCount); 
 }
