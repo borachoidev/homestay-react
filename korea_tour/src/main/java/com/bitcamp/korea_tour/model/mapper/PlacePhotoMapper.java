@@ -13,7 +13,7 @@ public interface PlacePhotoMapper {
 	void insertData(PlacePhotoDto dto);
 	void deleteData(int photoNum);
 	int getTotalCount();
-	List<PlacePhotoDto> getDisapprovedDatas(HashMap<String, Object> map);
+	List<PlacePhotoDto> getDisapprovedDatas();
 	void approvePhoto(int photoNum);
 	PlacePhotoDto getData(int photoNum);
 }
