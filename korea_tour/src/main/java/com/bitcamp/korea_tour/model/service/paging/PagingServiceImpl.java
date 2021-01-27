@@ -11,7 +11,6 @@ import com.bitcamp.korea_tour.model.PagingDto;
 import lombok.AllArgsConstructor;
 
 @Service
-@AllArgsConstructor
 public class PagingServiceImpl implements PagingService {
 
 	private int perPage = 10; // 한페이지당 보여질 글의 갯수

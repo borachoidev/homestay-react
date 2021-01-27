@@ -34,7 +34,7 @@ public class SearchController {
 	private final PagingService pagingService;
 	int totalCount = 0;
 	int start = 0;
-	int perPage = 0;
+	int perPage = 10;
 	
 	@Data
 	@AllArgsConstructor
@@ -77,7 +77,7 @@ public class SearchController {
 			place.add(map);
 		}
 		
-		return new JsonSearchPlace(place,totalPage);
+		return new JsonSearchPlace(place, totalPage);
 	}
 	
 	@GetMapping("/search/like/{currentPage}/{keyword}")
