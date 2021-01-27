@@ -1,4 +1,4 @@
-package com.bitcamp.korea_tour.model;
+package com.bitcamp.korea_tour.model.homestay;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -10,10 +10,15 @@ import lombok.Data;
 @Data
 @Alias("homestayreview")
 public class HomeStayReviewDto {
-	private int photoNum;
 	private int homeStayReviewNum;
+	private Timestamp writeday;
 	private int userNum;
 	private int homeStayNum;
+	private int relevel;
+	private int regroup;
+	private int loginNum;
+	private String loginId;
+	private String loginPhoto;
 	private String photoName;
-
+	private int deleted;
 }

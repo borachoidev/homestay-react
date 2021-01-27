@@ -1,4 +1,4 @@
-package com.bitcamp.korea_tour.model;
+package com.bitcamp.korea_tour.model.homestay;
 
 import java.sql.Timestamp;
 import java.util.List;
