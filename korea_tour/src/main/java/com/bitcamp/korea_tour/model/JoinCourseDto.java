@@ -19,6 +19,7 @@ public class JoinCourseDto {
 //	courseplace_tb
 	
 //	place_tb
+	private String title;
 	private String firstImage;
 	private String addr1;
 }

@@ -46,7 +46,7 @@ public class MainSearchController {
 		}
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("keyword", keyword);	
-		return "/search/result";
+		return "search/result";
 	}
 	
 	@GetMapping("/course.search")
@@ -61,7 +61,7 @@ public class MainSearchController {
 		model.addAttribute("who", who);
 		model.addAttribute("during", during);
 		model.addAttribute("how", how);
-		return "/course/search";
+		return "course/search";
 		
 		
 >>>>>>> ff8b42ca0c08c761da49a49961d00bc36b44c786
