@@ -26,7 +26,7 @@ public class MypageCourseRedirectController {
 	
 	@GetMapping("/tourmypage/courselist")
 	public String goMycourseList(){
-		
+		//내가만든코스리스트보기
 		return "course/mycourse";
 	}
 	
@@ -47,6 +47,7 @@ public class MypageCourseRedirectController {
 		
 		return "course/detail";
 	}
+	
 	
 	
 }
