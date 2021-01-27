@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bitcamp.korea_tour.model.mapper.UserMapper">
 	<select id="getUserList" resultType="user">
-		select * from user order by userNum desc limit 0,10
+		select * from user order by userNum desc
 	</select>
 	<select id="getUserData" parameterType="int" resultType="user">
 		select * from user where userNum=#{userNum}

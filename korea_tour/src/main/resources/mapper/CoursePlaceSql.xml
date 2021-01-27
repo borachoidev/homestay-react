@@ -3,7 +3,7 @@
 <mapper namespace="com.bitcamp.korea_tour.model.mapper.CoursePlaceMapper">
 
 	<insert id="insertCoursePlace" parameterType="courseplace"><!-- 코스 순서 수정시 orderNum 다시넣기 -->
-		insert into coursePlace (userNum,courseNum,placeNum,orderNum) values (#{userNum},#{courseNum},#{placeNum},#{orderNum})
+		insert into coursePlace (userNum,courseNum,contentId,orderNum) values (#{userNum},#{courseNum},#{contentId},#{orderNum})
 	</insert>
 	
 	<delete id="deleteCoursePlace" parameterType="int">	<!-- 코스 순서 수정시 orderNum 지워버리기 -->
