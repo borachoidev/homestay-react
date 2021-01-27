@@ -34,12 +34,13 @@ public class SearchController {
 	private final PagingService pagingService;
 	int totalCount = 0;
 	int start = 0;
-	int perPage = 0;
+	int perPage = 10;
 	
 	@Data
 	@AllArgsConstructor
 	static class JsonSearchPlace {
 		private List<HashMap<String, Object>> place;
+		private int totalPage;
 	}
 	
 	// 현재 month
@@ -55,8 +56,9 @@ public class SearchController {
 		System.out.println(keywordEncode);
 		
 		HashMap<String, Object> req = new HashMap<String, Object>();
-		req.put("keyword", keyword);
+		req.put("keyword", keywordEncode);
 		int totalCount = service.getTotalCountByKeywordSearch(keyword);
+		int totalPage = totalCount/10 + (totalCount%10>0?1:0);
 		Map<String, Integer> paging = pagingService.getPagingData(totalCount, currentPage);
 		req.put("start", paging.get("start"));
 		req.put("perPage", paging.get("perPage"));
@@ -75,7 +77,7 @@ public class SearchController {
 			place.add(map);
 		}
 		
-		return new JsonSearchPlace(place);
+		return new JsonSearchPlace(place, totalPage);
 	}
 	
 	@GetMapping("/search/like/{currentPage}/{keyword}")
@@ -87,6 +89,7 @@ public class SearchController {
 		HashMap<String, Object> req = new HashMap<String, Object>();
 		req.put("keyword", keywordEncode);
 		int totalCount = service.getTotalCountByKeywordSearch(keyword);
+		int totalPage = totalCount/10 + (totalCount%10>0?1:0);
 		Map<String, Integer> paging = pagingService.getPagingData(totalCount, currentPage);
 		req.put("start", paging.get("start"));
 		req.put("perPage", paging.get("perPage"));
@@ -105,7 +108,7 @@ public class SearchController {
 			place.add(map);
 		}
 		
-		return new JsonSearchPlace(place);
+		return new JsonSearchPlace(place,totalPage);
 	}
 	
 }
