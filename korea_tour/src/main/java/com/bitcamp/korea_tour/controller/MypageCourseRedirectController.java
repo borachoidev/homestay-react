@@ -24,8 +24,14 @@ public class MypageCourseRedirectController {
 		return "mypage/answer";
 	}
 	
+	@GetMapping("/tourmypage/courselist")
+	public String goMycourseList(){
+		
+		return "course/mycourse";
+	}
+	
 	@GetMapping("/tourmypage/courselist/detail")
-	public String goMycourse(){
+	public String goMycourseDetail(){
 		
 		return "course/detail";
 	}
