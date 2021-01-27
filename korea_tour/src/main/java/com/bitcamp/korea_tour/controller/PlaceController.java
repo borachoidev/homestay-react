@@ -47,7 +47,7 @@ public class PlaceController {
 	private final PagingService pagingService;
 	int totalCount = 0;
 	int start = 0;
-	int perPage = 0;
+	int perPage = 10;
 	
 	@Data
 	@AllArgsConstructor
