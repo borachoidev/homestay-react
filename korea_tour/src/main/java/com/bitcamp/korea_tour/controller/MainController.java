@@ -33,4 +33,13 @@ public class MainController {
 		return "login/adminloginform";
 	}
 	
+	//로그아웃
+	@GetMapping(value="/logout")
+	public String logOut(HttpServletRequest request) {
+		HttpSession session=request.getSession();
+		session.invalidate();
+		
+		return "home/home";
+	}
+
 }
