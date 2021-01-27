@@ -1,6 +1,7 @@
 package com.bitcamp.korea_tour.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -50,7 +51,7 @@ public class SearchController {
 	public JsonSearchPlace getKeywordSearchByTitle(
 			@PathVariable(name="currentPage") int currentPage,
 			@PathVariable(name="keyword") String keyword) throws UnsupportedEncodingException {
-		String keywordEncode = URLEncoder.encode(keyword, "UTF-8");
+		String keywordEncode = URLDecoder.decode(keyword, "UTF-8");
 		System.out.println(keywordEncode);
 		
 		HashMap<String, Object> req = new HashMap<String, Object>();
@@ -81,7 +82,7 @@ public class SearchController {
 	public JsonSearchPlace getKeywordSearchByLike(
 			@PathVariable(name="currentPage") int currentPage,
 			@PathVariable(name="keyword") String keyword) throws UnsupportedEncodingException  {
-		String keywordEncode = URLEncoder.encode(keyword, "UTF-8");
+		String keywordEncode = URLDecoder.decode(keyword, "UTF-8");
 		System.out.println(keywordEncode);
 		HashMap<String, Object> req = new HashMap<String, Object>();
 		req.put("keyword", keywordEncode);
