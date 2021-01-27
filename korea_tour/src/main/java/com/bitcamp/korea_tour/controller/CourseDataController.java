@@ -1,8 +1,5 @@
 package com.bitcamp.korea_tour.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,29 +12,22 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bitcamp.korea_tour.model.CourseDto;
 import com.bitcamp.korea_tour.model.CoursePlaceDto;
-import com.bitcamp.korea_tour.model.UserDto;
 import com.bitcamp.korea_tour.model.service.course.CoursePlaceService;
 import com.bitcamp.korea_tour.model.service.course.CourseService;
-import com.bitcamp.korea_tour.model.service.login.setting.SessionNames;
 
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
 //@RequestMapping(value="/api")
-public class CourseDataController implements SessionNames {
+public class CourseDataController {
 	private final CourseService courseService;
 	private final CoursePlaceService coursePlaceService;
 	
 	@PostMapping(value="/courses")
 	public void insertCourse(
-			@Param("name") String name,
-			HttpServletRequest request
+			@Param("name") String name, @Param("loginNum") int loginNum
 			) {
-		HttpSession session = request.getSession();
-		UserDto user = (UserDto)session.getAttribute(USER);
-		int loginNum = user.getUserNum();
-		
 		courseService.insertCourseTitle(name, loginNum);
 	}
 	
