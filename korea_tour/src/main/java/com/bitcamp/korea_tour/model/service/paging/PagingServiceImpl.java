@@ -11,7 +11,6 @@ import com.bitcamp.korea_tour.model.PagingDto;
 import lombok.AllArgsConstructor;
 
 @Service
-@AllArgsConstructor
 public class PagingServiceImpl implements PagingService {
 
 	private int perPage = 10; // 한페이지당 보여질 글의 갯수
@@ -23,12 +22,13 @@ public class PagingServiceImpl implements PagingService {
 
 		// mysql은 첫글이 0번(오라클은 1번)
 		start = (currentPage-1)*perPage;
-		totalPage=(int)Math.ceil(totalCount/perPage);
+		totalPage=totalCount/perPage + (totalCount%perPage>0?1:0);;
 
 		Map<String, Integer> paging=new HashMap<String, Integer>();
 		paging.put("start", start);
 		paging.put("perPage", perPage);
 		paging.put("totalPage", totalPage);
+		System.out.println(totalPage+","+totalCount+","+perPage);
 		return paging;		
 	}
 

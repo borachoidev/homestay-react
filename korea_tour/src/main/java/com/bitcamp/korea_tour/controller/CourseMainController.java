@@ -3,9 +3,7 @@ package com.bitcamp.korea_tour.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,9 +25,13 @@ public class CourseMainController {
 	private final JoinCourseMainService joinCourseMainService;
 	private final JoinCourseSearchService joinCourseSearchService;
 	
-	int start;
-	int perPage;
-	int totalCount;
+	private int start;
+	private int perPage;
+	private int totalCount;
+	private int totalPage;
+	
+	List<JoinCourseDto> list=new ArrayList<JoinCourseDto>();
+	
 	
 	/**
 	 * @param currentPage
@@ -44,15 +46,14 @@ public class CourseMainController {
 		totalCount=joinCourseMainService.getAllTotalCount();
 		start=pagingService.getPagingData(totalCount, currentPage).get("start");
 		perPage=pagingService.getPagingData(totalCount, currentPage).get("perPage");
-		
-		List<JoinCourseDto> list=new ArrayList<JoinCourseDto>();
+		totalPage=pagingService.getPagingData(totalCount, currentPage).get("totalPage");
 		
 		if(sortType.equals("time")) {
 			list=joinCourseMainService.getAllCourseByTime(start, perPage);
 		}else if(sortType.equals("like")) {
 			list=joinCourseMainService.getAllCourseByLike(start, perPage);
 		}
-		return new JsonData<List<JoinCourseDto>>(list);
+		return new JsonData<List<JoinCourseDto>>(list, totalPage);
 	}
 	
 	/**
@@ -67,11 +68,11 @@ public class CourseMainController {
 			@PathVariable(value="currentPage") int currentPage,
 			@PathVariable(value="tag") String tag
 			) {
-		List<JoinCourseDto> list=new ArrayList<JoinCourseDto>();
 		
 		totalCount=joinCourseSearchService.getTagTotalCount(tag);
 		start=pagingService.getPagingData(totalCount, currentPage).get("start");
 		perPage=pagingService.getPagingData(totalCount, currentPage).get("perPage");
+		totalPage=pagingService.getPagingData(currentPage, currentPage).get("totalPage");
 		
 			if(sortType.equals("time")) {
 				list=joinCourseSearchService.getTagCourseByTime(tag, start, perPage);
@@ -79,7 +80,7 @@ public class CourseMainController {
 				list=joinCourseSearchService.getTagCourseByLike(tag, start, perPage);
 			}
 			
-		return new JsonData<List<JoinCourseDto>>(list);
+		return new JsonData<List<JoinCourseDto>>(list, totalPage);
 	}
 
 	/**
@@ -97,6 +98,7 @@ public class CourseMainController {
 		totalCount=joinCourseSearchService.getSearchTotalCount(keyword);
 		start=pagingService.getPagingData(totalCount, currentPage).get("start");
 		perPage=pagingService.getPagingData(totalCount, currentPage).get("perPage");
+		totalPage=pagingService.getPagingData(totalCount, currentPage).get("totalPage");
 		
 		List<JoinCourseDto> list=new ArrayList<JoinCourseDto>();
 		
@@ -106,7 +108,7 @@ public class CourseMainController {
 			list=joinCourseSearchService.getSearchCourseByLike(keyword, start, perPage);
 		}
 		
-		return new JsonData<List<JoinCourseDto>>(list);
+		return new JsonData<List<JoinCourseDto>>(list, totalPage);
 	}
 	
 	/**
@@ -125,9 +127,11 @@ public class CourseMainController {
 		@PathVariable(value="during") String during,
 		@PathVariable(value="how") String how
 			) {
+		
 		totalCount=joinCourseSearchService.getCustomTotalCount(who, during, how);
 		start=pagingService.getPagingData(totalCount, currentPage).get("start");
 		perPage=pagingService.getPagingData(totalCount, currentPage).get("perPage");
+		totalPage=pagingService.getPagingData(totalCount, currentPage).get("totalPage");
 		
 		List<JoinCourseDto> list=new ArrayList<JoinCourseDto>();
 		
@@ -137,7 +141,7 @@ public class CourseMainController {
 			list=joinCourseSearchService.getCustomCourseByLike(who, during, how, start, perPage);
 		}
 		
-		return new JsonData<List<JoinCourseDto>>(list);
+		return new JsonData<List<JoinCourseDto>>(list, totalPage);
 	}
 
 	/**
@@ -159,7 +163,7 @@ public class CourseMainController {
 			list.add(courseName);
 		}
 		
-		return new JsonData<List<CourseName>>(list);
+		return new JsonData<List<CourseName>>(list, totalPage);
 	}
 	
 	
@@ -167,6 +171,7 @@ public class CourseMainController {
 	@AllArgsConstructor
 	static class JsonData<T> {
 		private T list;
+		private int totalPage;
 	}
 	
 	@Data
