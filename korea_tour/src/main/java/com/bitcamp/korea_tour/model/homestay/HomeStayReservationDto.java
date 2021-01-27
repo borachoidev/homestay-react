@@ -1,4 +1,4 @@
-package com.bitcamp.korea_tour.model;
+package com.bitcamp.korea_tour.model.homestay;
 
 import java.sql.Timestamp;
 
@@ -15,8 +15,10 @@ public class HomeStayReservationDto {
 	private String checkInDay;
 	private String checkOutDay;
 	private int numberOfPeople;
+	private int totalPrice;
 	private int approval;
 	private Timestamp writeday;
+	private String name;
 	private String email1;
 	private String email2;
 	private int gender;
