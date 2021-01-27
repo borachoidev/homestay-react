@@ -47,22 +47,8 @@ public class SearchController {
 	@GetMapping("/search/title/{currentPage}/{keyword}")
 	public JsonSearchPlace getKeywordSearchByTitle(
 			@PathVariable(name="currentPage") int currentPage,
-			@RequestParam(required = false) String keyword
-			) {
-		// 검색어가 null일시 현재계절을 키워드로 담는다
-		if(keyword==null) {
-			System.out.println("키워드가 널!!");
-			if(currentMonth>=3 && currentMonth<6) {
-				keyword="봄";
-			}else if(currentMonth>=6 && currentMonth<9) {
-				keyword="여름";
-			}else if(currentMonth>=9 && currentMonth<12) {
-				System.out.println(currentMonth);
-				keyword="가을";
-			}else {
-				keyword="겨울";
-			}
-		}
+			@PathVariable(name="keyword") String keyword) {
+		
 		
 		HashMap<String, Object> req = new HashMap<String, Object>();
 		req.put("keyword", keyword);
@@ -88,25 +74,10 @@ public class SearchController {
 		return new JsonSearchPlace(place);
 	}
 	
-	@GetMapping("/search/like/{currentPage}")
+	@GetMapping("/search/like/{currentPage}/{keyword}")
 	public JsonSearchPlace getKeywordSearchByLike(
 			@PathVariable(name="currentPage") int currentPage,
-			@RequestParam(required = false) String keyword
-			) {
-		// 검색어가 null일시 현재계절을 키워드로 담는다
-		if(keyword==null) {
-			System.out.println("키워드가 널!!");
-			if(currentMonth>=3 && currentMonth<6) {
-				keyword="봄";
-			}else if(currentMonth>=6 && currentMonth<9) {
-				keyword="여름";
-			}else if(currentMonth>=9 && currentMonth<12) {
-				System.out.println(currentMonth);
-				keyword="가을";
-			}else {
-				keyword="겨울";
-			}
-		}
+			@PathVariable(name="keyword") String keyword) {
 		
 		HashMap<String, Object> req = new HashMap<String, Object>();
 		req.put("keyword", keyword);
