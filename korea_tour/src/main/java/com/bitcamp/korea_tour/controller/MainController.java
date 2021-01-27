@@ -18,7 +18,6 @@ public class MainController {
 	@GetMapping({"/index","/"})
 	public String getMain(HttpServletRequest request) {
 
-		
 		return "home/home";
 	}
 	
