@@ -16,7 +16,7 @@ public class PlaceRedirectController {
 	
 	//관광지 메인 이동
 	@GetMapping("/tourplace/list")
-	public String goPlaceList(@RequestParam int currentPage,Model model ) {
+	public String goPlaceList(@RequestParam(defaultValue="1") int currentPage,Model model ) {
 		model.addAttribute("currentPage", currentPage);
 		return "place/list";
 	}
