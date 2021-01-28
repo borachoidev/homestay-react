@@ -14,7 +14,7 @@ public interface UserMapper {
 	List<UserDto> getUserList();
 	void insertUser(UserDto dto);
 	UserDto getUserData(int userNum);
-	void deleteUser(int userNum);
+	void deleteUser(int loginNum);
 	int hasKey(Map<String, String> map);
 	UserDto getUserByKey(Map<String, String> map);
 }

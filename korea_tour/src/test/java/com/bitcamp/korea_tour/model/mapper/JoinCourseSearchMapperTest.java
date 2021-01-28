@@ -16,7 +16,7 @@ class JoinCourseSearchMapperTest {
 	
 	@Test
 	void test() {
-		System.out.println(mapper.getTagTotalCount("둘"));
+		//System.out.println(mapper.getSearchTotalCount("둘"));
 	}
 
 }

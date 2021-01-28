@@ -18,13 +18,10 @@ public interface JoinCourseSearchMapper {
 	맞춤코스 검색(최신순)
 	맞춤코스 검색(인기순)
 	*/
-	List<JoinCourseDto> getTagCourseByTime(Map<String, Object> obj);
-	List<JoinCourseDto> getTagCourseByLike(Map<String, Object> obj);
 	List<JoinCourseDto> getSearchCourseByTime(Map<String, Object> obj);
 	List<JoinCourseDto> getSearchCourseByLike(Map<String, Object> obj);
 	List<JoinCourseDto> getCustomCourseByTime(Map<String, Object> obj);
 	List<JoinCourseDto> getCustomCourseByLike(Map<String, Object> obj);
-	int getTagTotalCount(String tag);
 	int getSearchTotalCount(String keyword);
 	int getCustomTotalCount(Map<String, String> tags);
 }

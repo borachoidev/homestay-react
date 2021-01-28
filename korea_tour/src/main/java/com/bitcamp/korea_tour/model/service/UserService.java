@@ -12,7 +12,7 @@ public interface UserService {
 	
 	List<UserDto> getUserList();
 	UserDto getUserData(int userNum);
-	void deleteUser(int userNum);
+	void deleteUser(int loginNum);
 	void insertUser(UserDto dto);
 	boolean hasKey(String sns, String key);
 	UserDto getUserByKey(String sns, String key);

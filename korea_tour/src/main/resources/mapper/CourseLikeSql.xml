@@ -7,7 +7,7 @@
 	<insert id="insertCourseLike" parameterType="courselike">
 		insert into courseLike (userNum,courseNum,loginNum) values (#{userNum},#{courseNum},#{loginNum})
 	</insert> 
-	<delete id="deleteCourseLike" parameterType="int">
+	<delete id="deleteCourseLike" parameterType="HashMap">
 		delete from courseLike where likeNum=#{likeNum}
 	</delete>
 	<select id="getCourseLike" parameterType="int" resultType="courselike">

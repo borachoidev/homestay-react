@@ -26,4 +26,13 @@
 	<select id="getMyCourseName" parameterType="int" resultType="course">
 		select * from course where userNum=#{loginNum}
 	</select>
+	<!-- 좋아요 수 +1 -->
+	<update id="UpCourseLike">
+		update course set totalLike=totalLike+1 where
+	</update>
+	<!-- 좋아요 수 -1 -->
+	<update id="DownCourseLike">
+		update course set totalLike=totalLike-11
+	</update>
+	
 </mapper>

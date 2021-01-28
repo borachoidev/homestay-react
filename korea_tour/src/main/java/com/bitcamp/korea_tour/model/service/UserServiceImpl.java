@@ -37,8 +37,8 @@ public class UserServiceImpl implements UserService,SessionNames {
 	}
 
 	@Override
-	public void deleteUser(int userNum) {
-		mapper.deleteUser(userNum);
+	public void deleteUser(int loginNum) {
+		mapper.deleteUser(loginNum);
 	}
 
 	

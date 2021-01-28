@@ -23,4 +23,6 @@ public interface CourseMapper {
 	CourseDto getCourseData(int courseNum);
 	CourseDto getMyCourseData(Map<String, Integer> nums);
 	List<CourseDto> getMyCourseName(int loginNum);
+	void UpCourseLike();
+	void DownCourseLike();
 }
