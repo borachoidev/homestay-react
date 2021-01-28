@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bitcamp.korea_tour.model.mapper.homestay.HomeStayListMapper">
+	<!-- 홈스테이 전체 목록 출력 --> <!-- 최저가 , 평점높은순 -->
+	
+</mapper>

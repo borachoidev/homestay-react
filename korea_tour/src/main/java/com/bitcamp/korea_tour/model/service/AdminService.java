@@ -2,11 +2,13 @@ package com.bitcamp.korea_tour.model.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.bitcamp.korea_tour.model.AdminDto;
 
 public interface AdminService {
 	void insertAdmin(AdminDto adminDto);
 	List<AdminDto> getAllAdmin();
 	void deleteAdmin(int adminNum);
-	int checkAdmin(String id, String password);
+	int checkAdmin(@Param(value="id")String id, @Param(value="password")String password);
 }
