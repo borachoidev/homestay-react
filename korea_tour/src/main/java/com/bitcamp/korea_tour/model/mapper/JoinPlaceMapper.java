@@ -13,11 +13,11 @@ import com.bitcamp.korea_tour.model.PlaceApiPhotoDto;
 import com.bitcamp.korea_tour.model.PlaceDto;
 import com.bitcamp.korea_tour.model.PlacePhotoDto;
 import com.bitcamp.korea_tour.model.TourAnswerDto;
-import com.bitcamp.korea_tour.model.joinPlaceDto;
+import com.bitcamp.korea_tour.model.JoinPlaceDto;
 
 @Mapper
 public interface JoinPlaceMapper {
-   List<joinPlaceDto> getTotalPlaceMark(int loginNum, HashMap<String, Object> map);
+   List<JoinPlaceDto> getTotalPlaceMark(int loginNum, HashMap<String, Object> map);
    int getTotalCountMyPlaceMark(int userNum);
    List<PlaceDto> getFourDatasByRandom(int areaCode);
    int getTotalCount();

@@ -20,7 +20,7 @@ import com.bitcamp.korea_tour.model.JoinCourseDto;
 import com.bitcamp.korea_tour.model.JoinCourseMarkDto;
 import com.bitcamp.korea_tour.model.TourAnswerDto;
 import com.bitcamp.korea_tour.model.UserDto;
-import com.bitcamp.korea_tour.model.joinPlaceDto;
+import com.bitcamp.korea_tour.model.JoinPlaceDto;
 import com.bitcamp.korea_tour.model.service.JoinPlaceService;
 import com.bitcamp.korea_tour.model.service.PlaceMarkService;
 import com.bitcamp.korea_tour.model.service.TourAnswerService;
@@ -108,7 +108,7 @@ public class MypageController implements SessionNames {
 	
 	//mypage 내가 즐겨찾기한 관광지 모아보기
 	@GetMapping("/mypage/placemarks/{currentPage}")
-	public JsonData<List<joinPlaceDto>> getMyPlaceMarks(@PathVariable(value = "currentPage") int currentPage, HttpServletRequest request) {
+	public JsonData<List<JoinPlaceDto>> getMyPlaceMarks(@PathVariable(value = "currentPage") int currentPage, HttpServletRequest request) {
 		//세션가져오기
 		HttpSession session = request.getSession();
 		UserDto user = (UserDto)session.getAttribute(USER);
@@ -120,10 +120,10 @@ public class MypageController implements SessionNames {
 		totalPage=pagingService.getPagingData(totalCount, currentPage).get("totalPage");
 		HashMap<String, Object> map=new HashMap<String, Object>();
 		
-		List<joinPlaceDto> list = jps.getTotalPlaceMark(loginNum, map);
+		List<JoinPlaceDto> list = jps.getTotalPlaceMark(loginNum, map);
 		//System.out.println(list);
 		System.out.println("즐겨찾기 관광지 모아보기 토탈개수: "+totalCount);
-		return new JsonData<List<joinPlaceDto>>(list, totalPage);
+		return new JsonData<List<JoinPlaceDto>>(list, totalPage);
 	}
 	
 	//내가 단 댓글

@@ -13,7 +13,7 @@ import com.bitcamp.korea_tour.model.PlaceApiPhotoDto;
 import com.bitcamp.korea_tour.model.PlaceDto;
 import com.bitcamp.korea_tour.model.PlacePhotoDto;
 import com.bitcamp.korea_tour.model.TourAnswerDto;
-import com.bitcamp.korea_tour.model.joinPlaceDto;
+import com.bitcamp.korea_tour.model.JoinPlaceDto;
 import com.bitcamp.korea_tour.model.mapper.JoinPlaceMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -25,7 +25,7 @@ public class JoinPlaceServiceImpl implements JoinPlaceService{
    private final JoinPlaceMapper mapper;
    
    @Override
-   public List<joinPlaceDto> getTotalPlaceMark(int loginNum,HashMap<String, Object> map) {
+   public List<JoinPlaceDto> getTotalPlaceMark(int loginNum,HashMap<String, Object> map) {
       // TODO Auto-generated method stub
       return mapper.getTotalPlaceMark(loginNum, map);
    }
