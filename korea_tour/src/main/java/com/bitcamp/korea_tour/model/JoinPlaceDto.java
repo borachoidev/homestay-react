@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @Alias("joinplace")
-public class joinPlaceDto {
+public class JoinPlaceDto {
 // placePhoto_tb
 	private int photoNum;
 	private int contentId;

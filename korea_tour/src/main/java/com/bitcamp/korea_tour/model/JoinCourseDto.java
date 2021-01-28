@@ -15,6 +15,7 @@ public class JoinCourseDto {
 	private String who;
 	private String during;
 	private String how;
+	private int totalLike;
 	
 //	courseplace_tb
 	
