@@ -6,8 +6,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.core.io.DefaultResourceLoader;
+import org.springframework.core.io.Resource;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -45,6 +48,7 @@ public class PlaceController {
 	private final JoinPlaceService service;
 	private final PlacePhotoService service2;
 	private final PagingService pagingService;
+	
 	int totalCount = 0;
 	int start = 0;
 	int perPage = 10;
@@ -194,7 +198,7 @@ public class PlaceController {
 			,HttpServletRequest request
 			) {
 		// 파일 업로드 경로
-		String path = request.getSession().getServletContext().getRealPath("WEB-INF/placeImg");
+		String path = request.getSession().getServletContext().getRealPath("/WEB-INF/placeImg");
 		System.out.println(path);
 		SpringFileWriter writer = new SpringFileWriter();
 		String upload = "";
@@ -207,13 +211,13 @@ public class PlaceController {
 			
 			upload = writer.changeFilename(file.getOriginalFilename());
 			// 이미지 save 폴더에 저장
-			writer.writeFile(file, upload, path);
+//			writer.writeFile(file, upload, path);
 			
 			PlacePhotoDto dto = new PlacePhotoDto();
 			dto.setContentId(contentId);
 			dto.setImage(upload);
 			dto.setLoginId(loginId);
-			service2.insertData(dto);
+//			service2.insertData(dto);
 		}
 		
 	}
@@ -223,7 +227,7 @@ public class PlaceController {
 	public void deleteData(@PathVariable(name="photoNum") int photoNum
 			,HttpServletRequest request) {
 		// 파일 업로드 경로
-		String path = request.getSession().getServletContext().getRealPath("WEB-INF/placeImg");
+		String path = request.getSession().getServletContext().getRealPath("/WEB-INF/placeImg");
 		System.out.println(path);
 		// db에 저장된 파일명들 얻기
 		String deleteFile = service2.getData(photoNum).getImage();
