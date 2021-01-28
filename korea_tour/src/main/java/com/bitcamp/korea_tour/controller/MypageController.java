@@ -1,6 +1,5 @@
 package com.bitcamp.korea_tour.controller;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,16 +8,17 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bitcamp.korea_tour.controller.CourseDetailController.MarkLikeData;
+import com.bitcamp.korea_tour.model.CourseDto;
 import com.bitcamp.korea_tour.model.JoinAnswerDto;
+import com.bitcamp.korea_tour.model.JoinCourseDetailDto;
 import com.bitcamp.korea_tour.model.JoinCourseDto;
 import com.bitcamp.korea_tour.model.JoinCourseMarkDto;
-import com.bitcamp.korea_tour.model.TourAnswerDto;
 import com.bitcamp.korea_tour.model.UserDto;
 import com.bitcamp.korea_tour.model.JoinPlaceDto;
 import com.bitcamp.korea_tour.model.service.JoinPlaceService;
@@ -26,6 +26,7 @@ import com.bitcamp.korea_tour.model.service.PlaceMarkService;
 import com.bitcamp.korea_tour.model.service.TourAnswerService;
 import com.bitcamp.korea_tour.model.service.course.CourseMarkService;
 import com.bitcamp.korea_tour.model.service.course.CourseService;
+import com.bitcamp.korea_tour.model.service.course.JoinCourseDetailService;
 import com.bitcamp.korea_tour.model.service.course.JoinCourseMyService;
 import com.bitcamp.korea_tour.model.service.login.setting.SessionNames;
 import com.bitcamp.korea_tour.model.service.paging.PagingService;
@@ -40,6 +41,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MypageController implements SessionNames {
 
+	private final JoinCourseDetailService jsds;
 	private final CourseMarkService cms;
 	private final PlaceMarkService pms;
 	private final CourseService cs;
@@ -180,6 +182,14 @@ public class MypageController implements SessionNames {
 		return new JsonData<List<JoinCourseDto>>(list, totalPage);
 	}
 	
+	//나의 코스 detail
+	@GetMapping("mypage/coursedetail/{courseNum}")
+	public JsonDataList getMyCourseDetail(@PathVariable(value = "courseNum")int courseNum) {
+		CourseDto courseDto=jsds.getCourseData(courseNum);
+		List<JoinCourseDetailDto> coursePlaceList=jsds.getCourseDetail(courseNum);
+		return new JsonDataList(courseDto, coursePlaceList);
+	}
+	
 	// 댓글,답글 삭제
 	@PostMapping(value = "/myanswer/{tourAnswerNum}")
 	public void deleteAnswer(@PathVariable int tourAnswerNum) {
@@ -231,5 +241,13 @@ public class MypageController implements SessionNames {
 		private T MyReanswer;
 		int totalPage;
 	}
+	
+	@Data
+	@AllArgsConstructor
+	static class JsonDataList {
+		private CourseDto courseDto; //dto
+		private List<JoinCourseDetailDto> coursePlaceList;  //list
+	}
+
 	
 }
