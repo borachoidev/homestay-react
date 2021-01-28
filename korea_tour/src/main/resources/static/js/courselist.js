@@ -123,10 +123,11 @@ function getCourse(sort, who, during, how, currentPage) {
 
       //페이징 처리
       const totalPage = data.totalPage; //
-
+      endPage = startPage + perBlock - 1;
       if (endPage > totalPage) {
         endPage = totalPage;
       }
+      console.log(totalPage + '|' + endPage);
       if (item.length == 0) {
         document.querySelector('.course-list').innerHTML =
           '<span class="alert-msg">해당하는 검색 결과가 없습니다!😱</span>';
