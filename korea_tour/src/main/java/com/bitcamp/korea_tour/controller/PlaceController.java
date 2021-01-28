@@ -165,10 +165,6 @@ public class PlaceController {
 		List<PlaceApiPhotoDto> apiPhoto = service.getPlaceDetailApiPhotos(contentId);
 		List<PlacePhotoDto> userPhoto = service.getPlaceDetailPhotos(contentId);
 		List<TourAnswerDto> tourAnswer = service.getAnswerOfPlace(contentId);
-//		System.out.println(place);
-//		System.out.println(apiPhoto);
-//		System.out.println(userPhoto);
-//		System.out.println(tourAnswer);
 		return new JsonPlaceDetail(place, apiPhoto, userPhoto, tourAnswer);
 	}
 	
