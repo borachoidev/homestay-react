@@ -2,6 +2,7 @@ package com.bitcamp.korea_tour.model.service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -103,15 +104,25 @@ public class TourAnswerServiceImpl implements TourAnswerService{
 
 
 	@Override
-	public List<TourAnswerDto> getUserAnswer(int loginNum, HashMap<String, Object> map) {
+	public List<TourAnswerDto> getUserAnswer(int loginNum, int start, int perPage) {
 		// TODO Auto-generated method stub
-		return mapper.getUserAnswer(loginNum, map);
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("loginNum", loginNum);
+		map.put("start", start);
+		map.put("perPage", perPage);
+		List<TourAnswerDto> list = mapper.getUserAnswer(map);
+		return list;
 	}
 
 	@Override
-	public List<TourAnswerDto> getUserReAnswer(int loginNum, HashMap<String, Object> map) {
+	public List<TourAnswerDto> getUserReAnswer(int loginNum, int start, int perPage) {
 		// TODO Auto-generated method stub
-		return mapper.getUserReAnswer(loginNum, map);
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("loginNum", loginNum);
+		map.put("start", start);
+		map.put("perPage", perPage);
+		List<TourAnswerDto> list = mapper.getUserReAnswer(map);
+		return list;
 	}
 
 	@Override

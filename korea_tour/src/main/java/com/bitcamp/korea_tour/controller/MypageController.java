@@ -104,6 +104,7 @@ public class MypageController implements SessionNames {
 		System.out.println("즐겨찾기 코스모아보기 토탈개수: "+totalCount);
 		return new JsonData<List<JoinCourseMarkDto>>(list, totalPage);
 	}
+	
 	//mypage 내가 즐겨찾기한 관광지 모아보기
 	@GetMapping("/mypage/placemarks/{currentPage}")
 	public JsonData<List<joinPlaceDto>> getMyPlaceMarks(@PathVariable(value = "currentPage") int currentPage, HttpServletRequest request) {
@@ -136,12 +137,10 @@ public class MypageController implements SessionNames {
 	    start=pagingService.getPagingData(totalCount, currentPage).get("start");
 		perPage=pagingService.getPagingData(totalCount, currentPage).get("perPage");
 		totalPage=pagingService.getPagingData(totalCount, currentPage).get("totalPage");
-		HashMap<String, Object> map=new HashMap<String, Object>();
-		map.put("start", start);
-		map.put("perPage", perPage);
 		
-		List<TourAnswerDto> answerlist= tas.getUserAnswer(loginNum, map); 
 		
+		List<TourAnswerDto> answerlist= tas.getUserAnswer(loginNum, start, perPage);
+		System.out.println("댓글 여기! loginNum: "+loginNum+"\n start : "+start+"\n perPage : "+perPage);
 		return new JsonAnswer<List<TourAnswerDto>>(answerlist, totalPage);
 	   
     }
@@ -156,11 +155,8 @@ public class MypageController implements SessionNames {
 		start=pagingService.getPagingData(totalCount, currentPage).get("start");
 		perPage=pagingService.getPagingData(totalCount, currentPage).get("perPage");
 		totalPage=pagingService.getPagingData(totalCount, currentPage).get("totalPage");
-		HashMap<String, Object> map=new HashMap<String, Object>();
-		map.put("start", start);
-		map.put("perPage", perPage);
 		
-		List<TourAnswerDto> reanswerlist= tas.getUserReAnswer(loginNum, map); 
+		List<TourAnswerDto> reanswerlist= tas.getUserReAnswer(loginNum, start, perPage);
 
 		return new JsonReAnswer<List<TourAnswerDto>>(reanswerlist, totalPage);
 		   

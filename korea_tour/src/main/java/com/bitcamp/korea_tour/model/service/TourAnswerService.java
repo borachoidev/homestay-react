@@ -27,8 +27,8 @@ public interface TourAnswerService {
 	//마이페이지용 댓글 답글
 	int getTotalCountAnswer(int loginNum);
 	int getTotalCountReAnswer(int loginNum);
-	List<TourAnswerDto> getUserAnswer(int loginNum, HashMap<String, Object> map);
-	List<TourAnswerDto> getUserReAnswer(int loginNum, HashMap<String, Object> map);
+	List<TourAnswerDto> getUserAnswer(int loginNum, int start, int perPage);
+	List<TourAnswerDto> getUserReAnswer(int loginNum, int start, int perPage);
 
 	//관리자페이지
 	int getTotalCountAnswerAdmin();
