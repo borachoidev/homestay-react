@@ -1,6 +1,6 @@
 package com.bitcamp.korea_tour.model;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 
 import org.apache.ibatis.type.Alias;
 
@@ -17,7 +17,7 @@ public class TourAnswerDto {
 	private String loginId;
 	private String loginPhoto;
 	private String content;
-	private Timestamp writeDay;
+	private Date writeDay;
 	private int relevel;
 	private int regroup;
 	private int deleted;
