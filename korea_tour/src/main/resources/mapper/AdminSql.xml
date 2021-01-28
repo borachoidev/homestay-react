@@ -11,7 +11,7 @@
 		delete * from admin where adminNum=#{adminNum}
 	</delete>
 	<!-- 관리자 계정 로그인 검사 -->
-	<select id="checkAdmin" parameterType="admin" resultType="int">
+	<select id="checkAdmin" parameterType="HashMap" resultType="int">
 		select count(*) from admin where id=#{id} and password=#{password}
 	</select>
 </mapper>

@@ -79,7 +79,6 @@ public class CourseMainController implements SessionNames {
 			) {
 		
 		String keyword=dto.getKeyword();
-		System.out.println(keyword);
 		
 		totalCount=joinCourseSearchService.getSearchTotalCount(keyword);
 		start=pagingService.getPagingData(totalCount, currentPage).get("start");
@@ -170,7 +169,6 @@ public class CourseMainController implements SessionNames {
 	@Data
 	@AllArgsConstructor
 	static class SearchDto {
-		private String tag;
 		private String keyword;
 		private String who;
 		private String during;

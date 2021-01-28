@@ -90,14 +90,6 @@ public class LoginController implements SessionNames {
 		else if(user.getGoogleKey()!=null) log.info(">> 로그인 사용자  소셜 정보 :: 구글 _"+user.getGoogleKey());
 	}		
 
-	@PostMapping("/admin/check")
-	public void loginAdmin(
-			@ModelAttribute AdminDto dto
-			) {
-//		dto.getId()
-	}
-	
-	
 	
 	//최초 로그인일 경우 받아온 정보 db에 저장, 세션에 실어주기
 	//기존 사용자일 경우 기존 db데이터 세션에 실어주기
