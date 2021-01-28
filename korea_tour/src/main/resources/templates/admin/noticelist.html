@@ -7,6 +7,10 @@
 	<link rel="stylesheet" th:href="@{/css/admin/list.css}">
 </th:block>
 
+<th:block layout:fragment="script" >
+	<script th:src="@{/js/noticelist.js}" defer></script>
+</th:block>
+
 <div layout:fragment="content">
 
 	<!-- Sub Title -->
@@ -50,31 +54,9 @@
 					<th class="board_list_head" scope="col">삭제</th>
 				</tr>
 			</thead>
-			<tbody>
-				<tr class="board_list_row">
-					<td class="board_list_data">1</td>
-					<td class="board_list_data">길동</td>
-					<td class="board_list_data">홍길동</td>
-					<td class="board_list_data">2015-12-31</td>
-					<td class="board_list_data">xx</td>
-					<td class="board_list_data">xx</td>
-					<td class="board_list_data">Y</td>
-					<td class="board_list_data"><a href="#"
-						class="btn_txt btn_type_d btn_color_a"> <span class="txt">조회</span>
-					</a></td>
-				</tr>
-				<tr class="board_list_row">
-					<td class="board_list_data">2</td>
-					<td class="board_list_data">길동</td>
-					<td class="board_list_data">홍길동</td>
-					<td class="board_list_data">2015-12-31</td>
-					<td class="board_list_data">xx</td>
-					<td class="board_list_data">xx</td>
-					<td class="board_list_data">Y</td>
-					<td class="board_list_data"><a href="#"
-						class="btn_txt btn_type_d btn_color_a"> <span class="txt">조회</span>
-					</a></td>
-				</tr>
+			<tbody class="listlist">
+				
+				
 			</tbody>
 		</table>
 	</div>
@@ -83,11 +65,7 @@
 	<!-- Page Navigation -->
 	<div class="page_wrap">
 		<div class="page_nation">
-			<a class="arrow pprev" href="#"></a> <a class="arrow prev" href="#"></a>
-			<a href="#" class="active">1</a> <a href="#">2</a> <a href="#">3</a>
-			<a href="#">4</a> <a href="#">5</a> <a href="#">6</a> <a href="#">7</a>
-			<a href="#">8</a> <a href="#">9</a> <a href="#">10</a> <a
-				class="arrow next" href="#"></a> <a class="arrow nnext" href="#"></a>
+			
 		</div>
 	</div>
 </div>
