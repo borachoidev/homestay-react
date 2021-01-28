@@ -16,7 +16,7 @@ const DetailMap = () => {
     const geocoder = new kakao.maps.services.Geocoder();
 
     // 주소로 좌표를 검색합니다
-    geocoder.addressSearch('개봉로15길', addSearchCB);
+    geocoder.addressSearch('만안로123', addSearchCB);
 
     function addSearchCB(result, status) {
       // 정상적으로 검색이 완료됐으면
@@ -30,7 +30,7 @@ const DetailMap = () => {
       }
       const circle = new kakao.maps.Circle({
         center: coords, // 원의 중심좌표 입니다
-        radius: 150, // 미터 단위의 원의 반지름입니다
+        radius: 200, // 미터 단위의 원의 반지름입니다
         strokeWeight: 5, // 선의 두께입니다
         strokeColor: 'ddd', // 선의 색깔입니다
         strokeOpacity: 1, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
