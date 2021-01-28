@@ -25,7 +25,7 @@ import com.bitcamp.korea_tour.model.PlaceDto;
 
 public class TourApi {
 
-	public static final String SERVICEKEY = "NW6tljk7s7SPB8RRynBQP4m0MhbdUMZPYMKrZmlAxQR%2BKPiY24jFfQJ979ndXeTT5EEeC3GooG9KMxKJo0ryZg%3D%3D"; 
+	public static final String SERVICEKEY = "rbVGGbp%2FK23YSaIwmzvO9fsvGwxlONbk1Hw3LbJJHJd93zXHyuGAoTetXKm2D%2F4dS3uItbcBeQf94LnijGOiBA%3D%3D"; 
 	
 	public static String xmlDownload(String a)
 			throws IOException {/* 정적 메소드정의?-> 정적 메소드를 사용하면 JSP에서 객체의 선언 없이 바로 클래스 이름 뒤에 붙여서 활용가능 */
@@ -245,12 +245,12 @@ public class TourApi {
 		List<PlaceApiPhotoDto> list = new ArrayList<PlaceApiPhotoDto>();
 		PlaceApiPhotoDto dto;
 		String xml = TourApi.photoXmlDownload(contentId);
+		System.out.println(xml);
 		
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder = factory.newDocumentBuilder();
 
 		Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes("utf-8")));
-
 		NodeList nodeList = doc.getElementsByTagName("item");/* xml태그이름 중 item 부분을 전부 긁어모음 */
 		for (int i = 0; i < nodeList.getLength(); i++) {
 			dto = new PlaceApiPhotoDto();
