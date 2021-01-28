@@ -39,4 +39,12 @@ public class AdminServiceImpl implements AdminService {
 		map.put("password", password);
 		return adminMapper.checkAdmin(map);
 	}
+	
+	@Override
+	public AdminDto getAdminData(@Param(value="id")String id, @Param(value="password")String password) {
+		Map<String, String> map=new HashMap<String, String>();
+		map.put("id", id);
+		map.put("password", password);
+		return adminMapper.getAdminData(map);
+	}
 }

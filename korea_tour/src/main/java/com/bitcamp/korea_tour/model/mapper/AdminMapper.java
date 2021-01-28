@@ -11,6 +11,7 @@ import com.bitcamp.korea_tour.model.AdminDto;
 public interface AdminMapper {
 	void insertAdmin(AdminDto adminDto);
 	List<AdminDto> getAllAdmin();
+	AdminDto getAdminData(Map<String, String> map);
 	void deleteAdmin(int adminNum);
 	int checkAdmin(Map<String , String> map);
 }
