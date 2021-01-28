@@ -13,8 +13,15 @@ public class JoinCourseDetailDto {
 	private int orderNum;
 	
 //	place_tb
+	//private int contentId;
 	private String title;
-	private String firstImage;
 	private String overview;
 	private String addr1;
+	private String addr2;
+	private String mapX;
+	private String mapY;
+	private int mLevel;
+	private int areaCode;
+	private String linkedURL;
+	private String firstImage;
 }
