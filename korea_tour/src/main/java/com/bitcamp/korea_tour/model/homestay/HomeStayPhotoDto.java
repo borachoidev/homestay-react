@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @Alias("homestayphoto")
-public class HomeStayPhoto {
+public class HomeStayPhotoDto {
 	private int homeStayPhotoNum;
 	private int userNum;
 	private int homeStayNum;
