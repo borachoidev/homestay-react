@@ -14,7 +14,7 @@ public interface JoinCourseMainMapper {
 	모든코스 모아보기(최신순) 
 	모든코스 모아보기(인기순) 
 	*/
-	List<JoinCourseDto> getAllCourseByTime(Map<String, Integer> paging);
-	List<JoinCourseDto> getAllCourseByLike(Map<String, Integer> paging);
+	List<JoinCourseDto> getAllCourseByTime(Map<String, Object> obj);
+	List<JoinCourseDto> getAllCourseByLike(Map<String, Object> obj);
 	int getAllTotalCount();
 }
