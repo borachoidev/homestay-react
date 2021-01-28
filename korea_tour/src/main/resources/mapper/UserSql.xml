@@ -13,7 +13,7 @@
 		(#{name}, #{photo}, #{kakaoKey}, #{naverKey}, #{googleKey})
 	</insert>
 	<delete id="deleteUser" parameterType="int">
-		delete from user where userNum=#{userNum}
+		delete from user where userNum=#{loginNum}
 	</delete>
 	<select id="hasKey" parameterType="hashmap" resultType="int">
 		select count(*) from user where 

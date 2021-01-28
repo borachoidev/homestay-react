@@ -3,7 +3,6 @@ package com.bitcamp.korea_tour.model.service.course;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import com.bitcamp.korea_tour.model.CourseLikeDto;
@@ -17,25 +16,26 @@ import lombok.RequiredArgsConstructor;
 public class CourseLikeServiceImpl implements CourseLikeService {
 
 	private final CourseLikeMapper courseLikeMapper;
+	private final CourseMapper courseMapper;
 
 	@Override
 	public int getTotalCourseLike(int courseNum) {
-		// TODO Auto-generated method stub
 		return courseLikeMapper.getTotalCourseLike(courseNum);
 	}
 
 	@Override
 	public void insertCourseLike(CourseLikeDto dto) {
 		courseLikeMapper.insertCourseLike(dto);
-		
+		courseMapper.UpCourseLike();
 	}
 
 	@Override
-	public void deleteCourseLike(int likeNum) {
-		// TODO Auto-generated method stub
-		
-		courseLikeMapper.deleteCourseLike(likeNum);
-		
+	public void deleteCourseLike(int likeNum, int courseNum) {
+		Map<String, Integer> map=new HashMap<String, Integer>();
+		map.put("courseNum", courseNum);
+		map.put("likeNum", likeNum);
+		courseLikeMapper.deleteCourseLike(map);
+		courseMapper.DownCourseLike();
 	}
 	
 }

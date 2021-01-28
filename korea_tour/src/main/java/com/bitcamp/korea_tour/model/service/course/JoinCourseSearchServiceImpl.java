@@ -16,25 +16,6 @@ import lombok.RequiredArgsConstructor;
 public class JoinCourseSearchServiceImpl implements JoinCourseSearchService {
 	private final JoinCourseSearchMapper joinCourseSearchMapper;
 
-	@Override
-	public List<JoinCourseDto> getTagCourseByTime(String tag, int start, int perPage) {
-		Map<String, Object> obj=new HashMap<String, Object>();
-		obj.put("tag", tag);
-		obj.put("start", start);
-		obj.put("perPage", perPage);
-		List<JoinCourseDto> list=joinCourseSearchMapper.getTagCourseByTime(obj);
-		return list;
-	}
-
-	@Override
-	public List<JoinCourseDto> getTagCourseByLike(String tag, int start, int perPage) {
-		Map<String, Object> obj=new HashMap<String, Object>();
-		obj.put("tag", tag);
-		obj.put("start", start);
-		obj.put("perPage", perPage);
-		List<JoinCourseDto> list=joinCourseSearchMapper.getTagCourseByLike(obj);
-		return list;
-	}
 
 	@Override
 	public List<JoinCourseDto> getSearchCourseByTime(String keyword, int start, int perPage) {
@@ -76,14 +57,8 @@ public class JoinCourseSearchServiceImpl implements JoinCourseSearchService {
 		obj.put("how", how);
 		obj.put("start", start);
 		obj.put("perPage", perPage);
-		List<JoinCourseDto> list=joinCourseSearchMapper.getTagCourseByTime(obj);
+		List<JoinCourseDto> list=joinCourseSearchMapper.getCustomCourseByLike(obj);
 		return list;
-	}
-
-	@Override
-	public int getTagTotalCount(String tag) {
-		System.out.println("service:"+joinCourseSearchMapper.getTagTotalCount(tag));
-		return joinCourseSearchMapper.getTagTotalCount(tag);
 	}
 
 	@Override
