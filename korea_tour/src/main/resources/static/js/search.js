@@ -8,9 +8,11 @@ let currentPage = document
   .getAttribute('currentPage');
 let startPage = Math.floor((currentPage - 1) / perBlock) * perBlock + 1;
 let endPage = startPage + perBlock - 1;
-searchAllbyTitle(sort, keyword, currentPage);
-areaOnclick();
-function areaOnclick() {
+searchPlace(sort, keyword, currentPage);
+sortOnclick();
+searchOnclick();
+
+function sortOnclick() {
   let sorts = document.querySelectorAll('.sort');
   for (const sort of sorts) {
     sort.addEventListener('click', function (e) {
@@ -26,13 +28,34 @@ function areaOnclick() {
 
       // } else {
       // }
-      searchAllbyTitle(sortCode, keyword, currentPage);
+      searchPlace(sortCode, keyword, currentPage);
     });
   }
 }
+function searchOnclick() {
+  let searches = document.querySelectorAll('.search-list');
+  for (const search of searches) {
+    search.addEventListener('click', function (e) {
+      let searchCode = e.target.getAttribute('search');
 
+      const children = search.parentElement.children;
+      for (const child of children) {
+        child.classList.remove('active');
+      }
+      console.log(search);
+      search.classList.add('active');
+
+      if (searchCode == 'tour') {
+        searchPlace(sortCode, keyword, currentPage);
+      } else {
+        let sort = 'time';
+        searchCourse(sort, keyword, currentPage);
+      }
+    });
+  }
+}
 //api 데이터
-function searchAllbyTitle(sort, keyword, pageNum) {
+function searchPlace(sort, keyword, pageNum) {
   if (pageNum == undefined) pageNum = 1;
   let url;
   var xhr = new XMLHttpRequest();
@@ -47,8 +70,8 @@ function searchAllbyTitle(sort, keyword, pageNum) {
   xhr.open('GET', url);
   xhr.onreadystatechange = function () {
     if (this.readyState == 4) {
-      let data = JSON.parse(this.responseText);
-      let item = data.place;
+      const data = JSON.parse(this.responseText);
+      const item = data.place;
       console.log(data);
 
       let n = '';
@@ -65,6 +88,123 @@ function searchAllbyTitle(sort, keyword, pageNum) {
         n += `<div class='info'><span class='title' >${item[i].title}</span>`;
 
         n += `<span class='place'>${item[i].addr1}</span>`;
+        n += `<span class='lieks'><i class="fas fa-heart"></i> ${item[i].likeCount}</span>`;
+        n += `</div></div></a>`;
+      }
+      document.querySelector('.list').innerHTML = n;
+
+      //페이징 처리
+      const totalPage = data.totalPage; //
+
+      if (endPage > totalPage) {
+        endPage = totalPage;
+      }
+
+      if (item.length == 0) {
+        document.querySelector('.list').innerHTML =
+          '<span class="alert-msg">해당하는 검색 결과가 없습니다!😱</span>';
+      }
+
+      let p = '';
+      if (startPage > 1) {
+        p += `<li class='page-list'><a href='/search?keyword=${keyword}&currentPage=${
+          startPage - 1
+        }'><i class="fas fa-chevron-left"></i></li>`;
+      }
+      for (let i = startPage; i <= endPage; i++) {
+        p += `<li class='page-list'><a href='/search?keyword=${keyword}&currentPage=${i}'>${i}</a></li>`;
+      }
+      if (endPage < totalPage) {
+        p += `<li page='${
+          endPage + 1
+        }' class='page-list'><a href='/search?keyword=${keyword}&currentPage=${
+          endPage + 1
+        }'><i class="fas fa-chevron-right"></i></a></li>`;
+      }
+      document.querySelector('.pagination').innerHTML = p;
+    }
+  };
+  xhr.send(null);
+}
+
+function searchCourse(sort, keyword, pageNum) {
+  if (pageNum == undefined) pageNum = 1;
+  let url;
+  var xhr = new XMLHttpRequest();
+  const keywordURL = decodeURIComponent(keyword);
+  if (sort == 'time') {
+    url = `courses/search/time/${pageNum}/` + keywordURL;
+  } else {
+    url = `courses/search/like/${pageNum}/` + keywordURL;
+  }
+  /**/
+  console.log(sort);
+  xhr.open('GET', url);
+  xhr.onreadystatechange = function () {
+    if (this.readyState == 4) {
+      const data = JSON.parse(this.responseText);
+      const item = data.list;
+      console.log(data);
+
+      let n = '';
+
+      for (let i = 0; i < item.length; i++) {
+        const courseNum = item[i].courseNum;
+        let who;
+        let during;
+        let how;
+        console.log(`who ${item[i].who}`);
+        switch (item[i].who) {
+          case 'W1':
+            who = '혼자';
+            break;
+          case 'W2':
+            who = '가족';
+            break;
+          case 'W3':
+            who = '연인';
+            break;
+          case 'W4':
+            who = '우정';
+            break;
+        }
+        switch (item[i].during) {
+          case 'D1':
+            during = '당일치기';
+            break;
+          case 'D2':
+            during = '1박2일';
+            break;
+          case 'D3':
+            during = '2박3일';
+            break;
+        }
+        switch (item[i].how) {
+          case 'H1':
+            how = '뚜벅이';
+            break;
+          case 'H2':
+            how = '자전거';
+            break;
+          case 'H3':
+            how = '자동차';
+            break;
+          case 'H4':
+            how = '기차';
+            break;
+        }
+        n += `<a href='/tourcourse/detail?courseNum=${courseNum}'
+          ><div class='card'>`;
+        if (item[i].firstImage) {
+          n += `<img src='${item[i].firstImage}' class='thumbnail' />`;
+        } else {
+          n += `<span class='thumbnail'>대표이미지 없음 🖼 </span>`;
+        }
+        n += `<div class='info'><span class='title' >${item[i].name}</span>`;
+        n += `<span class='content'>${item[i].content}</span>`;
+        n += `<span class='place'>${item[i].addr1}</span>`;
+        n += `<span class='lieks'><i class="fas fa-heart"></i> </span>`;
+        n += `<div class='tag-box'><span class='tag'>${who}</span><span class='tag'>${during}</span><span class='tag'>${how}</span></div>`;
         n += `</div></div></a>`;
       }
       document.querySelector('.list').innerHTML = n;
