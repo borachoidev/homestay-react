@@ -39,8 +39,8 @@ public class AdminRedirectController {
 	}
 	
 	@GetMapping("/admin/member/list")
-	public String goAdminMemberList(@RequestParam int currentPage,Model model) {
-		model.addAttribute("currentPage", currentPage);
+	public String goAdminMemberList() {
+		
 		return "admin/memberlist";
 	}
 	

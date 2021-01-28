@@ -7,6 +7,12 @@
 	<link rel="stylesheet" th:href="@{/css/admin/list.css}">
 </th:block>
 
+<th:block layout:fragment="script" >
+	<script th:src="@{/js/memn.js}" defer></script>
+</th:block>
+
+
+
 <div layout:fragment="content">
 
 	<!-- Sub Title -->
@@ -45,6 +51,15 @@
 				</tr>
 			</thead>
 			<tbody>
+			
+			
+	 <tr th:each="${data}">
+        <td th:text="${data.userNum}"></td>
+        <td th:text="${data.userName}"></td>
+     
+    </tr>
+       
+    </tr>
 				<tr  class="board_list_row">
 					<td class="board_list_data">1</td>
 					<td class="board_list_data">길동</td>
