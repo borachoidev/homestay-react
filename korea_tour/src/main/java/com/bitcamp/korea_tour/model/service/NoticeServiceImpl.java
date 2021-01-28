@@ -2,10 +2,12 @@ package com.bitcamp.korea_tour.model.service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
 import com.bitcamp.korea_tour.model.NoticeDto;
+import com.bitcamp.korea_tour.model.TourAnswerDto;
 import com.bitcamp.korea_tour.model.mapper.NoticeMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -23,9 +25,13 @@ public class NoticeServiceImpl implements NoticeService {
    }
 
    @Override
-   public List<NoticeDto> getAllDatas(HashMap<String, Object> map) {
+   public List<NoticeDto> getAllDatas(int start, int perPage) {
       // TODO Auto-generated method stub
-      return mapper.getAllDatas(map);
+	  Map<String, Object> map=new HashMap<String, Object>();
+	  map.put("start", start);
+	  map.put("perPage", perPage);
+	  List<NoticeDto> list = mapper.getAllDatas(map);
+      return list;
    }
 
    @Override
