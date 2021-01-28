@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import com.bitcamp.korea_tour.model.AdminDto;
@@ -32,7 +33,7 @@ public class AdminServiceImpl implements AdminService {
 	}
 	
 	@Override
-	public int checkAdmin(String id, String password) {
+	public int checkAdmin(@Param(value="id")String id, @Param(value="password")String password) {
 		Map<String, String> map=new HashMap<String, String>();
 		map.put("id", id);
 		map.put("password", password);
