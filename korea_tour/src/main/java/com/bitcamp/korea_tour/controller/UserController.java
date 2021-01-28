@@ -11,18 +11,25 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bitcamp.korea_tour.model.AdminDto;
 import com.bitcamp.korea_tour.model.UserDto;
 import com.bitcamp.korea_tour.model.service.UserService;
 import com.bitcamp.korea_tour.model.service.login.setting.SessionNames;
+import com.bitcamp.korea_tour.model.service.paging.PagingService;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
 public class UserController implements SessionNames {
 	private final UserService us;
-
+	private final PagingService pagingService;
+	
+	private int start;
+	private int perPage;
+	private int totalCount;
+	private int totalPage;
 
 	/**
 	 * 회원탈퇴(사용자), 회원삭제(관리자)
@@ -40,11 +47,22 @@ public class UserController implements SessionNames {
 	/**
 	 * @return 사용자 목록(관리자페이지)
 	 */
-	@GetMapping("/users") 
-	public List<UserDto>getAllUsers() {
-		List<UserDto> list = new ArrayList<UserDto>();	
-		list = us.getUserList();
-		return list;
+	@GetMapping(value="/users/{currentPage}") 
+	public JsonData<List<UserDto>>getAllUsers(@PathVariable(value="currentPage") int currentPage) {
+		totalCount=us.getUserTotalCount();
+		start=pagingService.getPagingData(totalCount, currentPage).get("start");
+		perPage=pagingService.getPagingData(totalCount, currentPage).get("perPage");
+		totalPage=pagingService.getPagingData(totalCount, currentPage).get("totalPage");
+		
+		List<UserDto> list=us.getUserList(start,perPage);
+		return new JsonData<List<UserDto>>(list, totalPage);
+	}
+	
+	@Data
+	@AllArgsConstructor
+	static class JsonData<T> {
+		private T list;
+		int totalPage;
 	}
 
 }

@@ -10,7 +10,8 @@ import com.bitcamp.korea_tour.model.UserDto;
 
 public interface UserService {
 	
-	List<UserDto> getUserList();
+	List<UserDto> getUserList(int start, int perPage);
+	int getUserTotalCount();
 	UserDto getUserData(int userNum);
 	void deleteUser(int loginNum);
 	void insertUser(UserDto dto);

@@ -2,10 +2,18 @@
 let sort = 'title';
 let areaCode = getParam('areaCode');
 const perBlock = 5;
-let currentPage = document.querySelector('#paing').getAttribute('currentPage');
+let currentPage = document.querySelector('#paging').getAttribute('currentPage');
 let startPage = Math.floor((currentPage - 1) / perBlock) * perBlock + 1;
 let endPage = startPage + perBlock - 1;
 getPlace(sort, areaCode, currentPage);
+
+function getParam(key) {
+  let param;
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  param = urlParams.get(key);
+  return param;
+}
 
 window.onload = function () {
   let clickFirst = document.getElementById('namelist');
@@ -51,43 +59,41 @@ const moveDetail = () => {
 };
 
 //출력
-const getPlace(sort, areaCode, currentPage){
+function getPlace(sort, areaCode, currentPage) {
+  var xhr = new XMLHttpRequest();
+  var url = `/places/${sort}/${currentPage}/${areaCode}`;
+  console.log(url);
+  xhr.open('GET', url);
+  xhr.onreadystatechange = function () {
+    if (this.readyState == 4) {
+      let data = JSON.parse(this.responseText);
+      let item = data.place;
+      let c = ' ';
+      for (let i = 0; i < item.length; i++) {
+        let src = item[i].firstImage;
+        let placeName = item[i].title;
+        let addr = item[i].addr1;
+        let contentId = item[i].contentId;
 
-var xhr = new XMLHttpRequest();
-var url = `/places/${sort}/${currentPage}/${areaCode}`;
-console.log(url);
-xhr.open('GET', url);
-xhr.onreadystatechange = function () {
-  if (this.readyState == 4) {
-    let data = JSON.parse(this.responseText);
-    let item = data.place;
-    let c = ' ';
-    for (let i = 0; i < item.length; i++) {
-      let src = item[i].firstImage;
-      let placeName = item[i].title;
-      let addr = item[i].addr1;
-      let contentId = item[i].contentId;
+        c += `<a href='/tourplace/detail?contentId=${contentId}'><div class="place-list">`;
+        c += `<img src=${src} onerror="this.src='/img/noimage.png'">`;
+        c += `<div class="list-content">`;
+        c += `<div class="placeName">${placeName}</div>`;
+        c += `<div class="addr">${addr}</div>`;
+        c += `</div></div></a>`;
+      }
 
-      c += `<a href='/tourplace/detail?contentId=${contentId}'><div class="place-list">`;
-      c += `<img src=${src} onerror="this.src='/img/noimage.png'">`;
-      c += `<div class="list-content">`;
-      c += `<div class="placeName">${placeName}</div>`;
-      c += `<div class="addr">${addr}</div>`;
-      c += `</div></div></a>`;
-    }
+      document.querySelector('#card').innerHTML = c;
+      console.log(item);
+      console.log(data);
 
-    document.querySelector('#card').innerHTML = c;
-    console.log(item);
-    console.log(data);
-
-
-    //페이징처리
+      //페이징처리
       const totalPage = data.totalPage; //
 
       if (endPage > totalPage) {
         endPage = totalPage;
       }
-      
+
       let p = '';
       if (startPage > 1) {
         p += `<li class='page-list'><a href='/tourplace/list?areaCode=${areaCode}&currentPage=${
@@ -106,9 +112,9 @@ xhr.onreadystatechange = function () {
       }
 
       document.querySelector('#paging').innerHTML = p;
-  }
-};
-xhr.send();
+    }
+  };
+  xhr.send();
 }
 //상단 슬라이드
 let slideUp = (target, duration = 500) => {
