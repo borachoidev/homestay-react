@@ -3,6 +3,7 @@ package com.bitcamp.korea_tour.model.service;
 import java.util.HashMap;
 import java.util.List;
 
+import com.bitcamp.korea_tour.model.JoinAnswerDto;
 import com.bitcamp.korea_tour.model.TourAnswerDto;
 
 public interface TourAnswerService {
@@ -27,8 +28,8 @@ public interface TourAnswerService {
 	//마이페이지용 댓글 답글
 	int getTotalCountAnswer(int loginNum);
 	int getTotalCountReAnswer(int loginNum);
-	List<TourAnswerDto> getUserAnswer(int loginNum, int start, int perPage);
-	List<TourAnswerDto> getUserReAnswer(int loginNum, int start, int perPage);
+	List<JoinAnswerDto> getUserAnswer(int loginNum, int start, int perPage);
+	List<JoinAnswerDto> getUserReAnswer(int loginNum, int start, int perPage);
 
 	//관리자페이지
 	int getTotalCountAnswerAdmin();

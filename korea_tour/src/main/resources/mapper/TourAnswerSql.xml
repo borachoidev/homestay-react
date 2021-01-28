@@ -61,13 +61,13 @@
    <select id="getTotalCountReAnswer" parameterType="int" resultType="int">
           select count(*) from tourAnswer where relevel=1 and loginNum=#{loginNum}
    </select>
-   <select id="getUserAnswer" parameterType="hashmap" resultType="touranswer"><!-- 내 댓글보기 -->
+   <select id="getUserAnswer" parameterType="hashmap" resultType="joinanswer"><!-- 내 댓글보기 -->
       SELECT * FROM tourAnswer 
 		LEFT JOIN course ON tourAnswer.courseNum=course.courseNum
 		LEFT JOIN place ON tourAnswer.contentId=place.contentId
         where loginNum=#{loginNum} and relevel=0 order by tourAnswerNum desc LIMIT #{start},#{perPage}
    </select>
-   <select id="getUserReAnswer" parameterType="hashmap" resultType="touranswer"><!-- 내 답글보기 -->
+   <select id="getUserReAnswer" parameterType="hashmap" resultType="joinanswer"><!-- 내 답글보기 -->
      SELECT * FROM tourAnswer 
 		LEFT JOIN course ON tourAnswer.courseNum=course.courseNum
 		LEFT JOIN place ON tourAnswer.contentId=place.contentId
