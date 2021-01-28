@@ -19,7 +19,7 @@ public class MainSearchController {
          @RequestParam(defaultValue="1") int currentPage,
          @RequestParam(required=false)String keyword,Model model
          ) {
-      if(keyword==null) {
+      if(keyword.equals("")) {
          System.out.println("키워드가 널!!");
          if(currentMonth>=3 && currentMonth<6) {
             keyword="봄";
