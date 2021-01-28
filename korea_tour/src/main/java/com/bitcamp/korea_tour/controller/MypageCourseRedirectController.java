@@ -30,13 +30,13 @@ public class MypageCourseRedirectController {
 	@GetMapping("/tourmypage/courselist")
 	public String goMycourseList(@RequestParam(defaultValue="1") int currentPage, Model model){
 		model.addAttribute("currentPage", currentPage);
-		return "course/mycourse";
+		return "mypage/courselist";
 	}
 	
 	@GetMapping("/tourmypage/courselist/detail")
 	public String goMycourseDetail(){
 		
-		return "course/detail";
+		return "mypage/course";
 	}
 	
 	@GetMapping("/tourcourse")

@@ -1,7 +1,6 @@
 package com.bitcamp.korea_tour.model.homestay;
 
-import java.sql.Timestamp;
-import java.util.List;
+import java.sql.Date;
 
 import org.apache.ibatis.type.Alias;
 
@@ -11,7 +10,7 @@ import lombok.Data;
 @Alias("homestayreview")
 public class HomeStayReviewDto {
 	private int homeStayReviewNum;
-	private Timestamp writeday;
+	private Date writeday;
 	private int userNum;
 	private int homeStayNum;
 	private int relevel;
