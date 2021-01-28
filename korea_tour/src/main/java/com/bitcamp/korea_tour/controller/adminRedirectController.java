@@ -108,5 +108,11 @@ public class adminRedirectController {
 		model.addAttribute("noticeNum", noticeNum);
 		return "admin/noticelist";
 	}
+	
+	@GetMapping("admin/placephoto/list")
+	public String goAdminDisapprovedPhotoList() {
+		
+		return "admin/placephotolist";
+	}
 }
 

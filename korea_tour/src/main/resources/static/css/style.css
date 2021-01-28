@@ -55,6 +55,22 @@ body {
   align-items: center;
   justify-content: space-around;
 }
+
+#userPhoto {
+	height:70px;
+	width:70px;
+	padding:-3rem;
+	border-radius: 50%;
+	
+}
+
+#homeLogout{
+	font-size:15px;
+	text-align: center;
+	padding:-0.5rem;
+	
+
+}
 .search-bar__input,
 .search-bar__btn {
   font-size: var(--font-medium);

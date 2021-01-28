@@ -2,9 +2,11 @@ package com.bitcamp.korea_tour.model.service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.bitcamp.korea_tour.model.JoinAnswerDto;
 import com.bitcamp.korea_tour.model.TourAnswerDto;
 import com.bitcamp.korea_tour.model.mapper.TourAnswerMapper;
 
@@ -66,15 +68,24 @@ public class TourAnswerServiceImpl implements TourAnswerService{
 
 
 	@Override
-	public List<TourAnswerDto> getAdminAnswer(HashMap<String, Object> map) {
+	public List<TourAnswerDto> getAdminAnswer(int start, int perPage) {
 		// TODO Auto-generated method stub
-		return mapper.getAdminAnswer(map);
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("start", start);
+		map.put("perPage", perPage);
+		List<TourAnswerDto> list = mapper.getAdminAnswer(map);
+		return list;
 	}
 
 	@Override
-	public List<TourAnswerDto> getAdminReAnswer(HashMap<String, Object> map) {
+	public List<TourAnswerDto> getAdminReAnswer(int start, int perPage) {
 		// TODO Auto-generated method stub
-		return mapper.getAdminReAnswer(map);
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("start", start);
+		map.put("perPage", perPage);
+		List<TourAnswerDto> list = mapper.getAdminReAnswer(map);
+		return list;
+
 	}
 
 	@Override
@@ -103,15 +114,25 @@ public class TourAnswerServiceImpl implements TourAnswerService{
 
 
 	@Override
-	public List<TourAnswerDto> getUserAnswer(int loginNum, HashMap<String, Object> map) {
+	public List<JoinAnswerDto> getUserAnswer(int loginNum, int start, int perPage) {
 		// TODO Auto-generated method stub
-		return mapper.getUserAnswer(loginNum, map);
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("loginNum", loginNum);
+		map.put("start", start);
+		map.put("perPage", perPage);
+		List<JoinAnswerDto> list = mapper.getUserAnswer(map);
+		return list;
 	}
 
 	@Override
-	public List<TourAnswerDto> getUserReAnswer(int loginNum, HashMap<String, Object> map) {
+	public List<JoinAnswerDto> getUserReAnswer(int loginNum, int start, int perPage) {
 		// TODO Auto-generated method stub
-		return mapper.getUserReAnswer(loginNum, map);
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("loginNum", loginNum);
+		map.put("start", start);
+		map.put("perPage", perPage);
+		List<JoinAnswerDto> list = mapper.getUserReAnswer(map);
+		return list;
 	}
 
 	@Override

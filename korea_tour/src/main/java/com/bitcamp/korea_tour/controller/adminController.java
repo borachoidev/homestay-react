@@ -48,11 +48,9 @@ public class adminController implements SessionNames{
 		start=pagingService.getPagingData(totalCount, currentPage).get("start");
 		perPage=pagingService.getPagingData(totalCount, currentPage).get("perPage");
 		totalPage=pagingService.getPagingData(totalPage, currentPage).get("totalPage");
-		HashMap<String, Object> map=new HashMap<String, Object>();
-		map.put("start", start);
-		map.put("perPage", perPage);
 
-		List<TourAnswerDto> adminanswer= tas.getAdminAnswer(map); 
+
+		List<TourAnswerDto> adminanswer= tas.getAdminAnswer(start, perPage); 
 
 		return new JsonAnswer<List<TourAnswerDto>>(adminanswer, totalPage);
 
@@ -70,11 +68,8 @@ public class adminController implements SessionNames{
 		start=pagingService.getPagingData(totalCount, currentPage).get("start");
 		perPage=pagingService.getPagingData(totalCount, currentPage).get("perPage");
 		totalPage=pagingService.getPagingData(totalPage, currentPage).get("totalPage");
-		HashMap<String, Object> map=new HashMap<String, Object>();
-		map.put("start", start);
-		map.put("perPage", perPage);
 
-		List<TourAnswerDto> adminreanswer= tas.getAdminReAnswer(map); 
+		List<TourAnswerDto> adminreanswer= tas.getAdminReAnswer(start, perPage); 
 
 		return new JsonAnswer<List<TourAnswerDto>>(adminreanswer, totalPage);
 

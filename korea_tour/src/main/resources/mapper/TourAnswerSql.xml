@@ -61,24 +61,30 @@
    <select id="getTotalCountReAnswer" parameterType="int" resultType="int">
           select count(*) from tourAnswer where relevel=1 and loginNum=#{loginNum}
    </select>
-   <select id="getUserAnswer" parameterType="int" resultType="touranswer">
-      select * from tourAnswer where loginNum=#{loginNum} and relevel=0 order by tourAnswerNum desc 
+   <select id="getUserAnswer" parameterType="hashmap" resultType="joinanswer"><!-- 내 댓글보기 -->
+      SELECT * FROM tourAnswer 
+		LEFT JOIN course ON tourAnswer.courseNum=course.courseNum
+		LEFT JOIN place ON tourAnswer.contentId=place.contentId
+        where loginNum=#{loginNum} and relevel=0 order by tourAnswerNum desc LIMIT #{start},#{perPage}
    </select>
-   <select id="getUserReAnswer" parameterType="int" resultType="touranswer">
-      select * from tourAnswer where loginNum=#{loginNum} and relevel=1 order by tourAnswerNum desc 
+   <select id="getUserReAnswer" parameterType="hashmap" resultType="joinanswer"><!-- 내 답글보기 -->
+     SELECT * FROM tourAnswer 
+		LEFT JOIN course ON tourAnswer.courseNum=course.courseNum
+		LEFT JOIN place ON tourAnswer.contentId=place.contentId
+        where loginNum=#{loginNum} and relevel=1 order by tourAnswerNum desc LIMIT #{start},#{perPage}
    </select>
    
    <!-- 관리자용 전체 답글 출력 쿼리 -->
    <select id="getTotalCountAnswerAdmin"  resultType="int">
-      select * from tourAnswer where relevel=0 order by tourAnswerNum desc
+      select count(*) tourAnswer where relevel=0 
    </select>
    <select id="getAdminAnswer"  resultType="touranswer">
-      select * from tourAnswer where relevel=0 order by tourAnswerNum desc
+      select * from tourAnswer where relevel=0 order by tourAnswerNum desc	LIMIT #{start},#{perPage}
    </select>
    <select id="getTotalCountReAnswerAdmin" resultType="int">
-      select * from tourAnswer where relevel=1 order by tourAnswerNum desc
+      select count(*) tourAnswer where relevel=1 	
    </select>
    <select id="getAdminReAnswer"  resultType="touranswer">
-      select * from tourAnswer where relevel=1 order by tourAnswerNum desc
+      select * from tourAnswer where relevel=1 order by tourAnswerNum desc	LIMIT #{start},#{perPage}
    </select>
 </mapper>

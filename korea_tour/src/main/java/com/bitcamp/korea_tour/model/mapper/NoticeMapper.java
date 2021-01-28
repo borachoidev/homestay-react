@@ -2,6 +2,7 @@ package com.bitcamp.korea_tour.model.mapper;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -9,12 +10,12 @@ import com.bitcamp.korea_tour.model.NoticeDto;
 
 @Mapper
 public interface NoticeMapper {
-   public int getTotalCount();
-   public List<NoticeDto> getAllDatas(HashMap<String, Object> map);
-   public void insertNotice(NoticeDto dto);
-   public NoticeDto getData(int noticeNum);
-   public void updateNotice(NoticeDto dto);
-   public void deleteNotice(int noticeNum);
-   public List<NoticeDto> getNewNotice();
+   int getTotalCount();
+   List<NoticeDto> getAllDatas(Map<String, Object> map);
+   void insertNotice(NoticeDto dto);
+   NoticeDto getData(int noticeNum);
+   void updateNotice(NoticeDto dto);
+   void deleteNotice(int noticeNum);
+   List<NoticeDto> getNewNotice();
    
 }

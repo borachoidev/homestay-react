@@ -7,8 +7,8 @@ import org.apache.ibatis.type.Alias;
 import lombok.Data;
 
 @Data
-@Alias("touranswer")
-public class TourAnswerDto {
+@Alias("joinanswer")
+public class JoinAnswerDto {
 	private int tourAnswerNum;
 	private int courseNum;
 	private int userNum; //course 테이블
@@ -21,5 +21,8 @@ public class TourAnswerDto {
 	private int relevel;
 	private int regroup;
 	private int deleted;
-
+	//courseDto
+	private String name;
+	//placeDto
+	private String title;
 }
