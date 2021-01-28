@@ -42,13 +42,10 @@ hr{
     margin: auto;
 }
 
-.login-bar{
-    float: right;
-    
-}
+
 .menu-icon{
     float: right;
-    font-size: 25px;
+    font-size: 20px;
     cursor: pointer;
 }
 .mypage-box__text-box{
@@ -56,8 +53,11 @@ hr{
     margin: 6% 8%;
     
 }
+.text-box{
+    font-size: 1.5em;
+}
 
-.mypage-box__text{
+#myTotalMark, #myTotalCourse, #myTotalAnswer{
     float: right;
     font-size: 40px;
 }
