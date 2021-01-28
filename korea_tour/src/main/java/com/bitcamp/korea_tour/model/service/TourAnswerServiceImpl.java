@@ -68,15 +68,24 @@ public class TourAnswerServiceImpl implements TourAnswerService{
 
 
 	@Override
-	public List<TourAnswerDto> getAdminAnswer(HashMap<String, Object> map) {
+	public List<TourAnswerDto> getAdminAnswer(int start, int perPage) {
 		// TODO Auto-generated method stub
-		return mapper.getAdminAnswer(map);
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("start", start);
+		map.put("perPage", perPage);
+		List<TourAnswerDto> list = mapper.getAdminAnswer(map);
+		return list;
 	}
 
 	@Override
-	public List<TourAnswerDto> getAdminReAnswer(HashMap<String, Object> map) {
+	public List<TourAnswerDto> getAdminReAnswer(int start, int perPage) {
 		// TODO Auto-generated method stub
-		return mapper.getAdminReAnswer(map);
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("start", start);
+		map.put("perPage", perPage);
+		List<TourAnswerDto> list = mapper.getAdminReAnswer(map);
+		return list;
+
 	}
 
 	@Override

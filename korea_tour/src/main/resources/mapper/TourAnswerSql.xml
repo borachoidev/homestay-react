@@ -76,15 +76,15 @@
    
    <!-- 관리자용 전체 답글 출력 쿼리 -->
    <select id="getTotalCountAnswerAdmin"  resultType="int">
-      select * from tourAnswer where relevel=0 order by tourAnswerNum desc
+      select count(*) tourAnswer where relevel=0 
    </select>
    <select id="getAdminAnswer"  resultType="touranswer">
-      select * from tourAnswer where relevel=0 order by tourAnswerNum desc
+      select * from tourAnswer where relevel=0 order by tourAnswerNum desc	LIMIT #{start},#{perPage}
    </select>
    <select id="getTotalCountReAnswerAdmin" resultType="int">
-      select * from tourAnswer where relevel=1 order by tourAnswerNum desc
+      select count(*) tourAnswer where relevel=1 	
    </select>
    <select id="getAdminReAnswer"  resultType="touranswer">
-      select * from tourAnswer where relevel=1 order by tourAnswerNum desc
+      select * from tourAnswer where relevel=1 order by tourAnswerNum desc	LIMIT #{start},#{perPage}
    </select>
 </mapper>

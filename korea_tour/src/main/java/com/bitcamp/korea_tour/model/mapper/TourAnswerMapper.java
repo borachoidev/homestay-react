@@ -37,8 +37,8 @@ public interface TourAnswerMapper {
 
 	//관리자페이지
 	int getTotalCountAnswerAdmin();
-	List<TourAnswerDto> getAdminAnswer(HashMap<String, Object> map); //댓글
+	List<TourAnswerDto> getAdminAnswer(Map<String, Object> map); //댓글
 	int getTotalCountReAnswerAdmin();
-	List<TourAnswerDto> getAdminReAnswer(HashMap<String, Object> map); //답글
+	List<TourAnswerDto> getAdminReAnswer(Map<String, Object> map); //답글
 
 }
