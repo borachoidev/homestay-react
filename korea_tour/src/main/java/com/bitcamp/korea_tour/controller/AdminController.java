@@ -34,9 +34,9 @@ public class AdminController implements SessionNames {
 			HttpSession session=request.getSession();
 			session.setAttribute(ADMIN, admin);
 			
-			return "login/adminloginform";
-		}else  {
 			return "admin/adminmain";
+		}else  {
+			return "login/adminloginform";
 		}
 	}
 }

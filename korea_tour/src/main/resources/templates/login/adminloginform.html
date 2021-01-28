@@ -18,7 +18,7 @@
 <div layout:fragment="content">
 
 	<div class="login-wrap">
-		<form class="login-box">
+		
 			<div class="form-wrap">
 				<h2>* 관리자용 로그인</h2>
 				<hr>
@@ -30,14 +30,14 @@
 					<br>
 				</div>
 				<div class="insert-wrap">
-				<form th:action="@{/login/admin/success}" method="post">
+				<form th:action="@{/login/admin/check}" method="post">
 					<input type="text" placeholder="Username" name="id"/> 
 					<input type="password" placeholder="Password" name="password" />
 					<button type="submit">Login</button>
 				</form>
 				</div>
 			</div>
-		</form>
+		
 	</div>
 </div>
 </html>
