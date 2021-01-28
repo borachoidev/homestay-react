@@ -1,5 +1,6 @@
 package com.bitcamp.korea_tour.controller;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.bitcamp.korea_tour.model.JoinAnswerDto;
 import com.bitcamp.korea_tour.model.JoinCourseDto;
 import com.bitcamp.korea_tour.model.JoinCourseMarkDto;
 import com.bitcamp.korea_tour.model.TourAnswerDto;
@@ -127,7 +128,7 @@ public class MypageController implements SessionNames {
 	
 	//내가 단 댓글
 	@GetMapping("/mypage/answer/{currentPage}")
-	public JsonAnswer<List<TourAnswerDto>> getMyAnswer(@PathVariable(value="currentPage") int currentPage, HttpServletRequest request) {
+	public JsonAnswer<List<JoinAnswerDto>> getMyAnswer(@PathVariable(value="currentPage") int currentPage, HttpServletRequest request) {
 	    HttpSession session = request.getSession();
 	    UserDto user = (UserDto)session.getAttribute(USER);
 	    int loginNum = user.getUserNum();
@@ -139,14 +140,14 @@ public class MypageController implements SessionNames {
 		totalPage=pagingService.getPagingData(totalCount, currentPage).get("totalPage");
 		
 		
-		List<TourAnswerDto> answerlist= tas.getUserAnswer(loginNum, start, perPage);
+		List<JoinAnswerDto> answerlist= tas.getUserAnswer(loginNum, start, perPage);
 		System.out.println("댓글 여기! loginNum: "+loginNum+"\n start : "+start+"\n perPage : "+perPage);
-		return new JsonAnswer<List<TourAnswerDto>>(answerlist, totalPage);
+		return new JsonAnswer<List<JoinAnswerDto>>(answerlist, totalPage);
 	   
     }
 	 //내가 단 답글
 	 @GetMapping("/mypage/reanswer/{currentPage}")
-	 public JsonReAnswer<List<TourAnswerDto>> getMyReAnswer(@PathVariable(value="currentPage") int currentPage, HttpServletRequest request) {
+	 public JsonReAnswer<List<JoinAnswerDto>> getMyReAnswer(@PathVariable(value="currentPage") int currentPage, HttpServletRequest request) {
 	    HttpSession session = request.getSession();
 		UserDto user = (UserDto)session.getAttribute(USER);
 		int loginNum = user.getUserNum();
@@ -156,9 +157,9 @@ public class MypageController implements SessionNames {
 		perPage=pagingService.getPagingData(totalCount, currentPage).get("perPage");
 		totalPage=pagingService.getPagingData(totalCount, currentPage).get("totalPage");
 		
-		List<TourAnswerDto> reanswerlist= tas.getUserReAnswer(loginNum, start, perPage);
+		List<JoinAnswerDto> reanswerlist= tas.getUserReAnswer(loginNum, start, perPage);
 
-		return new JsonReAnswer<List<TourAnswerDto>>(reanswerlist, totalPage);
+		return new JsonReAnswer<List<JoinAnswerDto>>(reanswerlist, totalPage);
 		   
 	 }
 
@@ -230,4 +231,5 @@ public class MypageController implements SessionNames {
 		private T MyReanswer;
 		int totalPage;
 	}
+	
 }
