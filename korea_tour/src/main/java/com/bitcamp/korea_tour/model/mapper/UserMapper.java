@@ -11,7 +11,8 @@ import com.bitcamp.korea_tour.model.UserDto;
 @Mapper
 public interface UserMapper {
 	int getTotalCount();
-	List<UserDto> getUserList();
+	List<UserDto> getUserList(Map<String, Integer> paging);
+	int getUserTotalCount();
 	void insertUser(UserDto dto);
 	UserDto getUserData(int userNum);
 	void deleteUser(int loginNum);
