@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -64,7 +66,7 @@ public class NoticeController implements SessionNames {
     
    
      
-     @PostMapping(value = "/noticeinsert") 
+     @RequestMapping(value = "/noticeinsert", method = RequestMethod.POST) 
      public void insertNotice(@RequestBody JsonRequest js) {
      NoticeDto dto = new NoticeDto();
      System.out.println(js);

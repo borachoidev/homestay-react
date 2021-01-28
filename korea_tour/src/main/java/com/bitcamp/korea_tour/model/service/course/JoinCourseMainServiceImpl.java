@@ -22,20 +22,28 @@ public class JoinCourseMainServiceImpl implements JoinCourseMainService {
 	private final CourseMapper courseMapper;
 
 	@Override
-	public List<JoinCourseDto> getAllCourseByTime(int start, int perPage) {
+	public List<JoinCourseDto> getAllCourseByTime(String who, String during, String how,int start, int perPage) {
 		Map<String, Integer> paging=new HashMap<String, Integer>();
-		paging.put("start", start);
-		paging.put("perPage", perPage);
-		List<JoinCourseDto> list=joinCourseMainMapper.getAllCourseByTime(paging);
+		Map<String, Object> obj=new HashMap<String, Object>();
+		obj.put("who", who);
+		obj.put("during", during);
+		obj.put("how", how);
+		obj.put("start", start);
+		obj.put("perPage", perPage);
+		List<JoinCourseDto> list=joinCourseMainMapper.getAllCourseByTime(obj);
 		return list;
 	}
 
 	@Override
-	public List<JoinCourseDto> getAllCourseByLike(int start, int perPage) {
+	public List<JoinCourseDto> getAllCourseByLike(String who, String during, String how,int start, int perPage) {
 		Map<String, Integer> paging=new HashMap<String, Integer>();
-		paging.put("start", start);
-		paging.put("perPage", perPage);
-		List<JoinCourseDto> list=joinCourseMainMapper.getAllCourseByLike(paging);
+		Map<String, Object> obj=new HashMap<String, Object>();
+		obj.put("who", who);
+		obj.put("during", during);
+		obj.put("how", how);
+		obj.put("start", start);
+		obj.put("perPage", perPage);
+		List<JoinCourseDto> list=joinCourseMainMapper.getAllCourseByLike(obj);
 		return list;
 	}
 	

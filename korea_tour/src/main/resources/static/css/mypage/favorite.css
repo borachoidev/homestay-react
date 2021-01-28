@@ -50,7 +50,7 @@ hr{
     color: #98938d;
 }
 .nav-text:nth-child(2){
-    color: #98938d;
+    color: black;
     font-weight: bold;
     background-color: #ccccc4;
     border-radius: 100px;
@@ -87,7 +87,7 @@ hr{
     margin-bottom: 10px;
 }
 .favorite-start{
-    margin-bottom: 10px;
+    margin-bottom: 30px;
 }
 
 .favorite-info span{
@@ -105,13 +105,18 @@ hr{
     display: flex;
     color: #98938d;
 }
-.favorite-box__course-text a{
+.favorite-box__course-text{
     margin-right: 5px;
     color: #98938d;
+    cursor: pointer;
+    transition: 0.5s;
 }
 
-.favorite-box__tourist-text a{
+
+.favorite-box__tourist-text{
     margin-left: 5px;
     color: #98938d;
+    cursor: pointer;
+    transition: 0.5s;
 }
 

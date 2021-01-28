@@ -54,37 +54,33 @@
 
 <!--/* 슬라이드 구성 끝 */-->
 <form>
-<input type="text" id="mainCity" value="" name="region" readonly="readonly"></input>
+<input type="text" id="mainCity" th:value="서울특별시" name="areaCode" readonly="readonly" th:areaCode="1"></input>
 <a class="all-city" id="region" th:text="더보기"  onclick="moveList()"></a>
 </form>
 <hr/>
 
 <div class="city-btn">
-	<button class="city-list clicked " id="cityList" value="서울특별시" th:areaCode="1" onclick="printName(this)">서울</button>
-	<button class="city-list" value="부산" th:areaCode="6" onclick="printName(this)">부산</button>
-	<button class="city-list" value="대구" th:areaCode="4" onclick="printName(this)">대구</button>
-	<button class="city-list" value="인천" th:areaCode="2" onclick="printName(this)">인천</button>
-	<button class="city-list" value="광주" th:areaCode="5" onclick="printName(this)">광주</button>
-	<button class="city-list" value="대전" th:areaCode="3" onclick="printName(this)">대전</button>
-	<button class="city-list" value="울산" th:areaCode="7" onclick="printName(this)">울산</button>
-	<button class="city-list" value="세종특별자치시" th:areaCode="8" onclick="printName(this)">세종</button>
-	<button class="city-list" value="경기도" th:areaCode="31" onclick="printName(this)">경기</button>
-	<button class="city-list" value="강원도" th:areaCode="32" onclick="printName(this)">강원</button>
-	<button class="city-list" value="충청북도" th:areaCode="33" onclick="printName(this)">충북</button>
-	<button class="city-list" value="충청남도" th:areaCode="34" onclick="printName(this)">충남</button>
-	<button class="city-list" value="전라북도" th:areaCode="37" onclick="printName(this)">전북</button>
-	<button class="city-list" value="전라남도" th:areaCode="38" onclick="printName(this)">전남</button>
-	<button class="city-list" value="경상북도" th:areaCode="35" onclick="printName(this)">경북</button>
-	<button class="city-list" value="경상남도" th:areaCode="36" onclick="printName(this)">경남</button>
-	<button class="city-list" value="제주도" th:areaCode="39" onclick="printName(this)">제주</button>
+	<button type="submit" class="city-list clicked " id="cityList" th:value="서울특별시" th:areaCode="1" onclick="printName(this)">서울</button>
+	<button type="submit" class="city-list" th:value="부산" th:areaCode="6" onclick="printName(this)">부산</button>
+	<button type="submit" class="city-list" th:value="대구" th:areaCode="4" onclick="printName(this)">대구</button>
+	<button type="submit" class="city-list" th:value="인천" th:areaCode="2" onclick="printName(this)">인천</button>
+	<button class="city-list" th:value="광주" th:areaCode="5" onclick="printName(this)">광주</button>
+	<button class="city-list" th:value="대전" th:areaCode="3" onclick="printName(this)">대전</button>
+	<button class="city-list" th:value="울산" th:areaCode="7" onclick="printName(this)">울산</button>
+	<button class="city-list" th:value="세종특별자치시" th:areaCode="8" onclick="printName(this)">세종</button>
+	<button class="city-list" th:value="경기도" th:areaCode="31" onclick="printName(this)">경기</button>
+	<button class="city-list" th:value="강원도" th:areaCode="32" onclick="printName(this)">강원</button>
+	<button class="city-list" th:value="충청북도" th:areaCode="33" onclick="printName(this)">충북</button>
+	<button class="city-list" th:value="충청남도" th:areaCode="34" onclick="printName(this)">충남</button>
+	<button class="city-list" th:value="전라북도" th:areaCode="37" onclick="printName(this)">전북</button>
+	<button class="city-list" th:value="전라남도" th:areaCode="38" onclick="printName(this)">전남</button>
+	<button class="city-list" th:value="경상북도" th:areaCode="35" onclick="printName(this)">경북</button>
+	<button class="city-list" th:value="경상남도" th:areaCode="36" onclick="printName(this)">경남</button>
+	<button class="city-list" th:value="제주도" th:areaCode="39" onclick="printName(this)">제주</button>
 </div>	
 
 <div class="city-place-menu" id="place">
 지역별 관광지 출력
-
-<div class="city-place" id="cityPlace">관광지1</div>
-
-
 </div>
 </div>
    

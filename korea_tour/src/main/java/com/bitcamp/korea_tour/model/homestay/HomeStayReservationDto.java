@@ -11,6 +11,7 @@ import lombok.Data;
 public class HomeStayReservationDto {
 	private int homeStayReservationNum;
 	private int userNum;
+	private int loginNum;
 	private int homeStayNum;
 	private String checkInDay;
 	private String checkOutDay;
