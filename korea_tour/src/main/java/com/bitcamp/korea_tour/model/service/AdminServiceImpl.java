@@ -1,6 +1,8 @@
 package com.bitcamp.korea_tour.model.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -30,7 +32,10 @@ public class AdminServiceImpl implements AdminService {
 	}
 	
 	@Override
-	public int checkAdmin(AdminDto adminDto) {
-		return adminMapper.checkAdmin(adminDto);
+	public int checkAdmin(String id, String password) {
+		Map<String, String> map=new HashMap<String, String>();
+		map.put("id", id);
+		map.put("password", password);
+		return adminMapper.checkAdmin(map);
 	}
 }

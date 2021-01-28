@@ -8,5 +8,5 @@ public interface AdminService {
 	void insertAdmin(AdminDto adminDto);
 	List<AdminDto> getAllAdmin();
 	void deleteAdmin(int adminNum);
-	int checkAdmin(AdminDto adminDto);
+	int checkAdmin(String id, String password);
 }
