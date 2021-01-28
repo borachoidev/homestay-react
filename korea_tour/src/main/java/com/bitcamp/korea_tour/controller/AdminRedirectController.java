@@ -75,15 +75,14 @@ public class AdminRedirectController {
 		return "admin/noticelist";
 	}
 	
-	@PostMapping("/admin/notice/form")
+	@GetMapping("/admin/notice/form")
 	public String goAdminNoticeForm() {
 		
 		return "admin/noticeaddform";
 	}
 	
-	@GetMapping("admin/notice/insert")
-	public String goAdminNoticeInsert(@RequestParam int currentPage,Model model) {
-		model.addAttribute("currentPage", currentPage);
+	@PostMapping("admin/notice/insert")
+	public String goAdminNoticeInsert() {
 		return "admin/noticelist";
 	}
 	
