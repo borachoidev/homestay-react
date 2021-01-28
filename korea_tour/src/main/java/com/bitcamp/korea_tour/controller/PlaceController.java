@@ -28,7 +28,7 @@ import com.bitcamp.korea_tour.model.PlaceApiPhotoDto;
 import com.bitcamp.korea_tour.model.PlaceDto;
 import com.bitcamp.korea_tour.model.PlacePhotoDto;
 import com.bitcamp.korea_tour.model.TourAnswerDto;
-import com.bitcamp.korea_tour.model.joinPlaceDto;
+import com.bitcamp.korea_tour.model.JoinPlaceDto;
 import com.bitcamp.korea_tour.model.service.JoinPlaceService;
 import com.bitcamp.korea_tour.model.service.PlacePhotoService;
 import com.bitcamp.korea_tour.model.service.paging.PagingService;

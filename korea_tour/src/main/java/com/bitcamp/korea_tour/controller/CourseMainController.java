@@ -3,15 +3,21 @@ package com.bitcamp.korea_tour.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bitcamp.korea_tour.model.CourseDto;
 import com.bitcamp.korea_tour.model.JoinCourseDto;
+import com.bitcamp.korea_tour.model.UserDto;
 import com.bitcamp.korea_tour.model.service.course.JoinCourseMainService;
 import com.bitcamp.korea_tour.model.service.course.JoinCourseSearchService;
+import com.bitcamp.korea_tour.model.service.login.setting.SessionNames;
 import com.bitcamp.korea_tour.model.service.paging.PagingService;
 
 import lombok.AllArgsConstructor;
@@ -20,7 +26,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController 
 @RequiredArgsConstructor
-public class CourseMainController {
+public class CourseMainController implements SessionNames {
 	private final PagingService pagingService;
 	private final JoinCourseMainService joinCourseMainService;
 	private final JoinCourseSearchService joinCourseSearchService;
@@ -55,46 +61,22 @@ public class CourseMainController {
 		}
 		return new JsonData<List<JoinCourseDto>>(list, totalPage);
 	}
-	
-	/**
-	 * @param sortType
-	 * @param currentPage
-	 * @param tag
-	 * @return nav태그 검색 목록
-	 */
-	@GetMapping(value="/courses/tag/{sortType}/{currentPage}/{tag}")
-	public JsonData<List<JoinCourseDto>> getTagCourse(
-			@PathVariable(value="sortType") String sortType, 
-			@PathVariable(value="currentPage") int currentPage,
-			@PathVariable(value="tag") String tag
-			) {
-		
-		totalCount=joinCourseSearchService.getTagTotalCount(tag);
-		start=pagingService.getPagingData(totalCount, currentPage).get("start");
-		perPage=pagingService.getPagingData(totalCount, currentPage).get("perPage");
-		totalPage=pagingService.getPagingData(currentPage, currentPage).get("totalPage");
-		
-			if(sortType.equals("time")) {
-				list=joinCourseSearchService.getTagCourseByTime(tag, start, perPage);
-			}else if(sortType.equals("like")) {
-				list=joinCourseSearchService.getTagCourseByLike(tag, start, perPage);
-			}
-			
-		return new JsonData<List<JoinCourseDto>>(list, totalPage);
-	}
 
 	/**
 	 * @param sortType
 	 * @param currentPage
-	 * @param keyword
 	 * @return 통합 검색 결과
 	 */
-	@GetMapping(value="/courses/search/{sortType}/{currentPage}/{keyword}")
+	@GetMapping(value="/courses/search/{sortType}/{currentPage}")
 	public JsonData<List<JoinCourseDto>> getSearchCourse(
 		@PathVariable(value="sortType") String sortType, 
 		@PathVariable(value="currentPage") int currentPage,
-		@PathVariable(value="keyword") String keyword
+		@ModelAttribute SearchDto dto
 			) {
+		
+		String keyword=dto.getKeyword();
+		System.out.println(keyword);
+		
 		totalCount=joinCourseSearchService.getSearchTotalCount(keyword);
 		start=pagingService.getPagingData(totalCount, currentPage).get("start");
 		perPage=pagingService.getPagingData(totalCount, currentPage).get("perPage");
@@ -111,6 +93,7 @@ public class CourseMainController {
 		return new JsonData<List<JoinCourseDto>>(list, totalPage);
 	}
 	
+	
 	/**
 	 * @param sortType
 	 * @param currentPage
@@ -119,14 +102,16 @@ public class CourseMainController {
 	 * @param how
 	 * @return 맞춤 코스 검색 결과
 	 */
-	@GetMapping(value="/courses/custom/{sortType}/{currentPage}/{who}/{during}/{how}")
+	@GetMapping(value="/courses/custom/{sortType}/{currentPage}")
 	public JsonData<List<JoinCourseDto>> getCustomCourse(
 		@PathVariable(value="sortType") String sortType, 
 		@PathVariable(value="currentPage") int currentPage,
-		@PathVariable(value="who") String who,
-		@PathVariable(value="during") String during,
-		@PathVariable(value="how") String how
+		@ModelAttribute SearchDto dto
 			) {
+		
+		String who=dto.getWho();
+		String during=dto.getDuring();
+		String how=dto.getHow();
 		
 		totalCount=joinCourseSearchService.getCustomTotalCount(who, during, how);
 		start=pagingService.getPagingData(totalCount, currentPage).get("start");
@@ -151,9 +136,13 @@ public class CourseMainController {
 	 */
 	@GetMapping(value="/courses")
 	public JsonData<List<CourseName>> getCourseNameList(
-			@RequestParam(value="loginNum") int loginNum
+			HttpServletRequest request
 			) {
-
+		
+		HttpSession session=request.getSession();
+		UserDto user=(UserDto)session.getAttribute(USER);
+		int loginNum=user.getUserNum();
+		
 		List<CourseDto> course=joinCourseMainService.getMyCourseName(loginNum);
 		
 		List<CourseName> list=new ArrayList<CourseName>();

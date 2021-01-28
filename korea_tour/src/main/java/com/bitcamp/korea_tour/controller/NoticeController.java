@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,13 +41,13 @@ public class NoticeController implements SessionNames {
    @GetMapping("/notice/{currentPage}")
    public JsonData<List<NoticeDto>> getNoticeList(@PathVariable(name = "currentPage") int currentPage) {
 
-       totalCount=ns.getTotalCount();
+      totalCount=ns.getTotalCount();
       /* System.out.println(totalCount); */
       start=pagingService.getPagingData(totalCount, currentPage).get("start");
       perPage=pagingService.getPagingData(totalCount, currentPage).get("perPage");
-      totalPage=pagingService.getPagingData(totalPage, currentPage).get("totalPage");
+      totalPage=pagingService.getPagingData(totalCount, currentPage).get("totalPage");
  
-   
+      System.out.println("공지사항 토탈페이지: "+totalPage);
       List<NoticeDto> list = ns.getAllDatas(start, perPage);
 
       return new JsonData<List<NoticeDto>>(list, totalPage);

@@ -28,8 +28,8 @@
 			<nav class="navbar">
 					
 					<ul class="nav-list">
-						<li class="nav-item"><a th:href="@{/place}" class="nav-link">지역</a></li>
-						<li class="nav-item"><a th:href="@{/course}" class="nav-link">코스</a></li>
+						<li class="nav-item"><a th:href="@{/tourplace}" class="nav-link">지역</a></li>
+						<li class="nav-item"><a th:href="@{/tourcourse}" class="nav-link">코스</a></li>
 						<li class="nav-item"><a th:href="@{/festival}" class="nav-link">페스티벌</a></li>
 						<li class="nav-item"><a th:href="@{/login}" th:if="${session.user == null}" class="nav-link">로그인</a></li>
 						<th:block th:unless="${session.user == null}">
@@ -63,7 +63,7 @@
 			<span class="card-title">지역별보기</span>
 			<span class="card-description">대한민국팔도의 </span>
 			<span class="card-description">매력을 느껴보세요</span>
-			<a th:href="@{/place}"><div class="card-btn" role="button">자세히 보기<i class="fas fa-angle-double-right"></i></div></a>
+			<a th:href="@{/tourplace}"><div class="card-btn" role="button">자세히 보기<i class="fas fa-angle-double-right"></i></div></a>
 		</div>
 	
 	
@@ -71,7 +71,7 @@
 			<span class="card-title">코스별보기</span>
 			<span class="card-description">취향에 꼭 맞는 코스로</span>
 			<span class="card-description">여행을 가요</span>
-			<a th:href="@{/course}"><div class="card-btn">자세히 보기<i class="fas fa-angle-double-right"></i></div></a>
+			<a th:href="@{/tourcourse}"><div class="card-btn">자세히 보기<i class="fas fa-angle-double-right"></i></div></a>
 		</div>
 	
 	
@@ -102,6 +102,7 @@
 			<option value="W1">혼자서</option>
 			<option value="W2">가족과</option>
 			<option value="W3">연인과</option>
+			<option value="W4">친구와</option>
 		</select>
 		
 		<select name="during" >

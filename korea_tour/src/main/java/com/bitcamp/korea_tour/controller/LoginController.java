@@ -8,11 +8,14 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bitcamp.korea_tour.model.AdminDto;
 import com.bitcamp.korea_tour.model.UserDto;
 import com.bitcamp.korea_tour.model.service.UserService;
 import com.bitcamp.korea_tour.model.service.login.setting.SessionNames;
@@ -87,6 +90,15 @@ public class LoginController implements SessionNames {
 		else if(user.getGoogleKey()!=null) log.info(">> 로그인 사용자  소셜 정보 :: 구글 _"+user.getGoogleKey());
 	}		
 
+	@PostMapping("/admin/check")
+	public void loginAdmin(
+			@ModelAttribute AdminDto dto
+			) {
+//		dto.getId()
+	}
+	
+	
+	
 	//최초 로그인일 경우 받아온 정보 db에 저장, 세션에 실어주기
 	//기존 사용자일 경우 기존 db데이터 세션에 실어주기
 	public void doSnsLogin(String sns, String key, UserDto userDto, HttpServletRequest request) {

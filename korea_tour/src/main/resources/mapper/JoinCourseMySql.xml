@@ -5,14 +5,17 @@
 	<sql id="courseA">  <!-- 메인코스목록 / 마이코스목록 / 검색코스 목록-->
 		SELECT * FROM course 
 		INNER JOIN coursePlace ON course.courseNum=coursePlace.courseNum 
+		AND coursePlace.orderNum=1 AND course.userNum=#{loginNum} 
 		INNER JOIN place ON place.contentId=coursePlace.contentId
 	</sql>
 	
 	<sql id="courseC"> <!-- 마이코스마크목록 -->
 		SELECT * FROM courseMark 
-		LEFT JOIN course ON courseMark.courseNum=course.courseNum
-		LEFT JOIN coursePlace ON course.courseNum=coursePlace.courseNum 
-		LEFT JOIN place ON place.contentId=coursePlace.contentId 
+		JOIN course ON courseMark.courseNum=course.courseNum
+		AND courseMark.loginNum=#{loginNum} AND course.open=1
+		JOIN coursePlace ON course.courseNum=coursePlace.courseNum 
+		AND coursePlace.orderNum=1 
+		JOIN place ON place.contentId=coursePlace.contentId 
 	</sql>
 	
 	
@@ -20,7 +23,6 @@
 	<!-- 내코스 목록보기 ->(사진은 어차피 1번만가져오면 되니까 orderNum으로 구분) -->
 	<select id="getMyCourseList" parameterType="hashmap" resultType="joincourse">
 		<include refid="courseA"/>
-		WHERE coursePlace.orderNum=1 AND course.userNum=#{loginNum} 
 		ORDER BY course.courseNum 
 		LIMIT #{start},#{perPage}
 	</select>
@@ -28,7 +30,6 @@
 	<!-- 내 즐겨찾기 코스 모아보기 ->userNum으로 내 즐겨찾기만 모아볼수 있도록(사진은 어차피 1번만가져오면 되니까 orderNum으로 구분) -->
 	<select id="getMyMarkCourse" resultType="joincourse" parameterType="HashMap">
 		<include refid="courseC"/>
-		WHERE courseMark.loginNum=#{loginNum} AND coursePlace.orderNum=1 
 		ORDER BY courseMark.courseMarkNum 
 		LIMIT #{start},#{perPage}
 	</select>
@@ -38,16 +39,17 @@
 	<select id="getMyTotalCount" resultType="int" parameterType="int">
 		SELECT count(*) FROM course 
 		INNER JOIN coursePlace ON course.courseNum=coursePlace.courseNum 
+		AND coursePlace.orderNum=1 AND course.userNum=#{loginNum} 
 		INNER JOIN place ON place.contentId=coursePlace.contentId
-		WHERE coursePlace.orderNum=1 AND course.userNum=#{loginNum} 
 	</select>
 	
 	<!-- 내 즐겨찾기 -->
 	<select id="getMarkTotalCount" resultType="int" parameterType="int">
 		SELECT count(*) FROM courseMark 
-		LEFT JOIN course ON courseMark.courseNum=course.courseNum
-		LEFT JOIN coursePlace ON course.courseNum=coursePlace.courseNum 
-		LEFT JOIN place ON place.contentId=coursePlace.contentId 
-		WHERE courseMark.loginNum=#{loginNum} AND coursePlace.orderNum=1 
+		JOIN course ON courseMark.courseNum=course.courseNum
+		AND courseMark.loginNum=#{loginNum} AND course.open=1
+		JOIN coursePlace ON course.courseNum=coursePlace.courseNum 
+		AND coursePlace.orderNum=1 
+		JOIN place ON place.contentId=coursePlace.contentId 
 	</select>
 </mapper>

@@ -1,151 +1,243 @@
 'use strict';
 
 let keyword = document.querySelector('.keyword-title').getAttribute('keyword');
+let sort = 'title';
+let perBlock = 5;
+let currentPage = document
+  .querySelector('.pagination')
+  .getAttribute('currentPage');
+let startPage = Math.floor((currentPage - 1) / perBlock) * perBlock + 1;
+let endPage = startPage + perBlock - 1;
+searchPlace(sort, keyword, currentPage);
+sortOnclick();
+searchOnclick();
 
-parseAreaBased(1, keyword);
-// getAreaName(areaCode);
+function sortOnclick() {
+  let sorts = document.querySelectorAll('.sort');
+  for (const sort of sorts) {
+    sort.addEventListener('click', function (e) {
+      let sortCode = e.target.getAttribute('value');
 
-/* ----- functions ---- */
-
-//eventEndDate 구하기
-
-function areaOnclick() {
-  let areaList = document.querySelectorAll('.area-list');
-  for (const areaBtn of areaList) {
-    areaBtn.addEventListener('click', function (e) {
-      areaCode = e.target.getAttribute('area');
-      if (areaCode == 'all') {
-        areaCode = '';
-      }
-      const children = areaBtn.parentElement.children;
+      const children = sort.parentElement.children;
       for (const child of children) {
         child.classList.remove('active');
       }
+      console.log(sort);
+      sort.classList.add('active');
+      // if (sortCode == 'title') {
 
-      areaBtn.classList.add('active');
-      parseAreaBased(pageNum, keyword);
-      getAreaName(areaCode);
+      // } else {
+      // }
+      searchPlace(sortCode, keyword, currentPage);
     });
   }
 }
-// // parameter value 읽기
-// function getParam(key) {
-//   let param;
-//   const queryString = window.location.search;
-//   const urlParams = new URLSearchParams(queryString);
-//   param = urlParams.get(key);
-//   return param;
-// }
+function searchOnclick() {
+  let searches = document.querySelectorAll('.search-list');
+  for (const search of searches) {
+    search.addEventListener('click', function (e) {
+      let searchCode = e.target.getAttribute('search');
 
-//areacode 변환
-// function getAreaName(areaCode) {
-//   let xmlStr;
-//   let xmlDoc;
-//   var xhr = new XMLHttpRequest();
-//   var url =
-//     'http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaCode'; /*URL*/
-//   var queryParams =
-//     '?' +
-//     encodeURIComponent('serviceKey') +
-//     '=' +
-//     'CaXsuilSjIPz3L19P%2F6ufv6lKG6DwvhRg5x2lK5lzUTP66WyVxrNQcvBdb6CxuXHRNrbDXoscBHGwPy5aQd4sw%3D%3D'; /*Service Key*/
-//   queryParams +=
-//     '&' + encodeURIComponent('MobileOS') + '=' + encodeURIComponent('ETC'); /**/
-//   queryParams +=
-//     '&' +
-//     encodeURIComponent('MobileApp') +
-//     '=' +
-//     encodeURIComponent('test%20App'); /**/
-//   queryParams +=
-//     '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('20'); /**/
-//   queryParams +=
-//     '&' + encodeURIComponent('arrange') + '=' + encodeURIComponent('Y');
-//   queryParams +=
-//     '&' + encodeURIComponent('listYN') + '=' + encodeURIComponent('Y');
+      const children = search.parentElement.children;
+      for (const child of children) {
+        child.classList.remove('active');
+      }
+      console.log(search);
+      search.classList.add('active');
 
-//   console.log(url + queryParams);
-//   xhr.open('GET', url + queryParams);
-//   xhr.onreadystatechange = function () {
-//     if (this.readyState == 4) {
-//       xmlStr = this.responseText;
-//       var xmlParser, xmlDoc;
-//       xmlParser = new DOMParser();
-//       xmlDoc = xmlParser.parseFromString(xmlStr, 'text/xml');
-
-//       let list = xmlDoc.getElementsByTagName('item');
-//       let areaName;
-//       for (let i = 0; i < list.length; i++) {
-//         if (item[i].code === areaCode) areaName = item[i].name;
-//       }
-//       if (areaCode === '') {
-//         document.querySelector('.area-title').innerHTML = '전체보기';
-//       } else {
-//         document.querySelector('.area-title').innerHTML = areaName;
-//       }
-//     }
-//   };
-//   xhr.send(null);
-// }
-
+      if (searchCode == 'tour') {
+        searchPlace(sortCode, keyword, currentPage);
+      } else {
+        let sort = 'time';
+        searchCourse(sort, keyword, currentPage);
+      }
+    });
+  }
+}
 //api 데이터
-function parseAreaBased(pageNum, keyword) {
+function searchPlace(sort, keyword, pageNum) {
   if (pageNum == undefined) pageNum = 1;
-
+  let url;
   var xhr = new XMLHttpRequest();
   const keywordURL = decodeURIComponent(keyword);
-  var url = `search/title/${pageNum}/` + keywordURL;
-
+  if (sort == 'title') {
+    url = `search/title/${pageNum}/` + keywordURL;
+  } else {
+    url = `search/like/${pageNum}/` + keywordURL;
+  }
   /**/
-  console.log(url);
+  console.log(sort);
   xhr.open('GET', url);
   xhr.onreadystatechange = function () {
     if (this.readyState == 4) {
-      let data = JSON.parse(this.responseText);
-      let item = data.place;
-      console.log(item[0].areaCode);
+      const data = JSON.parse(this.responseText);
+      const item = data.place;
       console.log(data);
 
-      // let totalCount = xmlDoc.getElementsByTagName('totalCount')[0]
-      //   .childNodes[0];
-      // totalPage = Math.ceil(parseInt(totalCount) / numOfRows);
-
-      // if (totalPage < pageNum) pageNum = totalPage;
-
       let n = '';
-      let contentId;
+
       for (let i = 0; i < item.length; i++) {
-        contentId = item[i].contentId;
+        const contentId = item[i].contentId;
         n += `<a href='/tourplace/detail?contentId=${contentId}'
           ><div class='card'>`;
         if (item[i].firstImage) {
-          n += `<img src='${item[i].firstImage}' class='thumbnail' contentid='${item[i].contentId}'/>`;
+          n += `<img src='${item[i].firstImage}' class='thumbnail' />`;
         } else {
           n += `<span class='thumbnail'>대표이미지 없음 🖼 </span>`;
         }
-        n += `<div class='info'><span class='title' contentid='${item[i].contentId}'>${item[i].title}</span>`;
+        n += `<div class='info'><span class='title' >${item[i].title}</span>`;
 
         n += `<span class='place'>${item[i].addr1}</span>`;
+        n += `<span class='lieks'><i class="fas fa-heart"></i> ${item[i].likeCount}</span>`;
         n += `</div></div></a>`;
       }
       document.querySelector('.list').innerHTML = n;
-      //   if (totalCount == 0) {
-      //     document.querySelector('.list').innerHTML =
-      //       '<span class="alert-msg">해당하는 조건의 축제가 없습니다!😱</span>';
-      //   }
-      //페이징
-      //   let p = '';
-      //   for (let i = 0; i < totalPage; i++) {
-      //     p += `<li page='${i + 1}' class='page-list'>${i + 1}</li>`;
-      //   }
-      //document.querySelector('.pagination').innerHTML = p;
-      //   let pageList = document.querySelectorAll('.page-list');
-      //   for (const page of pageList) {
-      //     page.addEventListener('click', function (e) {
-      //       pageNum = e.target.getAttribute('page');
-      //       if (totalPage < pageNum) pageNum = totalPage;
-      //       parseAreaBased(areaCode, pageNum, numOfRows, month, currentYear);
-      //       getAreaName(areaCode);
-      //     });
+
+      //페이징 처리
+      const totalPage = data.totalPage; //
+
+      if (endPage > totalPage) {
+        endPage = totalPage;
+      }
+
+      if (item.length == 0) {
+        document.querySelector('.list').innerHTML =
+          '<span class="alert-msg">해당하는 검색 결과가 없습니다!😱</span>';
+      }
+
+      let p = '';
+      if (startPage > 1) {
+        p += `<li class='page-list'><a href='/search?keyword=${keyword}&currentPage=${
+          startPage - 1
+        }'><i class="fas fa-chevron-left"></i></li>`;
+      }
+      for (let i = startPage; i <= endPage; i++) {
+        p += `<li class='page-list'><a href='/search?keyword=${keyword}&currentPage=${i}'>${i}</a></li>`;
+      }
+      if (endPage < totalPage) {
+        p += `<li page='${
+          endPage + 1
+        }' class='page-list'><a href='/search?keyword=${keyword}&currentPage=${
+          endPage + 1
+        }'><i class="fas fa-chevron-right"></i></a></li>`;
+      }
+      document.querySelector('.pagination').innerHTML = p;
+    }
+  };
+  xhr.send(null);
+}
+
+function searchCourse(sort, keyword, pageNum) {
+  if (pageNum == undefined) pageNum = 1;
+  let url;
+  var xhr = new XMLHttpRequest();
+  const keywordURL = decodeURIComponent(keyword);
+  if (sort == 'time') {
+    url = `courses/search/time/${pageNum}/` + keywordURL;
+  } else {
+    url = `courses/search/like/${pageNum}/` + keywordURL;
+  }
+  /**/
+  console.log(sort);
+  xhr.open('GET', url);
+  xhr.onreadystatechange = function () {
+    if (this.readyState == 4) {
+      const data = JSON.parse(this.responseText);
+      const item = data.list;
+      console.log(data);
+
+      let n = '';
+
+      for (let i = 0; i < item.length; i++) {
+        const courseNum = item[i].courseNum;
+        let who;
+        let during;
+        let how;
+        console.log(`who ${item[i].who}`);
+        switch (item[i].who) {
+          case 'W1':
+            who = '혼자';
+            break;
+          case 'W2':
+            who = '가족';
+            break;
+          case 'W3':
+            who = '연인';
+            break;
+          case 'W4':
+            who = '우정';
+            break;
+        }
+        switch (item[i].during) {
+          case 'D1':
+            during = '당일치기';
+            break;
+          case 'D2':
+            during = '1박2일';
+            break;
+          case 'D3':
+            during = '2박3일';
+            break;
+        }
+        switch (item[i].how) {
+          case 'H1':
+            how = '뚜벅이';
+            break;
+          case 'H2':
+            how = '자전거';
+            break;
+          case 'H3':
+            how = '자동차';
+            break;
+          case 'H4':
+            how = '기차';
+            break;
+        }
+        n += `<a href='/tourcourse/detail?courseNum=${courseNum}'
+          ><div class='card'>`;
+        if (item[i].firstImage) {
+          n += `<img src='${item[i].firstImage}' class='thumbnail' />`;
+        } else {
+          n += `<span class='thumbnail'>대표이미지 없음 🖼 </span>`;
+        }
+        n += `<div class='info'><span class='title' >${item[i].name}</span>`;
+        n += `<span class='content'>${item[i].content}</span>`;
+        n += `<span class='place'>${item[i].addr1}</span>`;
+        n += `<span class='lieks'><i class="fas fa-heart"></i> </span>`;
+        n += `<div class='tag-box'><span class='tag'>${who}</span><span class='tag'>${during}</span><span class='tag'>${how}</span></div>`;
+        n += `</div></div></a>`;
+      }
+      document.querySelector('.list').innerHTML = n;
+
+      //페이징 처리
+      const totalPage = data.totalPage; //
+
+      if (endPage > totalPage) {
+        endPage = totalPage;
+      }
+
+      if (item.length == 0) {
+        document.querySelector('.list').innerHTML =
+          '<span class="alert-msg">해당하는 검색 결과가 없습니다!😱</span>';
+      }
+
+      let p = '';
+      if (startPage > 1) {
+        p += `<li class='page-list'><a href='/search?keyword=${keyword}&currentPage=${
+          startPage - 1
+        }'><i class="fas fa-chevron-left"></i></li>`;
+      }
+      for (let i = startPage; i <= endPage; i++) {
+        p += `<li class='page-list'><a href='/search?keyword=${keyword}&currentPage=${i}'>${i}</a></li>`;
+      }
+      if (endPage < totalPage) {
+        p += `<li page='${
+          endPage + 1
+        }' class='page-list'><a href='/search?keyword=${keyword}&currentPage=${
+          endPage + 1
+        }'><i class="fas fa-chevron-right"></i></a></li>`;
+      }
+      document.querySelector('.pagination').innerHTML = p;
     }
   };
   xhr.send(null);
