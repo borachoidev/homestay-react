@@ -10,8 +10,7 @@
   right: 15vw;
 }
 
-.area-list,
-.month-list {
+.search-list {
   display: inline-block;
   margin: 0.2em 0.5em;
 }

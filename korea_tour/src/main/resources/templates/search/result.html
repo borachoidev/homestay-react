@@ -20,15 +20,15 @@
 			<li class="sort active" id="titlesort" th:value="title" >제목순</li>
 			<li class="sort" id="updatelist" th:value="like" >좋아요순</li>
 		  </ul>
-		  <hr>
+		 
 		<div class="list"></div>
 		<ul class="pagination" th:currentPage=${currentPage}></ul>
 	</div>
 
 	<div class="categories">
-		<ul class="category__area">
-			<li class='area-list' th:area='all'>관광지검색결과</li>
-			<li class='area-list' th:area='1'>코스검색결과</li>
+		<ul class="category__search">
+			<li class='search-list' th:search='tourplace'>관광지검색결과</li>
+			<li class='search-list' th:search='courses'>코스검색결과</li>
 			
 		</ul>
 		
