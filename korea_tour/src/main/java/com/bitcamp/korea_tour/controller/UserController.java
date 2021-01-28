@@ -8,21 +8,20 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bitcamp.korea_tour.model.AdminDto;
 import com.bitcamp.korea_tour.model.UserDto;
 import com.bitcamp.korea_tour.model.service.UserService;
 import com.bitcamp.korea_tour.model.service.login.setting.SessionNames;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
 public class UserController implements SessionNames {
 	private final UserService us;
-
 
 	/**
 	 * 회원탈퇴(사용자), 회원삭제(관리자)
@@ -40,11 +39,16 @@ public class UserController implements SessionNames {
 	/**
 	 * @return 사용자 목록(관리자페이지)
 	 */
-	@GetMapping("/users") 
-	public List<UserDto>getAllUsers() {
-		List<UserDto> list = new ArrayList<UserDto>();	
-		list = us.getUserList();
-		return list;
+	@GetMapping(value="/users") 
+	public JsonData<List<UserDto>>getAllUsers() {
+		List<UserDto> list=us.getUserList();
+		return new JsonData<List<UserDto>>(list);
+	}
+	
+	@Data
+	@AllArgsConstructor
+	static class JsonData<T> {
+		private T list;
 	}
 
 }
