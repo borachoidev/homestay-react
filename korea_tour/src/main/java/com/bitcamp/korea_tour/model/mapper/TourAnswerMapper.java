@@ -2,6 +2,7 @@ package com.bitcamp.korea_tour.model.mapper;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -30,8 +31,8 @@ public interface TourAnswerMapper {
 	//마이페이지용 댓글 답글
 	int getTotalCountAnswer(int loginNum);
 	int getTotalCountReAnswer(int loginNum);
-	List<TourAnswerDto> getUserAnswer(int loginNum, HashMap<String, Object> map);
-	List<TourAnswerDto> getUserReAnswer(int loginNum, HashMap<String, Object> map);
+	List<TourAnswerDto> getUserAnswer(Map<String, Object> map);	//세션에 loginNum받아오기
+	List<TourAnswerDto> getUserReAnswer(Map<String, Object> map);
 
 	//관리자페이지
 	int getTotalCountAnswerAdmin();
