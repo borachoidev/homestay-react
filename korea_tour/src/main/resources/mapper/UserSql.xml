@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bitcamp.korea_tour.model.mapper.UserMapper">
-	<select id="getUserList" resultType="user">
-		select * from user order by userNum asc
+	<select id="getUserList" parameterType="HashMap" resultType="user">
+		select * from user order by userNum asc limit #{start},#{perPage}
+	</select>
+	<select id="getUserTotalCount" resultType="int">
+		select count(*) from user
 	</select>
 	<select id="getUserData" parameterType="int" resultType="user">
 		select * from user where userNum=#{userNum}
@@ -27,5 +30,4 @@
 		<if test="sns == 'NAVER'">naverKey=#{key}</if>
 		<if test="sns == 'GOOGLE'">googleKey=#{key}</if>
 	</select>
-
 </mapper>
