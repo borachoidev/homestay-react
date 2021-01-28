@@ -3,6 +3,7 @@ package com.bitcamp.korea_tour.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -38,8 +39,8 @@ public class AdminRedirectController {
 	}
 	
 	@GetMapping("/admin/member/list")
-	public String goAdminMemberList() {
-		
+	public String goAdminMemberList(@RequestParam int currentPage,Model model) {
+		model.addAttribute("currentPage", currentPage);
 		return "admin/memberlist";
 	}
 	
@@ -50,38 +51,39 @@ public class AdminRedirectController {
 	}
 	
 	@GetMapping("/admin/comment/list")
-	public String goAdminCommentList() {
-		
+	public String goAdminCommentList(@RequestParam int currentPage,Model model) {
+		model.addAttribute("currentPage", currentPage);
 		return "admin/commentlist";
 	}
 	
 	@GetMapping("/admin/comment/delete")
-	public String goAdminCommentDelete(@RequestParam int tourAnswerNum,Model model) {
+	public String goAdminCommentDelete(@RequestParam int tourAnswerNum,Model model,@RequestParam int currentPage) {
 		model.addAttribute("tourAnswerNum", tourAnswerNum);
+		model.addAttribute("currentPage", currentPage);
 		return "admin/commentlist";
 	}
 	
 	@GetMapping("/noticelist")
-	public String goNoticeList() {
-		
+	public String goNoticeList(@RequestParam int currentPage,Model model) {
+		model.addAttribute("currentPage", currentPage);
 		return "admin/noticelist";		
 	}
 	
 	@GetMapping("/admin/notice/list")
-	public String goAdminNoticeList() {
-		
+	public String goAdminNoticeList(@RequestParam int currentPage,Model model) {
+		model.addAttribute("currentPage", currentPage);
 		return "admin/noticelist";
 	}
 	
-	@GetMapping("/admin/notice/form")
+	@PostMapping("/admin/notice/form")
 	public String goAdminNoticeForm() {
 		
 		return "admin/noticeaddform";
 	}
 	
 	@GetMapping("admin/notice/insert")
-	public String goAdminNoticeInsert() {
-		
+	public String goAdminNoticeInsert(@RequestParam int currentPage,Model model) {
+		model.addAttribute("currentPage", currentPage);
 		return "admin/noticelist";
 	}
 	
@@ -98,14 +100,16 @@ public class AdminRedirectController {
 	}
 	
 	@GetMapping("admin/notice/update")
-	public String goAdminNoticeUpdate() {
-		
+	public String goAdminNoticeUpdate(@RequestParam int noticeNum,@RequestParam int currentPage,Model model) {
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("noticeNum", noticeNum);
 		return "admin/noticelist";
 	}
 	
 	@GetMapping("admin/notice/delete")
-	public String goAdminNoticeDelete(@RequestParam int noticeNum,Model model) {
+	public String goAdminNoticeDelete(@RequestParam int noticeNum,@RequestParam int currentPage,Model model) {
 		model.addAttribute("noticeNum", noticeNum);
+		model.addAttribute("currentPage", currentPage);
 		return "admin/noticelist";
 	}
 	
