@@ -107,56 +107,17 @@
 }
 
 .card {
-    display: inline-block;
-    margin-bottom: 5vh;
-}
-
-a:link{
-	color:black;
-}
-
-a:visited{
-	color:black;
-}
-.place-list {
-	width: 49vw;
-	display: block;
-    border-top: 1px solid var(--d-color);
-    padding: 1em;
-    cursor: pointer;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.place-list:nth-last-of-type(1)  {
-	border-bottom: 1px solid var(--d-color);
-}
-
-.place-list img {
-	max-width: 10vw;
-	width: 10vw;
+	background-color: pink;
+	width: 50vw;
 	height: 20vh;
-	display: inline-block;
-	vertical-align: middle;
-	border: 3px solid var(--b-color);
-	margin-left: 2vw;
-}         
- 
-.list-content {
-	display: inline-block;
-	vertical-align: middle;
-	padding-top: 1em;
-	padding-bottom: 1em;
-	padding-left: 2em;
+	display: block;
+	border-bottom: 1px solid var(--d-color);
+    border-top: 1px solid var(--d-color);
+    clear: both;
+	
 }
 
 
-
-.placeName {
-	font-size: var(--font-medium);
-	font-weight: bold;
-	margin-bottom: 1em;
-} 
 @media all and (min-width: 768px) and (max-width: 1023px) {
 	.slide-img {
 	display: inline-block;
@@ -201,10 +162,6 @@ a:visited{
 	.card {
 	   width:100%;
 	}
-	
-	.place-list {
-	width: 95%;
-    }
 	
 	#mainCity {
 	font-size: var(--font-medium);
@@ -257,10 +214,6 @@ a:visited{
 	.card {
 	   width:100%;
 	}
-	
-	.place-list {
-	width: 100%;
-    }
 	
 	#mainCity {
 	font-size: var(--font-medium);

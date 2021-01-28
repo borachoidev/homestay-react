@@ -67,8 +67,7 @@ const printName=(event)=>{
 
  let name = event.value;
  document.getElementById("mainCity").value = (name);
- let area = event.areaCode;
- document.getElementById("mainCity").areaCode = (area);
+
 let cityList = document.getElementsByClassName("city-list");
 
       function handleClick(event) {
@@ -99,77 +98,5 @@ let cityList = document.getElementsByClassName("city-list");
 
 const moveList=()=>{
 	let city=document.getElementById("mainCity").value;
-     location.href = '/tourplace/list?areaCode='+city;
+     location.href = '/place/list?region='+city;
 }
-
-
-//ajax
-
-/*
-
-var xhr = new XMLHttpRequest();
-  var url = `place/main`;
-  console.log(url);
-  xhr.open('GET', url);
-  xhr.onreadystatechange = function () {
-    if (this.readyState == 4) {
-      let data = JSON.parse(this.responseText);
-      let item = data.place;
-      let Code = item.filter(function (element) {
-	      console.log(element);
-          return element.areaCode =="1";	
-      })
-      console.log(Code);
-      let c="";
-      for(let i=0; i<item.length;i++) {
-	      c += `<div class="place-main-list">`
-          let src= item.firstimage;
-          c += `<img src=${src}>`
-          c += `</div>`
-      }
-   
-       document.querySelector('.city-place-menu').innerHTML = c;
-      console.log(item.areaCode);
-      console.log(Code.addr1);
-      console.log(data);
-    }
-};
-xhr.send();
-*/
-/*
-
-  
-     
-      }
-     
-
-//1.JavaScript를 이용하여 서버로 보내는 HTTP request 인스턴스 생성하기
-const xhr = new XMLHttpRequest();
-//2.xhr.open(전송방식,url,비동기로 수행될지 (생략가능))
-xhr.open('GET', 'url',true);
-//3.post방식일경우 서버로 보내고 싶은 데이터 적기
-//xhr.send('데이터내용');
-//ex xhr.send(JSON.stringify({ id: 4, content: 'Angular', completed: true }));
-xhr.send(JSON.stringify({"place":[{"areaCode":1, "firstImage":String}]}));
-
-
-//4.서버로 보낸 요청에 대한 응답을 받았을 때 어떤 동작을 할 것인지 정하기
-xhr.onreadystatechange = myFunction(data);
-
-
-function myFunction(data){
-// 서버의 응답에 따른 로직을 여기에 작성합니다.
-
-//5-1. 응답준비가 안됐을때 return ,그렇지 않을경우 아래 if 문 수행
-if (xhr.readyState !== XMLHttpRequest.DONE) return;
-
-//5-2.http 상태코드에 따른 로직 작성 
-if(xhr.status === 200) { // 201: post 일경우 Created
-	for(let i=0;i<4; )
-  } else {
-    console.log("Error!");
-  }
-}*/
-
-
- 

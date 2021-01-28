@@ -3,14 +3,11 @@
 window.onload=function(){
  let clickFirst=document.getElementById("namelist");
   clickFirst.click();
- let link= decodeURI(document.location.href);
- let prevRegion=link.split('=');
- document.getElementById("mainCity").value = (prevRegion[1]);
 }
 
 function printName(event){
 
- let name = event.areaCode;
+ let name = event.value;
  document.getElementById("mainCity").value = (name);
 
 
@@ -39,46 +36,6 @@ const choiceList = () =>{
 
       init();
 }
-
-
-//디테일페이지 이동
-const moveDetail=()=>{
-	let content=document.querySelectorAll(".place-list").getAttribute('value');
-     location.href = '/tourplace/detail?contentId='+content;
-}
-
-//출력
-let currentPage = 1;
-let code = 35;
-var xhr = new XMLHttpRequest();
-var url = `/places/title/`+currentPage+`/`+code;
-  console.log(url);
-  xhr.open('GET', url);
-  xhr.onreadystatechange = function () {
-    if (this.readyState == 4) {
-      let data = JSON.parse(this.responseText);
-      let item = data.place;
-      let c=" ";
-      for(let i=0; i<item.length;i++) {
-	      let src = item[i].firstImage;
-          let placeName = item[i].title;
-          let addr = item[i].addr1;
-          let contentId = item[i].contentId;
-
-	      c += `<a href='/tourplace/detail?contentId=${contentId}'><div class="place-list">`
-          c += `<img src=${src} onerror="this.src='/img/noimage.png'">`
-          c += `<div class="list-content">`
-          c += `<div class="placeName">${placeName}</div>`
-          c += `<div class="addr">${addr}</div>`
-          c += `</div></div></a>`
-      }
-   
-      document.querySelector('#card').innerHTML = c;
-      console.log(item);
-      console.log(data);
-    }
-};
-xhr.send();
 
 
 //상단 슬라이드
