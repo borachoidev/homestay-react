@@ -1,6 +1,5 @@
 package com.bitcamp.korea_tour.model.mapper;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
