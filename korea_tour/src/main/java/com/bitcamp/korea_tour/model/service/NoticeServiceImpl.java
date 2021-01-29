@@ -15,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class NoticeServiceImpl implements NoticeService {
-   
+
    private final NoticeMapper mapper;
 
    @Override
@@ -27,10 +27,10 @@ public class NoticeServiceImpl implements NoticeService {
    @Override
    public List<NoticeDto> getAllDatas(int start, int perPage) {
       // TODO Auto-generated method stub
-	  Map<String, Object> map=new HashMap<String, Object>();
-	  map.put("start", start);
-	  map.put("perPage", perPage);
-	  List<NoticeDto> list = mapper.getAllDatas(map);
+      Map<String, Object> map=new HashMap<String, Object>();
+      map.put("start", start);
+      map.put("perPage", perPage);
+      List<NoticeDto> list = mapper.getAllDatas(map);
       return list;
    }
 
@@ -47,22 +47,34 @@ public class NoticeServiceImpl implements NoticeService {
    }
 
    @Override
-   public void updateNotice(NoticeDto dto) {
+   public void updateNotice(int noticeNum, NoticeDto dto) {
       // TODO Auto-generated method stub
-      mapper.updateNotice(dto);
+      Map<String, Object> map=new HashMap<String, Object>();
+      map.put("dto", dto);
+      map.put("noticeNum", noticeNum);
+
+      mapper.updateNotice(map);
    }
 
    @Override
    public void deleteNotice(int noticeNum) {
       // TODO Auto-generated method stub
       mapper.deleteNotice(noticeNum);
-      
+
    }
 
    @Override
    public List<NoticeDto> getNewNotice() {
       // TODO Auto-generated method stub
       return mapper.getNewNotice();
+   }
+
+   @Override
+   public void countViews(int noticeNum) {
+      // TODO Auto-generated method stub
+
+      mapper.countViews(noticeNum);
+      
    }
 
 }
