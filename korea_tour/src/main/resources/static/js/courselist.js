@@ -5,11 +5,10 @@ let who;
 let how;
 let during;
 const perBlock = 5;
-let currentPage = document
-  .querySelector('.pagination')
-  .getAttribute('currentPage');
-let startPage = Math.floor((currentPage - 1) / perBlock) * perBlock + 1;
-let endPage = startPage + perBlock - 1;
+let currentPage;
+let startPage;
+let endPage;
+
 getCourse(sort, who, during, how, currentPage);
 sortOnclick();
 whoOnclick();
@@ -78,6 +77,7 @@ function whoOnclick() {
 
 //api 데이터
 function getCourse(sort, who, during, how, currentPage) {
+  if (currentPage == undefined) currentPage = 1;
   if (who == undefined) who = getParam('who');
   if (how == undefined) how = getParam('how');
   if (during == undefined) during = getParam('during');
@@ -88,16 +88,16 @@ function getCourse(sort, who, during, how, currentPage) {
   const duringURL = decodeURIComponent(during);
   const howURL = decodeURIComponent(how);
 
-  url = `courses/custom/${sort}/${currentPage}?who=${whoURL}&during=${duringURL}&how=${howURL}`;
+  url = `/api/courses/custom/${sort}/${currentPage}?who=${whoURL}&during=${duringURL}&how=${howURL}`;
 
   /**/
-  console.log(url);
+  //console.log(url);
   xhr.open('GET', url);
   xhr.onreadystatechange = function () {
     if (this.readyState == 4) {
       const data = JSON.parse(this.responseText);
       const item = data.list;
-      console.log(data);
+      // console.log(data);
       let n = '';
 
       for (let i = 0; i < item.length; i++) {
@@ -123,37 +123,41 @@ function getCourse(sort, who, during, how, currentPage) {
 
       //페이징 처리
       const totalPage = data.totalPage; //
+      startPage = Math.floor((currentPage - 1) / perBlock) * perBlock + 1;
       endPage = startPage + perBlock - 1;
       if (endPage > totalPage) {
         endPage = totalPage;
       }
-      console.log(totalPage + '|' + endPage);
-      if (item.length == 0) {
-        document.querySelector('.course-list').innerHTML =
-          '<span class="alert-msg">해당하는 검색 결과가 없습니다!😱</span>';
-      }
+
       let p = '';
       if (startPage > 1) {
-        p += `<li class='page-list arrow'><a href='tourcourse?who=${who}&during=${during}&how=${how}&currentPage=${
+        p += `<li class='page-list'  page='${
           startPage - 1
         }'><i class="fas fa-chevron-left"></i></li>`;
       }
       for (let i = startPage; i <= endPage; i++) {
         if (i == currentPage) {
-          p += `<li class='page-list active'><a href='tourcourse?who=${who}&during=${during}&how=${how}&currentPage=${i}'>${i}</a></li>`;
+          p += `<li page='${i}' class='page-list active' >${i}</li>`;
         } else {
-          p += `<li class='page-list'><a href='tourcourse?who=${who}&during=${during}&how=${how}&currentPage=${i}'>${i}</a></li>`;
+          p += `<li page='${i}' class='page-list' >${i}</li>`;
         }
       }
       if (endPage < totalPage) {
         p += `<li page='${
           endPage + 1
-        }' class='page-list arrow'><a href='tourcourse?who=${who}&during=${during}&how=${how}&currentPage=${
-          endPage + 1
-        }'><i class="fas fa-chevron-right"></i></a></li>`;
+        }' class='page-list'><i class="fas fa-chevron-right"></i></li>`;
       }
-
       document.querySelector('.pagination').innerHTML = p;
+
+      let pageList = document.querySelectorAll('.page-list');
+      for (const page of pageList) {
+        page.addEventListener('click', function (e) {
+          let pageNum = e.target.getAttribute('page');
+
+          if (totalPage < pageNum) pageNum = totalPage;
+          getCourse(sort, who, during, how, pageNum);
+        });
+      }
     }
   };
   xhr.send(null);

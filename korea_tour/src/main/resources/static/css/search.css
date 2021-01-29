@@ -90,15 +90,15 @@ a:visited {
    text-align:center;
    font-size:0;
  }*/
+
 .pagination {
-  text-align: center;
-}
-.pagination .none {
-  display: none;
-}
-.pagination li {
   display: inline-block;
-  margin: 20px 3px;
+}
+
+.pagination li {
+  display: block;
+  margin: 0 3px;
+  float: left;
   border: 1px solid #e6e6e6;
   width: 28px;
   height: 28px;
@@ -109,28 +109,19 @@ a:visited {
   color: #999999;
   text-decoration: none;
 }
+.pagination li a {
+  color: #999999;
+}
 
 .pagination .arrow {
   border: 1px solid #ccc;
 }
-.pagination .pprev {
-  background: #f8f8f8 url('img/page_pprev.png') no-repeat center center;
-  margin-left: 0;
-}
-.pagination .prev {
-  background: #f8f8f8 url('img/page_prev.png') no-repeat center center;
-  margin-right: 7px;
-}
-.pagination .next {
-  background: #f8f8f8 url('img/page_next.png') no-repeat center center;
-  margin-left: 7px;
-}
-.pagination .nnext {
-  background: #f8f8f8 url('img/page_nnext.png') no-repeat center center;
-  margin-right: 0;
-}
-.pagination a.active {
+.pagination li.active {
   background-color: #42454c;
-  color: #fff;
+
   border: 1px solid #42454c;
+}
+
+.pagination li.active a {
+  color: #fff;
 }
