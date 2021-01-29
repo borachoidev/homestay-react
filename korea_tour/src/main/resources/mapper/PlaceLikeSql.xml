@@ -10,5 +10,12 @@
 	<delete id="deletePlaceLikes" parameterType="int">
 		delete from placeLike where placeLikeNum=#{placeLikeNum}
 	</delete>
+	<!-- 경오 -->
+	<select id="getPlaceLikeCountByUser" parameterType="placelike" resultType="int">
+		select count(*) from placeLike where contentId=#{contentId} and loginId=#{loginId}
+	</select>
+	<delete id="deletePlaceLikeByUser" parameterType="placelike">
+		delete from placeLike where contentId=#{contentId} and loginId=#{loginId}
+	</delete>
 
 </mapper>

@@ -31,4 +31,16 @@ public class PlaceLikeServiceImpl implements PlaceLikeService{
 		mapper.deletePlaceLikes(placeLikeNum);
 	}
 
+	@Override
+	public int getPlaceLikeCountByUser(PlaceLikeDto dto) {
+		// TODO Auto-generated method stub
+		return mapper.getPlaceLikeCountByUser(dto);
+	}
+
+	@Override
+	public void deletePlaceLikeByUser(PlaceLikeDto dto) {
+		// TODO Auto-generated method stub
+		mapper.deletePlaceLikeByUser(dto);
+	}
+
 }
