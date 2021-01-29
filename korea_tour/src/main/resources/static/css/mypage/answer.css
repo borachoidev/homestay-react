@@ -92,6 +92,7 @@ hr{
 .answer-name{
     font-size: 2rem;
     margin-bottom: 10px;
+    cursor: pointer;
 }
 .answer-start{
     margin-bottom: 10px;

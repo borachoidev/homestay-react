@@ -17,6 +17,7 @@ function myAnswerList(){
             let data = JSON.parse(this.responseText);
             let item = data.myanswer;
             
+            
             console.log(item);
             
              let s=" ";
@@ -26,13 +27,14 @@ function myAnswerList(){
                  let loginPhoto = item[i].loginPhoto;
                  let writeday = item[i].writeDay;
                  let title = item[i].title;
+                 let contentId = item[i].contentId;
                  s+="<div class='answer-box'>";
                  s+="<div class='image-box'>";
                  s+="<img src='"+loginPhoto+"' alt='"+loginId+"'>";
                  s+="</div>";
                  s+="<div class='answer-info__box'>";
                  s+="<div class='answer-info'>";
-                 s+="<p class='answer-name'>"+title+"</p>";
+                 s+=`<p class='answer-name' onclick='location.href="/tourplace/detail?contentId=${contentId}"'>${title}</p>`;
                  s+="<p class='answer-start'>"+content+"</p>";
                  s+="<span>"+loginId+"</span><span>|</span><span>"+writeday+"</span>";
                  s+="</div>";
@@ -81,13 +83,14 @@ reanswerBox.addEventListener('click', e => {
                  let loginPhoto = item[i].loginPhoto;
                  let writeday = item[i].writeDay;
                  let title = item[i].title;
+                 let contentId = item[i].contentId;
                  c+="<div class='answer-box'>";
                  c+="<div class='image-box'>";
                  c+="<img src='"+loginPhoto+"' alt='"+loginId+"'>";
                  c+="</div>";
                  c+="<div class='answer-info__box'>";
                  c+="<div class='answer-info'>";
-                 c+="<p class='answer-name'>"+title+"</p>";
+                 c+=`<p class='answer-name' onclick='location.href="/tourplace/detail?contentId=${contentId}"'>${title}</p>`;
                  c+="<p class='answer-start'>"+content+"</p>";
                  c+="<span>"+loginId+"</span><span>|</span><span>"+writeday+"</span>";
                  c+="</div>";

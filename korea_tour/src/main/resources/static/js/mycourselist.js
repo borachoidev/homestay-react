@@ -3,6 +3,20 @@
 const totalCount = document.querySelector(".count-box");
 const printBox = document.querySelector("#printBox");
 
+
+function deleteCourse(){
+    var delxhr = new XMLHttpRequest();
+    var delurl = '/courses/{courseNum}';
+    delxhr.open('DELETE', delurl);
+    delxhr.send();
+
+    delxhr.onreadystatechange = function(){
+        if (this.readyState == 4) {
+            alert("삭제완료");
+        }
+    }
+}
+
 function myAnswerList(){
     var xhr = new XMLHttpRequest();
     var url = '/mypage/courses/1';
@@ -21,21 +35,62 @@ function myAnswerList(){
                 let couseName = item[i].name;
                 let addr = item[i].addr1;
                 let firstImage = item[i].firstImage;
-                let who = item[i].who;
-                let during = item[i].during;
-                let how = item[i].how; 
+                let courseNum = item[i].courseNum;
+                let who;
+                let during;
+                let how;
+                console.log(`who ${item[i].who}`);
+                switch (item[i].who) {
+                case 'W1':
+                    who = '혼자';
+                    break;
+                case 'W2':
+                    who = '가족';
+                    break;
+                case 'W3':
+                    who = '연인';
+                    break;
+                case 'W4':
+                    who = '우정';
+                    break;
+                }
+                switch (item[i].during) {
+                case 'D1':
+                    during = '당일치기';
+                    break;
+                case 'D2':
+                    during = '1박2일';
+                    break;
+                case 'D3':
+                    during = '2박3일 이상';
+                    break;
+                }
+                switch (item[i].how) {
+                case 'H1':
+                    how = '뚜벅이';
+                    break;
+                case 'H2':
+                    how = '자전거';
+                    break;
+                case 'H3':
+                    how = '자동차';
+                    break;
+                case 'H4':
+                    how = '기차';
+                    break;
+                }
                 
                 s+="<div class='courselist-box'>";
                 s+="<div class='image-box'>";
-                s+="<img src='"+firstImage+"' alt='"+couseName+"'>";
+                s+=`<img src=${firstImage} onerror="this.src='/img/noimage.png'">`
                 s+="</div>";
                 s+="<div class='courselist-info__box'>";
                 s+="<div class='courselist-info'>";
-                s+="<p class='courselist-name'>"+couseName+"</p>";
+                s+=`<p class='courselist-name' onclick='location.href="/tourmypage/courselist/detail?courseNum=${courseNum}"'>${couseName}</p>`;
                 s+="<p class='courselist-start'>"+addr+"</p>";
                 s+="<span>#"+during+"</span><span>#"+who+"</span><span>#"+how+"</span>";
                 s+="</div>";
-                s+="<i class='fas fa-ellipsis-v courselist-icon'></i>";
+                s+=`<i class='fas fa-ellipsis-v courselist-icon' onclick="deleteCourse()"></i>`;
                 s+="</div>";
                 s+="</div>";
                 
@@ -59,36 +114,20 @@ function myAnswerList(){
 
 
 
-
 myAnswerList();
 
+//const deleteBtn = document.getElementsByClassName("courselist-icon");
 
+// deleteBtn.addEventListener('click', e => {
+//     var delxhr = new XMLHttpRequest();
+//     var delurl = '/courses/{courseNum}';
+//     delxhr.open('DELETE', delurl);
+//     delxhr.send();
 
+//     delxhr.onreadystatechange = function(){
+//         if (this.readyState == 4) {
+//             alert("삭제완료");
+//         }
+//     }
+// });
 
-        // Get the modal
-        var modal = document.getElementById('myModal');
- 
-        // Get the button that opens the modal
-        var btn = document.getElementById("modalBtn");
- 
-                                             
- 
-        // When the user clicks on the button, open the modal 
-        btn.onclick = function() {
-            modal.style.display = "block";
-        }
- 
-        
- 
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-
-        function getURL(){
-            let uri = location.href;
-
-            document.getElementById("urlText").innerHTML="<p>"+uri+"</p>"
-        }
