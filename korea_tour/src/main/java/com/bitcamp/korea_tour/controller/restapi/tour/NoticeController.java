@@ -24,6 +24,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api")
 public class NoticeController implements SessionNames {
    
    private final NoticeService ns;
