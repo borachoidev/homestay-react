@@ -10,5 +10,5 @@ public class PlaceLikeDto {
 	private int placeLikeNum;
 	private int contentId;
 	private String loginId;
-	private int likeCheck;
+//	private int likeCheck;
 }
