@@ -39,13 +39,19 @@ public class JoinCourseDetailServiceImpl implements JoinCourseDetailService {
 	}
 	
 	@Override
-	public List<CourseMarkDto> getCourseMark(int courseNum) {
-		return courseMarkMapper.getCourseMark(courseNum);
+	public String getCourseMark(int courseNum, int loginNum) {
+		Map<String, Integer> map=new HashMap<String, Integer>();
+		map.put("courseNum", courseNum);
+		map.put("loginNum", loginNum);
+		return courseMarkMapper.getCourseMark(map);
 	}
 	
 	@Override
-	public List<CourseLikeDto> getCourseLike(int courseNum) {
-		return courseLikeMapper.getCourseLike(courseNum);
+	public String getCourseLike(int courseNum, int loginNum) {
+		Map<String, Integer> map=new HashMap<String, Integer>();
+		map.put("courseNum", courseNum);
+		map.put("loginNum", loginNum);
+		return courseLikeMapper.getCourseLike(map);
 	}
 
 	@Override

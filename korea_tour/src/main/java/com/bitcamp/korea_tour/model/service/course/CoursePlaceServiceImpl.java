@@ -17,7 +17,8 @@ public class CoursePlaceServiceImpl implements CoursePlaceService{
 
 	@Override
 	public void insertCoursePlace(CoursePlaceDto dto) {
-		// TODO Auto-generated method stub
+		int totalCoursePlace=this.getTotalCoursePlace(dto.getCourseNum());
+		dto.setOrderNum(totalCoursePlace+1);
 		mapper.insertCoursePlace(dto);
 	}
 

@@ -30,11 +30,13 @@ import com.bitcamp.korea_tour.model.PagingDto;
 import com.bitcamp.korea_tour.model.PlaceApiPhotoDto;
 import com.bitcamp.korea_tour.model.PlaceDto;
 import com.bitcamp.korea_tour.model.PlaceLikeDto;
+import com.bitcamp.korea_tour.model.PlaceMarkDto;
 import com.bitcamp.korea_tour.model.PlacePhotoDto;
 import com.bitcamp.korea_tour.model.TourAnswerDto;
 import com.bitcamp.korea_tour.model.JoinPlaceDto;
 import com.bitcamp.korea_tour.model.service.JoinPlaceService;
 import com.bitcamp.korea_tour.model.service.PlaceLikeService;
+import com.bitcamp.korea_tour.model.service.PlaceMarkService;
 import com.bitcamp.korea_tour.model.service.PlacePhotoService;
 import com.bitcamp.korea_tour.model.service.paging.PagingService;
 
@@ -49,8 +51,9 @@ public class PlaceController {
 
 	private final JoinPlaceService service;
 	private final PlacePhotoService service2;
-	private final PagingService pagingService;
 	private final PlaceLikeService service3;
+	private final PlaceMarkService service4;
+	private final PagingService pagingService;
 	
 	int totalCount = 0;
 	int start = 0;
@@ -213,6 +216,33 @@ public class PlaceController {
 		int cnt = service3.getPlaceLikeCountByUser(dto);
 		if(cnt == 1) {
 			service3.deletePlaceLikeByUser(dto);
+			return "success";
+		}else{
+			return "fail";
+		}
+	}
+	
+	// 즐겨찾기 추가
+	@PostMapping("/place/detail/mark")
+	public String plusPlaceMark(
+			@RequestBody PlaceMarkDto dto) {
+		int cnt = service4.getPlaceMarkCountByUser(dto);
+		if(cnt == 0) {
+			service4.insertPlaceMark(dto);
+			return "success";
+		}else {
+			return "fail";
+		}
+		
+	}
+	
+	// 즐겨찾기 삭제
+	@DeleteMapping("/place/detail/mark/delete")
+	public String minusPlaceMark(
+			@RequestBody PlaceMarkDto dto) {
+		int cnt = service4.getPlaceMarkCountByUser(dto);
+		if(cnt == 1) {
+			service4.deletePlaceMarkByUser(dto);
 			return "success";
 		}else{
 			return "fail";
