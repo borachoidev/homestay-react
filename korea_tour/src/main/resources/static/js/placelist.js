@@ -1,11 +1,13 @@
 'use strict';
-let sort = 'title';
+let sort = document.getElementById("sortList").getAttribute("value");
 let areaCode = getParam('areaCode');
 const perBlock = 5;
 let currentPage = document.querySelector('#paging').getAttribute('currentPage');
 let startPage = Math.floor((currentPage - 1) / perBlock) * perBlock + 1;
 let endPage = startPage + perBlock - 1;
 getPlace(sort, areaCode, currentPage);
+
+
 
 function getParam(key) {
   let param;
@@ -15,22 +17,76 @@ function getParam(key) {
   return param;
 }
 
+
+
+
 window.onload = function () {
   let clickFirst = document.getElementById('namelist');
   clickFirst.click();
-  let link = decodeURI(document.location.href);
-  let prevRegion = link.split('=');
-  document.getElementById('mainCity').value = prevRegion[1];
+ 
+  areaNumber();
 };
 
-function printName(event) {
-  let name = event.areaCode;
-  document.getElementById('mainCity').value = name;
+const areaNumber =()=> {
+	  let link= decodeURI(document.location.href);
+  let linkArr=link.split('=');
+  let areaLink=linkArr[1];
+  let areaValue=areaLink.split('&');
+  if(areaValue[0]==1)  
+  	document.getElementById('mainCity').value ="서울";
+  else if(areaValue[0]==2)
+    document.getElementById('mainCity').value ="인천";
+  else if(areaValue[0]==3)
+    document.getElementById('mainCity').value ="대전";
+  else if(areaValue[0]==4)
+    document.getElementById('mainCity').value ="대구";
+  else if(areaValue[0]==5)
+    document.getElementById('mainCity').value ="광주";
+  else if(areaValue[0]==6)
+    document.getElementById('mainCity').value ="부산";
+  else if(areaValue[0]==7)
+    document.getElementById('mainCity').value ="울산";
+  else if(areaValue[0]==8)
+    document.getElementById('mainCity').value ="세종특별자치시";
+  else if(areaValue[0]==31)
+    document.getElementById('mainCity').value ="경기도";
+  else if(areaValue[0]==32)
+    document.getElementById('mainCity').value ="강원도";
+  else if(areaValue[0]==33)
+    document.getElementById('mainCity').value ="충청북도";
+  else if(areaValue[0]==34)
+    document.getElementById('mainCity').value ="충청남도";
+  else if(areaValue[0]==35)
+    document.getElementById('mainCity').value ="경상북도";
+  else if(areaValue[0]==36)
+    document.getElementById('mainCity').value ="경상남도";
+  else if(areaValue[0]==37)
+    document.getElementById('mainCity').value ="전라북도"; 
+  else if(areaValue[0]==38)
+    document.getElementById('mainCity').value ="전라남도"; 
+  else if(areaValue[0]==39)
+    document.getElementById('mainCity').value ="제주도";   
+  else
+    document.getElementById('mainCity').value ="전국";  
 }
 
-const choiceList = () => {
-  let list = document.getElementsByClassName('list');
 
+
+const printName=(event)=> {
+  let name = event.value;
+  document.getElementById('mainCity').value = name;
+  areaCode= event.getAttribute("areaCode");
+  
+  getPlace(sort, areaCode, currentPage);
+}
+
+const choiceList = (e) => {
+  let list = document.getElementsByClassName('list');
+  let sortValue = e.getAttribute("value");
+  let sortInput = document.getElementById("sortList");
+  sort=sortValue;
+  
+  getPlace(sort, areaCode, currentPage)
   function handleClick(event) {
     if (event.target.classList.contains === 'choice') {
       event.target.classList.remove('choice');
@@ -116,6 +172,12 @@ function getPlace(sort, areaCode, currentPage) {
   };
   xhr.send();
 }
+
+
+
+
+
+
 //상단 슬라이드
 let slideUp = (target, duration = 500) => {
   target.style.transitionProperty = 'height, margin, padding';
@@ -192,6 +254,75 @@ let slideBtnClick = (cl, sl) =>
 
 slideBtnClick('.slide-img', slideToggle);
 slideBtnClick('.fa-times', slideToggle);
+
+
+
+/*
+//지역 switch문
+let link= decodeURI(document.location.href);
+let linkArr=link.split('=');
+let areaLink=linkArr[1];
+let areaValue=areaLink.split('&');
+let area = areaValue[0];
+ switch(area) {
+  case 1:
+    document.getElementById('mainCity').value ="서울특별시";
+    break;
+  case 2:
+    document.getElementById('mainCity').value ="인천";
+    break;
+  case 3: 
+    document.getElementById('mainCity').value ="대전";
+    break;
+  case 4: 
+    document.getElementById('mainCity').value ="대구";
+    break;
+  case 5:
+    document.getElementById('mainCity').value ="광주";
+    break;
+  case 6: 
+    document.getElementById('mainCity').value ="부산";
+    break;
+  case 7: 
+    document.getElementById('mainCity').value ="울산";
+    break;
+  case 8: 
+    document.getElementById('mainCity').value ="세종특별자치시";
+    break;
+  case 31: 
+    document.getElementById('mainCity').value ="경기도";
+    break;
+  case 32:
+    document.getElementById('mainCity').value ="강원도";
+    break;
+  case 33: 
+    document.getElementById('mainCity').value ="충청북도";
+    break;
+  case 34: 
+    document.getElementById('mainCity').value ="충청남도";
+    break;
+  case 35: 
+    document.getElementById('mainCity').value ="경상북도";
+    break;
+  case 36:
+    document.getElementById('mainCity').value ="경상남도";
+    break;
+  case 37: 
+    document.getElementById('mainCity').value ="전라북도";
+    break;
+  case 38: 
+    document.getElementById('mainCity').value ="전라남도";
+    break;
+  case 39:  
+    document.getElementById('mainCity').value ="재주도";
+    break; 
+  case 100:
+    document.getElementById('mainCity').value ="전국";
+    break;
+}
+*/
+
+
 
 /*
       function handleClick(event) {
