@@ -59,7 +59,7 @@ public class CourseDetailController implements SessionNames {
 	 * 디테일페이지 좋아요/즐겨찾기 여부
 	 * @param courseNum
 	 * @param request
-	 * @return (로그인x->무조건 0, 로그인o->즐찾/좋아요 햇으면 loginNum, 안햇으면 0)
+	 * @return (로그인x->무조건 0, 로그인o->즐찾/좋아요 햇으면 loginNum에 해당하는 likeNum/courseMarkNum, 안햇으면 0)
 	 */
 	@GetMapping("/courses/ischeck/{courseNum}")
 	public MarkLikeData checkMarkLike(
