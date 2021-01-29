@@ -5,6 +5,34 @@ h1 {
 	 font-size: var(--font-xl);
 }
 
+
+/*좋아요*/
+.heart {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: url(https://cssanimation.rocks/images/posts/steps/heart.png) no-repeat;
+  background-position: 0 0;
+  cursor: pointer;
+  animation: fave-heart 1s steps(28);
+}
+.heart:hover {
+  background-position: -2800px 0;
+  transition: background 1s steps(28);
+}
+@keyframes fave-heart {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: -2800px 0;
+  }
+}
+
+
 #picture {
 	text-align: center;
 }
@@ -39,8 +67,8 @@ h1 {
 
 #placeMap {
 	margin: 1em auto;
-	width:80%;
-	height:60vh;;
+	width:60%;
+	height:60vh;
 }
 
 hr {
@@ -50,3 +78,11 @@ hr {
 	background-color: var(--b-color);
 	width: 85%;
 }
+
+/*댓글*/
+#loginPhoto {
+	width: 4em;
+	height: 4em;
+	border-radius: 2.5em;
+}
+

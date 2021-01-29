@@ -1,5 +1,9 @@
 'use strict';
 
+let areaCode = document.getElementById("mainCity").getAttribute("areaCode");
+
+getMainPlace(areaCode);
+
 //슬라이드 
 let slideIndex = 0; //slide index
 
@@ -64,12 +68,20 @@ const showSlides=(n)=> {
 //클릭이벤트
 
 const printName=(event)=>{
-
+	
+ let thisCity= event.getAttribute("areaCode");
+ let mainId = document.getElementById("mainCity");
  let name = event.value;
- document.getElementById("mainCity").value = (name);
- let area = event.areaCode;
- document.getElementById("mainCity").areaCode = (area);
-let cityList = document.getElementsByClassName("city-list");
+ mainId.value=(name);
+ let hiddenId = document.getElementById("hiddenCity");
+ hiddenId.value=(thisCity);
+ //let area = event.getAttribute("value");
+ //let Mid = mainId.value = (area);
+
+ getMainPlace(thisCity);
+
+
+ let cityList = document.getElementsByClassName("city-list");
 
       function handleClick(event) {
         if (event.target.classList.contains === "clicked") {
@@ -98,9 +110,43 @@ let cityList = document.getElementsByClassName("city-list");
 //submit버튼 클릭시
 
 const moveList=()=>{
-	let city=document.getElementById("mainCity").value;
-     location.href = '/tourplace/list?areaCode='+city;
+	 let hidden = document.getElementById('hiddenCity').value;
+     location.href = '/tourplace/list?areaCode='+hidden+'&currentPage=1';
 }
+
+//출력
+
+function getMainPlace(areaCode) {
+  var xhr = new XMLHttpRequest();
+  var url = `/place/main/${areaCode}`;
+  console.log(url);
+  xhr.open('GET', url);
+  xhr.onreadystatechange = function () {
+    if (this.readyState == 4) {
+      let data = JSON.parse(this.responseText);
+      let item = data.place;
+      let c = ' ';
+
+      for (let i = 0; i < 4; i++) {
+        let src = item[i].firstImage;
+        let placeName = item[i].title;
+        let contentId = item[i].contentId;
+
+        c += `<a href='/tourplace/detail?contentId=${contentId}'><div class="place-list">`;
+        c += `<img src=${src} onerror="this.src='/img/noimage.png'">`;
+        c += `<div class="list-content">`;
+        c += `<div class="placeName">${placeName}</div>`;
+        c += `</div></div></a>`;
+      }
+
+      document.querySelector('.city-place-menu').innerHTML = c;
+      console.log(item);
+      console.log(data);
+}
+}
+xhr.send();
+}
+
 
 
 //ajax
