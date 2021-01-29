@@ -75,10 +75,11 @@ public class TourAnswerController implements SessionNames{
 		tas.insertCourseAnswer(dto);
 	}
 
-	@PostMapping(value = "/placeanswer")
-	public void insertPlaceAnswer(@RequestBody TourAnswerDto dto) {
-		tas.insertPlaceAnswer(dto);
-	}
+	/*
+	 * @PostMapping(value = "/placeanswer") public void
+	 * insertPlaceAnswer(@RequestBody TourAnswerDto dto) {
+	 * tas.insertPlaceAnswer(dto); }
+	 */
 
 	@PostMapping(value = "/placereanswer")
 	public void insertPlaceReAnswer(@RequestBody TourAnswerDto dto) {
