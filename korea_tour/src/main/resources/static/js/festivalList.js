@@ -6,7 +6,10 @@ let areaCode = getParam('areaCode');
 let month;
 let totalPage;
 let pageNum;
-
+let perBlock = 5;
+let currentPage;
+let startPage;
+let endPage;
 let eventStartDate;
 let eventEndDate;
 
@@ -226,7 +229,7 @@ function parseAreaBased(areaCode, pageNum, numOfRows, month, currentYear) {
 
       totalPage = Math.ceil(parseInt(totalCount) / numOfRows);
       // console.log(totalCount);
-      if (totalPage < pageNum) pageNum = totalPage;
+
       let list = xmlDoc.getElementsByTagName('item');
       let n = '';
       let contentId;
@@ -269,10 +272,32 @@ function parseAreaBased(areaCode, pageNum, numOfRows, month, currentYear) {
           '<span class="alert-msg">해당하는 조건의 축제가 없습니다!😱</span>';
       }
       //페이징
-      let p = '';
-      for (let i = 0; i < totalPage; i++) {
-        p += `<li page='${i + 1}' class='page-list'>${i + 1}</li>`;
+      let currentPage = pageNum; //
+      startPage = Math.floor((currentPage - 1) / perBlock) * perBlock + 1;
+      endPage = startPage + perBlock - 1;
+      if (endPage > totalPage) {
+        endPage = totalPage;
       }
+
+      let p = '';
+      if (startPage > 1) {
+        p += `<li class='page-list'  page='${
+          startPage - 1
+        }'><i class="fas fa-chevron-left"></i></li>`;
+      }
+      for (let i = startPage; i <= endPage; i++) {
+        if (i == currentPage) {
+          p += `<li page='${i}' class='page-list active' >${i}</li>`;
+        } else {
+          p += `<li page='${i}' class='page-list' >${i}</li>`;
+        }
+      }
+      if (endPage < totalPage) {
+        p += `<li page='${
+          endPage + 1
+        }' class='page-list'><i class="fas fa-chevron-right"></i></li>`;
+      }
+      console.log(totalPage);
       document.querySelector('.pagination').innerHTML = p;
       let pageList = document.querySelectorAll('.page-list');
       for (const page of pageList) {

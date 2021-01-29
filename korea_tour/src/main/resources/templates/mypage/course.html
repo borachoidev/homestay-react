@@ -18,7 +18,7 @@
 <div layout:fragment="content">
       <div id="topBox">
             <h3 class="top-box__h3">마이페이지</h3>
-            <input type="text" placeholder="코스 이름">
+            <input type="text" placeholder="코스 이름" id="courseName" >
             <div id="selectBox">
                   코스일정<select name="during" id="selectDuring">
                         <option value="D1">당일치기</option>
@@ -34,7 +34,7 @@
                   이동수단<select name="how" id="selectHow">
                         <option value="H1">뚜벅이</option>
                         <option value="H2">자전거</option>
-                        <option value="H3">드라이브</option>
+                        <option value="H3">자동차</option>
                         <option value="H4">기차</option>
                   </select>
             </div>
@@ -73,7 +73,7 @@
                         <div class="modal-content">
                               <button id="upBtn" onclick="moveUp(this)">UP</button>
                               <button id="downBtn" onclick="moveDown(this)">DOWN</button>
-                              
+                              <button id="deleteBtn" onclick="deletePlaceList(this)">삭제</button>
                         </div>
                   </div>
                   
@@ -90,31 +90,22 @@
                   </div>
                   
                   <div class="radio-box">
-                        <div class="share-check__box1">
-                              <span>소개여부<i class="fas fa-question-circle"></i></span>
-                              <span>
-                                    <input type="radio" name="checkbox1" value="" checked>
-                                    <b>허용</b>
-                                    <input type="radio" name="checkbox1" value="">
-                                    <b>불가</b>
-                              </span>
-                              
-                        </div>
-                        <div class="share-check__box2">
+                      
                               <span>노출여부<i class="fas fa-question-circle"></i></span>
                               <span>
-                                    <input type="radio" name="checkbox2" value="" checked>
+                                   
+                                    <input type="radio" name="checkbox" value="1" >
                                     <b>허용</b>
-                                    <input type="radio" name="checkbox2" value="">
+                                    <input type="radio" name="checkbox" value="0" checked>
                                     <b>불가</b>
                               </span>
                               
-                        </div>
+                  
                   </div>
 
                   <div class="button-box">
                         <button type="button" class="btn-btn" onclick="back()">취소</button>
-                        <button type="button" class="btn-submit">저장</button>
+                        <button type="button" class="btn-submit" onclick="saveMyCourse()">저장</button>
                   </div>
 
             </div>
