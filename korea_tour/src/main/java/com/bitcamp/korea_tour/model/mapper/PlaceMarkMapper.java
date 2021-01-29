@@ -10,5 +10,7 @@ public interface PlaceMarkMapper {
 	void insertPlaceMark(PlaceMarkDto dto);
 	void deletePlaceMark(int markNum);
 	int getAllMyPlaceMarkCount(int loginNum); 
+	int getPlaceMarkCountByUser(PlaceMarkDto dto);
+	void deletePlaceMarkByUser(PlaceMarkDto dto);
 }
 
