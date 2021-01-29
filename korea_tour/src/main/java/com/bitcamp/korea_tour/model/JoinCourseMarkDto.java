@@ -23,6 +23,7 @@ public class JoinCourseMarkDto {
 	private int contentId;
 	
 //	place_tb
+	private String title;
 	private String firstImage;
 	private String addr1;
 	
