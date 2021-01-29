@@ -70,7 +70,7 @@ function searchPlace(sort, keyword, pageNum) {
   var xhr = new XMLHttpRequest();
   const keywordURL = decodeURIComponent(keyword);
 
-  url = `search/${sort}/${pageNum}/` + keywordURL;
+  url = `/api/search/${sort}/${pageNum}/` + keywordURL;
 
   //console.log(sort);
   xhr.open('GET', url);
@@ -157,7 +157,7 @@ function searchCourse(sort, keyword, pageNum) {
   var xhr = new XMLHttpRequest();
   const keywordURL = decodeURIComponent(keyword);
 
-  url = `courses/search/${sort}/${pageNum}?keyword=` + keywordURL;
+  url = `/api/courses/search/${sort}/${pageNum}?keyword=` + keywordURL;
 
   console.log(url);
   xhr.open('GET', url);

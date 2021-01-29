@@ -88,7 +88,7 @@ function getCourse(sort, who, during, how, currentPage) {
   const duringURL = decodeURIComponent(during);
   const howURL = decodeURIComponent(how);
 
-  url = `courses/custom/${sort}/${currentPage}?who=${whoURL}&during=${duringURL}&how=${howURL}`;
+  url = `/api/courses/custom/${sort}/${currentPage}?who=${whoURL}&during=${duringURL}&how=${howURL}`;
 
   /**/
   //console.log(url);
