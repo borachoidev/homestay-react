@@ -1,13 +1,12 @@
 'use strict';
-let sort = document.getElementById("sortList").getAttribute("value");
+let sort = document.getElementById('sortList').getAttribute('value');
 let areaCode = getParam('areaCode');
 const perBlock = 5;
-let currentPage = document.querySelector('#paging').getAttribute('currentPage');
-let startPage = Math.floor((currentPage - 1) / perBlock) * perBlock + 1;
-let endPage = startPage + perBlock - 1;
+let currentPage;
+let startPage;
+let endPage;
+
 getPlace(sort, areaCode, currentPage);
-
-
 
 function getParam(key) {
   let param;
@@ -17,76 +16,69 @@ function getParam(key) {
   return param;
 }
 
-
-
-
 window.onload = function () {
   let clickFirst = document.getElementById('namelist');
   clickFirst.click();
- 
+
   areaNumber();
 };
 
-const areaNumber =()=> {
-	  let link= decodeURI(document.location.href);
-  let linkArr=link.split('=');
-  let areaLink=linkArr[1];
-  let areaValue=areaLink.split('&');
-  if(areaValue[0]==1)  
-  	document.getElementById('mainCity').value ="서울";
-  else if(areaValue[0]==2)
-    document.getElementById('mainCity').value ="인천";
-  else if(areaValue[0]==3)
-    document.getElementById('mainCity').value ="대전";
-  else if(areaValue[0]==4)
-    document.getElementById('mainCity').value ="대구";
-  else if(areaValue[0]==5)
-    document.getElementById('mainCity').value ="광주";
-  else if(areaValue[0]==6)
-    document.getElementById('mainCity').value ="부산";
-  else if(areaValue[0]==7)
-    document.getElementById('mainCity').value ="울산";
-  else if(areaValue[0]==8)
-    document.getElementById('mainCity').value ="세종특별자치시";
-  else if(areaValue[0]==31)
-    document.getElementById('mainCity').value ="경기도";
-  else if(areaValue[0]==32)
-    document.getElementById('mainCity').value ="강원도";
-  else if(areaValue[0]==33)
-    document.getElementById('mainCity').value ="충청북도";
-  else if(areaValue[0]==34)
-    document.getElementById('mainCity').value ="충청남도";
-  else if(areaValue[0]==35)
-    document.getElementById('mainCity').value ="경상북도";
-  else if(areaValue[0]==36)
-    document.getElementById('mainCity').value ="경상남도";
-  else if(areaValue[0]==37)
-    document.getElementById('mainCity').value ="전라북도"; 
-  else if(areaValue[0]==38)
-    document.getElementById('mainCity').value ="전라남도"; 
-  else if(areaValue[0]==39)
-    document.getElementById('mainCity').value ="제주도";   
-  else
-    document.getElementById('mainCity').value ="전국";  
-}
+const areaNumber = () => {
+  let link = decodeURI(document.location.href);
+  let linkArr = link.split('=');
+  let areaLink = linkArr[1];
+  let areaValue = areaLink.split('&');
+  if (areaValue[0] == 1) document.getElementById('mainCity').value = '서울';
+  else if (areaValue[0] == 2)
+    document.getElementById('mainCity').value = '인천';
+  else if (areaValue[0] == 3)
+    document.getElementById('mainCity').value = '대전';
+  else if (areaValue[0] == 4)
+    document.getElementById('mainCity').value = '대구';
+  else if (areaValue[0] == 5)
+    document.getElementById('mainCity').value = '광주';
+  else if (areaValue[0] == 6)
+    document.getElementById('mainCity').value = '부산';
+  else if (areaValue[0] == 7)
+    document.getElementById('mainCity').value = '울산';
+  else if (areaValue[0] == 8)
+    document.getElementById('mainCity').value = '세종특별자치시';
+  else if (areaValue[0] == 31)
+    document.getElementById('mainCity').value = '경기도';
+  else if (areaValue[0] == 32)
+    document.getElementById('mainCity').value = '강원도';
+  else if (areaValue[0] == 33)
+    document.getElementById('mainCity').value = '충청북도';
+  else if (areaValue[0] == 34)
+    document.getElementById('mainCity').value = '충청남도';
+  else if (areaValue[0] == 35)
+    document.getElementById('mainCity').value = '경상북도';
+  else if (areaValue[0] == 36)
+    document.getElementById('mainCity').value = '경상남도';
+  else if (areaValue[0] == 37)
+    document.getElementById('mainCity').value = '전라북도';
+  else if (areaValue[0] == 38)
+    document.getElementById('mainCity').value = '전라남도';
+  else if (areaValue[0] == 39)
+    document.getElementById('mainCity').value = '제주도';
+  else document.getElementById('mainCity').value = '전국';
+};
 
-
-
-const printName=(event)=> {
+const printName = event => {
   let name = event.value;
   document.getElementById('mainCity').value = name;
-  areaCode= event.getAttribute("areaCode");
-  
-  getPlace(sort, areaCode, currentPage);
-}
+  areaCode = event.getAttribute('areaCode');
 
-const choiceList = (e) => {
+  getPlace(sort, areaCode, currentPage);
+};
+
+const choiceList = e => {
   let list = document.getElementsByClassName('list');
-  let sortValue = e.getAttribute("value");
-  let sortInput = document.getElementById("sortList");
-  sort=sortValue;
-  
-  getPlace(sort, areaCode, currentPage)
+  let sortValue = e.getAttribute('value');
+  let sortInput = document.getElementById('sortList');
+  sort = sortValue;
+
+  getPlace(sort, areaCode, currentPage);
   function handleClick(event) {
     if (event.target.classList.contains === 'choice') {
       event.target.classList.remove('choice');
@@ -116,6 +108,7 @@ const moveDetail = () => {
 
 //출력
 function getPlace(sort, areaCode, currentPage) {
+  if (currentPage == undefined) currentPage = 1;
   var xhr = new XMLHttpRequest();
   var url = `/places/${sort}/${currentPage}/${areaCode}`;
   console.log(url);
@@ -132,7 +125,12 @@ function getPlace(sort, areaCode, currentPage) {
         let contentId = item[i].contentId;
 
         c += `<a href='/tourplace/detail?contentId=${contentId}'><div class="place-list">`;
-        c += `<img src=${src} onerror="this.src='/img/noimage.png'">`;
+        if (src != null) {
+          c += `<img src=${src} onerror="this.src='/img/noimage.png'">`;
+        } else {
+          c += `<img src="/img/noimage.png" onerror="this.src='/img/noimage.png'">`;
+        }
+
         c += `<div class="list-content">`;
         c += `<div class="placeName">${placeName}</div>`;
         c += `<div class="addr">${addr}</div>`;
@@ -140,43 +138,51 @@ function getPlace(sort, areaCode, currentPage) {
       }
 
       document.querySelector('#card').innerHTML = c;
-      console.log(item);
-      console.log(data);
+      //   console.log(item);
+      //   console.log(data);
 
       //페이징처리
       const totalPage = data.totalPage; //
-
+      startPage = Math.floor((currentPage - 1) / perBlock) * perBlock + 1;
+      endPage = startPage + perBlock - 1;
       if (endPage > totalPage) {
         endPage = totalPage;
       }
 
       let p = '';
       if (startPage > 1) {
-        p += `<li class='page-list'><a href='/tourplace/list?areaCode=${areaCode}&currentPage=${
+        p += `<li class='page-list'  page='${
           startPage - 1
         }'><i class="fas fa-chevron-left"></i></li>`;
       }
       for (let i = startPage; i <= endPage; i++) {
-        p += `<li class='page-list'><a href='/tourplace/list?areaCode=${areaCode}&currentPage=${i}'>${i}</a></li>`;
+        if (i == currentPage) {
+          p += `<li page='${i}' class='page-list active' >${i}</li>`;
+        } else {
+          p += `<li page='${i}' class='page-list' >${i}</li>`;
+        }
       }
       if (endPage < totalPage) {
         p += `<li page='${
           endPage + 1
-        }' class='page-list'><a href='/tourplace/list?areaCode=${areaCode}&currentPage=${
-          endPage + 1
-        }'><i class="fas fa-chevron-right"></i></a></li>`;
+        }' class='page-list'><i class="fas fa-chevron-right"></i></li>`;
       }
-
+      console.log(`t${totalPage}`);
       document.querySelector('#paging').innerHTML = p;
+      let pageList = document.querySelectorAll('.page-list');
+      for (const page of pageList) {
+        page.addEventListener('click', function (e) {
+          let pageNum = e.target.getAttribute('page');
+
+          if (totalPage < pageNum) pageNum = totalPage;
+          console.log('p' + pageNum);
+          getPlace(sort, areaCode, pageNum);
+        });
+      }
     }
   };
   xhr.send();
 }
-
-
-
-
-
 
 //상단 슬라이드
 let slideUp = (target, duration = 500) => {
@@ -255,8 +261,6 @@ let slideBtnClick = (cl, sl) =>
 slideBtnClick('.slide-img', slideToggle);
 slideBtnClick('.fa-times', slideToggle);
 
-
-
 /*
 //지역 switch문
 let link= decodeURI(document.location.href);
@@ -321,8 +325,6 @@ let area = areaValue[0];
     break;
 }
 */
-
-
 
 /*
       function handleClick(event) {
