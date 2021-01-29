@@ -2,7 +2,6 @@
 
 placePhotoList();
 
-
 // parameter value 읽기
 function getParam(key) {
   let param;
@@ -21,17 +20,26 @@ function deletePhoto(photoNum){
       if (xhr.readyState == 4) {
 			
 		    window.location.reload(true);
-			
-		  
-		
 		  
 		}
 	}
 	xhr.send(null);
     }
 
-
-
+function approvalPhoto(photoNum){
+	const xhr = new XMLHttpRequest();
+    const url =`/admin/place/photo/${photoNum}`;
+ 	xhr.open('PUT',url);
+  	
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState == 4) {
+			
+		    window.location.reload(true);
+			
+		}
+	}
+	xhr.send(null);
+    }
 
 
 function placePhotoList(){
@@ -49,29 +57,40 @@ function placePhotoList(){
 
         let a="";
 		for(let i=0;i<item.length;i++){
+			if(item[i].approval!=1){
 			a+= `<tr class="board_list_row">`
 					a+= `<td class="board_list_data">${i+1}</td>`
 						a+= `<td class="board_list_data">${item[i].photoNum}</td>`
 					a+=`<td class="board_list_data">${item[i].contentId}</td>`
-					a+=`<td class="board_list_data"><img src="/placeImg/${item[i].image}"></td>`
+					a+=`<td class="board_list_data"><img src="/placeImg/${item[i].image}" width="90" height="80"></td>`
 					a+=`<td class="board_list_data">${item[i].loginId}</td>`
 				    a+=`<td class="board_list_data num"  num="${item[i].photoNum}"><button type="button" class="delete-btn">삭제</button></td>`
 
 					a+=`<td class="board_list_data num"  num="${item[i].photoNum}"><button type="button" class="approval-btn">승인</button></td>`
 
-		}
+		}}
 		
 	document.querySelector(".list_row").innerHTML=a;
 	}
 	const delBtns = document.querySelectorAll(".delete-btn");
 	for(const btn of delBtns){
 	btn.addEventListener("click",function(){
+	const photoNum=btn.parentElement.getAttribute("num");
+ 	deletePhoto(photoNum);
+})      
+}
+
+	const approvalBtns = document.querySelectorAll(".approval-btn");
+	for(const btn of approvalBtns){
+	btn.addEventListener("click",function(){
 		
 	 const photoNum=btn.parentElement.getAttribute("num");
 
- 	deletePhoto(photoNum);
-	
-} )      
+ approvalPhoto(photoNum);
+})
+}    
+
 }
 }
-}
+
+

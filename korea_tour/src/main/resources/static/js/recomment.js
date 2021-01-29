@@ -1,4 +1,5 @@
 'use strict';
+
 let perBlock = 5;
 let currentPage = getParam("currentPage")
 let startPage = Math.floor((currentPage - 1) / perBlock) * perBlock + 1;
@@ -16,29 +17,25 @@ function getParam(key) {
 }
 
 
-const delBtns = document.querySelectorAll(".delete-btn");
-for(const btn of delBtns){
-	btn.addEventLister("click",function(){
-	 const tourAnswerNum=btn.parentElement.getAttribute("num");
- redeleteComment(tourAnswerNum);
-})
-}
 
 function redeleteComment(tourAnswerNum){
-    var xhr = new XMLHttpRequest();
-  
-    url =`/adminanswer/${tourAnswerNum}`
-  
-  
+    const xhr = new XMLHttpRequest();
+    const url =`/adminanswer/${tourAnswerNum}`;
     xhr.open('POST', url);
-    xhr.onreadystatechange = function () {
-      if (this.readyState == 4) {
-     location.reload();
-  
-}
-    }
-}
 
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState == 2) {
+			
+			console.log("123");
+		    window.location.reload(true);
+			
+		  
+		
+		  
+		}
+	}
+	xhr.send(null);
+    }
 
 
 function recommentList(currentPage){
@@ -56,6 +53,7 @@ function recommentList(currentPage){
 
         let a="";
 		for(let i=0;i<item.length;i++){
+			if(item[i].deleted!=2){
 			a+= `<tr class="board_list_row">`
 					a+= `<td class="board_list_data">${i+1}</td>`
 				    a+= `<td class="board_list_data">${item[i].tourAnswerNum}</td>`
@@ -64,7 +62,7 @@ function recommentList(currentPage){
 					a+=`<td class="board_list_data">${item[i].content}</td>`
 					a+=`<td class="board_list_data">${item[i].writeDay}</td>`
 					a+=`<td class="board_list_data num"  num="${item[i].tourAnswerNum}"><button type="button" class="delete-btn">삭제</button></td>`
-		}
+		}}
 	document.querySelector(".list-low").innerHTML=a;
 	
 	 const totalPage = data.totalPage; //
@@ -89,9 +87,21 @@ function recommentList(currentPage){
         }'><i class="fas fa-chevron-right"></i></a></li>`;
       }
       document.querySelector('.page_nation').innerHTML = p;
-    }
-           
+
+    const delBtns = document.querySelectorAll(".delete-btn");
+
+for(const btn of delBtns){
+	btn.addEventListener("click",function(){
+		
+	 const tourAnswerNum=btn.parentElement.getAttribute("num");
+console.log(tourAnswerNum)
+ redeleteComment(tourAnswerNum);
+})
+}    
 }
+
 }
+}           
+
 
 

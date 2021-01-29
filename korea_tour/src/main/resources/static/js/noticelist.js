@@ -25,7 +25,7 @@ function deleteNotice(noticeNum){
     xhr.onreadystatechange = function () {
       if (xhr.readyState == 4) {
 			
-			alert("1234");
+			
 		    window.location.reload(true);
 			
 		  
@@ -83,7 +83,7 @@ function noticeList(currentPage){
       if (endPage < totalPage) {
         p += `<li page='${
           endPage + 1
-        }' class='page-list'><a href='/admin/noticelist?currentPage=${
+        }' class='page-list'><a href='/noticelist?currentPage=${
           endPage + 1
         }'><i class="fas fa-chevron-right"></i></a></li>`;
       }
