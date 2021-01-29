@@ -12,4 +12,5 @@ public interface AdminService {
 	AdminDto getAdminData(@Param(value="id")String id, @Param(value="password")String password);
 	void deleteAdmin(int adminNum);
 	int checkAdmin(@Param(value="id")String id, @Param(value="password")String password);
+	AdminDto getAdminDataByNum(int adminNum);
 }

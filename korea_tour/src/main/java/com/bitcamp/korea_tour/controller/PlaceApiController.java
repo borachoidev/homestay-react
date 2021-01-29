@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.xml.sax.SAXException;
 
-import com.bitcamp.korea_tour.TourApi;
 import com.bitcamp.korea_tour.model.PlaceApiPhotoDto;
 import com.bitcamp.korea_tour.model.PlaceDto;
 import com.bitcamp.korea_tour.model.service.PlaceApiPhotoServiceImpl;
 import com.bitcamp.korea_tour.model.service.PlaceServiceImpl;
+import com.bitcamp.korea_tour.util.TourApi;
 
 import lombok.RequiredArgsConstructor;
 

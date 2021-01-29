@@ -48,5 +48,9 @@ public class AdminServiceImpl implements AdminService {
 		return adminMapper.getAdminData(map);
 	}
 
+	@Override
+	public AdminDto getAdminDataByNum(int adminNum) {
+		return adminMapper.getAdminDataByNum(adminNum);
+	}
 	
 }
