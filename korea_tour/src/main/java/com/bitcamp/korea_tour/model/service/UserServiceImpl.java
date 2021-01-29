@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
 import com.bitcamp.korea_tour.model.UserDto;
 import com.bitcamp.korea_tour.model.mapper.UserMapper;
@@ -75,5 +74,12 @@ public class UserServiceImpl implements UserService,SessionNames {
 		HttpSession session = request.getSession();
 		session.setAttribute(USER, dto);
 	}
+
+	@Override
+	public void deleteUserByAdmin(int userNum) {
+		mapper.deleteUserByAdmin(userNum);
+	}
+	
+	
 	
 }
