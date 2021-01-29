@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bitcamp.korea_tour.model.CourseDto;
@@ -99,10 +98,10 @@ public class CourseDataController implements SessionNames {
 	 */
 	@PatchMapping(value="/courseplaces", produces = "application/json; charset=utf8")
 	public void updateCoursePlace(
-			@RequestParam(value="list") List<CoursePlaceDto> json
+			@RequestBody Map<String, List<CoursePlaceDto>> json
 			) {
 		
-		coursePlaceService.updateCoursePlace(json);
+		coursePlaceService.updateCoursePlace(json.get("list"));
 	}
 	
 }

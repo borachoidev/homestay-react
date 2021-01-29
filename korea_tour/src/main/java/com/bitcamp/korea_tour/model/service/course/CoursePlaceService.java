@@ -3,7 +3,6 @@ package com.bitcamp.korea_tour.model.service.course;
 import java.util.List;
 
 import com.bitcamp.korea_tour.model.CoursePlaceDto;
-import com.bitcamp.korea_tour.model.CoursePlaceOrderList;
 
 public interface CoursePlaceService {
 	void insertCoursePlace(CoursePlaceDto dto);
