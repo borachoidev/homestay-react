@@ -26,7 +26,7 @@ function deleteMember(userNum){
     xhr.open('DELETE', url);
     xhr.onreadystatechange = function () {
       if (this.readyState == 4) {
-      alert("1234");
+     
 		window.location.reload(true);
   
  }
