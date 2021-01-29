@@ -1,4 +1,4 @@
-package com.bitcamp.korea_tour;
+package com.bitcamp.korea_tour.util;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;

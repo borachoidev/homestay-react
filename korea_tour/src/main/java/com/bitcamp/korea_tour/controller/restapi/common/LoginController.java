@@ -80,6 +80,7 @@ public class LoginController implements SessionNames {
 
 		//로그인 정보 세션에서 확인
 		HttpSession session=request.getSession();
+		session.setMaxInactiveInterval(24*60*60);
 		UserDto user=(UserDto)session.getAttribute(USER);
 		log.info(">> 로그인 사용자 정보 :: loginNum:{},loginId:{},loginPhoto:{}", user.getUserNum(),user.getName(),user.getPhoto());
 		if(user.getKakaoKey()!=null) log.info(">> 로그인 사용자 소셜 정보 :: 카카오_"+user.getKakaoKey());

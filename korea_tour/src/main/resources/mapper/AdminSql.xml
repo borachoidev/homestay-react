@@ -17,5 +17,8 @@
 	<select id="checkAdmin" parameterType="HashMap" resultType="int">
 		select count(*) from admin where id=#{id} and password=#{password}
 	</select>
-	
+	<!-- 관리자 데이터 조회-->
+	<select id="getAdminDataByNum" parameterType="int" resultType="admin">
+		select * from admin where adminNum=#{adminNum}
+	</select>
 </mapper>

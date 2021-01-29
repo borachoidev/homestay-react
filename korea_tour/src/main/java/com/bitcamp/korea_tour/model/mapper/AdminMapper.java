@@ -14,4 +14,5 @@ public interface AdminMapper {
 	AdminDto getAdminData(Map<String, String> map);
 	void deleteAdmin(int adminNum);
 	int checkAdmin(Map<String , String> map);
+	AdminDto getAdminDataByNum(int adminNum);
 }

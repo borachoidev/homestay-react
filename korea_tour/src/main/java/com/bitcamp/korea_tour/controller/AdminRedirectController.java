@@ -46,6 +46,7 @@ public class AdminRedirectController implements SessionNames {
 			AdminDto admin=adminService.getAdminData(id, password);
 			HttpSession session=request.getSession();
 			session.setAttribute(ADMIN, admin);
+			session.setMaxInactiveInterval(24*60*60);
 
 			return "admin/adminmain";
 		}else  {
