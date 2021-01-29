@@ -1,7 +1,6 @@
 package com.bitcamp.korea_tour.controller;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.annotations.Param;
@@ -43,11 +42,13 @@ public class AdminController implements SessionNames {
 		}
 	}
 	
-	/*
-	 * //회원강퇴
-	 * 
-	 * @PostMapping("/admin/member/delete") public String
-	 * deleteUserByAdmin(@RequestParam int userNum, HttpServletRequest request) {
-	 * userService.deleteUser(loginNum); }
-	 */
+	
+	//회원강퇴
+	@PostMapping("/admin/member/delete")
+	public String deleteUserByAdmin(@RequestParam int userNum)
+	{
+		userService.deleteUserByAdmin(userNum);
+		
+		return "redirect:/admin/member/list?currentPage=1";
+	}
 }

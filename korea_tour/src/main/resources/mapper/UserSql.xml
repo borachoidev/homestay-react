@@ -30,4 +30,10 @@
 		<if test="sns == 'NAVER'">naverKey=#{key}</if>
 		<if test="sns == 'GOOGLE'">googleKey=#{key}</if>
 	</select>
+	
+	
+	<!-- user강퇴 -->
+	<delete id="deleteUserByAdmin" parameterType="int">
+		delete from user where userNum=#{userNum}
+	</delete>
 </mapper>
