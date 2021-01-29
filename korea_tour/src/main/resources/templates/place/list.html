@@ -19,7 +19,7 @@
 
 <div class="sidebar" id="sidebar"> 
 <div class="city-btn">
-    <button class="city-list" value="전국" onclick="printName(this)">전국</button>
+    <button class="city-list" value="전국" th:areaCode="100" onclick="printName(this)">전국</button>
 	<button class="city-list" value="서울특별시" th:areaCode="1" onclick="printName(this)">서울</button>
 	<button class="city-list" value="부산" th:areaCode="6" onclick="printName(this)">부산</button>
 	<button class="city-list" value="대구" th:areaCode="4" onclick="printName(this)">대구</button>
@@ -43,7 +43,7 @@
 <div class="hide-list" id="target">
  <i class="fas fa-times"></i>
   <div class="hide-btn">
-    <button class="city-list" value="전국" onclick="printName(this)">전국</button>
+    <button class="city-list" value="전국" th:areaCode="100" onclick="printName(this)">전국</button>
 	<button class="city-list" value="서울특별시" th:areaCode="1" onclick="printName(this)">서울</button>
 	<button class="city-list" value="부산" th:areaCode="6" onclick="printName(this)">부산</button>
 	<button class="city-list" value="대구" th:areaCode="4" onclick="printName(this)">대구</button>
@@ -64,17 +64,18 @@
   </div>
 </div>
 <div class="place">
-  <input type="text" id="mainCity" name="region" th:value="${region}" areaCode="" readonly="readonly"></input>
+  <input type="text" id="mainCity" th:value="${areaCode}" th:areaCode="${areaCode}" readonly="readonly"></input>
   <img class="slide-img" src="/img/slide_btn.png">
   <ul class="array-list">
-    <li class="list choice" id="namelist" th:value="name" onclick="choiceList()">제목순</li>
-    <li class="list" id="updatelist" th:value="update" onclick="choiceList()">최근등록순</li>
+    <li class="list choice" id="namelist" th:value="title" onclick="choiceList(this)">제목순</li>
+    <li class="list" id="updatelist" th:value="like" onclick="choiceList(this)">좋아요순</li>
   </ul>
+  <input type="hidden" id ="sortList" th:value="title"></input>
   <div class="card" id="card">
      
   </div>
   
 </div>
-<div id="paging" th:currentPage="${currentPage}" ></div>
+<div id="paging" th:currentPage="${currentPage}"></div>
 </div>   
 </html>
