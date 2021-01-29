@@ -31,4 +31,22 @@ public class PlaceMarkServiceImpl implements PlaceMarkService {
 		return mapper.getAllMyPlaceMarkCount(loginNum);
 	}
 
+	@Override
+	public int getTotalPlaceMark(int userNum) {
+		// TODO Auto-generated method stub
+		return mapper.getTotalPlaceMark(userNum);
+	}
+
+	@Override
+	public int getPlaceMarkCountByUser(PlaceMarkDto dto) {
+		// TODO Auto-generated method stub
+		return mapper.getPlaceMarkCountByUser(dto);
+	}
+
+	@Override
+	public void deletePlaceMarkByUser(PlaceMarkDto dto) {
+		// TODO Auto-generated method stub
+		mapper.deletePlaceMarkByUser(dto);
+	}
+
 }
