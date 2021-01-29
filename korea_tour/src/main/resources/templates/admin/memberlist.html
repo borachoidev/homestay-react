@@ -8,7 +8,7 @@
 </th:block>
 
 <th:block layout:fragment="script" >
-	<script th:src="@{/js/memn.js}" defer></script>
+	<script th:src="@{/js/memberlist.js}" defer></script>
 </th:block>
 
 
@@ -41,37 +41,13 @@
 			<thead>
 				<tr class="board_list_row">
 					<th class="board_list_head" scope="col">번호</th>
+					<th class="board_list_head" scope="col">회원번호</th>
 					<th class="board_list_head" scope="col">이름</th>
-					<th class="board_list_head" scope="col">제목</th>
-					<th class="board_list_head" scope="col">등록일</th>
-					<th class="board_list_head" scope="col">xx</th>
-					<th class="board_list_head" scope="col">xx</th>
-					<th class="board_list_head" scope="col">처리상태</th>
-					<th class="board_list_head" scope="col">삭제</th>
+					<th class="board_list_head" scope="col">사진</th>
+					<th class="board_list_head" scope="col">강퇴</th>
 				</tr>
 			</thead>
-			<tbody>
-			
-			
-	 <tr th:each="${data}">
-        <td th:text="${data.userNum}"></td>
-        <td th:text="${data.userName}"></td>
-     
-    </tr>
-       
-    </tr>
-				<tr  class="board_list_row">
-					<td class="board_list_data">1</td>
-					<td class="board_list_data">길동</td>
-					<td class="board_list_data">홍길동</td>
-					<td class="board_list_data">2015-12-31</td>
-					<td class="board_list_data">xx</td>
-					<td class="board_list_data">xx</td>
-					<td class="board_list_data">Y</td>
-					<td class="board_list_data"><a href="#"
-						class="btn_txt btn_type_d btn_color_a"> <span class="txt">조회</span>
-					</a></td>
-				</tr>
+			<tbody class="list-low">
 			</tbody>
 		</table>
 	</div>
@@ -80,11 +56,7 @@
 	<!-- Page Navigation -->
 	<div class="page_wrap">
 		<div class="page_nation">
-			<a class="arrow pprev" href="#"></a> <a class="arrow prev" href="#"></a>
-			<a href="#" class="active">1</a> <a href="#">2</a> <a href="#">3</a>
-			<a href="#">4</a> <a href="#">5</a> <a href="#">6</a> <a href="#">7</a>
-			<a href="#">8</a> <a href="#">9</a> <a href="#">10</a> <a
-				class="arrow next" href="#"></a> <a class="arrow nnext" href="#"></a>
+		
 		</div>
 	</div>
 </div>

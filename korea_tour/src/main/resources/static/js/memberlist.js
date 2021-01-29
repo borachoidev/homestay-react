@@ -4,7 +4,7 @@ let currentPage = getParam("currentPage")
 let startPage = Math.floor((currentPage - 1) / perBlock) * perBlock + 1;
 let endPage = startPage + perBlock - 1;
 
-noticeList(currentPage);
+memberList(currentPage); 
 
 // parameter value 읽기
 function getParam(key) {
@@ -16,10 +16,9 @@ function getParam(key) {
 }
 
 
-
-function noticeList(currentPage){
+function memberList(currentPage){
     var xhr = new XMLHttpRequest();
-    var url = `/notice/${currentPage}`;
+    var url = `/users/${currentPage}`;
     xhr.open('GET', url);
     xhr.send();
     console.log(url);
@@ -27,21 +26,23 @@ function noticeList(currentPage){
     xhr.onreadystatechange = function(){
         if (this.readyState == 4) {
 	    let data = JSON.parse(this.responseText);
-    	let item = data.notices;
+    	let item = data.list;
             console.log(item);
 
         let a="";
 		for(let i=0;i<item.length;i++){
 			a+= `<tr class="board_list_row">`
-					a+= `<td class="board_list_data">${i+1}</td>`
-				    a+= `<td class="board_list_data">${item[i].noticeNum}</td>`
-					a+= `<td class="board_list_data">${item[i].title}</td>`
-					a+=`<td class="board_list_data">${item[i].writeDay}</td>`
-					a+=`<td class="board_list_data">${item[i].views}</td>`
-					a+=`<td class="board_list_data num"  num="${item[i].noticeNum}"><button type="button" class="delete-btn">삭제</button></td>`
-					a+=`<td class="board_list_data num"  num="${item[i].noticeNum}"><button type="button" class="update-btn">수정</button></td>`
+					a+= `<td class="board_list_data" >${i+1}</td>`
+						a+= `<td class="board_list_data" id="memberNum">${item[i].userNum}</td>`
+					a+=`<td class="board_list_data">${item[i].name}</td>`
+					a+=`<td class="board_list_data"><img src="${item[i].photo}" style="width:60px;height:60px;border-radius:50%;"></td>`
+					a+=`<td class="board_list_data num"  num="${item[i].userNum}"><button type="button" class="delete-btn">강퇴</button></td>`
 		}
 	document.querySelector(".list-low").innerHTML=a;
+	
+	
+	
+	
 	
 	 const totalPage = data.totalPage; //
       if (endPage > totalPage) {
@@ -50,17 +51,17 @@ function noticeList(currentPage){
      
       let p = '';
       if (startPage > 1) {
-        p += `<li class='page-list'><a href='/admin/notice/list?currentPage=${
+        p += `<li class='page-list'><a href='/admin/member/list?currentPage=${
           startPage - 1
         }'><i class="fas fa-chevron-left"></i></li>`;
       }
       for (let i = startPage; i <= endPage; i++) {
-        p += `<li class='page-list'><a href='/admin/notice/list?currentPage=${i}'>${i}</a></li>`;
+        p += `<li class='page-list'><a href='/admin/member/list?currentPage=${i}'>${i}</a></li>`;
       }
       if (endPage < totalPage) {
         p += `<li page='${
           endPage + 1
-        }' class='page-list'><a href='/admin/notice/list?currentPage=${
+        }' class='page-list'><a href='/admin/member/list?currentPage=${
           endPage + 1
         }'><i class="fas fa-chevron-right"></i></a></li>`;
       }
@@ -69,5 +70,4 @@ function noticeList(currentPage){
            
 }
 }
-
 

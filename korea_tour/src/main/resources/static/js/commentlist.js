@@ -4,7 +4,7 @@ let currentPage = getParam("currentPage")
 let startPage = Math.floor((currentPage - 1) / perBlock) * perBlock + 1;
 let endPage = startPage + perBlock - 1;
 
-noticeList(currentPage);
+commentList(currentPage);
 
 // parameter value 읽기
 function getParam(key) {
@@ -17,9 +17,9 @@ function getParam(key) {
 
 
 
-function noticeList(currentPage){
+function commentList(currentPage){
     var xhr = new XMLHttpRequest();
-    var url = `/notice/${currentPage}`;
+    var url = `/adminanswer/${currentPage}`;
     xhr.open('GET', url);
     xhr.send();
     console.log(url);
@@ -27,19 +27,19 @@ function noticeList(currentPage){
     xhr.onreadystatechange = function(){
         if (this.readyState == 4) {
 	    let data = JSON.parse(this.responseText);
-    	let item = data.notices;
+    	let item = data.myanswer;
             console.log(item);
 
         let a="";
 		for(let i=0;i<item.length;i++){
 			a+= `<tr class="board_list_row">`
 					a+= `<td class="board_list_data">${i+1}</td>`
-				    a+= `<td class="board_list_data">${item[i].noticeNum}</td>`
-					a+= `<td class="board_list_data">${item[i].title}</td>`
+				    a+= `<td class="board_list_data">${item[i].tourAnswerNum}</td>`
+					a+= `<td class="board_list_data">${item[i].contentId}</td>`
+					a+=`<td class="board_list_data">${item[i].loginId}</td>`
+					a+=`<td class="board_list_data">${item[i].content}</td>`
 					a+=`<td class="board_list_data">${item[i].writeDay}</td>`
-					a+=`<td class="board_list_data">${item[i].views}</td>`
-					a+=`<td class="board_list_data num"  num="${item[i].noticeNum}"><button type="button" class="delete-btn">삭제</button></td>`
-					a+=`<td class="board_list_data num"  num="${item[i].noticeNum}"><button type="button" class="update-btn">수정</button></td>`
+					a+=`<td class="board_list_data num"  num="${item[i].tourAnswerNum}"><button type="button" class="delete-btn">삭제</button></td>`
 		}
 	document.querySelector(".list-low").innerHTML=a;
 	
