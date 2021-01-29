@@ -178,22 +178,26 @@ public class PlaceController implements SessionNames{
 	public JsonPlaceDetail getPlaceDetailList(@PathVariable(name="contentId") int contentId,
 			HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		UserDto user=(UserDto)session.getAttribute(USER);
-		String loginId= user.getName();
-		int userNum = user.getUserNum();
-		
 		PlaceDto place = service.getPlaceDetail(contentId);
 		List<PlaceApiPhotoDto> apiPhoto = service.getPlaceDetailApiPhotos(contentId);
 		List<PlacePhotoDto> userPhoto = service.getPlaceDetailPhotos(contentId);
 		List<TourAnswerDto> tourAnswer = service.getAnswerOfPlace(contentId);
-		PlaceLikeDto ldto = new PlaceLikeDto();
-		ldto.setLoginId(loginId);
-		ldto.setContentId(contentId);
-		PlaceLikeDto userLike = service3.getDataByUser(ldto);
-		PlaceMarkDto mdto = new PlaceMarkDto();
-		mdto.setContentId(contentId);
-		mdto.setUserNum(userNum);
-		PlaceMarkDto userMark = service4.getDataByUser(mdto);
+		PlaceLikeDto userLike = null;
+		PlaceMarkDto userMark = null;
+		if(session.getAttribute(USER)!=null) {
+			UserDto user=(UserDto)session.getAttribute(USER);
+			String loginId= user.getName();
+			int userNum = user.getUserNum();
+			PlaceLikeDto ldto = new PlaceLikeDto();
+			ldto.setLoginId(loginId);
+			ldto.setContentId(contentId);
+			userLike = service3.getDataByUser(ldto);
+			PlaceMarkDto mdto = new PlaceMarkDto();
+			mdto.setContentId(contentId);
+			mdto.setUserNum(userNum);
+			userMark = service4.getDataByUser(mdto);
+		}
+		
 		return new JsonPlaceDetail(place, apiPhoto, userPhoto, tourAnswer, userLike, userMark);
 	}
 	
