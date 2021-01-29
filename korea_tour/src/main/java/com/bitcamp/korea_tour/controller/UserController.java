@@ -42,6 +42,14 @@ public class UserController implements SessionNames {
 		
 		us.deleteUser(loginNum);
 	}
+	
+	
+	//회원강퇴
+		@DeleteMapping("/admin/member/delete/{userNum}")
+		public void deleteUserByAdmin(@PathVariable(value = "userNum") int userNum)
+		{
+			us.deleteUserByAdmin(userNum);
+		}
 
 	/**
 	 * @return 사용자 목록(관리자페이지)
