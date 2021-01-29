@@ -54,16 +54,17 @@
 
 <!--/* 슬라이드 구성 끝 */-->
 <form>
-<input type="text" id="mainCity" th:value="서울특별시" name="areaCode" readonly="readonly" th:areaCode="1"></input>
+<input type="hidden" id = "hiddenCity" th:areaCode="1"></input> 
+<input type="text" id="mainCity" th:value="서울특별시" th:areaCode="1" readonly="readonly"></input>
 <a class="all-city" id="region" th:text="더보기"  onclick="moveList()"></a>
 </form>
 <hr/>
 
 <div class="city-btn">
-	<button type="submit" class="city-list clicked " id="cityList" th:value="서울특별시" th:areaCode="1" onclick="printName(this)">서울</button>
-	<button type="submit" class="city-list" th:value="부산" th:areaCode="6" onclick="printName(this)">부산</button>
-	<button type="submit" class="city-list" th:value="대구" th:areaCode="4" onclick="printName(this)">대구</button>
-	<button type="submit" class="city-list" th:value="인천" th:areaCode="2" onclick="printName(this)">인천</button>
+	<button class="city-list clicked " id="cityList" th:value="서울특별시" th:areaCode="1" onclick="printName(this)">서울</button>
+	<button class="city-list" th:value="부산" th:areaCode="6" onclick="printName(this)">부산</button>
+	<button class="city-list" th:value="대구" th:areaCode="4" onclick="printName(this)">대구</button>
+	<button class="city-list" th:value="인천" th:areaCode="2" onclick="printName(this)">인천</button>
 	<button class="city-list" th:value="광주" th:areaCode="5" onclick="printName(this)">광주</button>
 	<button class="city-list" th:value="대전" th:areaCode="3" onclick="printName(this)">대전</button>
 	<button class="city-list" th:value="울산" th:areaCode="7" onclick="printName(this)">울산</button>
