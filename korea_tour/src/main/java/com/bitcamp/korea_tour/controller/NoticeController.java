@@ -80,7 +80,7 @@ public class NoticeController implements SessionNames {
       ns.updateNotice(noticeNum, dto);
    }
    
-   @RequestMapping(value = "/noticeViews/{noticeNum}", method = RequestMethod.POST)
+   @RequestMapping(value = "/noticeviews/{noticeNum}", method = RequestMethod.POST)
    public void countViews(@PathVariable int noticeNum) {
       ns.countViews(noticeNum);
    }
