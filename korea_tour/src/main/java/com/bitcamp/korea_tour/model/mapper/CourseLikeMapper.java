@@ -1,6 +1,5 @@
 package com.bitcamp.korea_tour.model.mapper;
 
-import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -17,6 +16,6 @@ public interface CourseLikeMapper {
 	int getTotalCourseLike(int courseNum);
 	void insertCourseLike(CourseLikeDto dto);
 	void deleteCourseLike(Map<String, Integer> map);
-	List<CourseLikeDto> getCourseLike(int courseNum);
+	String getCourseLike(Map<String, Integer> map);
 	int getCoursLikeTotal(int courseNum);
 }
