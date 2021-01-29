@@ -13,8 +13,9 @@ public interface NoticeMapper {
    List<NoticeDto> getAllDatas(Map<String, Object> map);
    void insertNotice(NoticeDto dto);
    NoticeDto getData(int noticeNum);
-   void updateNotice(NoticeDto dto);
+   void updateNotice(Map<String, Object> map);
+   void countViews(int noticNum);
    void deleteNotice(int noticeNum);
    List<NoticeDto> getNewNotice();
-   
+
 }
