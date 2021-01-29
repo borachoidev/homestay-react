@@ -1,9 +1,10 @@
-package com.bitcamp.korea_tour.controller;
+package com.bitcamp.korea_tour.controller.restapi.tour;
 
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,7 +32,7 @@ public class TourAnswerController implements SessionNames{
 	int totalPage=0;
 
 	//관리자용 댓글 조회
-	@GetMapping("/adminanswer/{currentPage}")
+	@GetMapping("/admin/answer/{currentPage}")
 	public JsonAnswer<List<TourAnswerDto>> getAdminAnswer(@PathVariable(value="currentPage") int currentPage, HttpServletRequest request) {
 		totalCount = tas.getTotalCountAnswerAdmin();
 		System.out.println(totalCount);
@@ -45,7 +46,7 @@ public class TourAnswerController implements SessionNames{
 	}
 
 	//관리자용 답글 조회
-	@GetMapping("/adminreanswer/{currentPage}")
+	@GetMapping("/admin/reanswer/{currentPage}")
 	public JsonReAnswer<List<TourAnswerDto>> getAdminReAnswer(@PathVariable(value="currentPage") int currentPage, HttpServletRequest request) {
 		totalCount = tas.getTotalCountReAnswerAdmin();
 		start=pagingService.getPagingData(totalCount, currentPage).get("start");
@@ -58,7 +59,7 @@ public class TourAnswerController implements SessionNames{
 	}
 
 	// 댓글,답글 삭제
-	@PostMapping(value = "/adminanswer/{tourAnswerNum}")
+	@DeleteMapping(value = "/admin/answer/{tourAnswerNum}")
 	public void deleteAnswer(@PathVariable int tourAnswerNum) {
 		tas.deleteCourseAnswerByAdmin(tourAnswerNum);
 		tas.deletePlaceAnswerByAdmin(tourAnswerNum);

@@ -1,4 +1,4 @@
-package com.bitcamp.korea_tour.controller;
+package com.bitcamp.korea_tour.controller.restapi.tour;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -28,7 +28,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-public class SearchController {
+public class PlaceSearchController {
 
 	private final JoinPlaceService service;
 	private final PagingService pagingService;
@@ -48,6 +48,13 @@ public class SearchController {
 	Date currDate = new Date();
 	int currentMonth = Integer.parseInt(sdf.format(currDate));
 	
+	/**
+	 * 관광지 통합검색(이름순)
+	 * @param currentPage
+	 * @param keyword
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 */
 	@GetMapping("/search/title/{currentPage}/{keyword}")
 	public JsonSearchPlace getKeywordSearchByTitle(
 			@PathVariable(name="currentPage") int currentPage,
@@ -80,6 +87,13 @@ public class SearchController {
 		return new JsonSearchPlace(place, totalPage);
 	}
 	
+	/**
+	 * 관광지 통합검색(인기순)
+	 * @param currentPage
+	 * @param keyword
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 */
 	@GetMapping("/search/like/{currentPage}/{keyword}")
 	public JsonSearchPlace getKeywordSearchByLike(
 			@PathVariable(name="currentPage") int currentPage,

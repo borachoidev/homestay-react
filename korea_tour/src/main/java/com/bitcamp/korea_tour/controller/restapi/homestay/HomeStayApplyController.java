@@ -1,4 +1,4 @@
-package com.bitcamp.korea_tour.controller.homestay;
+package com.bitcamp.korea_tour.controller.restapi.homestay;
 
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;

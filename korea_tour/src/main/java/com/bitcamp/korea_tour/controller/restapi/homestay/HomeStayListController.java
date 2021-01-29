@@ -1,4 +1,4 @@
-package com.bitcamp.korea_tour.controller.homestay;
+package com.bitcamp.korea_tour.controller.restapi.homestay;
 
 import java.util.ArrayList;
 import java.util.List;
