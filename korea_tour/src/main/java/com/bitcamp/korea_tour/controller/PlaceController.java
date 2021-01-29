@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
@@ -33,11 +34,13 @@ import com.bitcamp.korea_tour.model.PlaceLikeDto;
 import com.bitcamp.korea_tour.model.PlaceMarkDto;
 import com.bitcamp.korea_tour.model.PlacePhotoDto;
 import com.bitcamp.korea_tour.model.TourAnswerDto;
+import com.bitcamp.korea_tour.model.UserDto;
 import com.bitcamp.korea_tour.model.JoinPlaceDto;
 import com.bitcamp.korea_tour.model.service.JoinPlaceService;
 import com.bitcamp.korea_tour.model.service.PlaceLikeService;
 import com.bitcamp.korea_tour.model.service.PlaceMarkService;
 import com.bitcamp.korea_tour.model.service.PlacePhotoService;
+import com.bitcamp.korea_tour.model.service.login.setting.SessionNames;
 import com.bitcamp.korea_tour.model.service.paging.PagingService;
 
 import lombok.AllArgsConstructor;
@@ -47,7 +50,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-public class PlaceController {
+public class PlaceController implements SessionNames{
 
 	private final JoinPlaceService service;
 	private final PlacePhotoService service2;
@@ -80,6 +83,8 @@ public class PlaceController {
 		private List<PlaceApiPhotoDto> apiPhoto;
 		private List<PlacePhotoDto> userPhoto;
 		private List<TourAnswerDto> tourAnswer;
+		private PlaceLikeDto userLike;
+		private PlaceMarkDto userMark;
 	}
 	
 	@Data
@@ -170,12 +175,26 @@ public class PlaceController {
 	
 	// 관광지 디테일 페이지
 	@GetMapping("/place/detail/{contentId}")
-	public JsonPlaceDetail getPlaceDetailList(@PathVariable(name="contentId") int contentId) {
+	public JsonPlaceDetail getPlaceDetailList(@PathVariable(name="contentId") int contentId,
+			HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		UserDto user=(UserDto)session.getAttribute(USER);
+		String loginId= user.getName();
+		int userNum = user.getUserNum();
+		
 		PlaceDto place = service.getPlaceDetail(contentId);
 		List<PlaceApiPhotoDto> apiPhoto = service.getPlaceDetailApiPhotos(contentId);
 		List<PlacePhotoDto> userPhoto = service.getPlaceDetailPhotos(contentId);
 		List<TourAnswerDto> tourAnswer = service.getAnswerOfPlace(contentId);
-		return new JsonPlaceDetail(place, apiPhoto, userPhoto, tourAnswer);
+		PlaceLikeDto ldto = new PlaceLikeDto();
+		ldto.setLoginId(loginId);
+		ldto.setContentId(contentId);
+		PlaceLikeDto userLike = service3.getDataByUser(ldto);
+		PlaceMarkDto mdto = new PlaceMarkDto();
+		mdto.setContentId(contentId);
+		mdto.setUserNum(userNum);
+		PlaceMarkDto userMark = service4.getDataByUser(mdto);
+		return new JsonPlaceDetail(place, apiPhoto, userPhoto, tourAnswer, userLike, userMark);
 	}
 	
 	// 코스 담기 클릭시 사용자 코스 전체 보기

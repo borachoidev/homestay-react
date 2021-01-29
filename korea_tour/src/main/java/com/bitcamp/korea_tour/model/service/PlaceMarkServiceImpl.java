@@ -49,4 +49,10 @@ public class PlaceMarkServiceImpl implements PlaceMarkService {
 		mapper.deletePlaceMarkByUser(dto);
 	}
 
+	@Override
+	public PlaceMarkDto getDataByUser(PlaceMarkDto dto) {
+		// TODO Auto-generated method stub
+		return mapper.getDataByUser(dto);
+	}
+
 }

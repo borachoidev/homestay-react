@@ -11,6 +11,9 @@
 		delete from placeLike where placeLikeNum=#{placeLikeNum}
 	</delete>
 	<!-- 경오 -->
+	<select id="getDataByUser" parameterType="placelike" resultType="placelike">
+		select * from placeLike where contentId=#{contentId} and loginId=#{loginId}
+	</select>
 	<select id="getPlaceLikeCountByUser" parameterType="placelike" resultType="int">
 		select count(*) from placeLike where contentId=#{contentId} and loginId=#{loginId}
 	</select>

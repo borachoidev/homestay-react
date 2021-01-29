@@ -7,6 +7,7 @@ public interface PlaceMarkService {
 		void insertPlaceMark(PlaceMarkDto dto);
 		void deletePlaceMark(int markNum);
 		int getAllMyPlaceMarkCount(int loginNum); 
+		PlaceMarkDto getDataByUser(PlaceMarkDto dto);
 		int getPlaceMarkCountByUser(PlaceMarkDto dto);
 		void deletePlaceMarkByUser(PlaceMarkDto dto);
 }
