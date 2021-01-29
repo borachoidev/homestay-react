@@ -1,13 +1,20 @@
 package com.bitcamp.korea_tour.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.bitcamp.korea_tour.model.NoticeDto;
+import com.bitcamp.korea_tour.model.service.NoticeService;
+
 @Controller
 public class AdminRedirectController {
+	@Autowired
+	private NoticeService ns;
 	
 	@GetMapping("/admin")
 	public String goAdminmain() {
@@ -81,8 +88,11 @@ public class AdminRedirectController {
 		return "admin/noticeaddform";
 	}
 	
-	@PostMapping("admin/notice/insert")
-	public String goAdminNoticeInsert() {
+	
+	@PostMapping("/noticeinsert")
+	public String insertNotice(@ModelAttribute NoticeDto dto) {
+		ns.insertNotice(dto);
+		
 		return "admin/noticelist";
 	}
 	
