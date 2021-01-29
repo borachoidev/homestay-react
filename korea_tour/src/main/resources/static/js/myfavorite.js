@@ -50,7 +50,7 @@ let endPage = startPage + perBlock - 1;
                 s+=`<p class='favorite-name' onclick='location.href="/tourplace/detail?contentId=${contentId}"'>${titles}</p>`;
                 s+="<p class='favorite-start'>"+addrs+"</p>";
                 s+="</div>";
-                s+="<i class='fas fa-ellipsis-v favorite-icon'></i>";
+                s+="<i class='far fa-times-circle favorite-icon'></i>";
                 s+="</div>";
                 s+="</div>";
                 s+="<hr class='hr2'>";
@@ -111,7 +111,7 @@ function courseMarkForm(currentPage){
             let c=" ";
             for(let i=0; i<item.length; i++){
                 let names = item[i].name;
-                let titles = item[i].title;
+                let title = item[i].title;
                 let firstImages = item[i].firstImage;
                 
                 let courseNum = item[i].courseNum;
@@ -166,12 +166,12 @@ function courseMarkForm(currentPage){
                 c+="<div class='favorite-info__box'>";
                 c+="<div class='favorite-info'>";
                 c+=`<p class='favorite-name' onclick='location.href="/tourcourse/detail?courseNum=${courseNum}"'>${names}</p>`;
-                c+="<p class='favorite-start'>"+titles+"</p>";
+                c+="<p class='favorite-start'>"+title+"</p>";
                 c+="<span class='favortie-tema'>#"+who+"</span>";
                 c+="<span class='favortie-tema'>#"+during+"</span>";
                 c+="<span class='favortie-tema'>#"+how+"</span>";
                 c+="</div>";
-                c+="<i class='fas fa-ellipsis-v favorite-icon'></i>";
+                c+="<i class='far fa-times-circle favorite-icon'></i>";
                 c+="</div>";
                 c+="</div>";
                 c+="<hr class='hr2'>";
@@ -230,7 +230,13 @@ function deleteFavorite(){
     xhr.onreadystatechange = function(){
         if (this.readyState == 4) {
             let data = JSON.parse(this.responseText);
-            let item = data.list;
+            console.data
 
-        }}}
+        }
+      }
+    }
+
+
+
+
 courseMarkForm(currentPage);

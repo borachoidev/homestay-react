@@ -47,4 +47,6 @@ public class AdminServiceImpl implements AdminService {
 		map.put("password", password);
 		return adminMapper.getAdminData(map);
 	}
+
+	
 }
