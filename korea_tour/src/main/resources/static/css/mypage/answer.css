@@ -50,7 +50,7 @@ hr{
     color: #98938d;
 }
 .nav-text:nth-child(3){
-    color: #98938d;
+    color: black;
     font-weight: bold;
     background-color: #ccccc4;
     border-radius: 100px;
@@ -68,6 +68,12 @@ hr{
     width: 100px;
     height: 100px;
     background-color: #353535;
+    border-radius: 100px;
+}
+
+.image-box img{
+    max-width: 100px;
+    height: 100px;
     border-radius: 100px;
 }
 .answer-info__box{
@@ -106,12 +112,16 @@ hr{
     display: flex;
     color: #98938d;
 }
-.count-box__answer-text a{
+.count-box__answer-text{
     margin-right: 5px;
     color: #98938d;
+    cursor: pointer;
+    transition: 0.5s;
 }
 
-.count-box__reanswer-text a{
+.count-box__reanswer-text{
     margin-left: 5px;
     color: #98938d;
+    cursor: pointer;
+    transition: 0.5s;
 }

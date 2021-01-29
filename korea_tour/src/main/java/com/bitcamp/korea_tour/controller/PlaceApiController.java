@@ -53,6 +53,7 @@ public class PlaceApiController {
 		int fixContentId;
 		for(int i=0; i<list.size(); i++) {
 			dto= list.get(i);
+			System.out.println(dto);
 			fixContentId = dto.getContentId();
 			if(service.checkPlace(fixContentId) == 1) {
 				System.out.println(i);

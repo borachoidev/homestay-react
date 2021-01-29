@@ -1,4 +1,35 @@
 'use strict';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 var mapContainer = document.getElementById('mapBox'), // 지도를 표시할 div 
       mapOption = { 
             center: new kakao.maps.LatLng(37.39787021805673, 126.91894738515842), // 지도의 중심좌표

@@ -13,7 +13,7 @@ import lombok.AllArgsConstructor;
 @Service
 public class PagingServiceImpl implements PagingService {
 
-	private int perPage = 10; // 한페이지당 보여질 글의 갯수
+	private int perPage; // 한페이지당 보여질 글의 갯수
 	private int start; // 각 블럭당 불러올 글의 시작번호
 	private int totalPage; // 총 페이지의 갯수
 	
@@ -21,6 +21,21 @@ public class PagingServiceImpl implements PagingService {
 	public Map<String, Integer> getPagingData(int totalCount, int currentPage) {
 
 		// mysql은 첫글이 0번(오라클은 1번)
+		perPage=10;
+		start = (currentPage-1)*perPage;
+		totalPage=totalCount/perPage + (totalCount%perPage>0?1:0);;
+
+		Map<String, Integer> paging=new HashMap<String, Integer>();
+		paging.put("start", start);
+		paging.put("perPage", perPage);
+		paging.put("totalPage", totalPage);
+		return paging;		
+	}
+	
+	@Override
+	public Map<String, Integer> getPagingHomeStay(int totalCount, int currentPage) {
+		// mysql은 첫글이 0번(오라클은 1번)
+		perPage=5;
 		start = (currentPage-1)*perPage;
 		totalPage=totalCount/perPage + (totalCount%perPage>0?1:0);;
 
@@ -29,7 +44,7 @@ public class PagingServiceImpl implements PagingService {
 		paging.put("perPage", perPage);
 		paging.put("totalPage", totalPage);
 		System.out.println(totalPage+","+totalCount+","+perPage);
-		return paging;		
+		return paging;	
 	}
 
 }

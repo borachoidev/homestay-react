@@ -5,13 +5,11 @@
 
 <!-- index.html 고유 CSS 추가 -->
  <th:block layout:fragment="css">
- <link rel="stylesheet" th:href="@{css/home.css}">
  <link rel="stylesheet" th:href="@{css/mypage.css}">
 </th:block> 
 
 <!-- index.html 고유 스크립트 추가 -->
 <th:block layout:fragment="script" >
-      <script th:src="@{js/home.js}" defer ></script>
       <script th:src="@{js/mypage.js}" defer ></script>
 </th:block>
 
@@ -26,34 +24,33 @@
                         <div id="profileBox">
                               <div id="profileBoxSub">
                                     <div class="login-menu">
-                                          <i class="fas fa-ellipsis-v menu-icon"></i>
-                                          <div class="login-bar">RR</div>
+                                          <i id="logoutBtn" class="fas fa-backspace menu-icon"></i>
                                     </div>
                                     
-                                    <div class="profile-image">프사</div>
-                                    <div class="user-name">user</div>
+                                    <img class="profile-image" th:src="${session.user.photo}">
+                                    <div class="user-name" th:text="${session.user.name}">user</div>
                               </div>
                         </div>
                   </div>
 
                   <div id="mainCourseBox" class="mypage-box">
                         <div class="mypage-box__text-box"> 
-                              <p>코스</p><br /><br />
-                              <p class="mypage-box__text">4</p>
+                              <p class="text-box">코스</p><br /><br />
+                              <p id="myTotalCourse">0</p>
                         </div>
                   </div>
             </div>
             <div id="myPageBoxBottom">
                   <div id="mainFavoriteBox" class="mypage-box">
                         <div class="mypage-box__text-box"> 
-                              <p>즐겨찾기</p><br /><br />
-                              <p class="mypage-box__text">4</p>
+                              <p class="text-box">즐겨찾기</p><br /><br />
+                              <p id="myTotalMark">0</p>
                         </div>      
                   </div>
                   <div id="mainAnswerBox" class="mypage-box">
                         <div class="mypage-box__text-box"> 
-                              <p>댓글</p><br /><br />
-                              <p class="mypage-box__text">4</p>
+                              <p class="text-box">댓글</p><br /><br />
+                              <p id="myTotalAnswer">0</p>
                         </div>
                   </div>
 

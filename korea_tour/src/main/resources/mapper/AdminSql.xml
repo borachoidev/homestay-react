@@ -7,11 +7,14 @@
 	<select id="getAllAdmin" resultType="admin">
 		select * from admin order by adminNum
 	</select>
+	<select id="getAdminData" parameterType="HashMap" resultType="admin">
+		select * from admin where id=#{id} and password=#{password}
+	</select>
 	<delete id="deleteAdmin" parameterType="int">
 		delete * from admin where adminNum=#{adminNum}
 	</delete>
 	<!-- 관리자 계정 로그인 검사 -->
-	<select id="checkAdmin" parameterType="admin" resultType="int">
+	<select id="checkAdmin" parameterType="HashMap" resultType="int">
 		select count(*) from admin where id=#{id} and password=#{password}
 	</select>
 </mapper>

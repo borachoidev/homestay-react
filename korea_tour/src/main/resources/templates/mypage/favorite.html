@@ -5,14 +5,13 @@
 
 <!-- index.html 고유 CSS 추가 -->
  <th:block layout:fragment="css">
- <link rel="stylesheet" th:href="@{../css/home.css}">
  
- <link rel="stylesheet" th:href="@{../css/mypage/favorite.css}">
+ <link rel="stylesheet" th:href="@{/css/mypage/favorite.css}">
 </th:block> 
 
 <!-- index.html 고유 스크립트 추가 -->
 <th:block layout:fragment="script" >
-	<script th:src="@{js/home.js}" defer></script>
+      <script th:src="@{/js/myfavorite.js}" defer ></script>
 </th:block>
 
 <div layout:fragment="content">
@@ -24,14 +23,15 @@
       <div id="middleBox">
             <div id="mainBox">
                   <div class="count-box">
-                        <h4>총1건</h4>
+                        <h4 id="totalCount">총n건</h4>
                         <div class="favorite-temabox">
-                              <h4 class="favorite-box__course-text"><a href="">코스</a></h4>|
-                              <h4 class="favorite-box__tourist-text"><a href="">관광지</a></h4>
+                              <h4 id="courseMark" class="favorite-box__course-text" onclick="courseMarkForm()">코스</h4>|
+                              <h4 id="placeMark" class="favorite-box__tourist-text">관광지</h4>
                         </div>
                   </div>
                   <hr class="hr2">
                   <!-- 반복문 -->
+                  <div id="t1">
                   <div class="favorite-infobox">
                         <div class="image-box">
                               <img src="" alt="">
@@ -46,33 +46,21 @@
                         </div>
                   </div>
                   <hr class="hr2">
-                  <!-- 반복문 -->
-                 <!-- 반복문 -->
-                  <div class="favorite-infobox">
-                        <div class="image-box">
-                              <img src="" alt="">
-                        </div>
-                        <div class="favorite-info__box">
-                              <div class="favorite-info">
-                                    <p class="favorite-name">관광지 이름</p>
-                                    <p class="favorite-start">관광지 지역</p>
-                                    
-                              </div>
-                              <i class="fas fa-ellipsis-v favorite-icon"></i>
-                        </div>
                   </div>
-                  <hr class="hr2">
                   <!-- 반복문 -->
+                 
                   
                   
             </div>
             <div id="navBox">
-                  <a th:href="@{/mypage/courselist}" class="nav-text">코스</a>
-                  <a th:href="@{/mypage/favorite}" class="nav-text">즐겨찾기</a>
-                  <a th:href="@{/mypage/answer}" class="nav-text">댓글</a>
+                  <a th:href="@{/tourmypage/courselist}" class="nav-text">코스</a>
+                  <a th:href="@{/tourmypage/favorite}" class="nav-text">즐겨찾기</a>
+                  <a th:href="@{/tourmypage/answer}" class="nav-text">댓글</a>
             </div>
 
       </div>
+
+
       <div id="paging"></div>
 </div>
    

@@ -22,8 +22,16 @@ public class UserServiceImpl implements UserService,SessionNames {
 	private final UserMapper mapper;
 	
 	@Override
-	public List<UserDto> getUserList() {
-		return mapper.getUserList();
+	public List<UserDto> getUserList(int start, int perPage) {
+		Map<String, Integer> map=new HashMap<String, Integer>();
+		map.put("start", start);
+		map.put("perPage", perPage);
+		return mapper.getUserList(map);
+	}
+	
+	@Override
+	public int getUserTotalCount() {
+		return mapper.getUserTotalCount();
 	}
 
 	@Override

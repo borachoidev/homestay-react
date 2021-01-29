@@ -60,12 +60,9 @@ function searchPlace(sort, keyword, pageNum) {
   let url;
   var xhr = new XMLHttpRequest();
   const keywordURL = decodeURIComponent(keyword);
-  if (sort == 'title') {
-    url = `search/title/${pageNum}/` + keywordURL;
-  } else {
-    url = `search/like/${pageNum}/` + keywordURL;
-  }
-  /**/
+
+  url = `search/${sort}/${pageNum}/` + keywordURL;
+
   console.log(sort);
   xhr.open('GET', url);
   xhr.onreadystatechange = function () {
@@ -132,12 +129,9 @@ function searchCourse(sort, keyword, pageNum) {
   let url;
   var xhr = new XMLHttpRequest();
   const keywordURL = decodeURIComponent(keyword);
-  if (sort == 'time') {
-    url = `courses/search/time/${pageNum}/` + keywordURL;
-  } else {
-    url = `courses/search/like/${pageNum}/` + keywordURL;
-  }
-  /**/
+
+  url = `courses/search/${sort}/${pageNum}?keyword=` + keywordURL;
+
   console.log(sort);
   xhr.open('GET', url);
   xhr.onreadystatechange = function () {

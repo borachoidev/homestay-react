@@ -46,8 +46,12 @@ public class CourseMainController implements SessionNames {
 	@GetMapping(value="/courses/{sortType}/{currentPage}")
 	public JsonData<List<JoinCourseDto>> getAllCourse(
 			@PathVariable(name="sortType") String sortType, 
-			@PathVariable(name="currentPage") int currentPage
+			@PathVariable(name="currentPage") int currentPage,
+			@ModelAttribute SearchDto dto
 			) {
+		String who=dto.getWho();
+		String during=dto.getDuring();
+		String how=dto.getHow();
 		
 		totalCount=joinCourseMainService.getAllTotalCount();
 		start=pagingService.getPagingData(totalCount, currentPage).get("start");
@@ -55,9 +59,9 @@ public class CourseMainController implements SessionNames {
 		totalPage=pagingService.getPagingData(totalCount, currentPage).get("totalPage");
 		
 		if(sortType.equals("time")) {
-			list=joinCourseMainService.getAllCourseByTime(start, perPage);
+			list=joinCourseMainService.getAllCourseByTime(who, during, how,start, perPage);
 		}else if(sortType.equals("like")) {
-			list=joinCourseMainService.getAllCourseByLike(start, perPage);
+			list=joinCourseMainService.getAllCourseByLike(who, during, how,start, perPage);
 		}
 		return new JsonData<List<JoinCourseDto>>(list, totalPage);
 	}
@@ -75,7 +79,6 @@ public class CourseMainController implements SessionNames {
 			) {
 		
 		String keyword=dto.getKeyword();
-		System.out.println(keyword);
 		
 		totalCount=joinCourseSearchService.getSearchTotalCount(keyword);
 		start=pagingService.getPagingData(totalCount, currentPage).get("start");
@@ -166,7 +169,6 @@ public class CourseMainController implements SessionNames {
 	@Data
 	@AllArgsConstructor
 	static class SearchDto {
-		private String tag;
 		private String keyword;
 		private String who;
 		private String during;

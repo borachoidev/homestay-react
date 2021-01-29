@@ -64,42 +64,17 @@
   </div>
 </div>
 <div class="place">
-  <input type="text" id="mainCity" name="region" th:value="${region}" readonly="readonly"></input>
+  <input type="text" id="mainCity" name="region" th:value="${region}" areaCode="" readonly="readonly"></input>
   <img class="slide-img" src="/img/slide_btn.png">
   <ul class="array-list">
     <li class="list choice" id="namelist" th:value="name" onclick="choiceList()">제목순</li>
     <li class="list" id="updatelist" th:value="update" onclick="choiceList()">최근등록순</li>
   </ul>
-  <div class="card">
-     관광지 목록들
-     
+  <div class="card" id="card">
      
   </div>
-  <br>
-     <br>
-     <br>
-     <br>
-     <br>
-     <br>
-     <br>
-     <br>
-     <br>
-     <br>
-     <br>
-     <br>
-     <br>
-     <br>
-     <br>
-     <br>
-     <br>
-     <br>
-     <br>
-     <br>
-     <br>
-     <br>
-     <br>
-     <br>
-     <br>
+  
 </div>
+<div id="paging" th:currentPage="${currentPage}" ></div>
 </div>   
 </html>

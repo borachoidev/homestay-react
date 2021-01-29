@@ -1,9 +1,9 @@
 package com.bitcamp.korea_tour.model.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.type.Alias;
 
 import com.bitcamp.korea_tour.model.AdminDto;
 
@@ -11,6 +11,7 @@ import com.bitcamp.korea_tour.model.AdminDto;
 public interface AdminMapper {
 	void insertAdmin(AdminDto adminDto);
 	List<AdminDto> getAllAdmin();
+	AdminDto getAdminData(Map<String, String> map);
 	void deleteAdmin(int adminNum);
-	int checkAdmin(AdminDto adminDto);
+	int checkAdmin(Map<String , String> map);
 }
