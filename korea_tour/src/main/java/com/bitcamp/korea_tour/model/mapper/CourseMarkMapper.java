@@ -1,6 +1,6 @@
 package com.bitcamp.korea_tour.model.mapper;
 
-import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -15,7 +15,7 @@ public interface CourseMarkMapper {
 	
 	void insertCourseMark(CourseMarkDto dto);
 	void deleteCourseMark(int courseMarkNum);
-	List<CourseMarkDto> getCourseMark(int courseNum);
+	String getCourseMark(Map<String, Integer> map);
 	int getMyCourseMarkCount(int loginNum);
 	int getCourseMarkTotal(int courseNum);
 }
