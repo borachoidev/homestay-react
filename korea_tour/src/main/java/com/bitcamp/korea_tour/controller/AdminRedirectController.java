@@ -83,26 +83,26 @@ public class AdminRedirectController {
 		return "redirect:admin/notice/list?currentPage=1";
 	}
 
-	@GetMapping("admin/notice/detail")
+	@GetMapping("/admin/notice/detail")
 	public String goAdminNoticeDetail(@RequestParam int noticeNum,Model model) {
 		model.addAttribute("noticeNum", noticeNum);
 		return "admin/noticedetail";
 	}
 
-	@GetMapping("admin/notice/updateform")
+	@GetMapping("/admin/notice/updateform")
 	public String goAdminNoticeUpdateForm() {
 
 		return "admin/noticeupdateform";
 	}
 
-	@GetMapping("admin/notice/update")
+	@GetMapping("/admin/notice/update")
 	public String goAdminNoticeUpdate(@RequestParam int noticeNum,@RequestParam int currentPage,Model model) {
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("noticeNum", noticeNum);
 		return "admin/noticelist";
 	}
 
-	@GetMapping("admin/notice/delete")
+	@GetMapping("/admin/notice/delete")
 	public String goAdminNoticeDelete(@RequestParam int noticeNum,@RequestParam int currentPage,Model model) {
 		model.addAttribute("noticeNum", noticeNum);
 		model.addAttribute("currentPage", currentPage);
@@ -111,7 +111,7 @@ public class AdminRedirectController {
 	
 	
 	//Tour 사진관리
-	@GetMapping("admin/placephoto/list")
+	@GetMapping("/admin/placephoto/list")
 	public String goAdminDisapprovedPhotoList() {
 
 		return "admin/placephotolist";
