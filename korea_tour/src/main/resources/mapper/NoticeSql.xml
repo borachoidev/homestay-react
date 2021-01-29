@@ -10,13 +10,16 @@
    </select>
    <insert id="insertNotice" parameterType="notice">
       insert into notice (title,content,views,writeDay)
-       values (#{title},#{content},#{views},now())
+       values (#{title},#{content},0,now())
    </insert>
+   <update id="countViews" parameterType="int">
+   	update notice set views = #{views}+1 where noticeNum=#{noticeNum}
+   </update>
    <select id="getData" parameterType="int" resultType="notice">
       select * from notice where noticeNum=#{noticeNum}
    </select>
    <update id="updateNotice" parameterType="notice">
-      update shop set title=#{title},content=#{content}
+      update notice set title=#{title},content=#{content}
        where noticeNum=#{noticeNum}
    </update>
    <delete id="deleteNotice" parameterType="int">

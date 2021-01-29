@@ -17,6 +17,4 @@ public class NoticeDto {
 	private Date writeDay;
 	private int views;
 
-
-
 }

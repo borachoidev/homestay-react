@@ -19,6 +19,7 @@
 	<select id="getCourseDetail" parameterType="int" resultType="joincoursedetail">
 		<include refid="courseB"/>
 		WHERE coursePlace.courseNum=#{courseNum}
+		ORDER BY coursePlace.orderNum ASC;
 	</select>
 	
 </mapper>
