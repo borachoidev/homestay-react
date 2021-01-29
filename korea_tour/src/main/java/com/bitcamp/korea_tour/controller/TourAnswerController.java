@@ -35,10 +35,10 @@ public class TourAnswerController implements SessionNames{
 	//관리자용 댓글 조회
 	@GetMapping("/adminanswer/{currentPage}")
 	public JsonAnswer<List<TourAnswerDto>> getAdminAnswer(@PathVariable(value="currentPage") int currentPage, HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		AdminDto admin = (AdminDto)session.getAttribute(ADMIN);
-		int adminNum = admin.getAdminNum();
-
+		/*
+		 * HttpSession session = request.getSession(); AdminDto admin =
+		 * (AdminDto)session.getAttribute(ADMIN); int adminNum = admin.getAdminNum();
+		 */
 		totalCount=tas.getTotalCountAnswerAdmin();
 		System.out.println(totalCount);
 		start=pagingService.getPagingData(totalCount, currentPage).get("start");
