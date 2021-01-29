@@ -1,12 +1,13 @@
 package com.bitcamp.korea_tour.model.service.course;
 
-import org.apache.ibatis.annotations.Param;
+import java.util.List;
 
 import com.bitcamp.korea_tour.model.CoursePlaceDto;
+import com.bitcamp.korea_tour.model.CoursePlaceOrderList;
 
 public interface CoursePlaceService {
 	void insertCoursePlace(CoursePlaceDto dto);
 	void deleteCoursePlace(int coursePlaceNum);
 	int getTotalCoursePlace(int courseNum);
-	void updateCoursePlace(@Param("coursePlaceNum") int coursePlaceNum, @Param("orderNum") int orderNum);
+	void updateCoursePlace(List<CoursePlaceDto> list);
 }

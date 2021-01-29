@@ -35,12 +35,8 @@ public class UserController implements SessionNames {
 	 * @param request
 	 */
 	@DeleteMapping(value = "/users/{userNum}")
-	public void deleteUser(HttpServletRequest request) {
-		HttpSession session=request.getSession();
-		UserDto user=(UserDto)session.getAttribute(USER);
-		int loginNum=user.getUserNum();
-		
-		us.deleteUser(loginNum);
+	public void deleteUser(@PathVariable(value="userNum") int userNum) {
+		us.deleteUser(userNum);
 	}
 	
 	

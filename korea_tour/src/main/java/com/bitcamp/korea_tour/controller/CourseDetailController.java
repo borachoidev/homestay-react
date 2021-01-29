@@ -101,6 +101,7 @@ public class CourseDetailController implements SessionNames {
 		cms.deleteCourseMark(courseMarkNum);
 	}
 	
+	
 	@Data
 	@AllArgsConstructor
 	static class JsonDataList {

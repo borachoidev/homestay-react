@@ -1,7 +1,5 @@
 package com.bitcamp.korea_tour.model.mapper;
 
-import java.util.Map;
-
 import org.apache.ibatis.annotations.Mapper;
 
 import com.bitcamp.korea_tour.model.CoursePlaceDto;
@@ -15,5 +13,5 @@ public interface CoursePlaceMapper {
 	void insertCoursePlace(CoursePlaceDto dto);
 	void deleteCoursePlace(int coursePlaceNum);
 	int getTotalCoursePlace(int courseNum);
-	void updateCoursePlace(Map<String, Integer> map);
+	void updateCoursePlace(CoursePlaceDto coursePlace);
 }

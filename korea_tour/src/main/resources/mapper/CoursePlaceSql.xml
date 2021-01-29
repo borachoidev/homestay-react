@@ -13,7 +13,7 @@
 	<select id="getTotalCoursePlace" parameterType="int" resultType="int">	<!-- 코스안의 관광지 개수 -->
 		select count(*) from coursePlace where courseNum=#{courseNum}
 	</select>
-	<update id="updateCoursePlace" parameterType="hashmap">
+	<update id="updateCoursePlace" parameterType="courseplace">
 		update coursePlace set orderNum=#{orderNum} where coursePlaceNum=#{coursePlaceNum}
 	</update>
 </mapper>

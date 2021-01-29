@@ -1,5 +1,9 @@
 package com.bitcamp.korea_tour.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -11,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bitcamp.korea_tour.model.CourseDto;
@@ -19,16 +24,19 @@ import com.bitcamp.korea_tour.model.UserDto;
 import com.bitcamp.korea_tour.model.service.course.CoursePlaceService;
 import com.bitcamp.korea_tour.model.service.course.CourseService;
 import com.bitcamp.korea_tour.model.service.login.setting.SessionNames;
-
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-//@RequestMapping(value="/api")
 public class CourseDataController implements SessionNames {
 	private final CourseService courseService;
 	private final CoursePlaceService coursePlaceService;
 	
+	/**
+	 * 코스 추가
+	 * @param name
+	 * @param request
+	 */
 	@PostMapping(value="/courses")
 	public void insertCourse(
 			@Param("name") String name,
@@ -41,6 +49,10 @@ public class CourseDataController implements SessionNames {
 		courseService.insertCourseTitle(name, loginNum);
 	}
 	
+	/**
+	 * 코스관광지 추가
+	 * @param dto
+	 */
 	@PostMapping(value="/courseplaces")
 	public void insertCoursePlace(
 			@RequestBody CoursePlaceDto dto
@@ -48,6 +60,10 @@ public class CourseDataController implements SessionNames {
 		coursePlaceService.insertCoursePlace(dto);
 	}
 	
+	/**
+	 * 코스 삭제
+	 * @param courseNum
+	 */
 	@DeleteMapping(value="/courses/{courseNum}")
 	public void deleteCourse(
 			@PathVariable int courseNum
@@ -55,6 +71,10 @@ public class CourseDataController implements SessionNames {
 		courseService.deleteMyCourse(courseNum);
 	}
 	
+	/**
+	 * 코스관광지 삭제
+	 * @param coursePlaceNum
+	 */
 	@DeleteMapping(value="/courseplaces/{coursePlaceNum}")
 	public void deleteCoursePlace(
 			@PathVariable int coursePlaceNum
@@ -62,6 +82,10 @@ public class CourseDataController implements SessionNames {
 		coursePlaceService.deleteCoursePlace(coursePlaceNum);
 	}
 	
+	/**
+	 * 코스 내용 수정
+	 * @param dto
+	 */
 	@PutMapping(value="/courses")
 	public void updateCourse(
 			@ModelAttribute CourseDto dto
@@ -69,20 +93,16 @@ public class CourseDataController implements SessionNames {
 		courseService.updateCourseDetail(dto);
 	}
 	
-	@PatchMapping(value="/courseplaces/{courseNum}/{orderType}")
+	/**
+	 * 코스관광지 순서 수정
+	 * @param json
+	 */
+	@PatchMapping(value="/courseplaces", produces = "application/json; charset=utf8")
 	public void updateCoursePlace(
-			@PathVariable int courseNum,
-			@PathVariable String orderType,
-			@Param("coursePlaceNum") int coursePlaceNum,
-			@Param("orderNum") int orderNum
+			@RequestParam(value="list") List<CoursePlaceDto> json
 			) {
-		int totalCount=coursePlaceService.getTotalCoursePlace(courseNum);
 		
-		if(orderNum>1 && orderType.equals("up")) {
-			coursePlaceService.updateCoursePlace(coursePlaceNum, orderNum-1);
-		}else if(orderNum<totalCount && orderType.equals("down"))
-			coursePlaceService.updateCoursePlace(coursePlaceNum, orderNum-1);
-			
+		coursePlaceService.updateCoursePlace(json);
 	}
 	
 }
