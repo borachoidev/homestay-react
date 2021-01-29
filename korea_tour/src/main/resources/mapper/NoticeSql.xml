@@ -23,7 +23,7 @@
        where noticeNum=#{noticeNum}
    </update>
    <delete id="deleteNotice" parameterType="int">
-      delete from Notice where noticeNum=#{noticeNum}
+      delete from notice where noticeNum=#{noticeNum}
    </delete>
    <select id="getNewNotice" resultType="notice"> <!-- 메인페이지 공지사항 -->
          select * from notice order by writeDay desc limit 0, 3

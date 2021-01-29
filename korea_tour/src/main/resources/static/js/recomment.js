@@ -16,6 +16,30 @@ function getParam(key) {
 }
 
 
+const delBtns = document.querySelectorAll(".delete-btn");
+for(const btn of delBtns){
+	btn.addEventLister("click",function(){
+	 const tourAnswerNum=btn.parentElement.getAttribute("num");
+ redeleteComment(tourAnswerNum);
+})
+}
+
+function redeleteComment(tourAnswerNum){
+    var xhr = new XMLHttpRequest();
+  
+    url =`/adminanswer/${tourAnswerNum}`
+  
+  
+    xhr.open('POST', url);
+    xhr.onreadystatechange = function () {
+      if (this.readyState == 4) {
+     location.reload();
+  
+}
+    }
+}
+
+
 
 function recommentList(currentPage){
     var xhr = new XMLHttpRequest();
@@ -27,7 +51,7 @@ function recommentList(currentPage){
     xhr.onreadystatechange = function(){
         if (this.readyState == 4) {
 	    let data = JSON.parse(this.responseText);
-    	let item = data.myanswer;
+    	let item = data.reAnswer;
             console.log(item);
 
         let a="";
