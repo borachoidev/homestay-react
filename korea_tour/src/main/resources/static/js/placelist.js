@@ -110,7 +110,7 @@ const moveDetail = () => {
 function getPlace(sort, areaCode, currentPage) {
   if (currentPage == undefined) currentPage = 1;
   var xhr = new XMLHttpRequest();
-  var url = `/places/${sort}/${currentPage}/${areaCode}`;
+  var url = `/api/places/${sort}/${currentPage}/${areaCode}`;
   console.log(url);
   xhr.open('GET', url);
   xhr.onreadystatechange = function () {

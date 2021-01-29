@@ -9,7 +9,7 @@ const totalCountBox = document.querySelector('#totalCount');
 
 function myCourseList() {
   var xhr = new XMLHttpRequest();
-  var url = '/mypage/coursedetail/' + id;
+  var url = '/api/mypage/coursedetail/' + id;
   xhr.open('GET', url);
   xhr.send();
 
@@ -83,7 +83,7 @@ function myCourseList() {
 }
 
 var mapxhr = new XMLHttpRequest();
-var mapurl = '/mypage/coursedetail/' + id;
+var mapurl = '/api/mypage/coursedetail/' + id;
 mapxhr.open('GET', mapurl);
 mapxhr.send();
 
@@ -265,7 +265,7 @@ function saveMyCourse() {
   const saveCourseOrder = placelist =>
     new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      var url = '/courseplaces';
+      var url = '/api/courseplaces';
       xhr.open('PATCH', url);
       xhr.setRequestHeader('Content-type', 'application/json');
       xhr.send(placelist);
@@ -280,7 +280,7 @@ function saveMyCourse() {
 
 function deletePlace(courseNum) {
   var xhr = new XMLHttpRequest();
-  var url = '/courseplaces/' + courseNum;
+  var url = '/api/courseplaces/' + courseNum;
   xhr.open('DELETE', url);
   xhr.send(null);
 }
@@ -319,7 +319,7 @@ function saveCourseData() {
 function saveCourse(coursedata) {
   //console.log(coursedata);
 
-  const url = '/courses';
+  const url = '/api/courses';
   const xhr = new XMLHttpRequest();
   xhr.open('PATCH', url);
   xhr.setRequestHeader('Content-type', 'application/json');
