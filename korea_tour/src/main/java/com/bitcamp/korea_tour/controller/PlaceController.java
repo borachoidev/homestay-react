@@ -1,6 +1,7 @@
 package com.bitcamp.korea_tour.controller;
 
 import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -280,8 +281,9 @@ public class PlaceController implements SessionNames{
 			@RequestParam String loginId
 			,HttpServletRequest request
 			) {
+		
 		// 파일 업로드 경로
-		String path = request.getSession().getServletContext().getRealPath("/WEB-INF/placeImg");
+		String path = request.getSession().getServletContext().getRealPath("/placeImg");
 		System.out.println(path);
 		SpringFileWriter writer = new SpringFileWriter();
 		String upload = "";
@@ -294,13 +296,13 @@ public class PlaceController implements SessionNames{
 			
 			upload = writer.changeFilename(file.getOriginalFilename());
 			// 이미지 save 폴더에 저장
-//			writer.writeFile(file, upload, path);
+			writer.writeFile(file, upload, path);
 			
 			PlacePhotoDto dto = new PlacePhotoDto();
 			dto.setContentId(contentId);
 			dto.setImage(upload);
 			dto.setLoginId(loginId);
-//			service2.insertData(dto);
+			service2.insertData(dto);
 		}
 		
 	}
@@ -310,7 +312,7 @@ public class PlaceController implements SessionNames{
 	public void deleteData(@PathVariable(name="photoNum") int photoNum
 			,HttpServletRequest request) {
 		// 파일 업로드 경로
-		String path = request.getSession().getServletContext().getRealPath("/WEB-INF/placeImg");
+		String path = request.getSession().getServletContext().getRealPath("/placeImg");
 		System.out.println(path);
 		// db에 저장된 파일명들 얻기
 		String deleteFile = service2.getData(photoNum).getImage();
