@@ -62,6 +62,8 @@ hr{
     display: flex;
     margin-top: 20px;
     margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #98938d;
 }
 
 .image-box{
@@ -173,4 +175,24 @@ hr{
     background-color: #353535;
     color: white;
     font-size: 1.3em;
+}
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto;
+    background-color: rgba(0,0,0,0.2);
+}
+
+.modal-content{
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 10%;
 }
