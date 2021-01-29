@@ -16,6 +16,27 @@ function getParam(key) {
 }
 
 
+
+
+function deleteMember(userNum){
+    const xhr = new XMLHttpRequest();
+  
+    const url =`/admin/member/delete/${userNum}`
+  
+    xhr.open('DELETE', url);
+    xhr.onreadystatechange = function () {
+      if (this.readyState == 4) {
+      alert("1234");
+		window.location.reload(true);
+  
+ }
+}
+xhr.send(null);
+}
+
+
+
+
 function memberList(currentPage){
     var xhr = new XMLHttpRequest();
     var url = `/users/${currentPage}`;
@@ -67,7 +88,18 @@ function memberList(currentPage){
       }
       document.querySelector('.page_nation').innerHTML = p;
     }
+const delBtns = document.querySelectorAll(".delete-btn");
+for(const btn of delBtns){
+	btn.addEventListener("click",function(){
+	 const userNum=btn.parentElement.getAttribute("num");
+ deleteMember(userNum);
+
+ console.log(userNum);
+
+})
+}
            
 }
 }
+
 

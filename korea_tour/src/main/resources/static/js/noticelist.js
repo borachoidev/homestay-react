@@ -17,6 +17,29 @@ function getParam(key) {
 
 
 
+function deleteNotice(noticeNum){
+	const xhr = new XMLHttpRequest();
+   const url =`/noticedelete/${noticeNum}`;
+ 	xhr.open('DELETE',url);
+  	
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState == 4) {
+			
+			alert("1234");
+		    window.location.reload(true);
+			
+		  
+		
+		  
+		}
+	}
+	xhr.send(null);
+    }
+
+
+
+
+
 function noticeList(currentPage){
     var xhr = new XMLHttpRequest();
     var url = `/notice/${currentPage}`;
@@ -50,24 +73,32 @@ function noticeList(currentPage){
      
       let p = '';
       if (startPage > 1) {
-        p += `<li class='page-list'><a href='/admin/notice/list?currentPage=${
+        p += `<li class='page-list'><a href='/noticelist?currentPage=${
           startPage - 1
         }'><i class="fas fa-chevron-left"></i></li>`;
       }
       for (let i = startPage; i <= endPage; i++) {
-        p += `<li class='page-list'><a href='/admin/notice/list?currentPage=${i}'>${i}</a></li>`;
+        p += `<li class='page-list'><a href='/noticelist?currentPage=${i}'>${i}</a></li>`;
       }
       if (endPage < totalPage) {
         p += `<li page='${
           endPage + 1
-        }' class='page-list'><a href='/admin/notice/list?currentPage=${
+        }' class='page-list'><a href='/admin/noticelist?currentPage=${
           endPage + 1
         }'><i class="fas fa-chevron-right"></i></a></li>`;
       }
       document.querySelector('.page_nation').innerHTML = p;
-    }
+const delBtns = document.querySelectorAll(".delete-btn");
+for(const btn of delBtns){
+	btn.addEventListener("click",function(){
+		
+	 const noticeNum=btn.parentElement.getAttribute("num");
+	console.log(noticeNum);
+ deleteNotice(noticeNum);   
+
+ })
            
 }
 }
-
-
+}
+}
