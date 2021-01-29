@@ -115,7 +115,7 @@ public class MypageController implements SessionNames {
 		//세션가져오기
 		HttpSession session = request.getSession();
 		UserDto user = (UserDto)session.getAttribute(USER);
-		int loginNum = user.getUserNum();
+		int loginNum = 681;
 
 		totalCount=jps.getTotalCountMyPlaceMark(loginNum);
 		start=pagingService.getPagingData(totalCount, currentPage).get("start");
@@ -123,7 +123,8 @@ public class MypageController implements SessionNames {
 		totalPage=pagingService.getPagingData(totalCount, currentPage).get("totalPage");
 		HashMap<String, Object> map=new HashMap<String, Object>();
 		
-		List<JoinPlaceDto> list = jps.getTotalPlaceMark(loginNum, map);
+		List<JoinPlaceDto> list = new ArrayList<JoinPlaceDto>();
+				list = jps.getTotalPlaceMark(loginNum, map);
 		//System.out.println(list);
 		System.out.println("즐겨찾기 관광지 모아보기 토탈개수: "+totalCount);
 		return new JsonData<List<JoinPlaceDto>>(list, totalPage);
@@ -197,6 +198,7 @@ public class MypageController implements SessionNames {
 		tas.deleteCourseAnswerByUser(tourAnswerNum);
 		tas.deletePlaceAnswerByUser(tourAnswerNum);
 	}
+	
 	@DeleteMapping(value = "/placemarks/{markNum}")
 	public void deletePlaceMark(@PathVariable int markNum){
 		pms.deletePlaceMark(markNum);
@@ -206,6 +208,8 @@ public class MypageController implements SessionNames {
 
 		return "mypage/courselist";
 	}
+	
+	
 
 
 	@Data
