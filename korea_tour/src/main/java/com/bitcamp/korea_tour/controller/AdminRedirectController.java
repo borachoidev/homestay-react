@@ -80,7 +80,7 @@ public class AdminRedirectController {
 	public String insertNotice(@ModelAttribute NoticeDto dto) {		
 		ns.insertNotice(dto);
 
-		return "redirect:admin/notice/list?currentPage=1";
+		return "redirect:noticelist?currentPage=1";
 	}
 
 	@GetMapping("/admin/notice/detail")
