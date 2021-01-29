@@ -18,6 +18,9 @@
 	</select>
 	
 	<!-- 경오 -->
+	<select id="getDataByUser" parameterType="placemark" resultType="placemark">
+		select * from placeMark where userNum=#{userNum} and contentId=#{contentId}
+	</select>
 	<select id="getPlaceMarkCountByUser" parameterType="placemark" resultType="int">
 		select count(*) from placeMark where userNum=#{userNum} and contentId=#{contentId} 
 	</select>
