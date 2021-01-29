@@ -1,11 +1,11 @@
 'use strict';
 
 let keyword = document.querySelector('.keyword-title').getAttribute('keyword');
-let sort = 'title';
+let sort;
 let perBlock = 5;
 let currentPage;
-let startPage; //= Math.floor((currentPage - 1) / perBlock) * perBlock + 1;
-let endPage; // = startPage + perBlock - 1;
+let startPage;
+let endPage;
 searchPlace(sort, keyword, currentPage);
 sortOnclick();
 searchOnclick();
@@ -14,16 +14,28 @@ function sortOnclick() {
   let sorts = document.querySelectorAll('.sort');
   for (const sort of sorts) {
     sort.addEventListener('click', function (e) {
-      let sortCode = e.target.getAttribute('value');
-
+      let sortCode;
+      if (e.target.getAttribute('place') != null) {
+        if (e.target.getAttribute('place') == 'title') {
+          sortCode = 'title';
+        } else {
+          sortCode = 'like';
+        }
+        searchPlace(sortCode, keyword, 1);
+      } else {
+        if (e.target.getAttribute('course') == 'time') {
+          sortCode = 'time';
+        } else {
+          sortCode = 'like';
+        }
+        searchCourse(sortCode, keyword, 1);
+      }
       const children = sort.parentElement.children;
       for (const child of children) {
         child.classList.remove('active');
       }
-      console.log(sort);
+      //console.log(sort);
       sort.classList.add('active');
-
-      searchPlace(sortCode, keyword, currentPage);
     });
   }
 }
@@ -37,11 +49,12 @@ function searchOnclick() {
       for (const child of children) {
         child.classList.remove('active');
       }
-      console.log(search);
+      //console.log(search);
       search.classList.add('active');
 
-      if (searchCode == 'tour') {
-        searchPlace(sortCode, keyword, currentPage);
+      if (searchCode == 'tourplace') {
+        let sort = 'title';
+        searchPlace(sort, keyword, currentPage);
       } else {
         let sort = 'time';
         searchCourse(sort, keyword, currentPage);
@@ -51,6 +64,7 @@ function searchOnclick() {
 }
 //api 데이터
 function searchPlace(sort, keyword, pageNum) {
+  if (sort == undefined) sort = 'title';
   if (pageNum == undefined) pageNum = 1;
   let url;
   var xhr = new XMLHttpRequest();
@@ -58,13 +72,13 @@ function searchPlace(sort, keyword, pageNum) {
 
   url = `search/${sort}/${pageNum}/` + keywordURL;
 
-  console.log(sort);
+  //console.log(sort);
   xhr.open('GET', url);
   xhr.onreadystatechange = function () {
     if (this.readyState == 4) {
       const data = JSON.parse(this.responseText);
       const item = data.place;
-      console.log(data);
+      //console.log(data);
 
       let n = '';
 
@@ -75,7 +89,7 @@ function searchPlace(sort, keyword, pageNum) {
         if (item[i].firstImage) {
           n += `<img src='${item[i].firstImage}' class='thumbnail' />`;
         } else {
-          n += `<span class='thumbnail'>대표이미지 없음 🖼 </span>`;
+          n += `<img src='/img/noimage.png' class='thumbnail' />`;
         }
         n += `<div class='info'><span class='title' >${item[i].title}</span>`;
 
@@ -106,7 +120,11 @@ function searchPlace(sort, keyword, pageNum) {
         }'><i class="fas fa-chevron-left"></i></li>`;
       }
       for (let i = startPage; i <= endPage; i++) {
-        p += `<li page='${i}' class='page-list' >${i}</li>`;
+        if (i == currentPage) {
+          p += `<li page='${i}' class='page-list active' >${i}</li>`;
+        } else {
+          p += `<li page='${i}' class='page-list' >${i}</li>`;
+        }
       }
       if (endPage < totalPage) {
         p += `<li page='${
@@ -124,7 +142,7 @@ function searchPlace(sort, keyword, pageNum) {
         });
       }
       //정렬
-      console.log(`${currentPage} + ${endPage}`);
+      //console.log(`${currentPage} + ${endPage}`);
       document.querySelector('.sort-course').classList.add('hide');
       document.querySelector('.sort-place').classList.remove('hide');
     }
@@ -133,6 +151,7 @@ function searchPlace(sort, keyword, pageNum) {
 }
 
 function searchCourse(sort, keyword, pageNum) {
+  if (sort == undefined) sort = 'time';
   if (pageNum == undefined) pageNum = 1;
   let url;
   var xhr = new XMLHttpRequest();
@@ -140,13 +159,13 @@ function searchCourse(sort, keyword, pageNum) {
 
   url = `courses/search/${sort}/${pageNum}?keyword=` + keywordURL;
 
-  console.log(sort);
+  console.log(url);
   xhr.open('GET', url);
   xhr.onreadystatechange = function () {
     if (this.readyState == 4) {
       const data = JSON.parse(this.responseText);
       const item = data.list;
-      console.log(data);
+      //console.log(data);
 
       let n = '';
 
@@ -155,7 +174,7 @@ function searchCourse(sort, keyword, pageNum) {
         let who;
         let during;
         let how;
-        console.log(`who ${item[i].who}`);
+
         switch (item[i].who) {
           case 'W1':
             who = '혼자';
@@ -200,7 +219,7 @@ function searchCourse(sort, keyword, pageNum) {
         if (item[i].firstImage) {
           n += `<img src='${item[i].firstImage}' class='thumbnail' />`;
         } else {
-          n += `<span class='thumbnail'>대표이미지 없음 🖼 </span>`;
+          n += `<img src='/img/noimage.png' class='thumbnail' />`;
         }
         n += `<div class='info'><span class='title' >${item[i].name}</span>`;
         n += `<span class='content'>${item[i].content}</span>`;
@@ -213,7 +232,9 @@ function searchCourse(sort, keyword, pageNum) {
 
       //페이징 처리
       const totalPage = data.totalPage; //
-
+      currentPage = pageNum;
+      startPage = Math.floor((currentPage - 1) / perBlock) * perBlock + 1;
+      endPage = startPage + perBlock - 1;
       if (endPage > totalPage) {
         endPage = totalPage;
       }
@@ -225,23 +246,34 @@ function searchCourse(sort, keyword, pageNum) {
 
       let p = '';
       if (startPage > 1) {
-        p += `<li class='page-list' onclick=searchCourse(sort, keyword, ${
+        p += `<li class='page-list'  page='${
           startPage - 1
-        })><i class="fas fa-chevron-left"></i></li>`;
+        }'><i class="fas fa-chevron-left"></i></li>`;
       }
       for (let i = startPage; i <= endPage; i++) {
-        p += `<li class='page-list' onclick=searchCourse(sort, keyword, ${i}>${i}</li>`;
+        if (i == currentPage) {
+          p += `<li page='${i}' class='page-list active' >${i}</li>`;
+        } else {
+          p += `<li page='${i}' class='page-list' >${i}</li>`;
+        }
       }
       if (endPage < totalPage) {
         p += `<li page='${
           endPage + 1
-        }' class='page-list' onclick=searchCourse(sort, keyword, ${
-          endPage + 1
-        }><i class="fas fa-chevron-right"></i></li>`;
+        }' class='page-list'><i class="fas fa-chevron-right"></i></li>`;
       }
       document.querySelector('.pagination').innerHTML = p;
+
+      let pageList = document.querySelectorAll('.page-list');
+      for (const page of pageList) {
+        page.addEventListener('click', function (e) {
+          pageNum = e.target.getAttribute('page');
+          if (totalPage < pageNum) pageNum = totalPage;
+          searchCourse(sort, keyword, pageNum);
+        });
+      }
     }
-    console.log(`${currentPage} + ${endPage}`);
+
     //정렬
     document.querySelector('.sort-place').classList.add('hide');
     document.querySelector('.sort-course').classList.remove('hide');
