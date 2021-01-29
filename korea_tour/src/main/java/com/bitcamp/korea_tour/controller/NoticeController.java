@@ -65,12 +65,6 @@ public class NoticeController implements SessionNames {
      }
     
    
-     
-     @RequestMapping(value = "/noticeinsert", method = RequestMethod.POST) 
-     public void insertNotice(@RequestBody NoticeDto dto) {
-    	 ns.insertNotice(dto);
-     }
-     
      @DeleteMapping(value = "/noticedelete/{noticeNum}")
      public void
      deleteNotice(@PathVariable int noticeNum) { ns.deleteNotice(noticeNum); }
