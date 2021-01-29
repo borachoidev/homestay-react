@@ -1,4 +1,4 @@
-package com.bitcamp.korea_tour.controller;
+package com.bitcamp.korea_tour.controller.restapi.tour;
 
 import java.util.List;
 
@@ -60,13 +60,13 @@ public class NoticeController implements SessionNames {
      }
     
    
-     @DeleteMapping(value = "/noticedelete/{noticeNum}")
+     @DeleteMapping(value = "/admin/noticedelete/{noticeNum}")
      public void
      deleteNotice(@PathVariable(name="noticeNum") int noticeNum) 
      { ns.deleteNotice(noticeNum); 
      }
     
-     @RequestMapping(value = "/noticeupdate/{noticeNum}", method = RequestMethod.POST)
+     @RequestMapping(value = "/admin/noticeupdate/{noticeNum}", method = RequestMethod.POST)
      public void updateNotice(@RequestBody NoticeDto dto,@PathVariable int noticeNum) {
     	 
     	 ns.updateNotice(noticeNum, dto);

@@ -1,4 +1,4 @@
-package com.bitcamp.korea_tour.controller;
+package com.bitcamp.korea_tour.controller.restapi.tour;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bitcamp.korea_tour.model.CourseDto;

@@ -1,6 +1,5 @@
-package com.bitcamp.korea_tour.controller;
+package com.bitcamp.korea_tour.controller.restapi.tour;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -85,10 +84,8 @@ public class CourseDataController implements SessionNames {
 	 * 코스 내용 수정
 	 * @param dto
 	 */
-	@PutMapping(value="/courses")
-	public void updateCourse(
-			@ModelAttribute CourseDto dto
-			) {
+	@PatchMapping(value = "/courses")
+	public void updateCourse(@RequestBody CourseDto dto) {
 		courseService.updateCourseDetail(dto);
 	}
 	
@@ -100,7 +97,6 @@ public class CourseDataController implements SessionNames {
 	public void updateCoursePlace(
 			@RequestBody Map<String, List<CoursePlaceDto>> json
 			) {
-		
 		coursePlaceService.updateCoursePlace(json.get("list"));
 	}
 	

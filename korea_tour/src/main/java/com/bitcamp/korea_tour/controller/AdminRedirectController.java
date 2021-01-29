@@ -1,5 +1,9 @@
 package com.bitcamp.korea_tour.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,17 +12,49 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.bitcamp.korea_tour.model.AdminDto;
 import com.bitcamp.korea_tour.model.NoticeDto;
+import com.bitcamp.korea_tour.model.service.AdminService;
 import com.bitcamp.korea_tour.model.service.NoticeService;
-import com.bitcamp.korea_tour.model.service.paging.PagingService;
+import com.bitcamp.korea_tour.model.service.login.setting.SessionNames;
+
+import lombok.RequiredArgsConstructor;
 
 @Controller
-public class AdminRedirectController {
-	@Autowired
-	private NoticeService ns;
+@RequiredArgsConstructor
+public class AdminRedirectController implements SessionNames {
+	private final NoticeService ns;
+	private final AdminService adminService;
 
+	/**
+	 * 관리자 로그인 db체크
+	 * @param id
+	 * @param password
+	 * @param request
+	 * @return 로그인성공시 관리자메인/ 실패시 관리자로그인페이지
+	 */
+	@PostMapping("/login/admin/check")
+	public String checkAdmin(
+			@Param(value="id") String id,
+			@Param(value="password") String password,
+			HttpServletRequest request
+			) {
+
+		System.out.println(adminService.checkAdmin(id, password));
+
+		if(adminService.checkAdmin(id, password)==1) {
+			AdminDto admin=adminService.getAdminData(id, password);
+			HttpSession session=request.getSession();
+			session.setAttribute(ADMIN, admin);
+
+			return "admin/adminmain";
+		}else  {
+			return "login/adminloginform";
+		}
+	}
+	
+	
 	//관리자 메인페이지
-
 	@GetMapping("/admin")
 	public String goAdminmain() {
 
@@ -26,16 +62,9 @@ public class AdminRedirectController {
 	}
 	
 	//관리자 회원관리
-
 	@GetMapping("/admin/member/list")
 	public String goAdminMemberList() {
 
-		return "admin/memberlist";
-	}
-
-	@GetMapping("/admin/member/delete")
-	public String goAdminMemberDelete(@RequestParam int userNum,Model model) {
-		model.addAttribute("userNum", userNum);
 		return "admin/memberlist";
 	}
 
@@ -54,12 +83,6 @@ public class AdminRedirectController {
 		return "admin/recommentlist";
 	}
 	
-	@GetMapping("/admin/comment/delete")
-	public String goAdminCommentDelete(@RequestParam int tourAnswerNum,Model model,@RequestParam int currentPage) {
-		model.addAttribute("tourAnswerNum", tourAnswerNum);
-		model.addAttribute("currentPage", currentPage);
-		return "admin/commentlist";
-	}
 	
 	//관리자 공지사항 관리
 	@GetMapping("/noticelist")
@@ -81,12 +104,6 @@ public class AdminRedirectController {
 		ns.insertNotice(dto);
 
 		return "redirect:noticelist?currentPage=1";
-	}
-
-	@GetMapping("/admin/notice/detail")
-	public String goAdminNoticeDetail(@RequestParam int noticeNum,Model model) {
-		model.addAttribute("noticeNum", noticeNum);
-		return "admin/noticedetail";
 	}
 
 	@GetMapping("/admin/notice/updateform")

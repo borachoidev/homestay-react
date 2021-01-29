@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class MypageCourseRedirectController {
+public class CourseRedirectController {
 	
 	@GetMapping("/tourmypage")
 	public String goMypage(){
