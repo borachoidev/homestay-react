@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-
 import com.bitcamp.korea_tour.model.NoticeDto;
 
 import com.bitcamp.korea_tour.model.service.NoticeService;
