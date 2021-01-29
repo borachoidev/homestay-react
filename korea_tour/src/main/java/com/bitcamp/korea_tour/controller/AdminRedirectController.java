@@ -17,34 +17,15 @@ public class AdminRedirectController {
 	@Autowired
 	private NoticeService ns;
 
+	//관리자 메인페이지
+
 	@GetMapping("/admin")
 	public String goAdminmain() {
 
 		return "admin/adminmain";
 	}
-	@GetMapping("/admin/host/list")
-	public String goAdminHostList() {
-
-		return "admin/hostlist";
-	}
-
-	@GetMapping("/admin/host/detail")
-	public String goAdminHostDetail( ) {
-
-		return "admin/hostdetail";
-	}
-
-	@GetMapping("/admin/host/approval")
-	public String goAdminHostApproval() {
-
-		return "admin/hostlist";
-	}
-
-	@GetMapping("/admin/host/denial")
-	public String goAdminHostDenial() {
-
-		return "admin/hostlist";
-	}
+	
+	//관리자 회원관리
 
 	@GetMapping("/admin/member/list")
 	public String goAdminMemberList() {
@@ -58,30 +39,35 @@ public class AdminRedirectController {
 		return "admin/memberlist";
 	}
 
+	//관리자 댓글관리
+	//댓글로 이동
 	@GetMapping("/admin/comment/list")
 	public String goAdminCommentList(@RequestParam int currentPage,Model model) {
 		model.addAttribute("currentPage", currentPage);
 		return "admin/commentlist";
 	}
 
+	//답글로 이동
+	@GetMapping("/admin/recomment/list")
+	public String goAdminReCommentList(@RequestParam int currentPage,Model model) {
+		model.addAttribute("currentPage", currentPage);
+		return "admin/recommentlist";
+	}
+	
 	@GetMapping("/admin/comment/delete")
 	public String goAdminCommentDelete(@RequestParam int tourAnswerNum,Model model,@RequestParam int currentPage) {
 		model.addAttribute("tourAnswerNum", tourAnswerNum);
 		model.addAttribute("currentPage", currentPage);
 		return "admin/commentlist";
 	}
-
+	
+	//관리자 공지사항 관리
 	@GetMapping("/noticelist")
 	public String goNoticeList(@RequestParam int currentPage,Model model) {
 		model.addAttribute("currentPage", currentPage);
 		return "admin/noticelist";		
 	}
 
-	@GetMapping("/admin/notice/list")
-	public String goAdminNoticeList(@RequestParam int currentPage,Model model) {
-		model.addAttribute("currentPage", currentPage);
-		return "admin/noticelist";
-	}
 
 	@GetMapping("/admin/notice/form")
 	public String goAdminNoticeForm() {
@@ -122,11 +108,41 @@ public class AdminRedirectController {
 		model.addAttribute("currentPage", currentPage);
 		return "admin/noticelist";
 	}
-
+	
+	
+	//Tour 사진관리
 	@GetMapping("admin/placephoto/list")
 	public String goAdminDisapprovedPhotoList() {
 
 		return "admin/placephotolist";
+	}
+	
+	
+	
+	//////////////////홈스테이HOMESTAY/////////////////////////////
+	
+	@GetMapping("/admin/host/list")
+	public String goAdminHostList() {
+
+		return "admin/hostlist";
+	}
+
+	@GetMapping("/admin/host/detail")
+	public String goAdminHostDetail( ) {
+
+		return "admin/hostdetail";
+	}
+
+	@GetMapping("/admin/host/approval")
+	public String goAdminHostApproval() {
+
+		return "admin/hostlist";
+	}
+
+	@GetMapping("/admin/host/denial")
+	public String goAdminHostDenial() {
+
+		return "admin/hostlist";
 	}
 }
 

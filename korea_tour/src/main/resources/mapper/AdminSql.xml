@@ -17,4 +17,8 @@
 	<select id="checkAdmin" parameterType="HashMap" resultType="int">
 		select count(*) from admin where id=#{id} and password=#{password}
 	</select>
+	
+	<delete id="deleteUserByAdmin" parameterType="int">
+		delete from user where userNum=#{userNum}
+	</delete>
 </mapper>

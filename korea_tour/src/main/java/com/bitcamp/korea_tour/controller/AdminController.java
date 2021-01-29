@@ -7,9 +7,11 @@ import javax.servlet.http.HttpSession;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bitcamp.korea_tour.model.AdminDto;
 import com.bitcamp.korea_tour.model.service.AdminService;
+import com.bitcamp.korea_tour.model.service.UserService;
 import com.bitcamp.korea_tour.model.service.login.setting.SessionNames;
 
 import lombok.RequiredArgsConstructor;
@@ -19,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 public class AdminController implements SessionNames {
 	
 	private final AdminService adminService;
+	private final UserService userService;
 	
 	@PostMapping("/login/admin/check")
 	public String checkAdmin(
@@ -39,4 +42,12 @@ public class AdminController implements SessionNames {
 			return "login/adminloginform";
 		}
 	}
+	
+	/*
+	 * //회원강퇴
+	 * 
+	 * @PostMapping("/admin/member/delete") public String
+	 * deleteUserByAdmin(@RequestParam int userNum, HttpServletRequest request) {
+	 * userService.deleteUser(loginNum); }
+	 */
 }
