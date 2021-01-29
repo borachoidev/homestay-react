@@ -3,11 +3,9 @@
 let keyword = document.querySelector('.keyword-title').getAttribute('keyword');
 let sort = 'title';
 let perBlock = 5;
-let currentPage = document
-  .querySelector('.pagination')
-  .getAttribute('currentPage');
-let startPage = Math.floor((currentPage - 1) / perBlock) * perBlock + 1;
-let endPage = startPage + perBlock - 1;
+let currentPage;
+let startPage; //= Math.floor((currentPage - 1) / perBlock) * perBlock + 1;
+let endPage; // = startPage + perBlock - 1;
 searchPlace(sort, keyword, currentPage);
 sortOnclick();
 searchOnclick();
@@ -24,10 +22,7 @@ function sortOnclick() {
       }
       console.log(sort);
       sort.classList.add('active');
-      // if (sortCode == 'title') {
 
-      // } else {
-      // }
       searchPlace(sortCode, keyword, currentPage);
     });
   }
@@ -92,7 +87,9 @@ function searchPlace(sort, keyword, pageNum) {
 
       //페이징 처리
       const totalPage = data.totalPage; //
-
+      currentPage = pageNum;
+      startPage = Math.floor((currentPage - 1) / perBlock) * perBlock + 1;
+      endPage = startPage + perBlock - 1;
       if (endPage > totalPage) {
         endPage = totalPage;
       }
@@ -104,21 +101,32 @@ function searchPlace(sort, keyword, pageNum) {
 
       let p = '';
       if (startPage > 1) {
-        p += `<li class='page-list'><a href='/search?keyword=${keyword}&currentPage=${
+        p += `<li class='page-list'  page='${
           startPage - 1
         }'><i class="fas fa-chevron-left"></i></li>`;
       }
       for (let i = startPage; i <= endPage; i++) {
-        p += `<li class='page-list'><a href='/search?keyword=${keyword}&currentPage=${i}'>${i}</a></li>`;
+        p += `<li page='${i}' class='page-list' >${i}</li>`;
       }
       if (endPage < totalPage) {
         p += `<li page='${
           endPage + 1
-        }' class='page-list'><a href='/search?keyword=${keyword}&currentPage=${
-          endPage + 1
-        }'><i class="fas fa-chevron-right"></i></a></li>`;
+        }' class='page-list'><i class="fas fa-chevron-right"></i></li>`;
       }
       document.querySelector('.pagination').innerHTML = p;
+
+      let pageList = document.querySelectorAll('.page-list');
+      for (const page of pageList) {
+        page.addEventListener('click', function (e) {
+          pageNum = e.target.getAttribute('page');
+          if (totalPage < pageNum) pageNum = totalPage;
+          searchPlace(sort, keyword, pageNum);
+        });
+      }
+      //정렬
+      console.log(`${currentPage} + ${endPage}`);
+      document.querySelector('.sort-course').classList.add('hide');
+      document.querySelector('.sort-place').classList.remove('hide');
     }
   };
   xhr.send(null);
@@ -197,7 +205,7 @@ function searchCourse(sort, keyword, pageNum) {
         n += `<div class='info'><span class='title' >${item[i].name}</span>`;
         n += `<span class='content'>${item[i].content}</span>`;
         n += `<span class='place'>${item[i].addr1}</span>`;
-        n += `<span class='lieks'><i class="fas fa-heart"></i> </span>`;
+        n += `<span class='lieks'><i class="fas fa-heart"></i> ${item[i].totalLike}</span>`;
         n += `<div class='tag-box'><span class='tag'>${who}</span><span class='tag'>${during}</span><span class='tag'>${how}</span></div>`;
         n += `</div></div></a>`;
       }
@@ -217,22 +225,26 @@ function searchCourse(sort, keyword, pageNum) {
 
       let p = '';
       if (startPage > 1) {
-        p += `<li class='page-list'><a href='/search?keyword=${keyword}&currentPage=${
+        p += `<li class='page-list' onclick=searchCourse(sort, keyword, ${
           startPage - 1
-        }'><i class="fas fa-chevron-left"></i></li>`;
+        })><i class="fas fa-chevron-left"></i></li>`;
       }
       for (let i = startPage; i <= endPage; i++) {
-        p += `<li class='page-list'><a href='/search?keyword=${keyword}&currentPage=${i}'>${i}</a></li>`;
+        p += `<li class='page-list' onclick=searchCourse(sort, keyword, ${i}>${i}</li>`;
       }
       if (endPage < totalPage) {
         p += `<li page='${
           endPage + 1
-        }' class='page-list'><a href='/search?keyword=${keyword}&currentPage=${
+        }' class='page-list' onclick=searchCourse(sort, keyword, ${
           endPage + 1
-        }'><i class="fas fa-chevron-right"></i></a></li>`;
+        }><i class="fas fa-chevron-right"></i></li>`;
       }
       document.querySelector('.pagination').innerHTML = p;
     }
+    console.log(`${currentPage} + ${endPage}`);
+    //정렬
+    document.querySelector('.sort-place').classList.add('hide');
+    document.querySelector('.sort-course').classList.remove('hide');
   };
   xhr.send(null);
 }

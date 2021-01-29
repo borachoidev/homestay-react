@@ -12,18 +12,18 @@
       insert into notice (title,content,views,writeDay)
        values (#{title},#{content},0,now())
    </insert>
-   <update id="countViews" parameterType="int">
-   	update notice set views = #{views}+1 where noticeNum=#{noticeNum}
+   <update id="countViews" parameterType="hashmap">
+      update notice set views=views+1 where noticeNum=#{noticeNum}
    </update>
    <select id="getData" parameterType="int" resultType="notice">
       select * from notice where noticeNum=#{noticeNum}
    </select>
-   <update id="updateNotice" parameterType="notice">
-      update notice set title=#{title},content=#{content}
+   <update id="updateNotice" parameterType="hashmap">
+      update notice set title=#{dto.title},content=#{dto.content}
        where noticeNum=#{noticeNum}
    </update>
    <delete id="deleteNotice" parameterType="int">
-      delete from Notice where noticeNum=#{noticeNum}
+      delete from notice where noticeNum=#{noticeNum}
    </delete>
    <select id="getNewNotice" resultType="notice"> <!-- 메인페이지 공지사항 -->
          select * from notice order by writeDay desc limit 0, 3

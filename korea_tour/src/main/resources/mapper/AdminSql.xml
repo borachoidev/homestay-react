@@ -17,4 +17,5 @@
 	<select id="checkAdmin" parameterType="HashMap" resultType="int">
 		select count(*) from admin where id=#{id} and password=#{password}
 	</select>
+	
 </mapper>

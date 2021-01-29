@@ -70,7 +70,7 @@ hr{
     background-color: #353535;
 }
 .image-box img{
-    max-width: 100%;
+    width: 100%;
     height: 150px;
 }
 
@@ -89,6 +89,7 @@ hr{
 .courselist-name{
     font-size: 2rem;
     margin-bottom: 10px;
+    cursor: pointer;
 }
 .courselist-start{
     margin-bottom: 30px;
@@ -102,57 +103,3 @@ hr{
     margin: 20px 0;
 }
 
-/* #modal{
-    position: relative;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    display: none;
-}
-
-
-
-#modal button{
-    display: inline-block;
-    width: 100px;
-
-
-}
-
-.modal-content{
-    width: 300px;
-    margin: 100px auto;
-    padding: 20px 10px;
-    background-color: #fff;
-    border: 2px solid #666;
-}
-.modal-layer{
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: -1;
-} */
-
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto;
-    
-    background-color: rgba(0,0,0,0.4);
-}
-
-.modal-content{
-    background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 50%;
-}

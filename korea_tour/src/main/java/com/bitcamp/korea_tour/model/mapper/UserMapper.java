@@ -18,4 +18,5 @@ public interface UserMapper {
 	void deleteUser(int loginNum);
 	int hasKey(Map<String, String> map);
 	UserDto getUserByKey(Map<String, String> map);
+	void deleteUserByAdmin(int userNum);
 }

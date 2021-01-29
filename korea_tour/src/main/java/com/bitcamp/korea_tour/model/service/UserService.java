@@ -18,4 +18,5 @@ public interface UserService {
 	boolean hasKey(String sns, String key);
 	UserDto getUserByKey(String sns, String key);
 	void setSession(UserDto dto,  HttpServletRequest request);
+	void deleteUserByAdmin(int userNum);
 }

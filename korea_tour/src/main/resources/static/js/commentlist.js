@@ -4,7 +4,7 @@ let currentPage = getParam("currentPage")
 let startPage = Math.floor((currentPage - 1) / perBlock) * perBlock + 1;
 let endPage = startPage + perBlock - 1;
 
-noticeList(currentPage);
+commentList(currentPage);
 
 // parameter value 읽기
 function getParam(key) {
@@ -17,15 +17,15 @@ function getParam(key) {
 
 
 
-function deleteNotice(noticeNum){
-	const xhr = new XMLHttpRequest();
-   const url =`/noticedelete/${noticeNum}`;
- 	xhr.open('DELETE',url);
+
+function deleteComment(tourAnswerNum){
+   const xhr = new XMLHttpRequest();
+   const url =`/adminanswer/${tourAnswerNum}`;
+ 	xhr.open('POST',url);
   	
     xhr.onreadystatechange = function () {
-      if (xhr.readyState == 4) {
+      if (xhr.readyState == 2) {
 			
-			alert("1234");
 		    window.location.reload(true);
 			
 		  
@@ -39,10 +39,9 @@ function deleteNotice(noticeNum){
 
 
 
-
-function noticeList(currentPage){
+function commentList(currentPage){
     var xhr = new XMLHttpRequest();
-    var url = `/notice/${currentPage}`;
+    var url = `/adminanswer/${currentPage}`;
     xhr.open('GET', url);
     xhr.send();
     console.log(url);
@@ -50,20 +49,21 @@ function noticeList(currentPage){
     xhr.onreadystatechange = function(){
         if (this.readyState == 4) {
 	    let data = JSON.parse(this.responseText);
-    	let item = data.notices;
+    	let item = data.answer;
             console.log(item);
 
         let a="";
 		for(let i=0;i<item.length;i++){
+			if(item[i].deleted!=2){
 			a+= `<tr class="board_list_row">`
 					a+= `<td class="board_list_data">${i+1}</td>`
-				    a+= `<td class="board_list_data">${item[i].noticeNum}</td>`
-					a+= `<td class="board_list_data">${item[i].title}</td>`
+				    a+= `<td class="board_list_data">${item[i].tourAnswerNum}</td>`
+					a+= `<td class="board_list_data">${item[i].contentId}</td>`
+					a+=`<td class="board_list_data">${item[i].loginId}</td>`
+					a+=`<td class="board_list_data">${item[i].content}</td>`
 					a+=`<td class="board_list_data">${item[i].writeDay}</td>`
-					a+=`<td class="board_list_data">${item[i].views}</td>`
-					a+=`<td class="board_list_data num"  num="${item[i].noticeNum}"><button type="button" class="delete-btn">삭제</button></td>`
-					a+=`<td class="board_list_data num"  num="${item[i].noticeNum}"><button type="button" class="update-btn">수정</button></td>`
-		}
+					a+=`<td class="board_list_data num"  num="${item[i].tourAnswerNum}"><button type="button" class="delete-btn">삭제</button></td>`
+		}}
 	document.querySelector(".list-low").innerHTML=a;
 	
 	 const totalPage = data.totalPage; //
@@ -73,17 +73,17 @@ function noticeList(currentPage){
      
       let p = '';
       if (startPage > 1) {
-        p += `<li class='page-list'><a href='/noticelist?currentPage=${
+        p += `<li class='page-list'><a href='/admin/comment/list?currentPage=${
           startPage - 1
         }'><i class="fas fa-chevron-left"></i></li>`;
       }
       for (let i = startPage; i <= endPage; i++) {
-        p += `<li class='page-list'><a href='/noticelist?currentPage=${i}'>${i}</a></li>`;
+        p += `<li class='page-list'><a href='/admin/comment/list?currentPage=${i}'>${i}</a></li>`;
       }
       if (endPage < totalPage) {
         p += `<li page='${
           endPage + 1
-        }' class='page-list'><a href='/admin/noticelist?currentPage=${
+        }' class='page-list'><a href='/admin/comment/list?currentPage=${
           endPage + 1
         }'><i class="fas fa-chevron-right"></i></a></li>`;
       }
@@ -92,13 +92,12 @@ const delBtns = document.querySelectorAll(".delete-btn");
 for(const btn of delBtns){
 	btn.addEventListener("click",function(){
 		
-	 const noticeNum=btn.parentElement.getAttribute("num");
-	console.log(noticeNum);
- deleteNotice(noticeNum);   
+	 const tourAnswerNum=btn.parentElement.getAttribute("num");
 
- })
+ deleteComment(tourAnswerNum);
+})
+}    
+}
            
-}
-}
 }
 }

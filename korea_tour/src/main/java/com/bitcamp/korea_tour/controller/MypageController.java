@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -196,7 +197,10 @@ public class MypageController implements SessionNames {
 		tas.deleteCourseAnswerByUser(tourAnswerNum);
 		tas.deletePlaceAnswerByUser(tourAnswerNum);
 	}
-
+	@DeleteMapping(value = "/placemarks/{markNum}")
+	public void deletePlaceMark(@PathVariable int markNum){
+		pms.deletePlaceMark(markNum);
+	}
 	@GetMapping("/mypage/courselist")
 	public String getMyCourseList() {
 

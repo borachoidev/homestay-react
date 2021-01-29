@@ -1,6 +1,7 @@
 package com.bitcamp.korea_tour.controller;
 
 import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
@@ -33,11 +35,13 @@ import com.bitcamp.korea_tour.model.PlaceLikeDto;
 import com.bitcamp.korea_tour.model.PlaceMarkDto;
 import com.bitcamp.korea_tour.model.PlacePhotoDto;
 import com.bitcamp.korea_tour.model.TourAnswerDto;
+import com.bitcamp.korea_tour.model.UserDto;
 import com.bitcamp.korea_tour.model.JoinPlaceDto;
 import com.bitcamp.korea_tour.model.service.JoinPlaceService;
 import com.bitcamp.korea_tour.model.service.PlaceLikeService;
 import com.bitcamp.korea_tour.model.service.PlaceMarkService;
 import com.bitcamp.korea_tour.model.service.PlacePhotoService;
+import com.bitcamp.korea_tour.model.service.login.setting.SessionNames;
 import com.bitcamp.korea_tour.model.service.paging.PagingService;
 
 import lombok.AllArgsConstructor;
@@ -47,7 +51,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-public class PlaceController {
+public class PlaceController implements SessionNames{
 
 	private final JoinPlaceService service;
 	private final PlacePhotoService service2;
@@ -80,6 +84,8 @@ public class PlaceController {
 		private List<PlaceApiPhotoDto> apiPhoto;
 		private List<PlacePhotoDto> userPhoto;
 		private List<TourAnswerDto> tourAnswer;
+		private PlaceLikeDto userLike;
+		private PlaceMarkDto userMark;
 	}
 	
 	@Data
@@ -170,12 +176,30 @@ public class PlaceController {
 	
 	// 관광지 디테일 페이지
 	@GetMapping("/place/detail/{contentId}")
-	public JsonPlaceDetail getPlaceDetailList(@PathVariable(name="contentId") int contentId) {
+	public JsonPlaceDetail getPlaceDetailList(@PathVariable(name="contentId") int contentId,
+			HttpServletRequest request) {
+		HttpSession session = request.getSession();
 		PlaceDto place = service.getPlaceDetail(contentId);
 		List<PlaceApiPhotoDto> apiPhoto = service.getPlaceDetailApiPhotos(contentId);
 		List<PlacePhotoDto> userPhoto = service.getPlaceDetailPhotos(contentId);
 		List<TourAnswerDto> tourAnswer = service.getAnswerOfPlace(contentId);
-		return new JsonPlaceDetail(place, apiPhoto, userPhoto, tourAnswer);
+		PlaceLikeDto userLike = null;
+		PlaceMarkDto userMark = null;
+		if(session.getAttribute(USER)!=null) {
+			UserDto user=(UserDto)session.getAttribute(USER);
+			String loginId= user.getName();
+			int userNum = user.getUserNum();
+			PlaceLikeDto ldto = new PlaceLikeDto();
+			ldto.setLoginId(loginId);
+			ldto.setContentId(contentId);
+			userLike = service3.getDataByUser(ldto);
+			PlaceMarkDto mdto = new PlaceMarkDto();
+			mdto.setContentId(contentId);
+			mdto.setUserNum(userNum);
+			userMark = service4.getDataByUser(mdto);
+		}
+		
+		return new JsonPlaceDetail(place, apiPhoto, userPhoto, tourAnswer, userLike, userMark);
 	}
 	
 	// 코스 담기 클릭시 사용자 코스 전체 보기
@@ -257,8 +281,9 @@ public class PlaceController {
 			@RequestParam String loginId
 			,HttpServletRequest request
 			) {
+		
 		// 파일 업로드 경로
-		String path = request.getSession().getServletContext().getRealPath("/WEB-INF/placeImg");
+		String path = request.getSession().getServletContext().getRealPath("/placeImg");
 		System.out.println(path);
 		SpringFileWriter writer = new SpringFileWriter();
 		String upload = "";
@@ -271,13 +296,13 @@ public class PlaceController {
 			
 			upload = writer.changeFilename(file.getOriginalFilename());
 			// 이미지 save 폴더에 저장
-//			writer.writeFile(file, upload, path);
+			writer.writeFile(file, upload, path);
 			
 			PlacePhotoDto dto = new PlacePhotoDto();
 			dto.setContentId(contentId);
 			dto.setImage(upload);
 			dto.setLoginId(loginId);
-//			service2.insertData(dto);
+			service2.insertData(dto);
 		}
 		
 	}
@@ -287,7 +312,7 @@ public class PlaceController {
 	public void deleteData(@PathVariable(name="photoNum") int photoNum
 			,HttpServletRequest request) {
 		// 파일 업로드 경로
-		String path = request.getSession().getServletContext().getRealPath("/WEB-INF/placeImg");
+		String path = request.getSession().getServletContext().getRealPath("/placeImg");
 		System.out.println(path);
 		// db에 저장된 파일명들 얻기
 		String deleteFile = service2.getData(photoNum).getImage();

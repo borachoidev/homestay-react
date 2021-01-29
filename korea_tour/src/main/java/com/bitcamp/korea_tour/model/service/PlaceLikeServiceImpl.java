@@ -43,4 +43,10 @@ public class PlaceLikeServiceImpl implements PlaceLikeService{
 		mapper.deletePlaceLikeByUser(dto);
 	}
 
+	@Override
+	public PlaceLikeDto getDataByUser(PlaceLikeDto dto) {
+		// TODO Auto-generated method stub
+		return mapper.getDataByUser(dto);
+	}
+
 }

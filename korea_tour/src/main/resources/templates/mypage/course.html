@@ -16,7 +16,6 @@
 </th:block>
 
 <div layout:fragment="content">
-      <form action="">
       <div id="topBox">
             <h3 class="top-box__h3">마이페이지</h3>
             <input type="text" placeholder="코스 이름">
@@ -35,7 +34,7 @@
                   이동수단<select name="how" id="selectHow">
                         <option value="H1">뚜벅이</option>
                         <option value="H2">자전거</option>
-                        <option value="H3">자동차</option>
+                        <option value="H3">드라이브</option>
                         <option value="H4">기차</option>
                   </select>
             </div>
@@ -44,13 +43,14 @@
       <div id="middleBox">
             <div id="mainBox">
                   <div class="count-box">
-                        <h4>총1건</h4>
+                        <h4 id="totalCount">총1건</h4>
                         <div class="count-box__distance">
                               <h4 class="count-box__distance-text">코스 총거리 :</h4>
                         </div>
                   </div>
                   <hr class="hr2">
                   <!-- 반복문 -->
+                  <div id="placeBox">
                   <div class="course-box">
                         <div class="image-box">
                               <img src="" alt="">
@@ -65,39 +65,17 @@
                         </div>
                   </div>
                   <hr class="hr2">
+                  </div>
                   <!-- 반복문 -->
-                  <!-- 반복문 -->
-                  <div class="course-box">
-                        <div class="image-box">
-                              <img src="" alt="">
-                        </div>
-                        <div class="course-info__box">
-                              <div class="course-info">
-                                    <p class="course-name">관광지 이름</p>
-                                    <p class="course-start">관광지 지역</p>
-                                    
-                              </div>
-                              <i class="fas fa-ellipsis-v course-icon"></i>
+
+                  <!-- 모달 -->
+                  <div id="myModal" class="modal">
+                        <div class="modal-content">
+                              <button id="upBtn" onclick="moveUp(this)">UP</button>
+                              <button id="downBtn" onclick="moveDown(this)">DOWN</button>
+                              
                         </div>
                   </div>
-                  <hr class="hr2">
-                  <!-- 반복문 -->
-                  <!-- 반복문 -->
-                  <div class="course-box">
-                        <div class="image-box">
-                              <img src="" alt="">
-                        </div>
-                        <div class="course-info__box">
-                              <div class="course-info">
-                                    <p class="course-name">관광지 이름</p>
-                                    <p class="course-start">관광지 지역</p>
-                                    
-                              </div>
-                              <i class="fas fa-ellipsis-v course-icon"></i>
-                        </div>
-                  </div>
-                  <hr class="hr2">
-                  <!-- 반복문 -->
                   
 
                   <div id="mapBox">
@@ -136,19 +114,18 @@
 
                   <div class="button-box">
                         <button type="button" class="btn-btn" onclick="back()">취소</button>
-                        <button type="submit" class="btn-submit">저장</button>
+                        <button type="button" class="btn-submit">저장</button>
                   </div>
 
             </div>
             <div id="navBox">
-                  <a th:href="@{/mypage/courselist}" class="nav-text">코스</a>
-                  <a th:href="@{/mypage/favorite}" class="nav-text">즐겨찾기</a>
-                  <a th:href="@{/mypage/answer}" class="nav-text">댓글</a>
+                  <a th:href="@{/tourmypage/courselist}" class="nav-text">코스</a>
+                  <a th:href="@{/tourmypage/favorite}" class="nav-text">즐겨찾기</a>
+                  <a th:href="@{/tourmypage/answer}" class="nav-text">댓글</a>
             </div>
 
             
       </div>
-</form>
 
      
       

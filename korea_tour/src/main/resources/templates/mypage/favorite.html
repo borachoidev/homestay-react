@@ -25,8 +25,8 @@
                   <div class="count-box">
                         <h4 id="totalCount">총n건</h4>
                         <div class="favorite-temabox">
-                              <h4 id="courseMark" class="favorite-box__course-text" onclick="courseMarkForm()">코스</h4>|
-                              <h4 id="placeMark" class="favorite-box__tourist-text">관광지</h4>
+                              <h4 id="courseMark" class="favorite-box__course-text" onclick="courseMarkForm(currentPage)">코스</h4>|
+                              <h4 id="placeMark" class="favorite-box__tourist-text" onclick="placeMarkspage(currentPage)">관광지</h4>
                         </div>
                   </div>
                   <hr class="hr2">
@@ -61,7 +61,7 @@
       </div>
 
 
-      <div id="paging"></div>
+      <div id="paging" th:currentPage="${currentPage}"></div>
 </div>
    
 </html>

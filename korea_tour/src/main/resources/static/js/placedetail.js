@@ -22,14 +22,19 @@ let url = `/place/detail/`+id;
       let xpos = item.mapX;
       let ypos = item.mapY;
       
-
+      //유저 사진
       let userPhoto = data.userPhoto;
+      
+      //댓글출력
+      let Answer = data.tourAnswer;
       
       
       let t=" ";
       console.log(photo);
       t +=`<h1>${placeName}</h1><hr>`;
       t +=`<div id="list">관광지 목록들 출력할거에요</div>`;
+      t +=`<div id=heart><div class="heart"></div></div>`;
+      t +=`<i class="fas fa-star"></i>`;
       t +=`<div id="picture">`
       t +=`<img id="mainImage" src=${src} onerror="this.src='/img/noimage.png'">`;
       if(src!=null){
@@ -37,25 +42,32 @@ let url = `/place/detail/`+id;
        
       for(let i = 0; i<photo.length;i++) {
 	       
-       t +=`<img class="sub-image" src=${photo[i].originImgUrl} onerror="this.src='/img/noimage.png'">`;
+          t +=`<img class="sub-image" src=${photo[i].originImgUrl} onerror="this.src='/img/noimage.png'">`;
           }
       }
       t +=`</div></div><hr>`;
       t +=`<div id="placeInfo">`;
       t +=`<p>주소 : ${addr}</p><br>`;
       t +=`<p>${overview}</p></div><hr>`;
-      t +=`<div id="userPhoto">user들의 사진이에여~(찡긋 ^^*)이거 진짜 출력할거임 진짜에여 ㅠㅜ`;
+      t +=`<div id="userPhoto">user들의 사진이에여~(찡긋 ^^*)이거 진짜 출력할거임 진짜에여 ㅠㅜ 왜안나와 ㅠㅜ`;
       for(let b = 0;b<userPhoto.length;b++)
       {
-      t +=`<img class="userPhoto" src="../placeimg/${userPhoto[b].image}">`;
+          t +=`<img class="userPhoto" src="${userPhoto[b].image}">`;
       }
       t +=`</div>`;
       t +=`<hr><div id="placeMap"></div><hr>`;
-      t +=`<div id="Answer">댓글 출력 창이에여 빠밤 빠밤 빠밤 아졸려</div>`
-     
+      t +=`<div id="AnswerList">`;
+      for(let d = 0; d<Answer.length;d++) {
+          t +=`<img id="loginPhoto" src=${Answer[d].loginPhoto}>`;
+          t +=`<p id="loginId">${Answer[d].loginId}</p>`;
+          t +=`<p id="content">${Answer[d].content}</p>`;
+          t +=`<p id="day">${Answer[d].writeDay}</p>`;
+      }
+      t +=`</div>`;
       
       document.querySelector('#placeDetail').innerHTML = t;
       console.log(contentId);
+
 
  //지도
 

@@ -3,13 +3,13 @@
 }
 
 #topBox{
-    margin-top: 3%;
-    margin-left: 10%;
+    width: 80%;
+    margin: auto;
 }
 
 hr{
-    width: 89%;
-    height: 3px;
+    width: 100%;
+    height: 1px;
     background-color: #353535;
     border: 0;
 
@@ -27,36 +27,11 @@ hr{
 }
 
 #mainBox{
-    width: 65%;
-    height: 100%h;
+    width: 80%;
+    height: 100%;
     margin-bottom: 100px;
 }
 
-#navBox{
-    width: 13%;
-    height: 50vh;
-    margin-top: 60px;
-    display: flex;
-    flex-direction: column;
-    background-color: #f0ece6;
-    position: sticky;
-    top: 30%;
-    margin-left: 2%;
-}
-
-.nav-text{
-    margin-left: 20px;
-    margin-top: 20px;
-    color: #98938d;
-}
-.nav-text:nth-child(1){
-    color: #98938d;
-    font-weight: bold;
-    background-color: #ccccc4;
-    border-radius: 100px;
-    width: 75px;
-    text-align: center;
-}
 
 .course-box{
     display: flex;
@@ -68,6 +43,10 @@ hr{
     width: 20%;
     height: 150px;
     background-color: #353535;
+}
+.image-box img{
+    width: 100%;
+    height: 150px;
 }
  .course-info__box{
     display: flex;
@@ -85,6 +64,7 @@ hr{
 .course-name{
     font-size: 2rem;
     margin-bottom: 10px;
+    cursor: pointer;
 }
 .course-start{
     margin-bottom: 10px;
@@ -94,77 +74,83 @@ hr{
     margin-right: 10px;
 }
 
-.count-box{
+#courseTitle{
+    text-align: center;
+    margin-bottom: 20px;
+}
+.course-km{
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+#iconBox{
+    width: 100%;
     display: flex;
     justify-content: space-between;
-    margin: 20px 0;
-    width: 100%;
+    margin: auto;
+    margin-bottom: 10px;
+}
+#likeIcon{
+    margin-right: 10px;
+    font-size: 1.3em;
+    cursor: pointer;
+}
+#shareIcon{
+    font-size: 1.3em;
+    cursor: pointer;
+}
+#favoriteIcon{
+    margin-right: 10px;
+    font-size: 1.3em;
+    cursor: pointer;
+}
+#saveIcon{
+    font-size: 1.3em;
+    cursor: pointer;
 }
 
-.count-box__distance{
+#temaBox{
+    margin-top: 60px;
     display: flex;
-    color: #98938d;
+    justify-content: center;
 }
-.count-box__distance-text a{
-    margin-right: 5px;
-    color: #98938d;
+    
+.duringBox, .whoBox, .howBox{
+    margin: 0px 20px;
+    font-size: 1.8rem;
 }
 
-
+.tema-icon{
+    color: #b6b0a9;
+}
 
 #contentBox{
-    margin-top: 50px;
-    width: 100%;
-    height: 200px;
-    
+    margin-top: 60px;
+    margin-bottom: 60px;
 }
-
 #mapBox{
     margin-top: 50px;
     width: 100%;
-    height: 60vh;
+    height: 85vh;
 }
 
-#count{
-    float: right;
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto;
     
-}
-.radio-box{
-    margin-top: 50px;
-    display: flex;
-    justify-content: space-around;
-}
-.share-check__box1{
-    display: flex;
-    justify-content: space-between;
-    /* margin-top: 60px; */
-    border: 1px solid #353535;
-    padding: 15px;
-    width: 45%;
-    /* margin-left: auto;
-    margin-right: auto; */
+    background-color: rgba(0,0,0,0.4);
 }
 
-.share-check__box2{
-    display: flex;
-    justify-content: space-between;
-    /* margin-top: 20px; */
-    border: 1px solid #353535;
-    padding: 15px;
-    width: 45%;
-    /* margin-left: auto;
-    margin-right: auto; */
-}
-
-.button-box{
-    margin-top: 30px;
-    text-align: center;
-}
-.btn-btn{
-    font-size: 1.3em;
-}
-.btn-submit{
-    background-color: #353535;
-    color: white;
-    font-size: 1.3em;
+.modal-content{
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
 }
