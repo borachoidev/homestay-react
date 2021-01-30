@@ -34,7 +34,7 @@ public class TourAnswerController implements SessionNames{
 	 */
 	@PostMapping(value = "/coursereanswer")
 	public void insertCourseReAnswer(@RequestBody TourAnswerDto dto) {
-		tas.insertCourseAnswer(dto);
+		tas.insertCourseReAnswer(dto);
 	}
 	/**
 	 * 관광지 댓글 입력
@@ -51,7 +51,7 @@ public class TourAnswerController implements SessionNames{
 	 */
 	@PostMapping(value = "/placereanswer")
 	public void insertPlaceReAnswer(@RequestBody TourAnswerDto dto) {
-		tas.insertPlaceAnswer(dto);
+		tas.insertPlaceReAnswer(dto);
 	}
 
 
