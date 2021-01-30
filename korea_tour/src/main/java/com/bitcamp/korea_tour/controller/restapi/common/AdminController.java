@@ -1,5 +1,6 @@
 package com.bitcamp.korea_tour.controller.restapi.common;
 
+import java.io.File;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,15 +9,18 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.bitcamp.korea_tour.controller.restapi.tour.PlaceController;
 import com.bitcamp.korea_tour.model.NoticeDto;
+import com.bitcamp.korea_tour.model.PlacePhotoDto;
 import com.bitcamp.korea_tour.model.TourAnswerDto;
 import com.bitcamp.korea_tour.model.service.NoticeService;
+import com.bitcamp.korea_tour.model.service.PlacePhotoService;
 import com.bitcamp.korea_tour.model.service.TourAnswerService;
 import com.bitcamp.korea_tour.model.service.paging.PagingService;
 
@@ -31,6 +35,7 @@ public class AdminController {
 	private final TourAnswerService tas;
 	private final PagingService pagingService;
 	private final NoticeService ns;
+	private final PlacePhotoService pps;
 	
 	int totalCount=0;
 	int start=0;
@@ -80,6 +85,51 @@ public class AdminController {
 		tas.deleteCourseAnswerByAdmin(tourAnswerNum);
 		tas.deletePlaceAnswerByAdmin(tourAnswerNum);
 	}
+	
+	/*
+	 * 관리자 유저관광지 사진 신청 목록 조회
+	 * @param x
+	 * @return JsonAdminPhotos
+	 */
+	@GetMapping("/admin/place/photo")
+	public JsonAdminPhotos getDisapprovedDatas() {
+		List<PlacePhotoDto> photo = pps.getDisapprovedDatas();
+		
+		return new JsonAdminPhotos(photo);
+	}
+		
+	/*
+	 * 관리자 유저관광지 사진 삭제
+	 * @param photoNum
+	 */
+	@DeleteMapping("/admin/place/photo/{photoNum}")
+	public void deleteData(@PathVariable(name="photoNum") int photoNum
+			,HttpServletRequest request) {
+		// 파일 업로드 경로
+		String path = request.getSession().getServletContext().getRealPath("/placeImg");
+		System.out.println(path);
+		// db에 저장된 파일명들 얻기
+		String deleteFile = pps.getData(photoNum).getImage();
+		// 저장된 파일들 먼저 삭제
+		if(!deleteFile.equals("no")) {
+			File file = new File(path +"/"+ deleteFile);
+			if(file.exists()) {
+				file.delete();
+			}
+		}
+		// db데이터 삭제
+		pps.deleteData(photoNum);
+	}
+	
+	/*
+	 * 유저관광지 사진 approval=1로 수정
+	 * @param photoNum
+	 */
+	@PutMapping("/admin/place/photo/{photoNum}")
+	public void approvePhoto(@PathVariable(name="photoNum") int photoNum) {
+		pps.approvePhoto(photoNum);
+	}
+		
 
 	@Data
 	@AllArgsConstructor
@@ -124,7 +174,11 @@ public class AdminController {
 		private int views;
 	}
 	
-	
+	@Data
+	@AllArgsConstructor
+	static class JsonAdminPhotos {
+		private List<PlacePhotoDto> photo;
+	}
 
 	
 
