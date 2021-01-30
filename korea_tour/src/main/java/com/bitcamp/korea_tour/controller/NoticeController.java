@@ -3,6 +3,7 @@ package com.bitcamp.korea_tour.controller;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -70,7 +72,11 @@ public class NoticeController{
 
 		return new JsonDetail(dto);
 	}
-	
+	/**
+	 * 공지사항 인서트
+	 * @param dto
+	 * @return
+	 */
 	@PostMapping("/noticeinsert")
 	@ResponseBody
 	public String insertNotice(@ModelAttribute NoticeDto dto) {		
@@ -109,6 +115,61 @@ public class NoticeController{
 	public void updateViews(@PathVariable int noticeNum) {
 		ns.countViews(noticeNum);
 	}
+
+/////////////////////////////////////////뷰매핑
+
+	/**
+	 * 공지사항 리스트
+	 * @param currentPage
+	 * @param model
+	 * @return 공지사항 리스트
+	 */
+	@GetMapping("/noticelist")
+	public String goNoticeList(@RequestParam int currentPage,Model model) {
+		model.addAttribute("currentPage", currentPage);
+		return "admin/noticelist";		
+	}
+
+	/**
+	 * 공지사항 입력폼
+	 * @return 
+	 */
+	@GetMapping("/admin/notice/form")
+	public String goAdminNoticeForm() {
+
+		return "admin/noticeaddform";
+	}
+
+	/**
+	 * 공지사항 업데이트폼
+	 * @return
+	 */
+	@PostMapping("/admin/notice/updateform")
+	public String goAdminNoticeUpdateForm() {
+
+		return "admin/noticeupdateform";
+	}
+	/**
+	 * 공지사항 업데이트
+	 * @param noticeNum
+	 * @param currentPage
+	 * @param model
+	 * @return 공지사항 리스트
+	 */
+	@PostMapping("/admin/notice/update")
+	public String goAdminNoticeUpdate(@RequestParam int noticeNum,@RequestParam int currentPage,Model model) {
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("noticeNum", noticeNum);
+		return "admin/noticelist";
+	}
+
+	@GetMapping("/admin/notice/delete")
+	public String goAdminNoticeDelete(@RequestParam int noticeNum,@RequestParam int currentPage,Model model) {
+		model.addAttribute("noticeNum", noticeNum);
+		model.addAttribute("currentPage", currentPage);
+		return "admin/noticelist";
+	}
+	
 	
 	@Data
 	@AllArgsConstructor
