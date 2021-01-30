@@ -29,6 +29,7 @@ function myPlaceList() {
       let courseTitleText = dtoItem.name;
       courseTitle.innerHTML = courseTitleText;
       userNum = dtoItem.userNum;
+      document.querySelector('span#num').setAttribute('CN', userNum);
       let who;
       let during;
       let how;
@@ -207,14 +208,16 @@ function likeCourse(like) {
   const likeBtn = document.querySelector('#likeIcon');
   //const like = document.querySelector('#likeIcon').getAttribute('data-id');
   const xhr = new XMLHttpRequest();
-
+  const userNum = document.querySelector('span#num').getAttribute('CN');
+  const courseNum = decodeURI(document.location.href).split('=')[1];
+  const loginNum = document.querySelector('span#num').getAttribute('data-id');
   const url = '/api/courselikes';
   xhr.open('POST', url);
   xhr.setRequestHeader('Content-type', 'application/json');
   const data = {
     likeNum: like,
     userNum: userNum,
-    courseNum: id,
+    courseNum: courseNum,
     loginNum: loginNum,
   };
 
@@ -223,12 +226,13 @@ function likeCourse(like) {
 
   xhr.onreadystatechange = function (e) {
     if (xhr.readyState !== XMLHttpRequest.DONE) return;
-    likeBtn.classList.add('liked');
-    likeBtn.setAttribute('data-id', loginNum);
+
     if (xhr.status === 200) {
-      console.log(xhr.responseText);
+      likeBtn.classList.add('liked');
+
+      console.log('liked');
+      getMarkLikeNum(courseNum);
     } else {
-      console.log('Error!');
     }
   };
 }
@@ -248,10 +252,9 @@ function unlikeCourse(like) {
     likeBtn.classList.remove('liked');
     likeBtn.setAttribute('data-id', 0);
     if (xhr.status === 200) {
-      likeBtn.classList.add('liked');
+      likeBtn.classList.remove('liked');
       likeBtn.setAttribute('data-id', 0);
-    } else {
-      console.log('Error!');
+      console.log('unliked');
     }
   };
 }
@@ -261,7 +264,9 @@ function addFavorite(mark) {
   // const mark = document.querySelector('#favoriteIcon').getAttribute('data-id');
 
   const favoriteBtn = document.querySelector('#favoriteIcon');
-
+  const userNum = document.querySelector('span#num').getAttribute('CN');
+  const courseNum = decodeURI(document.location.href).split('=')[1];
+  const loginNum = document.querySelector('span#num').getAttribute('data-id');
   const xhr = new XMLHttpRequest();
   const url = `/api/coursemarks`;
   xhr.open('POST', url);
@@ -270,7 +275,7 @@ function addFavorite(mark) {
   const data = {
     courseMarkNum: mark,
     userNum: userNum,
-    courseNum: id,
+    courseNum: courseNum,
     loginNum: loginNum,
   };
 
@@ -279,11 +284,12 @@ function addFavorite(mark) {
 
   xhr.onreadystatechange = function (e) {
     if (xhr.readyState !== XMLHttpRequest.DONE) return;
-    favoriteBtn.classList.add('favorite');
-    favoriteBtn.setAttribute('data-id', loginNum);
+
     if (xhr.status === 200) {
+      favoriteBtn.classList.add('favorite');
+      console.log('favorite');
+      getMarkLikeNum(courseNum);
     } else {
-      console.log('Error!');
     }
   };
 }
@@ -297,11 +303,12 @@ function deleteFavorite(mark) {
   xhr.send();
   xhr.onreadystatechange = function (e) {
     if (xhr.readyState !== XMLHttpRequest.DONE) return;
-    favoriteBtn.classList.remove('favorite');
-    favoriteBtn.setAttribute('data-id', 0);
+
     if (xhr.status === 200) {
+      favoriteBtn.classList.remove('favorite');
+      favoriteBtn.setAttribute('data-id', 0);
+      console.log('delete-favorite');
     } else {
-      console.log('Error!');
     }
   };
 }
@@ -328,6 +335,9 @@ function getMarkLikeNum(id) {
       markBtn.setAttribute('data-id', marked);
       if (marked != 0) {
         markBtn.classList.add('favorite');
+      }
+      if (liked != 0) {
+        likeBtn.classList.add('liked');
       }
     }
   };
