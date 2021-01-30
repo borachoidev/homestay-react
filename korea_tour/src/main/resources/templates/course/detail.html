@@ -16,18 +16,23 @@
 </th:block>
 
 <div layout:fragment="content">
-      
-      <div id="topBox">
+      <th:block th:if="${session.user == null}">
+            <span id="num" data-id="out"></span>
+            </th:block>
+            <th:block th:unless="${session.user == null}">
+                  <span id="num" th:data-id="${session.user.userNum}"></span>
+                  </th:block>
+            <div id="topBox" >
             <h3 class="top-box__h3">코스</h3>
             <h1 id="courseTitle">관광지 타이틀</h1>
             <h4 class="course-km">코스총거리</h4>
             <div id="iconBox">
                   <div id="leftIconBox">
-                        <i id="likeIcon" class="far fa-thumbs-up"></i>
+                        <i id="likeIcon" class="far fa-thumbs-up" onclick="clickLike()"></i>
                         <i id="shareIcon" class="fas fa-share-alt"></i>
                   </div>
                   <div id="rightIconBox">
-                        <i id="favoriteIcon" class="fas fa-star"></i>
+                        <i id="favoriteIcon" class="fas fa-star" onclick="clickFavorite()"></i>
                         <i id="saveIcon" class="fas fa-bookmark"></i>
                   </div>
             </div>

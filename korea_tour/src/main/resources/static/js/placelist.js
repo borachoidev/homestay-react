@@ -134,6 +134,7 @@ function getPlace(sort, areaCode, currentPage) {
         c += `<div class="list-content">`;
         c += `<div class="placeName">${placeName}</div>`;
         c += `<div class="addr">${addr}</div>`;
+        c += `<div class="likes"><i class="fas fa-heart"></i><span>${item[i].likeCount}</span></div>`;
         c += `</div></div></a>`;
       }
 
@@ -167,7 +168,7 @@ function getPlace(sort, areaCode, currentPage) {
           endPage + 1
         }' class='page-list'><i class="fas fa-chevron-right"></i></li>`;
       }
-      console.log(`t${totalPage}`);
+
       document.querySelector('#paging').innerHTML = p;
       let pageList = document.querySelectorAll('.page-list');
       for (const page of pageList) {
