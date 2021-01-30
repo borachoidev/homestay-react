@@ -20,5 +20,4 @@
 	<delete id="deletePlaceLikeByUser" parameterType="placelike">
 		delete from placeLike where contentId=#{contentId} and loginNum=#{loginNum}
 	</delete>
-
 </mapper>

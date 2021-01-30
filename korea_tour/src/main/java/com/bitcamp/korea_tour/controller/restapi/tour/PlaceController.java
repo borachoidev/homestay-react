@@ -88,12 +88,6 @@ public class PlaceController implements SessionNames{
 		private List<HashMap<String, Object>> course;
 	}
 	
-	@Data
-	@AllArgsConstructor
-	static class JsonAdminPhotos {
-		private List<PlacePhotoDto> photo;
-	}
-	
 	// 관광지 메인페이지 (4개 랜덤 출력)
 	@GetMapping("/place/main/{areaCode}")
 	public JsonPlaceMain<List<PlaceDto>> getPlaceMain(
@@ -317,7 +311,6 @@ public class PlaceController implements SessionNames{
 			@RequestParam int loginNum
 			,HttpServletRequest request
 			) {
-		
 		// 파일 업로드 경로
 		String path = request.getSession().getServletContext().getRealPath("/placeImg");
 		System.out.println(path);
@@ -342,39 +335,4 @@ public class PlaceController implements SessionNames{
 		}
 		
 	}
-	
-	// 관리자 사진 삭제
-	@DeleteMapping("/admin/place/photo/{photoNum}")
-	public void deleteData(@PathVariable(name="photoNum") int photoNum
-			,HttpServletRequest request) {
-		// 파일 업로드 경로
-		String path = request.getSession().getServletContext().getRealPath("/placeImg");
-		System.out.println(path);
-		// db에 저장된 파일명들 얻기
-		String deleteFile = service2.getData(photoNum).getImage();
-		// 저장된 파일들 먼저 삭제
-		if(!deleteFile.equals("no")) {
-			File file = new File(path +"/"+ deleteFile);
-			if(file.exists()) {
-				file.delete();
-			}
-		}
-		// db데이터 삭제
-		service2.deleteData(photoNum);
-	}
-	
-	// 관리자 사진 목록 조회
-	@GetMapping("/admin/place/photo")
-	public JsonAdminPhotos getDisapprovedDatas() {
-		List<PlacePhotoDto> photo = service2.getDisapprovedDatas();
-		
-		return new JsonAdminPhotos(photo);
-	}
-	
-	// 관리자 사진 approval=1로 수정
-	@PutMapping("/admin/place/photo/{photoNum}")
-	public void approvePhoto(@PathVariable(name="photoNum") int photoNum) {
-		service2.approvePhoto(photoNum);
-	}
-	
 }
