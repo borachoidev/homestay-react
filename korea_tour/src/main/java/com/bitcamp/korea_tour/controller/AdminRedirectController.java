@@ -85,49 +85,6 @@ public class AdminRedirectController implements SessionNames {
 	}
 	
 	
-	//관리자 공지사항 관리
-	@GetMapping("/noticelist")
-	public String goNoticeList(@RequestParam int currentPage,Model model) {
-		model.addAttribute("currentPage", currentPage);
-		return "admin/noticelist";		
-	}
-
-
-	@GetMapping("/admin/notice/form")
-	public String goAdminNoticeForm() {
-
-		return "admin/noticeaddform";
-	}
-
-
-	@PostMapping("/noticeinsert")
-	public String insertNotice(@ModelAttribute NoticeDto dto) {		
-		ns.insertNotice(dto);
-
-		return "redirect:noticelist?currentPage=1";
-	}
-
-	@GetMapping("/admin/notice/updateform")
-	public String goAdminNoticeUpdateForm() {
-
-		return "admin/noticeupdateform";
-	}
-
-	@GetMapping("/admin/notice/update")
-	public String goAdminNoticeUpdate(@RequestParam int noticeNum,@RequestParam int currentPage,Model model) {
-		model.addAttribute("currentPage", currentPage);
-		model.addAttribute("noticeNum", noticeNum);
-		return "admin/noticelist";
-	}
-
-	@GetMapping("/admin/notice/delete")
-	public String goAdminNoticeDelete(@RequestParam int noticeNum,@RequestParam int currentPage,Model model) {
-		model.addAttribute("noticeNum", noticeNum);
-		model.addAttribute("currentPage", currentPage);
-		return "admin/noticelist";
-	}
-	
-	
 	//Tour 사진관리
 	@GetMapping("/admin/placephoto/list")
 	public String goAdminDisapprovedPhotoList() {
