@@ -138,5 +138,11 @@ public class JoinPlaceServiceImpl implements JoinPlaceService{
       return mapper.getTotalCountMyPlaceMark(userNum);
    }
 
+@Override
+public int getLikeCountOfPlace(int contentId) {
+	// TODO Auto-generated method stub
+	return mapper.getLikeCountOfPlace(contentId);
+}
+
 
 }

@@ -14,4 +14,5 @@ public interface CoursePlaceMapper {
 	void deleteCoursePlace(int coursePlaceNum);
 	int getTotalCoursePlace(int courseNum);
 	void updateCoursePlace(CoursePlaceDto coursePlace);
+	int checkNewPlaceInCourse(CoursePlaceDto dto);
 }

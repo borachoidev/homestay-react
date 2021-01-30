@@ -79,6 +79,7 @@ public class PlaceController implements SessionNames{
 		private List<TourAnswerDto> tourAnswer;
 		private PlaceLikeDto userLike;
 		private PlaceMarkDto userMark;
+		private int likeCount;
 	}
 	
 	@Data
@@ -190,8 +191,9 @@ public class PlaceController implements SessionNames{
 			mdto.setUserNum(userNum);
 			userMark = service4.getDataByUser(mdto);
 		}
+		int likeCount = service.getLikeCountOfPlace(contentId);
 		
-		return new JsonPlaceDetail(place, apiPhoto, userPhoto, tourAnswer, userLike, userMark);
+		return new JsonPlaceDetail(place, apiPhoto, userPhoto, tourAnswer, userLike, userMark, likeCount);
 	}
 	
 	// 코스 담기 클릭시 사용자 코스 전체 보기
