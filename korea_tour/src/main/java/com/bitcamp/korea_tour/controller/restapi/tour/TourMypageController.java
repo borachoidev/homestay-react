@@ -193,7 +193,7 @@ public class TourMypageController implements SessionNames {
 	}
 	
 	// 댓글,답글 삭제
-	@DeleteMapping(value = "/tourmypage/answer/{tourAnswerNum}")
+	@PostMapping(value = "/tourmypage/answer/{tourAnswerNum}")
 	public void deleteAnswer(@PathVariable int tourAnswerNum) {
 		tas.deleteCourseAnswerByUser(tourAnswerNum);
 		tas.deletePlaceAnswerByUser(tourAnswerNum);
