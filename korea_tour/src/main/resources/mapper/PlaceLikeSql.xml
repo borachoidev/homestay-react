@@ -12,13 +12,13 @@
 	</delete>
 	<!-- 경오 -->
 	<select id="getDataByUser" parameterType="placelike" resultType="placelike">
-		select * from placeLike where contentId=#{contentId} and loginId=#{loginId}
+		select * from placeLike where contentId=#{contentId} and loginNum=#{loginNum}
 	</select>
 	<select id="getPlaceLikeCountByUser" parameterType="placelike" resultType="int">
-		select count(*) from placeLike where contentId=#{contentId} and loginId=#{loginId}
+		select count(*) from placeLike where contentId=#{contentId} and loginNum=#{loginNum}
 	</select>
 	<delete id="deletePlaceLikeByUser" parameterType="placelike">
-		delete from placeLike where contentId=#{contentId} and loginId=#{loginId}
+		delete from placeLike where contentId=#{contentId} and loginNum=#{loginNum}
 	</delete>
 
 </mapper>

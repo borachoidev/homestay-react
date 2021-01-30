@@ -180,10 +180,9 @@ public class PlaceController implements SessionNames{
 		PlaceMarkDto userMark = null;
 		if(session.getAttribute(USER)!=null) {
 			UserDto user=(UserDto)session.getAttribute(USER);
-			String loginId= user.getName();
 			int userNum = user.getUserNum();
 			PlaceLikeDto ldto = new PlaceLikeDto();
-			ldto.setLoginId(loginId);
+			ldto.setLoginNum(userNum);
 			ldto.setContentId(contentId);
 			userLike = service3.getDataByUser(ldto);
 			PlaceMarkDto mdto = new PlaceMarkDto();
@@ -213,9 +212,20 @@ public class PlaceController implements SessionNames{
 	}
 	
 	// 좋아요 추가
-	@PostMapping("/place/detail/like")
+	@PostMapping("/place/detail/like/{contentId}")
 	public String plusPlaceLike(
-			@RequestBody PlaceLikeDto dto) {
+			@PathVariable(name="contentId") int contentId,
+			HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		PlaceLikeDto dto = new PlaceLikeDto();
+		dto.setContentId(contentId);
+		if(session.getAttribute(USER)!=null) {
+			UserDto user=(UserDto)session.getAttribute(USER);
+			int loginNum = user.getUserNum();
+			dto.setLoginNum(loginNum);
+		}else {
+			return "needlogin";
+		}
 		int cnt = service3.getPlaceLikeCountByUser(dto);
 		if(cnt == 0) {
 			service3.plusPlaceLikes(dto);
@@ -223,26 +233,47 @@ public class PlaceController implements SessionNames{
 		}else {
 			return "fail";
 		}
-		
 	}
 	
 	// 좋아요 삭제
-	@DeleteMapping("/place/detail/like/delete")
+	@DeleteMapping("/place/detail/like/delete/{contentId}")
 	public String minusPlaceLike(
-			@RequestBody PlaceLikeDto dto) {
+			@PathVariable(name="contentId") int contentId,
+			HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		PlaceLikeDto dto = new PlaceLikeDto();
+		dto.setContentId(contentId);
+		if(session.getAttribute(USER)!=null) {
+			UserDto user=(UserDto)session.getAttribute(USER);
+			int loginNum = user.getUserNum();
+			dto.setLoginNum(loginNum);
+		}else {
+			return "needlogin";
+		}
 		int cnt = service3.getPlaceLikeCountByUser(dto);
 		if(cnt == 1) {
 			service3.deletePlaceLikeByUser(dto);
 			return "success";
-		}else{
+		}else {
 			return "fail";
-		}
+		}	
 	}
 	
 	// 즐겨찾기 추가
-	@PostMapping("/place/detail/mark")
+	@PostMapping("/place/detail/mark/{contentId}")
 	public String plusPlaceMark(
-			@RequestBody PlaceMarkDto dto) {
+			@PathVariable(name="contentId") int contentId,
+			HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		PlaceMarkDto dto = new PlaceMarkDto();
+		dto.setContentId(contentId);
+		if(session.getAttribute(USER)!=null) {
+			UserDto user=(UserDto)session.getAttribute(USER);
+			int userNum = user.getUserNum();
+			dto.setUserNum(userNum);
+		}else {
+			return "needlogin";
+		}
 		int cnt = service4.getPlaceMarkCountByUser(dto);
 		if(cnt == 0) {
 			service4.insertPlaceMark(dto);
@@ -250,13 +281,23 @@ public class PlaceController implements SessionNames{
 		}else {
 			return "fail";
 		}
-		
 	}
 	
 	// 즐겨찾기 삭제
-	@DeleteMapping("/place/detail/mark/delete")
+	@DeleteMapping("/place/detail/mark/delete/{contentId}")
 	public String minusPlaceMark(
-			@RequestBody PlaceMarkDto dto) {
+			@PathVariable(name="contentId") int contentId,
+			HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		PlaceMarkDto dto = new PlaceMarkDto();
+		dto.setContentId(contentId);
+		if(session.getAttribute(USER)!=null) {
+			UserDto user=(UserDto)session.getAttribute(USER);
+			int userNum = user.getUserNum();
+			dto.setUserNum(userNum);
+		}else {
+			return "needlogin";
+		}
 		int cnt = service4.getPlaceMarkCountByUser(dto);
 		if(cnt == 1) {
 			service4.deletePlaceMarkByUser(dto);
@@ -271,7 +312,7 @@ public class PlaceController implements SessionNames{
 	public void insertUserPhoto(
 			@RequestParam int contentId,
 			@RequestParam List<MultipartFile> images,
-			@RequestParam String loginId
+			@RequestParam int loginNum
 			,HttpServletRequest request
 			) {
 		
@@ -294,7 +335,7 @@ public class PlaceController implements SessionNames{
 			PlacePhotoDto dto = new PlacePhotoDto();
 			dto.setContentId(contentId);
 			dto.setImage(upload);
-			dto.setLoginId(loginId);
+			dto.setLoginNum(loginNum);
 			service2.insertData(dto);
 		}
 		
