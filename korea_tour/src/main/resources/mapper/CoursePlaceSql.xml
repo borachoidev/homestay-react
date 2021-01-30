@@ -16,4 +16,9 @@
 	<update id="updateCoursePlace" parameterType="courseplace">
 		update coursePlace set orderNum=#{orderNum} where coursePlaceNum=#{coursePlaceNum}
 	</update>
+	
+	<!-- 경오 -->
+	<select id="checkNewPlaceInCourse" parameterType="courseplace" resultType="int">
+		select count(*) from coursePlace where userNum=#{userNum} and courseNum=#{courseNum} and contentId=#{contentId}
+	</select>
 </mapper>

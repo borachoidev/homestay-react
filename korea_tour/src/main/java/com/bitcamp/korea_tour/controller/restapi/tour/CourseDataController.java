@@ -52,10 +52,14 @@ public class CourseDataController implements SessionNames {
 	 * @param dto
 	 */
 	@PostMapping(value="/courseplaces")
-	public void insertCoursePlace(
+	public String insertCoursePlace(
 			@RequestBody CoursePlaceDto dto
 			) {
-		coursePlaceService.insertCoursePlace(dto);
+		if(coursePlaceService.checkNewPlaceInCourse(dto) == 0) {
+			coursePlaceService.insertCoursePlace(dto);
+			return "success";
+		}
+		return "fail";
 	}
 	
 	/**

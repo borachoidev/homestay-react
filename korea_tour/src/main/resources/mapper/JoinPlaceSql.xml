@@ -65,6 +65,9 @@
    <select id="getAnswerOfPlace" parameterType="int" resultType="touranswer">
       select * from tourAnswer where contentId=#{contentId} order by regroup asc,relevel asc
    </select>
+   <select id="getLikeCountOfPlace" parameterType="int" resultType="int">
+   	select count(*) from placeLike where contentId=#{contentId}
+   </select>
    
    <!-- 코스담기 -->
    <select id="getCourseByUser" parameterType="int" resultType="course">
