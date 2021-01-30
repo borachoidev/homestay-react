@@ -1,9 +1,12 @@
 'use strict';
 
+const loginNum = document.querySelector('span#num').getAttribute('data-id');
 const link = decodeURI(document.location.href);
 const contentId = link.split('=');
 const id = contentId[1];
-
+let marked;
+let liked;
+let userNum;
 const placeBox = document.querySelector('#placeBox');
 const contentBox = document.querySelector('#contentBox');
 const duringText = document.querySelector('#duringText');
@@ -25,7 +28,7 @@ function myPlaceList() {
       let dtoItem = data.courseDto;
       let courseTitleText = dtoItem.name;
       courseTitle.innerHTML = courseTitleText;
-
+      userNum = dtoItem.userNum;
       let who;
       let during;
       let how;
@@ -97,7 +100,7 @@ function myPlaceList() {
         s += '</div>';
         s += `<hr class="hr2">`;
       }
-
+      getMarkLikeNum(id);
       placeBox.innerHTML = s;
     }
   };
@@ -197,4 +200,163 @@ function getURL() {
   let uri = location.href;
 
   document.getElementById('urlText').innerHTML = '<p>' + uri + '</p>';
+}
+
+//좋아요 추가
+function likeCourse(like) {
+  const likeBtn = document.querySelector('#likeIcon');
+  //const like = document.querySelector('#likeIcon').getAttribute('data-id');
+  const xhr = new XMLHttpRequest();
+
+  const url = '/api/courselikes';
+  xhr.open('POST', url);
+  xhr.setRequestHeader('Content-type', 'application/json');
+  const data = {
+    likeNum: like,
+    userNum: userNum,
+    courseNum: id,
+    loginNum: loginNum,
+  };
+
+  console.log(data);
+  xhr.send(JSON.stringify(data));
+
+  xhr.onreadystatechange = function (e) {
+    if (xhr.readyState !== XMLHttpRequest.DONE) return;
+    likeBtn.classList.add('liked');
+    likeBtn.setAttribute('data-id', loginNum);
+    if (xhr.status === 200) {
+      console.log(xhr.responseText);
+    } else {
+      console.log('Error!');
+    }
+  };
+}
+
+//좋아요 삭제
+function unlikeCourse(like) {
+  const likeBtn = document.querySelector('#likeIcon');
+  //const like = document.querySelector('#likeIcon').getAttribute('data-id');
+  const xhr = new XMLHttpRequest();
+
+  const url = `/api/courselikes/${like}/${id}`;
+  xhr.open('DELETE', url);
+  xhr.send();
+
+  xhr.onreadystatechange = function (e) {
+    if (xhr.readyState !== XMLHttpRequest.DONE) return;
+    likeBtn.classList.remove('liked');
+    likeBtn.setAttribute('data-id', 0);
+    if (xhr.status === 200) {
+      likeBtn.classList.add('liked');
+      likeBtn.setAttribute('data-id', 0);
+    } else {
+      console.log('Error!');
+    }
+  };
+}
+
+//즐겨찾기 추가
+function addFavorite(mark) {
+  // const mark = document.querySelector('#favoriteIcon').getAttribute('data-id');
+
+  const favoriteBtn = document.querySelector('#favoriteIcon');
+
+  const xhr = new XMLHttpRequest();
+  const url = `/api/coursemarks`;
+  xhr.open('POST', url);
+  xhr.setRequestHeader('Content-type', 'application/json');
+
+  const data = {
+    courseMarkNum: mark,
+    userNum: userNum,
+    courseNum: id,
+    loginNum: loginNum,
+  };
+
+  console.log(data);
+  xhr.send(JSON.stringify(data));
+
+  xhr.onreadystatechange = function (e) {
+    if (xhr.readyState !== XMLHttpRequest.DONE) return;
+    favoriteBtn.classList.add('favorite');
+    favoriteBtn.setAttribute('data-id', loginNum);
+    if (xhr.status === 200) {
+    } else {
+      console.log('Error!');
+    }
+  };
+}
+
+//즐겨찾기 삭제
+function deleteFavorite(mark) {
+  const favoriteBtn = document.querySelector('#favoriteIcon');
+  const xhr = new XMLHttpRequest();
+  const url = `/api/coursemarks/${mark}`;
+  xhr.open('DELETE', url);
+  xhr.send();
+  xhr.onreadystatechange = function (e) {
+    if (xhr.readyState !== XMLHttpRequest.DONE) return;
+    favoriteBtn.classList.remove('favorite');
+    favoriteBtn.setAttribute('data-id', 0);
+    if (xhr.status === 200) {
+    } else {
+      console.log('Error!');
+    }
+  };
+}
+
+//로그인 유저가의해당 게시물 좋아요, 즐겨찾기 정보 => 좋아요,즐겨찾기 시  해당 유저의 {userNum} ,
+//로그아웃 , 즐겨찾기 좋아요 하지 않을 경우 {0}
+function getMarkLikeNum(id) {
+  var xhr = new XMLHttpRequest();
+  var url = '/api/courses/ischeck/' + id;
+  xhr.open('GET', url);
+  xhr.send();
+  console.log(url);
+
+  xhr.onreadystatechange = function () {
+    if (this.readyState == 4) {
+      let data = JSON.parse(this.responseText);
+      marked = data.markNum;
+      liked = data.likeNum;
+
+      console.log(data);
+      const likeBtn = document.querySelector('#likeIcon');
+      const markBtn = document.querySelector('#favoriteIcon');
+      likeBtn.setAttribute('data-id', liked);
+      markBtn.setAttribute('data-id', marked);
+      if (marked != 0) {
+        markBtn.classList.add('favorite');
+      }
+    }
+  };
+}
+
+function clickLike() {
+  const like = document.querySelector('#likeIcon').getAttribute('data-id');
+  console.log(loginNum);
+  if (loginNum == 'out') {
+    alert('로그인후 이용해주세요');
+  } else {
+    if (like == 0) {
+      likeCourse(like);
+    } else {
+      unlikeCourse(like);
+    }
+  }
+}
+
+function clickFavorite() {
+  const mark = document.querySelector('#favoriteIcon').getAttribute('data-id');
+  console.log(loginNum);
+  if (loginNum == 'out') {
+    alert('로그인후 이용해주세요');
+  } else {
+    if (mark == 0) {
+      addFavorite(mark);
+    } else {
+      deleteFavorite(mark);
+    }
+  }
 }
