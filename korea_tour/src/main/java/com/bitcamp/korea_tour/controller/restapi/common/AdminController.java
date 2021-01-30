@@ -81,67 +81,6 @@ public class AdminController {
 		tas.deletePlaceAnswerByAdmin(tourAnswerNum);
 	}
 
-
-	/**
-	 * 공지사항 리스트
-	 * @param currentPage
-	 * @return 공지사항 리스트로 이동
-	 */
-	@GetMapping("/notice/{currentPage}")
-	public JsonData<List<NoticeDto>> getNoticeList(@PathVariable(name = "currentPage") int currentPage) {
-
-		totalCount=ns.getTotalCount();
-		/* System.out.println(totalCount); */
-		start=pagingService.getPagingData(totalCount, currentPage).get("start");
-		perPage=pagingService.getPagingData(totalCount, currentPage).get("perPage");
-		totalPage=pagingService.getPagingData(totalCount, currentPage).get("totalPage");
-
-		System.out.println("공지사항 토탈페이지: "+totalPage);
-		List<NoticeDto> list = ns.getAllDatas(start, perPage);
-
-		return new JsonData<List<NoticeDto>>(list, totalPage);
-
-	}
-	/**
-	 * 공지사항 디테일 페이지
-	 * @param noticeNum
-	 * @return 공지사항 디테일 페이지로 이동
-	 */
-
-	@GetMapping("/notice/detail/{noticeNum}")
-	public JsonDetail getNoticeDetail(@PathVariable(name="noticeNum") int noticeNum) {
-		NoticeDto dto = ns.getData(noticeNum);
-
-		return new JsonDetail(dto);
-	}
-
-	/**
-	 * 공지사항 삭제
-	 * @param noticeNum
-	 */
-	@DeleteMapping(value = "/noticedelete/{noticeNum}")
-	public void deleteNotice(@PathVariable(name="noticeNum") int noticeNum) {
-		ns.deleteNotice(noticeNum); 
-	}
-	/**
-	 * 공지사항 수정
-	 * @param dto
-	 * @param noticeNum
-	 */
-	@RequestMapping(value = "/noticeupdate/{noticeNum}", method = RequestMethod.POST)
-	public void updateNotice(@RequestBody NoticeDto dto,@PathVariable int noticeNum) {
-		ns.updateNotice(noticeNum, dto);
-	}
-	/**
-	 * 공지사항 조회수 증가
-	 * @param dto
-	 * @param noticeNum
-	 */
-	@PostMapping(value = "/noticeviews/{noticeNum}")
-	public void updateViews(@PathVariable int noticeNum) {
-		ns.countViews(noticeNum);
-	}
-	
 	@Data
 	@AllArgsConstructor
 	static class JsonAnswer<T>{
