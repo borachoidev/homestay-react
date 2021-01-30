@@ -44,8 +44,8 @@ function getPlace() {
       console.log(photo);
       t += `<h1>${placeName}</h1><hr>`;
       t += `<div id="list">관광지 목록들 출력할거에요</div>`;
-      t += `<div id=heart data-id="${userLike}" class="${userLike}"><div class="heart"></div></div>`;
-      t += `<span id="favorite" data-id="${userMark}" class="${userMark}"><i class="fas fa-star"></i><span>`;
+      t += `<div id=heart data-id="${userLike}" class="${userLike}" onclick="updateLike()"><div class="heart"></div></div>`;
+      t += `<span id="favorite" data-id="${userMark}" class="${userMark}" onclick="updateFavorite()"><i class="fas fa-star"></i></span>`;
       t += `<div id="picture">`;
       t += `<img id="mainImage" src=${src} onerror="this.src='/img/noimage.png'">`;
       if (src != null) {
@@ -77,13 +77,13 @@ function getPlace() {
       document.querySelector('#placeDetail').innerHTML = t;
       console.log(contentId);
 
-      document.querySelector('#heart').addEventListener('click', e => {
-        updateLike();
-      });
-      document.querySelector('#favorite').addEventListener('click', e => {
-        updateFavorite();
-      });
-      //지도
+      // document.querySelector('#heart').addEventListener('click', e => {
+      //   updateLike();
+      // });
+      // document.querySelector('#favorite').addEventListener('click', e => {
+      //   updateFavorite();
+      // });
+      // //지도
 
       var mapContainer = document.getElementById('placeMap'), // 지도를 표시할 div
         mapOption = {
@@ -132,8 +132,9 @@ function changeImage(){
 function updateLike() {
   const contentId = document.querySelector('#place').getAttribute('value');
   const liked = document.querySelector('#heart');
+  const status = liked.getAttribute('data-id');
   const xhr = new XMLHttpRequest();
-  if (liked.getAttribute('data-id') == 'liked') {
+  if (status == 'liked') {
     const url = `/api/place/detail/like/delete/${contentId}`;
     xhr.open('DELETE', url);
   } else {
@@ -147,17 +148,18 @@ function updateLike() {
     if (xhr.readyState !== XMLHttpRequest.DONE) return;
 
     if (xhr.status === 200) {
-      console.log(xhr.responseText);
+      // console.log(xhr.responseText);
       const msg = xhr.responseText;
       if (msg == 'needlogin') {
         alert('로그인후 이용할 수 있습니다');
-      } else if (msg == 'success') {
-        liked.setAttribute('data-id', 'liked');
-        liked.classList.add('liked');
-        // location.reload();
-      } else {
+      }
+
+      if (status == 'liked') {
         liked.setAttribute('data-id', 'unset');
         liked.classList.remove('liked');
+      } else {
+        liked.setAttribute('data-id', 'liked');
+        liked.classList.add('liked');
       }
     } else {
       console.log('Error!' + xhr.responseText);
@@ -168,12 +170,12 @@ function updateLike() {
 function updateFavorite() {
   const contentId = document.querySelector('#place').getAttribute('value');
   const favorited = document.querySelector('#favorite');
-
+  const status = favorited.getAttribute('data-id');
   const xhr = new XMLHttpRequest();
-  if (favorited.getAttribute('data-id') == 'favorite') {
+  if (status == 'favorite') {
     const url = `/api/place/detail/mark/delete/${contentId}`;
     xhr.open('DELETE', url);
-  } else {
+  } else if (status == 'unset') {
     const url = `/api/place/detail/mark/${contentId}`;
     xhr.open('POST', url);
   }
@@ -184,16 +186,18 @@ function updateFavorite() {
     if (xhr.readyState !== XMLHttpRequest.DONE) return;
 
     if (xhr.status === 200) {
-      console.log(xhr.responseText);
+      // console.log(xhr.responseText);
       const msg = xhr.responseText;
       if (msg == 'needlogin') {
         alert('로그인후 이용할 수 있습니다');
-      } else if (msg == 'success') {
-        favorited.setAttribute('data-id', 'favorite');
-        favorited.classList.add('favorite');
-      } else {
+      }
+
+      if (status == 'favorite') {
         favorited.setAttribute('data-id', 'unset');
         favorited.classList.remove('favorite');
+      } else {
+        favorited.setAttribute('data-id', 'favorite');
+        favorited.classList.add('favorite');
       }
     } else {
       console.log('Error!' + xhr.responseText);
