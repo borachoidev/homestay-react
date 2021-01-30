@@ -149,16 +149,6 @@ public class TourAnswerServiceImpl implements TourAnswerService{
 
 	@Override
 	public void insertPlaceReAnswer(TourAnswerDto dto) {
-		/*
-		 * int num=dto.getTourAnswerNum(); int regroup=dto.getRegroup(); int
-		 * relevel=dto.getRelevel();
-		 * 
-		 * if(num==null) { regroup=this.getMaxNum()+1; relevel=0;
-		 * 
-		 * 
-		 * }else { this.updateRelevelOfAnswer(regroup, relevel); relevel+=1; regroup+=1;
-		 * }
-		 */
 
 		// TODO Auto-generated method stub
 		mapper.insertPlaceReAnswer(dto);
