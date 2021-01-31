@@ -10,7 +10,6 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bitcamp.korea_tour.model.AdminDto;
-import com.bitcamp.korea_tour.model.service.AdminService;
 import com.bitcamp.korea_tour.model.service.login.setting.SessionNames;
 
 import lombok.RequiredArgsConstructor;
@@ -18,17 +17,15 @@ import lombok.RequiredArgsConstructor;
 @Component
 @RequiredArgsConstructor
 public class AdminAuthInterceptor implements HandlerInterceptor, SessionNames {
-	private final AdminService adminService;
 	
 	@Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
         HttpSession session = request.getSession();
         AdminDto loginAdmin= (AdminDto) session.getAttribute(ADMIN);
-        AdminDto admin=adminService.getAdminDataByNum(loginAdmin.getAdminNum());
  
-        if(ObjectUtils.isEmpty(admin)){
-            response.sendRedirect("home/alertauth");
+        if(ObjectUtils.isEmpty(loginAdmin)){
+            response.sendRedirect("/");
             return false;
         }else {
         	return true;
