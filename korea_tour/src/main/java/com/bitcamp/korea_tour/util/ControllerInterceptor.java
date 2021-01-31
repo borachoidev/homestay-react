@@ -26,10 +26,18 @@ public class ControllerInterceptor implements WebMvcConfigurer {
 				.addPathPatterns("/api/courses/**")
 				.addPathPatterns("/api/courseplace/**")
 				.addPathPatterns("/api/courseplaces")
-				.addPathPatterns("/api/mypage/**");
+				.addPathPatterns("/api/mypage/**")
+				.addPathPatterns("/api/placeanswer")
+				.addPathPatterns("/api/placereanswer")
+				.addPathPatterns("/api/courseanswer")
+				.addPathPatterns("/api/coursereanswer")
+				;
 		
 		registry.addInterceptor(adminInterceptor)
-				.addPathPatterns("/admin/**");
+				.addPathPatterns("/admin")
+				.addPathPatterns("/admin/**")
+				.addPathPatterns("/api/admin/**")
+				.addPathPatterns("/public/**");
 		
 	}
 }
