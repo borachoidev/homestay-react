@@ -74,7 +74,7 @@ public class AdminController {
 	 * 관리자용 댓글,답글 삭제
 	 * @param tourAnswerNum
 	 */
-	@DeleteMapping(value = "/admin/answer/{tourAnswerNum}")
+	@PostMapping(value = "/admin/answer/{tourAnswerNum}")
 	public void deleteAnswer(@PathVariable int tourAnswerNum) {
 		tas.deleteCourseAnswerByAdmin(tourAnswerNum);
 		tas.deletePlaceAnswerByAdmin(tourAnswerNum);
