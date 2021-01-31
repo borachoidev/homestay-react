@@ -37,23 +37,7 @@ function deleteNotice(noticeNum){
     }
 
 
-function addViews(noticeNum){
-	const xhr = new XMLHttpRequest();
-    const url =`/api/noticeviews/${noticeNum}`;
- 	xhr.open('POST',url);
-  	
-    xhr.onreadystatechange = function () {
-    
-			if (this.readyState == 4) {
-	  
-  
-	  
-		}
-			
-		
-	}
-	xhr.send(null);
-    }
+
 
 	
 
@@ -117,17 +101,7 @@ for(const btn of delBtns){
  })
            
 }
-const viewLinks = document.querySelectorAll(".notice-view");
-for(const view of viewLinks){
-	view.addEventListener("click",function(){
-		
-	 const noticeNum=view.parentElement.getAttribute("num");
-	addViews(noticeNum);
 
-
- })
-           
-}
 
 
 }

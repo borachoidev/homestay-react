@@ -20,7 +20,7 @@ function getParam(key) {
 
 function redeleteComment(tourAnswerNum){
     const xhr = new XMLHttpRequest();
-    const url =`/api/adminanswer/${tourAnswerNum}`;
+    const url =`/api/admin/answer/${tourAnswerNum}`;
     xhr.open('POST', url);
 
     xhr.onreadystatechange = function () {
@@ -40,7 +40,7 @@ function redeleteComment(tourAnswerNum){
 
 function recommentList(currentPage){
     var xhr = new XMLHttpRequest();
-    var url = `/api/adminreanswer/${currentPage}`;
+    var url = `/api/admin/reanswer/${currentPage}`;
     xhr.open('GET', url);
     xhr.send();
     console.log(url);
@@ -72,17 +72,17 @@ function recommentList(currentPage){
      
       let p = '';
       if (startPage > 1) {
-        p += `<li class='page-list'><a href='/admin/notice/list?currentPage=${
+        p += `<li class='page-list'><a href='/admin/recomment/list?currentPage=${
           startPage - 1
         }'><i class="fas fa-chevron-left"></i></li>`;
       }
       for (let i = startPage; i <= endPage; i++) {
-        p += `<li class='page-list'><a href='/admin/notice/list?currentPage=${i}'>${i}</a></li>`;
+        p += `<li class='page-list'><a href='/admin/recomment/list?currentPage=${i}'>${i}</a></li>`;
       }
       if (endPage < totalPage) {
         p += `<li page='${
           endPage + 1
-        }' class='page-list'><a href='/admin/notice/list?currentPage=${
+        }' class='page-list'><a href='/admin/recomment/list?currentPage=${
           endPage + 1
         }'><i class="fas fa-chevron-right"></i></a></li>`;
       }
