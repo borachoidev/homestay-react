@@ -18,13 +18,15 @@ public class ControllerInterceptor implements WebMvcConfigurer {
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(userInterceptor)
 				.addPathPatterns("/tourmypage")
-				.addPathPatterns("/tourmypage/*")
+				.addPathPatterns("/tourmypage/**")
 				.addPathPatterns("/placeanswer")
+				.addPathPatterns("/api/place/detail/course/**")
+				.addPathPatterns("/api/courseplaces")
+				.addPathPatterns("/api/place/detail/photo")
+				.addPathPatterns("/api/place/detail/photo")
 				;
 		registry.addInterceptor(adminInterceptor)
-				.addPathPatterns("/admin/*");
+				.addPathPatterns("/admin/**");
 		
-		registry.addInterceptor(restInterceptor)
-				.addPathPatterns("/api/*");
 	}
 }

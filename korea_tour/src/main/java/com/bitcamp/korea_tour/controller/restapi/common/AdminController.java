@@ -34,7 +34,6 @@ import lombok.RequiredArgsConstructor;
 public class AdminController {
 	private final TourAnswerService tas;
 	private final PagingService pagingService;
-	private final NoticeService ns;
 	private final PlacePhotoService pps;
 	
 	int totalCount=0;
