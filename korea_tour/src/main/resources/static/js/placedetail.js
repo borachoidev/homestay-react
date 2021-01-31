@@ -2,10 +2,18 @@
 
 let link = document.location.href;
 let contentId = link.split('=');
+let id = contentId[1];
+
+
+
+//window.onload=function(){
+//let reAnswerClick=document.getElementsByClassName("fa-comment-alt");
+//}
+
 getPlace();
 //출력
 function getPlace() {
-  let id = contentId[1];
+
   let xhr = new XMLHttpRequest();
   let url = `/api/place/detail/` + id;
   xhr.open('GET', url);
@@ -27,6 +35,9 @@ function getPlace() {
 
       //댓글출력
       let Answer = data.tourAnswer;
+     
+
+
       let userLike;
       let userMark;
       if (data.userMark == null) {
@@ -40,42 +51,85 @@ function getPlace() {
       } else {
         userLike = 'liked';
       }
+
+
+      let w = ' ';
+      let y = ' ';
       let t = ' ';
-      console.log(photo);
-      t += `<h1>${placeName}</h1><hr>`;
-      t += `<div id="list">관광지 목록들 출력할거에요</div>`;
-      t += `<div id=heart data-id="${userLike}" class="${userLike}" onclick="updateLike()"><div class="heart"></div></div>`;
-      t += `<span id="favorite" data-id="${userMark}" class="${userMark}" onclick="updateFavorite()"><i class="fas fa-star"></i></span>`;
-      t += `<div id="picture">`;
-      t += `<img id="mainImage" src=${src} onerror="this.src='/img/noimage.png'">`;
+      let q = ' ';
+      let u = ' ';
+      //관광지 이름
+      w += `<h1>${placeName}</h1>`;
+      
+
+      //t += `<div id="heart" data-id="${userLike}" class="${userLike}" onclick="updateLike()"><div class="heart"></div></div>`;
+      //t += `<span id="favorite" data-id="${userMark}" class="${userMark}" onclick="updateFavorite()"><i class="fas fa-star"></i></span>`;
+      
+      //상단 이미지(DB저장)
+      y += `<img id="mainImage" src=${src} onerror="this.src='/img/noimage.png'">`;
       if (src != null) {
-        t += `<p id="showImage" onclick='imageClick()'>이미지 더보기</p><div id=subImage>`;
+        y += `<p id="showImage" onclick='imageClick()'>이미지 더보기</p><div id=subImage>`;
 
         for (let i = 0; i < photo.length; i++) {
-          t += `<img class="sub-image" src=${photo[i].originImgUrl} onerror="this.src='/img/noimage.png'">`;
+          y += `<img class="sub-image" src=${photo[i].originImgUrl} onerror="this.src='/img/noimage.png'">`;
         }
       }
-      t += `</div></div><hr>`;
-      t += `<div id="placeInfo">`;
+
+
+      //글내용
       t += `<p>주소 : ${addr}</p><br>`;
-      t += `<p>${overview}</p></div><hr>`;
-      t += `<div id="userPhoto">user들의 사진이에여~(찡긋 ^^*)이거 진짜 출력할거임 진짜에여 ㅠㅜ 왜안나와 ㅠㅜ`;
+      t += `<p>${overview}</p>`;
+
+      //유저사진
+      
       for (let b = 0; b < userPhoto.length; b++) {
-        t += `<img class="userPhoto" src="/photoImg/${userPhoto[b].image}">`;
+        q += `<img class="userPhoto" src="/placeImg/${userPhoto[b].image}"><hr>`;
       }
-      t += `</div>`;
-      t += `<hr><div id="placeMap"></div><hr>`;
-      t += `<div id="AnswerList">`;
+
+
+
       for (let d = 0; d < Answer.length; d++) {
-        t += `<img id="loginPhoto" src=${Answer[d].loginPhoto}>`;
-        t += `<p id="loginId">${Answer[d].loginId}</p>`;
-        t += `<p id="content">${Answer[d].content}</p>`;
-        t += `<p id="day">${Answer[d].writeDay}</p>`;
+	    
+        
+        if(Answer[d].relevel == 0) {
+	    //댓글
+	    u += `<img id="loginPhoto" src=${Answer[d].loginPhoto}>`;
+        u += `<p id="loginId">${Answer[d].loginId}</p>`;
+        u += `<p id="content">${Answer[d].content}</p>`;
+        u += `<p id="day">${Answer[d].writeDay}</p>`;
+        u += `<input type="text" class="Rerestep" th:value=${Answer[d].restep}></input>`;
+        //답글 입력기
+        u += `<i class="fas fa-comment-alt ReAnswerClick" id=${Answer[d].regroup} onclick="ReAnswer(this)"></i>`;
+        u += `<div class="ReAnswer-List" id="reAnswer${Answer[d].tourAnswerNum}">`;
+        u += `<div class="closeReAnswer"><i class="fas fa-times"></i></div>`;
+        u += `<textarea class="ReContent" name="Recontent" onblur="ReforceOut(this.value)"></textarea>`;
+        u += `<button class="insertRe"onclick="insertReAnswer()">보내기</button>`;
+        u += `</div>`;
+        }else {
+	     u += `<img id="loginPhoto" src=${Answer[d].loginPhoto}>`;
+         u += `<p id="loginId">${Answer[d].loginId}</p>`;
+         u += `<p id="content">${Answer[d].content}</p>`;
+         u += `<p id="day">${Answer[d].writeDay}</p>`;
+         }
+     
       }
-      t += `</div>`;
-      document.querySelector('#place').setAttribute('value', contentId);
-      document.querySelector('#placeDetail').innerHTML = t;
-      console.log(contentId);
+
+
+
+      //좋아요,즐겨찾기 
+      const liked= document.querySelector("#heart")
+      const favorite=document.querySelector("#favorite")
+
+      liked.setAttribute("data-id",userLike);
+      liked.classList.add(userLike);
+      favorite.setAttribute("data-id",userMark);
+      favorite.classList.add(userMark);
+      
+      document.querySelector('#placeName').innerHTML = w;
+      document.querySelector('#picture').innerHTML = y;
+      document.querySelector('#placeInfo').innerHTML = t;
+      document.querySelector('#userPicture').innerHTML = q;
+      document.querySelector('#answerList').innerHTML = u;
 
       // document.querySelector('#heart').addEventListener('click', e => {
       //   updateLike();
@@ -83,6 +137,8 @@ function getPlace() {
       // document.querySelector('#favorite').addEventListener('click', e => {
       //   updateFavorite();
       // });
+
+
       // //지도
 
       var mapContainer = document.getElementById('placeMap'), // 지도를 표시할 div
@@ -116,29 +172,17 @@ const imageClick = () => {
   else return (subPhoto.style.display = 'block');
 };
 
-/*//이미지 변경
-let main = document.getElementById("mainImage");
-let small = document.querySelectorAll(".sub-image");
-
-for(let a = 0; a <small.length; a++){
-	small[a].addEventListener("click", changeImage); 
-}
-
-function changeImage(){
-	let smallAttr = this.getAttribute("src");
-	main.setAttribute("src",smallAttr);
-}*/
 
 function updateLike() {
-  const contentId = document.querySelector('#place').getAttribute('value');
+  //const contentId = document.querySelector('#hiddenPlaceId').getAttribute('value');
   const liked = document.querySelector('#heart');
   const status = liked.getAttribute('data-id');
   const xhr = new XMLHttpRequest();
   if (status == 'liked') {
-    const url = `/api/place/detail/like/delete/${contentId}`;
+    const url = `/api/place/detail/like/delete/${id}`;
     xhr.open('DELETE', url);
   } else {
-    const url = `/api/place/detail/like/${contentId}`;
+    const url = `/api/place/detail/like/${id}`;
     xhr.open('POST', url);
   }
   //xhr.setRequestHeader('Content-type', 'application/json');
@@ -152,14 +196,17 @@ function updateLike() {
       const msg = xhr.responseText;
       if (msg == 'needlogin') {
         alert('로그인후 이용할 수 있습니다');
+ console.log('Error!' + xhr.responseText);
       }
 
       if (status == 'liked') {
         liked.setAttribute('data-id', 'unset');
         liked.classList.remove('liked');
+ console.log('Error!' + xhr.responseText);
       } else {
         liked.setAttribute('data-id', 'liked');
         liked.classList.add('liked');
+ console.log('Error!' + xhr.responseText);
       }
     } else {
       console.log('Error!' + xhr.responseText);
@@ -168,15 +215,15 @@ function updateLike() {
 }
 
 function updateFavorite() {
-  const contentId = document.querySelector('#place').getAttribute('value');
+ // const contentId = document.querySelector('#hiddenPlaceId').getAttribute('value');
   const favorited = document.querySelector('#favorite');
   const status = favorited.getAttribute('data-id');
   const xhr = new XMLHttpRequest();
   if (status == 'favorite') {
-    const url = `/api/place/detail/mark/delete/${contentId}`;
+    const url = `/api/place/detail/mark/delete/${id}`;
     xhr.open('DELETE', url);
   } else if (status == 'unset') {
-    const url = `/api/place/detail/mark/${contentId}`;
+    const url = `/api/place/detail/mark/${id}`;
     xhr.open('POST', url);
   }
   //xhr.setRequestHeader('Content-type', 'application/json');
@@ -204,3 +251,144 @@ function updateFavorite() {
     }
   };
 }
+
+
+let content;
+const forceOut =(e)=>{
+
+	content = e;
+}
+
+// 댓글입력
+function insertAnswer() {
+	
+let userNum=document.getElementById("uNum").getAttribute("value");
+let loginId=document.getElementById("lId").getAttribute("value");
+let loginPhoto=document.getElementById("lPhoto").getAttribute("value");
+
+	
+	//1.JavaScript를 이용하여 서버로 보내는 HTTP request 인스턴스 생성하기
+let xhr = new XMLHttpRequest();
+let url = `/api/placeanswer`;
+//2.xhr.open(전송방식,url,비동기로 수행될지 (생략가능))
+xhr.open('POST', url);
+xhr.setRequestHeader('Content-type', 'application/json');
+//3.post방식일경우 서버로 보내고 싶은 데이터 적기
+//xhr.send('데이터내용');
+//ex xhr.send(JSON.stringify({ id: 4, content: 'Angular', completed: true }));
+let js ={"contentId":id,"loginNum":userNum,"loginId":loginId,"loginPhoto":loginPhoto,"content":content};
+xhr.send(JSON.stringify(js));
+//location.reload();
+
+//4.서버로 보낸 요청에 대한 응답을 받았을 때 어떤 동작을 할 것인지 정하기
+xhr.onreadystatechange = myFunction();
+
+function myFunction(){
+// 서버의 응답에 따른 로직을 여기에 작성합니다.
+//5-1. 응답준비가 안됐을때 return ,그렇지 않을경우 아래 if 문 수행
+if (xhr.readyState !== XMLHttpRequest.DONE) return;
+//5-2.http 상태코드에 따른 로직 작성 
+if(xhr.status === 201) { // 201: post 일경우 Created
+   console.log(id,userNum,loginId,loginPhoto,content);
+   
+  } else {
+    console.log("Error!");
+  }
+ }
+}
+
+let RContent;
+const ReforceOut =(e)=>{
+	document.querySelectorAll('.ReContent').value;
+	
+	const ReeContent=document.querySelectorAll(".ReContent"); //  queryselectorAll로  모든 대댓글 버튼 선택
+    for(const ReContent of ReeContent){ //대댓글 버튼 각각에 이벤트 주기위해서 for 문 돌리기
+    ReContent.addEventListener("click",	()=>{ //대댓글 버튼을 클릭했을때 
+    RContent = ReContent.value; //대댓글버튼의 형제 태그  = 대댓글리스트 에 active 클래스 추가하기 
+    
+  })
+  RContent = e;
+} // for문끝 
+}
+
+
+let regroupId;
+const ReAnswer =(f)=>{
+	regroupId = f.getAttribute("id");
+  console.log("ok!!");
+  const ReClick=document.querySelectorAll(".ReAnswerClick"); //  queryselectorAll로  모든 대댓글 버튼 선택
+  for(const ReAnswerClick of ReClick){ //대댓글 버튼 각각에 이벤트 주기위해서 for 문 돌리기
+  ReAnswerClick.addEventListener("click",	()=>{ //대댓글 버튼을 클릭했을때 
+  ReAnswerClick.nextSibling.classList.add("active") //대댓글버튼의 형제 태그  = 대댓글리스트 에 active 클래스 추가하기 
+  })
+} // for문끝 
+	
+}
+
+
+// 답글입력
+function insertReAnswer() {
+
+let userNum=document.getElementById("uNum").getAttribute("value");
+let loginId=document.getElementById("lId").getAttribute("value");
+let loginPhoto=document.getElementById("lPhoto").getAttribute("value");
+
+let restepId;
+
+ const insertRestepId=document.querySelectorAll(".insertRe"); //  queryselectorAll로  모든 입력버튼 선택
+  for(const insertRe of insertRestepId){ //답글 입력 버튼 각각에 이벤트 주기위해서 for 문 돌리기
+  insertRe.addEventListener("click",	()=>{ //답글 입력버튼을 클릭했을때
+  
+  restepId = insertRe.lastChild.getAttribute("value"); //맨마지막 자식 노드의 restep값 가져오기
+  if(restepId = undefined) 
+  restepId=0;
+  })
+}
+
+
+	//1.JavaScript를 이용하여 서버로 보내는 HTTP request 인스턴스 생성하기
+let xhr = new XMLHttpRequest();
+let url = `/api/placereanswer`;
+//2.xhr.open(전송방식,url,비동기로 수행될지 (생략가능))
+xhr.open('POST', url);
+xhr.setRequestHeader('Content-type', 'application/json');
+//3.post방식일경우 서버로 보내고 싶은 데이터 적기
+//xhr.send('데이터내용');
+//ex xhr.send(JSON.stringify({ id: 4, content: 'Angular', completed: true }));
+let ReAn ={"contentId":id,"loginNum":userNum,"loginId":loginId,"loginPhoto":loginPhoto,"content":RContent,"regroup":regroupId,"restep":restepId};
+xhr.send(JSON.stringify(ReAn));
+console.log(id,userNum,loginId,loginPhoto,RContent,regroupId,restepId);
+//4.서버로 보낸 요청에 대한 응답을 받았을 때 어떤 동작을 할 것인지 정하기
+xhr.onreadystatechange = myFunction();
+
+function myFunction(){
+// 서버의 응답에 따른 로직을 여기에 작성합니다.
+//5-1. 응답준비가 안됐을때 return ,그렇지 않을경우 아래 if 문 수행
+if (xhr.readyState !== XMLHttpRequest.DONE) return;
+//5-2.http 상태코드에 따른 로직 작성 
+if(xhr.status === 201) { // 201: post 일경우 Created
+   console.log(id,userNum,loginId,loginPhoto,RContent,regroupId,restepId);
+   
+  } else {
+    alert("로그인 후 입력해 주세요!!")
+  }
+ }
+}
+
+
+
+//유저사진 출력
+
+const open = () => {
+    document.querySelector("user-modal").classList.remove("hidden");
+  }
+
+const close = () => {
+   document.querySelector(".user-modal").classList.add("hidden");
+  }
+  document.querySelector("#updatePhoto").addEventListener("click", open);
+  document.querySelector(".closeBtn").addEventListener("click", close);
+  document.querySelector(".bg").addEventListener("click", close);
+
+
+

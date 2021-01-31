@@ -2,41 +2,33 @@
 
 //코스담기 함수
 function showInput() {
-  document.querySelector('#createCourse').classList.remove('hide');
-  document.querySelector('.create-btn').classList.add('hide');
+  document.querySelector('#createCourse').classList.remove('hidden');
+  document.querySelector('.create-btn').classList.add('hidden');
 }
 function createCousre() {
   const xhr = new XMLHttpRequest();
-  const url = '/api/courses';
+  const input = document.querySelector('input#courseName');
+  const name = input.value;
+  const url = `/api/courses?name="${name}"`;
   xhr.open('POST', url);
   xhr.setRequestHeader('Content-type', 'application/json');
 
-  const input = document.querySelector('input#courseName');
   const userNum = document.querySelector('span#num').getAttribute('data-id');
-  const name = input.value;
+
   const data = {
-    cousreNum: 0,
-    userNum: userNum,
     name: name,
-    content: '내용입력',
-    open: 1,
-    share: 0,
-    who: 'W1',
-    during: 'D1',
-    how: 'H1',
-    totalLike: 0,
   };
 
-  console.log(data);
-  xhr.send(JSON.stringify(data));
+  console.log(url);
+  xhr.send(null);
 
   xhr.onreadystatechange = function (e) {
     if (xhr.readyState !== XMLHttpRequest.DONE) return;
 
     if (xhr.status === 200) {
       document.querySelector('input#courseName').value = '';
-      document.querySelector('#createCourse').classList.add('hide');
-      document.querySelector('.create-btn').classList.remove('hide');
+      document.querySelector('#createCourse').classList.add('hidden');
+      document.querySelector('.create-btn').classList.remove('hidden');
       showCourses();
     }
   };
@@ -64,7 +56,7 @@ function addCourse(courseNum) {
 }
 
 function showCourses() {
-  document.querySelector('#addModal').classList.remove('hide');
+  document.querySelector('#addModal').classList.remove('hidden');
   const userNum = document.querySelector('span#num').getAttribute('data-id');
   if (userNum == 'out') return alert('로그인후 이용가능합니다');
   const xhr = new XMLHttpRequest();

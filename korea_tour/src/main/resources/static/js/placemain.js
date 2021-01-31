@@ -118,7 +118,7 @@ const moveList=()=>{
 
 function getMainPlace(areaCode) {
   var xhr = new XMLHttpRequest();
-  var url = `/place/main/${areaCode}`;
+  var url = `/api/place/main/${areaCode}`;
   console.log(url);
   xhr.open('GET', url);
   xhr.onreadystatechange = function () {
