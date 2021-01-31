@@ -41,9 +41,9 @@ public class NoticeController{
     * @param currentPage
     * @return 공지사항 리스트로 이동
     */
-   @GetMapping("/api/notice/{currentPage}")
+   @GetMapping("/api/notice")
    @ResponseBody
-   public JsonData<List<NoticeDto>> getNoticeList(@PathVariable(name = "currentPage") int currentPage) {
+   public JsonData<List<NoticeDto>> getNoticeList(@RequestParam(name = "currentPage", defaultValue = "1") int currentPage) {
 
       totalCount=ns.getTotalCount();
       /* System.out.println(totalCount); */
@@ -122,8 +122,8 @@ public class NoticeController{
     * @param model
     * @return 공지사항 리스트
     */
-   @GetMapping("/admin/noticelist/{currentPage}")
-   public String goNoticeListAdmin(@PathVariable int currentPage,Model model) {
+   @GetMapping("/admin/noticelist")
+   public String goNoticeListAdmin(@RequestParam(name = "currentPage", defaultValue = "1") int currentPage,Model model) {
       model.addAttribute("currentPage", currentPage);
       return "admin/adminnoticelist";      
    }
@@ -134,8 +134,8 @@ public class NoticeController{
     * @param model
     * @return 공지사항 리스트
     */
-   @GetMapping("/noticelist/{currentPage}")
-   public String goNoticeListUser(@PathVariable int currentPage,Model model) {
+   @GetMapping("/noticelist")
+   public String goNoticeListUser(@RequestParam(name = "currentPage", defaultValue = "1")int currentPage,Model model) {
       model.addAttribute("currentPage", currentPage);
       return "admin/usernoticelist";      
    }
@@ -147,8 +147,8 @@ public class NoticeController{
     * @param model
     * @return
     */
-   @GetMapping("/admin/notice/detail/{currentPage}")
-   public String goAdminNoticeDetailAdmin(@PathVariable int currentPage,@RequestParam int noticeNum,Model model) {
+   @GetMapping("/admin/notice/detail")
+   public String goAdminNoticeDetailAdmin(@RequestParam(name = "currentPage", defaultValue = "1") int currentPage,@RequestParam int noticeNum,Model model) {
       model.addAttribute("currentPage", currentPage);
       model.addAttribute("noticeNum", noticeNum);
       return "admin/adminnoticedetail";
@@ -161,8 +161,8 @@ public class NoticeController{
     * @param model
     * @return
     */
-   @GetMapping("/notice/detail/{currentPage}")
-   public String goAdminNoticeDetailUser(@PathVariable int currentPage,@RequestParam int noticeNum,Model model) {
+   @GetMapping("/notice/detail")
+   public String goAdminNoticeDetailUser(@RequestParam(name = "currentPage", defaultValue = "1") int currentPage,@RequestParam int noticeNum,Model model) {
       model.addAttribute("currentPage", currentPage);
       model.addAttribute("noticeNum", noticeNum);
       return "admin/usernoticedetail";
