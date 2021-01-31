@@ -25,7 +25,7 @@
 		content, writeDay, regroup, relevel, restep)
 		values
 		(#{contentId}, #{loginNum}, #{loginId}, #{loginPhoto}, #{content},
-		now(),#{regroup},#{restep}+1)
+		now(),#{regroup},1,#{restep}+1)
 	</insert>
 	<select id="getTotalCountPlaceAnswer" parameterType="int"
 		resultType="int"><!-- courseNum이 널값인 경우에 Place로 구분 -->
@@ -72,7 +72,7 @@
 		content, writeDay, regroup, relevel, restep)
 		values
 		(#{courseNum}, #{loginNum}, #{loginId}, #{loginPhoto}, #{content},
-		now(),#{regroup},#{restep}+1)
+		now(),#{regroup},1,#{restep}+1)
 	</insert>
 	<update id="deleteCourseAnswerByUser" parameterType="int">
 		update tourAnswer set deleted=1 where tourAnswerNum=#{tourAnswerNum}
