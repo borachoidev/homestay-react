@@ -140,7 +140,12 @@ public class NoticeController{
 
 		return "admin/noticeaddform";
 	}
-
+	
+	@GetMapping("/admin/notice/detail")
+	public String goAdminNoticeDetail(@RequestParam int noticeNum,Model model) {
+		model.addAttribute("noticeNum", noticeNum);
+		return "admin/detail";
+	}
 	/**
 	 * 공지사항 업데이트폼
 	 * @return
@@ -150,19 +155,23 @@ public class NoticeController{
 		model.addAttribute("noticeNum", noticeNum);
 		return "admin/noticeupdateform";
 	}
+	
 	/**
 	 * 공지사항 업데이트
 	 * @param noticeNum
 	 * @param currentPage
 	 * @param model
+	 * @param dto
 	 * @return 공지사항 리스트
 	 */
 	@PostMapping("/admin/notice/update")
-	public String goAdminNoticeUpdate(@RequestParam int noticeNum,@RequestParam int currentPage,Model model) {
+	public String goAdminNoticeUpdate(@RequestParam int noticeNum,@RequestParam int currentPage,Model model,@ModelAttribute NoticeDto dto) {
+		ns.updateNotice(noticeNum, dto);
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("noticeNum", noticeNum);
 		return "admin/noticelist";
 	} 
+
 
 	@GetMapping("/admin/notice/delete")
 	public String goAdminNoticeDelete(@RequestParam int noticeNum,@RequestParam int currentPage,Model model) {
