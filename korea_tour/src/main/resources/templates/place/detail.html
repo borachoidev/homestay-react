@@ -50,6 +50,14 @@
     <div class="bg"></div>
     <div class="modalBox">
     <button class="closeBtn"><i class="fas fa-times"></i></button>
+    <form th:action="@{/api/place/detail/photo}" method="POST" enctype="multipart/form-data" target="iframe1">
+    <input type="hidden" id="lId" name="loginId" th:value=${session.user.name}></input>
+    <input type="hidden" id="uNum" name="loginNum" th:value=${session.user.userNum}></input>
+    <input type="text" id="placeContent" name="contentId"></input>
+    <input type="file"  multiple="multiple" name="images" id="userPicture"/>
+    <button type="submit" onclick="insertUserPicture()">사진 등록하기</button>
+    </form>
+    <iframe id="iframe1" name="iframe1" style="display:none"></iframe>
     </div>
     </div>
     <div class="modal hidden" id="addModal" >
@@ -88,7 +96,6 @@
   <div id="userPicture">
   
   </div>
-  
   <div id="placeMap">
   
   </div>
@@ -118,8 +125,6 @@
 
 
 <!--/* 유저사진 등록 모달 */-->
-<div class="insertUser">
 
-</div>
 </div>   
 </html>

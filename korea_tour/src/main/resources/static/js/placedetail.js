@@ -5,10 +5,16 @@ let contentId = link.split('=');
 let id = contentId[1];
 
 
-
-//window.onload=function(){
-//let reAnswerClick=document.getElementsByClassName("fa-comment-alt");
-//}
+window.onload=function(){
+ const ReClick=document.querySelectorAll(".ReAnswerClick");
+  for(const ReAnswerClick of ReClick){ //대댓글 버튼 각각에 이벤트 주기위해서 for 문 돌리기
+  ReAnswerClick.addEventListener("click",	()=>{ //대댓글 버튼을 클릭했을때 
+  ReAnswerClick.nextElementSibling.classList.toggle("active");    
+  })
+} // for문끝 
+let ConId= document.getElementById("placeContent");
+ConId.value=id;
+}
 
 getPlace();
 //출력
@@ -28,8 +34,7 @@ function getPlace() {
       let overview = item.overview;
       let xpos = item.mapX;
       let ypos = item.mapY;
-      let contentId = item.contentId;
-
+      let UsNum;
       //유저 사진
       let userPhoto = data.userPhoto;
 
@@ -83,35 +88,55 @@ function getPlace() {
       //유저사진
       
       for (let b = 0; b < userPhoto.length; b++) {
-        q += `<img class="userPhoto" src="/placeImg/${userPhoto[b].image}"><hr>`;
+        q += `<img class="userPhoto" src="/placeImg/${userPhoto[b].image}">`;
       }
+        UsNum =document.getElementById("uNum");
+        if (UsNum != null) 
+         str = UsNum.value;
+        
+        else 
+         str = null;
 
-
-
-      for (let d = 0; d < Answer.length; d++) {
+       for (let d = 0; d < Answer.length; d++) {
 	    
         
-        if(Answer[d].relevel == 0) {
+        if(Answer[d].relevel == 0 && Answer[d].deleted == 0) {
 	    //댓글
-	    u += `<img id="loginPhoto" src=${Answer[d].loginPhoto}>`;
+        if(str==Answer[d].loginNum){
+           u += `<i class="fas fa-trash-alt" id=${Answer[d].tourAnswerNum} onclick="deleteAnswer(this)"></i>`
+	    }
+        u += `<img id="loginPhoto" src=${Answer[d].loginPhoto}>`;
         u += `<p id="loginId">${Answer[d].loginId}</p>`;
+        
         u += `<p id="content">${Answer[d].content}</p>`;
         u += `<p id="day">${Answer[d].writeDay}</p>`;
-        u += `<input type="text" class="Rerestep" th:value=${Answer[d].restep}></input>`;
+        u += `<input type="hidden" class="Rerestep" th:value=${Answer[d].restep}></input>`;
+       
+        
+       
+
+
         //답글 입력기
+        if(str != null) {
         u += `<i class="fas fa-comment-alt ReAnswerClick" id=${Answer[d].regroup} onclick="ReAnswer(this)"></i>`;
         u += `<div class="ReAnswer-List" id="reAnswer${Answer[d].tourAnswerNum}">`;
-        u += `<div class="closeReAnswer"><i class="fas fa-times"></i></div>`;
         u += `<textarea class="ReContent" name="Recontent" onblur="ReforceOut(this.value)"></textarea>`;
-        u += `<button class="insertRe"onclick="insertReAnswer()">보내기</button>`;
+        u += `<button class="insertRe" onclick="insertReAnswer()">보내기</button>`;
         u += `</div>`;
-        }else {
-	     u += `<img id="loginPhoto" src=${Answer[d].loginPhoto}>`;
+         }
+        }else if(Answer[d].relevel != 0 && Answer[d].deleted == 0){
+	      if(str==Answer[d].loginNum){
+	         u += `<i class="fas fa-trash-alt" id=${Answer[d].tourAnswerNum} onclick="deleteAnswer(this)"></i>`;
+	       }
+         u += `<img id="loginPhoto" src=${Answer[d].loginPhoto}>`;
          u += `<p id="loginId">${Answer[d].loginId}</p>`;
          u += `<p id="content">${Answer[d].content}</p>`;
          u += `<p id="day">${Answer[d].writeDay}</p>`;
+         }else if(Answer[d].deleted == 1){
+         u+= `사용자가 삭제한 댓글입니다`
+         }else if(Answer[d].deleted == 2){
+	     u+= `관리자가 삭제한 댓글입니다`
          }
-     
       }
 
 
@@ -278,7 +303,7 @@ xhr.setRequestHeader('Content-type', 'application/json');
 //ex xhr.send(JSON.stringify({ id: 4, content: 'Angular', completed: true }));
 let js ={"contentId":id,"loginNum":userNum,"loginId":loginId,"loginPhoto":loginPhoto,"content":content};
 xhr.send(JSON.stringify(js));
-//location.reload();
+location.reload();
 
 //4.서버로 보낸 요청에 대한 응답을 받았을 때 어떤 동작을 할 것인지 정하기
 xhr.onreadystatechange = myFunction();
@@ -301,29 +326,25 @@ let RContent;
 const ReforceOut =(e)=>{
 	document.querySelectorAll('.ReContent').value;
 	
-	const ReeContent=document.querySelectorAll(".ReContent"); //  queryselectorAll로  모든 대댓글 버튼 선택
-    for(const ReContent of ReeContent){ //대댓글 버튼 각각에 이벤트 주기위해서 for 문 돌리기
-    ReContent.addEventListener("click",	()=>{ //대댓글 버튼을 클릭했을때 
-    RContent = ReContent.value; //대댓글버튼의 형제 태그  = 대댓글리스트 에 active 클래스 추가하기 
+	const ReeContent=document.querySelectorAll(".ReContent");
+    for(const ReContent of ReeContent){ 
+    ReContent.addEventListener("click",	()=>{
+    RContent = ReContent.value;
     
   })
   RContent = e;
-} // for문끝 
+} 
 }
 
 
 let regroupId;
+
 const ReAnswer =(f)=>{
-	regroupId = f.getAttribute("id");
-  console.log("ok!!");
-  const ReClick=document.querySelectorAll(".ReAnswerClick"); //  queryselectorAll로  모든 대댓글 버튼 선택
-  for(const ReAnswerClick of ReClick){ //대댓글 버튼 각각에 이벤트 주기위해서 for 문 돌리기
-  ReAnswerClick.addEventListener("click",	()=>{ //대댓글 버튼을 클릭했을때 
-  ReAnswerClick.nextSibling.classList.add("active") //대댓글버튼의 형제 태그  = 대댓글리스트 에 active 클래스 추가하기 
-  })
-} // for문끝 
-	
+  regroupId = f.getAttribute("id");
+ 
 }
+
+ 
 
 
 // 답글입력
@@ -338,7 +359,6 @@ let restepId;
  const insertRestepId=document.querySelectorAll(".insertRe"); //  queryselectorAll로  모든 입력버튼 선택
   for(const insertRe of insertRestepId){ //답글 입력 버튼 각각에 이벤트 주기위해서 for 문 돌리기
   insertRe.addEventListener("click",	()=>{ //답글 입력버튼을 클릭했을때
-  
   restepId = insertRe.lastChild.getAttribute("value"); //맨마지막 자식 노드의 restep값 가져오기
   if(restepId = undefined) 
   restepId=0;
@@ -358,6 +378,8 @@ xhr.setRequestHeader('Content-type', 'application/json');
 let ReAn ={"contentId":id,"loginNum":userNum,"loginId":loginId,"loginPhoto":loginPhoto,"content":RContent,"regroup":regroupId,"restep":restepId};
 xhr.send(JSON.stringify(ReAn));
 console.log(id,userNum,loginId,loginPhoto,RContent,regroupId,restepId);
+location.reload();
+
 //4.서버로 보낸 요청에 대한 응답을 받았을 때 어떤 동작을 할 것인지 정하기
 xhr.onreadystatechange = myFunction();
 
@@ -380,7 +402,7 @@ if(xhr.status === 201) { // 201: post 일경우 Created
 //유저사진 출력
 
 const open = () => {
-    document.querySelector("user-modal").classList.remove("hidden");
+    document.querySelector(".user-modal").classList.remove("hidden");
   }
 
 const close = () => {
@@ -390,5 +412,27 @@ const close = () => {
   document.querySelector(".closeBtn").addEventListener("click", close);
   document.querySelector(".bg").addEventListener("click", close);
 
+//저장후 페이지 이동
+const insertUserPicture = () => {
+	alert("신청이 완료되었습니다");
+}
+
+// 댓글삭제
 
 
+
+function deleteAnswer(k) {
+	//1.JavaScript를 이용하여 서버로 보내는 HTTP request 인스턴스 생성하기
+let tourAnNum = k.getAttribute("id")
+let xhr = new XMLHttpRequest();
+let url = '/api/tourmypage/answer/'+tourAnNum;
+//2.xhr.open(전송방식,url,비동기로 수행될지 (생략가능))
+xhr.open('POST', url);
+   xhr.onreadystatechange = function(){
+            if (this.readyState == 4) {
+                location.href = location.href;
+            }
+          }
+          xhr.send();
+          location.reload();
+        } 
