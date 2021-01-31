@@ -45,8 +45,7 @@
 	</update>
 	<select id="getAnswerOfPlace" parameterType="int"
 		resultType="touranswer">
-		select * from tourAnswer where contentId=#{contentId} order by regroup ,
-		touranswerNum
+		select * from tourAnswer where contentId=#{contentId} order by regroup asc,relevel asc,restep asc
 	</select>
 
 	<!-- 코스답글 쿼리 -->
@@ -81,7 +80,7 @@
 		update tourAnswer set deleted=2 where tourAnswerNum=#{tourAnswerNum}
 	</update>
 	<select id="getAnswerOfCourse" resultType="touranswer">
-		select * from tourAnswer where courseNum=#{courseNum} order by regroup,tourAnswerNum
+		select * from tourAnswer where courseNum=#{courseNum} order by regroup asc,relevel asc,restep asc
 	</select>
 	<select id="getTotalCountCourseAnswer" parameterType="int"
 		resultType="int">
