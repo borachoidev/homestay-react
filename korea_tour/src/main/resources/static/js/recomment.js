@@ -20,7 +20,7 @@ function getParam(key) {
 
 function redeleteComment(tourAnswerNum){
     const xhr = new XMLHttpRequest();
-    const url =`/adminanswer/${tourAnswerNum}`;
+    const url =`/api/adminanswer/${tourAnswerNum}`;
     xhr.open('POST', url);
 
     xhr.onreadystatechange = function () {
@@ -40,7 +40,7 @@ function redeleteComment(tourAnswerNum){
 
 function recommentList(currentPage){
     var xhr = new XMLHttpRequest();
-    var url = `/adminreanswer/${currentPage}`;
+    var url = `/api/adminreanswer/${currentPage}`;
     xhr.open('GET', url);
     xhr.send();
     console.log(url);

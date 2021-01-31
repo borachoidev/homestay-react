@@ -16,24 +16,22 @@
         crossorigin="anonymous"></script>
     <script th:src="@{/js/notice/lang/summernote-ko-KR.js}"></script>
 	<script th:src="@{/js/notice/summernote-lite.js}"></script>
-	<script th:src="@{/js/notice/summernote-insert.js}"></script>
+	<script th:src="@{/js/notice/summernote-update.js}"></script>
 </th:block>
 
-
+<!-- 에이작스로 값불러서 넣어주기? -->
 
 <div layout:fragment="content">
 <div class="all-summernote">
 <div class="notice-wrap">
-<h2>공지 작성란</h2><br>
-<form th:action="@{/noticeinsert}" method="POST">
-<input type="text" class="notice-title" id="notice-title" name="title"  />
-	<textarea name="content" id="summernote" class="summernote" ></textarea>
-<div class="notice-buttons">
-<button id="subBtn" type="submit">저장하기</button>
-</div>
-</form>
-</div>
-</div>
+<h2>공지 수정하기</h2><br>
+
+<div class="notice-update-sub">
+
 </div>
 
+
+</div>
+</div>
+</div>
 </html>

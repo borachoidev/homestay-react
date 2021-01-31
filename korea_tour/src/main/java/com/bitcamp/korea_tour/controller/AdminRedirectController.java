@@ -1,123 +1,184 @@
-package com.bitcamp.korea_tour.controller;
+package com.bitcamp.korea_tour.controller.restapi.common;
+
+import java.io.File;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.annotations.Param;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.bitcamp.korea_tour.model.AdminDto;
+import com.bitcamp.korea_tour.controller.restapi.tour.PlaceController;
 import com.bitcamp.korea_tour.model.NoticeDto;
-import com.bitcamp.korea_tour.model.service.AdminService;
+import com.bitcamp.korea_tour.model.PlacePhotoDto;
+import com.bitcamp.korea_tour.model.TourAnswerDto;
 import com.bitcamp.korea_tour.model.service.NoticeService;
-import com.bitcamp.korea_tour.model.service.login.setting.SessionNames;
+import com.bitcamp.korea_tour.model.service.PlacePhotoService;
+import com.bitcamp.korea_tour.model.service.TourAnswerService;
+import com.bitcamp.korea_tour.model.service.paging.PagingService;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
-public class AdminRedirectController implements SessionNames {
-	private final NoticeService ns;
-	private final AdminService adminService;
+@RequestMapping("/api")
+public class AdminController {
+   private final TourAnswerService tas;
+   private final PagingService pagingService;
+   private final PlacePhotoService pps;
+   
+   int totalCount=0;
+   int start=0;
+   int perPage=0;
+   int totalPage=0;
+   /**
+    * 관리자용 댓글조회
+    * @param currentPage
+    * @param request
+    * @return
+    */
+   @GetMapping("/admin/answer/{currentPage}")
+   public JsonAnswer<List<TourAnswerDto>> getAdminAnswer(@PathVariable(value="currentPage") int currentPage, HttpServletRequest request) {
+      totalCount = tas.getTotalCountAnswerAdmin();
+      System.out.println(totalCount);
+      start=pagingService.getPagingData(totalCount, currentPage).get("start");
+      perPage=pagingService.getPagingData(totalCount, currentPage).get("perPage");
+      totalPage=pagingService.getPagingData(totalCount, currentPage).get("totalPage");
 
-	/**
-	 * 관리자 로그인 db체크
-	 * @param id
-	 * @param password
-	 * @param request
-	 * @return 로그인성공시 관리자메인/ 실패시 관리자로그인페이지
-	 */
-	@PostMapping("/login/admin/check")
-	public String checkAdmin(
-			@Param(value="id") String id,
-			@Param(value="password") String password,
-			HttpServletRequest request
-			) {
+      List<TourAnswerDto> answer = tas.getAdminAnswer(start, perPage);
+      return new JsonAnswer<List<TourAnswerDto>>(answer, totalPage);
 
-		System.out.println(adminService.checkAdmin(id, password));
+   }
+   /**
+    * 관리자용 답글 조회
+    * @param currentPage
+    * @param request
+    * @return
+    */
+   @GetMapping("/admin/reanswer/{currentPage}")
+   public JsonReAnswer<List<TourAnswerDto>> getAdminReAnswer(@PathVariable(value="currentPage") int currentPage, HttpServletRequest request) {
+      totalCount = tas.getTotalCountReAnswerAdmin();
+      start=pagingService.getPagingData(totalCount, currentPage).get("start");
+      perPage=pagingService.getPagingData(totalCount, currentPage).get("perPage");
+      totalPage=pagingService.getPagingData(totalCount, currentPage).get("totalPage");
+      
+      List<TourAnswerDto> reAnswer = tas.getAdminReAnswer(start, perPage);
+      return new JsonReAnswer<List<TourAnswerDto>>(reAnswer, totalPage);
+      
+   }
+   /**
+    * 관리자용 댓글,답글 삭제
+    * @param tourAnswerNum
+    */
+   @DeleteMapping(value = "/admin/answer/{tourAnswerNum}")
+   public void deleteAnswer(@PathVariable int tourAnswerNum) {
+      tas.deleteCourseAnswerByAdmin(tourAnswerNum);
+      tas.deletePlaceAnswerByAdmin(tourAnswerNum);
+   }
+   
+   /*
+    * 관리자 유저관광지 사진 신청 목록 조회
+    * @param x
+    * @return JsonAdminPhotos
+    */
+   @GetMapping("/admin/place/photo")
+   public JsonAdminPhotos getDisapprovedDatas() {
+      List<PlacePhotoDto> photo = pps.getDisapprovedDatas();
+      
+      return new JsonAdminPhotos(photo);
+   }
+      
+   /*
+    * 관리자 유저관광지 사진 삭제
+    * @param photoNum
+    */
+   @DeleteMapping("/admin/place/photo/{photoNum}")
+   public void deleteData(@PathVariable(name="photoNum") int photoNum
+         ,HttpServletRequest request) {
+      // 파일 업로드 경로
+      String path = request.getSession().getServletContext().getRealPath("/placeImg");
+      System.out.println(path);
+      // db에 저장된 파일명들 얻기
+      String deleteFile = pps.getData(photoNum).getImage();
+      // 저장된 파일들 먼저 삭제
+      if(!deleteFile.equals("no")) {
+         File file = new File(path +"/"+ deleteFile);
+         if(file.exists()) {
+            file.delete();
+         }
+      }
+      // db데이터 삭제
+      pps.deleteData(photoNum);
+   }
+   
+   /*
+    * 유저관광지 사진 approval=1로 수정
+    * @param photoNum
+    */
+   @PutMapping("/admin/place/photo/{photoNum}")
+   public void approvePhoto(@PathVariable(name="photoNum") int photoNum) {
+      pps.approvePhoto(photoNum);
+   }
+      
 
-		if(adminService.checkAdmin(id, password)==1) {
-			AdminDto admin=adminService.getAdminData(id, password);
-			HttpSession session=request.getSession();
-			session.setAttribute(ADMIN, admin);
-			session.setMaxInactiveInterval(24*60*60);
+   @Data
+   @AllArgsConstructor
+   static class JsonAnswer<T>{
 
-			return "admin/adminmain";
-		}else  {
-			return "login/adminloginform";
-		}
-	}
-	
-	
-	//관리자 메인페이지
-	@GetMapping("/admin")
-	public String goAdminmain() {
+      private T answer;
+      int totalPage;
+   }
 
-		return "admin/adminmain";
-	}
-	
-	//관리자 회원관리
-	@GetMapping("/admin/member/list")
-	public String goAdminMemberList() {
+   @Data
+   @AllArgsConstructor
+   static class JsonReAnswer<T>{
 
-		return "admin/memberlist";
-	}
+      private T reAnswer;
+      int totalPage;
+   }
+   
+   @Data
+   @AllArgsConstructor
+   static class JsonData<T> {
+      private T notices;
+      int totalPage;
+   }
 
-	//관리자 댓글관리
-	//댓글로 이동
-	@GetMapping("/admin/comment/list")
-	public String goAdminCommentList(@RequestParam int currentPage,Model model) {
-		model.addAttribute("currentPage", currentPage);
-		return "admin/commentlist";
-	}
+   @Data
+   @AllArgsConstructor
+   static class JsonDataList {
+      private NoticeDto noticeDto; //dto
+   }
 
-	//답글로 이동
-	@GetMapping("/admin/recomment/list")
-	public String goAdminReCommentList(@RequestParam int currentPage,Model model) {
-		model.addAttribute("currentPage", currentPage);
-		return "admin/recommentlist";
-	}
-	
-	
-	//Tour 사진관리
-	@GetMapping("/admin/placephoto/list")
-	public String goAdminDisapprovedPhotoList() {
+   @Data
+   @AllArgsConstructor
+   static class JsonDetail {
+      private NoticeDto noticeDetail;
+   }
 
-		return "admin/placephotolist";
-	}
-	
-	
-	
-	//////////////////홈스테이HOMESTAY/////////////////////////////
-	
-	@GetMapping("/admin/host/list")
-	public String goAdminHostList() {
+   @Data
+   @AllArgsConstructor
+   static class JsonRequest {
+      private String title;
+      private String content;
+      private int views;
+   }
+   
+   @Data
+   @AllArgsConstructor
+   static class JsonAdminPhotos {
+      private List<PlacePhotoDto> photo;
+   }
 
-		return "admin/hostlist";
-	}
+   
 
-	@GetMapping("/admin/host/detail")
-	public String goAdminHostDetail( ) {
-
-		return "admin/hostdetail";
-	}
-
-	@GetMapping("/admin/host/approval")
-	public String goAdminHostApproval() {
-
-		return "admin/hostlist";
-	}
-
-	@GetMapping("/admin/host/denial")
-	public String goAdminHostDenial() {
-
-		return "admin/hostlist";
-	}
 }
-

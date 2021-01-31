@@ -13,7 +13,7 @@ function getParam(key) {
 
 function deletePhoto(photoNum){
    const xhr = new XMLHttpRequest();
-   const url =`/admin/place/photo/${photoNum}`;
+   const url =`/api/admin/place/photo/${photoNum}`;
  	xhr.open('DELETE',url);
   	
     xhr.onreadystatechange = function () {
@@ -28,7 +28,7 @@ function deletePhoto(photoNum){
 
 function approvalPhoto(photoNum){
 	const xhr = new XMLHttpRequest();
-    const url =`/admin/place/photo/${photoNum}`;
+    const url =`/api/admin/place/photo/${photoNum}`;
  	xhr.open('PUT',url);
   	
     xhr.onreadystatechange = function () {
@@ -44,7 +44,7 @@ function approvalPhoto(photoNum){
 
 function placePhotoList(){
     var xhr = new XMLHttpRequest();
-    var url = `/admin/place/photo`;
+    var url = `/api/admin/place/photo`;
     xhr.open('GET', url);
     xhr.send();
     console.log(url);
