@@ -144,7 +144,7 @@ public class NoticeController{
 	@GetMapping("/admin/notice/detail")
 	public String goAdminNoticeDetail(@RequestParam int noticeNum,Model model) {
 		model.addAttribute("noticeNum", noticeNum);
-		return "admin/detail";
+		return "admin/noticedetail";
 	}
 	/**
 	 * 공지사항 업데이트폼
@@ -153,7 +153,7 @@ public class NoticeController{
 	@PostMapping("/admin/notice/updateform")
 	public String goAdminNoticeUpdateForm(@RequestParam int noticeNum,Model model ) {
 		model.addAttribute("noticeNum", noticeNum);
-		return "admin/noticeupdateform";
+		return "admin/noticedetail";
 	}
 	
 	/**
