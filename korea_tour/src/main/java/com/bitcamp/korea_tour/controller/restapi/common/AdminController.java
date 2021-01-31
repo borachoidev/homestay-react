@@ -10,16 +10,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bitcamp.korea_tour.controller.restapi.tour.PlaceController;
 import com.bitcamp.korea_tour.model.NoticeDto;
 import com.bitcamp.korea_tour.model.PlacePhotoDto;
 import com.bitcamp.korea_tour.model.TourAnswerDto;
-import com.bitcamp.korea_tour.model.service.NoticeService;
 import com.bitcamp.korea_tour.model.service.PlacePhotoService;
 import com.bitcamp.korea_tour.model.service.TourAnswerService;
 import com.bitcamp.korea_tour.model.service.paging.PagingService;
@@ -78,6 +74,7 @@ public class AdminController {
 	/**
 	 * 관리자용 댓글,답글 삭제
 	 * @param tourAnswerNum
+	 * 포스트 맵핑 임포트했는데 왜 임포트안됐다고 그러는거지 소스트리 충돌방지용 주석입니다
 	 */
 	@PostMapping(value = "/admin/answer/{tourAnswerNum}")
 	public void deleteAnswer(@PathVariable int tourAnswerNum) {

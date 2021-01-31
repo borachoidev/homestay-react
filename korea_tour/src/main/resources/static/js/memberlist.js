@@ -39,7 +39,7 @@ xhr.send(null);
 
 function memberList(currentPage){
     var xhr = new XMLHttpRequest();
-    var url = `/api/users/${currentPage}`;
+    var url = `/api/admin/users/${currentPage}`;
     xhr.open('GET', url);
     xhr.send();
     console.log(url);

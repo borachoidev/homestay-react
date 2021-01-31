@@ -1,22 +1,58 @@
 package com.bitcamp.korea_tour.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.bitcamp.korea_tour.model.NoticeDto;
-import com.bitcamp.korea_tour.model.service.NoticeService;
-import com.bitcamp.korea_tour.model.service.paging.PagingService;
+import com.bitcamp.korea_tour.model.AdminDto;
+import com.bitcamp.korea_tour.model.service.AdminService;
+import com.bitcamp.korea_tour.model.service.login.setting.SessionNames;
+
+import lombok.RequiredArgsConstructor;
 
 @Controller
-public class AdminRedirectController {
-   @Autowired
+@RequiredArgsConstructor
+public class AdminRedirectController implements SessionNames {
+	private final AdminService adminService;
+	private final HttpServletResponse response;
+	
+	  /**
+	    * 관리자 로그인 db체크
+	    * @param id
+	    * @param password
+	    * @param request
+	    * @return 로그인성공시 관리자메인/ 실패시 관리자로그인페이지
+	    */
+	   @PostMapping("/login/admin/check")
+	   public String checkAdmin(
+	         @Param(value="id") String id,
+	         @Param(value="password") String password,
+	         HttpServletRequest request
+	         ) {
 
+	      System.out.println(adminService.checkAdmin(id, password));
+
+	      if(adminService.checkAdmin(id, password)==1) {
+	         AdminDto admin=adminService.getAdminData(id, password);
+	         HttpSession session=request.getSession();
+	         session.setAttribute(ADMIN, admin);
+	         session.setMaxInactiveInterval(24*60*60);
+
+	         return "admin/adminmain";
+	      }else  {
+	         return "login/adminloginform";
+	      }
+	   }
+	
    //관리자 메인페이지
 
    @GetMapping("/admin")
