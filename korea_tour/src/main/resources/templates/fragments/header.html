@@ -23,7 +23,7 @@
 		<ul class="nav-list">
 			<li class="nav-item"><a th:href="@{/tourplace}" class="nav-link">지역</a></li>
 			<li class="nav-item"><a th:href="@{/tourcourse?who=&during=&how=}" class="nav-link">코스</a></li>
-			<li class="nav-item"><a th:href="@{/festival}" class="nav-link">페스티벌</a></li>
+			<li class="nav-item"><a th:href="@{/festival}" class="nav-link">축제</a></li>
 		    <li class="nav-item"><a th:href="@{/login}" th:if="${session.user == null}" class="nav-link">로그인</a></li>
 			<th:block th:unless="${session.user == null}">
 			<li class="nav-item"><a th:href="@{/tourmypage}"> <img th:src="${session.user.photo}" id="userPhoto" class="nav-link"></a></li>
