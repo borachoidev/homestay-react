@@ -34,7 +34,7 @@ public class UserController implements SessionNames {
 	 * 회원탈퇴(사용자), 회원삭제(관리자)
 	 * @param request
 	 */
-	@DeleteMapping(value = {"/mypage/users/{userNum}","/admin/member/delete/{userNum}"})
+	@DeleteMapping(value = {"/mypage/users/{userNum}","/admin/member/{userNum}"})
 	public void deleteUser(@PathVariable(value="userNum") int userNum) {
 		us.deleteUser(userNum);
 	}
