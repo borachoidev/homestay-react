@@ -185,7 +185,7 @@ public class TourMypageController implements SessionNames {
 	}
 	
 	//나의 코스 detail
-	@GetMapping("tourmypage/coursedetail/{courseNum}")
+	@GetMapping("/tourmypage/coursedetail/{courseNum}")
 	public JsonDataList getMyCourseDetail(@PathVariable(value = "courseNum")int courseNum) {
 		CourseDto courseDto=jsds.getCourseData(courseNum);
 		List<JoinCourseDetailDto> coursePlaceList=jsds.getCourseDetail(courseNum);
