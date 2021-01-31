@@ -12,7 +12,6 @@ public class ControllerInterceptor implements WebMvcConfigurer {
 	
 	private final UserAuthInterceptor userInterceptor;
 	private final AdminAuthInterceptor adminInterceptor;
-	private final RestInterceptor restInterceptor;
 	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
@@ -22,11 +21,23 @@ public class ControllerInterceptor implements WebMvcConfigurer {
 				.addPathPatterns("/placeanswer")
 				.addPathPatterns("/api/place/detail/course/**")
 				.addPathPatterns("/api/courseplaces")
-				.addPathPatterns("/api/place/detail/photo")
-				.addPathPatterns("/api/place/detail/photo")
+				.addPathPatterns("/api/tourmypage/**")
+				.addPathPatterns("/api/courses")
+				.addPathPatterns("/api/courses/**")
+				.addPathPatterns("/api/courseplace/**")
+				.addPathPatterns("/api/courseplaces")
+				.addPathPatterns("/api/mypage/**")
+				.addPathPatterns("/api/placeanswer")
+				.addPathPatterns("/api/placereanswer")
+				.addPathPatterns("/api/courseanswer")
+				.addPathPatterns("/api/coursereanswer")
 				;
+		
 		registry.addInterceptor(adminInterceptor)
-				.addPathPatterns("/admin/**");
+				.addPathPatterns("/admin")
+				.addPathPatterns("/admin/**")
+				.addPathPatterns("/api/admin/**")
+				.addPathPatterns("/public/**");
 		
 	}
 }
