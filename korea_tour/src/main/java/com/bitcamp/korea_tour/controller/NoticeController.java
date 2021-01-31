@@ -145,8 +145,8 @@ public class NoticeController{
 	 * @return
 	 */
 	@PostMapping("/admin/notice/updateform")
-	public String goAdminNoticeUpdateForm() {
-
+	public String goAdminNoticeUpdateForm(@RequestParam int noticeNum,Model model ) {
+		model.addAttribute("noticeNum", noticeNum);
 		return "admin/noticeupdateform";
 	}
 	/**
