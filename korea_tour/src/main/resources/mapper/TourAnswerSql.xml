@@ -19,7 +19,7 @@
 		<selectKey resultType="int" keyProperty="restep"
 			order="BEFORE">
 			SELECT IFNULL(MAX(restep),0)+1 FROM tourAnswer where
-			contentId=#{contentId}, regroup=#{regroup}
+			contentId=#{contentId} and regroup=#{regroup}
 		</selectKey>
 		insert into tourAnswer (contentId, loginNum, loginId, loginPhoto,
 		content, writeDay, regroup, relevel, restep)
@@ -65,7 +65,7 @@
 		<selectKey resultType="int" keyProperty="restep"
 			order="BEFORE">
 			SELECT IFNULL(MAX(restep),0)+1 FROM tourAnswer where
-			contentId=#{courseNum}, regroup=#{regroup}
+			contentId=#{courseNum} and regroup=#{regroup}
 		</selectKey>
 		insert into tourAnswer (courseNum, loginNum,userNum, loginId, loginPhoto,
 		content, writeDay, regroup, relevel, restep)
