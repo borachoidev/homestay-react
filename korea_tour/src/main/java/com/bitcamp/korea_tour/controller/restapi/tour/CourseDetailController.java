@@ -17,7 +17,9 @@ import com.bitcamp.korea_tour.model.CourseDto;
 import com.bitcamp.korea_tour.model.CourseLikeDto;
 import com.bitcamp.korea_tour.model.CourseMarkDto;
 import com.bitcamp.korea_tour.model.JoinCourseDetailDto;
+import com.bitcamp.korea_tour.model.TourAnswerDto;
 import com.bitcamp.korea_tour.model.UserDto;
+import com.bitcamp.korea_tour.model.service.TourAnswerService;
 import com.bitcamp.korea_tour.model.service.course.CourseLikeService;
 import com.bitcamp.korea_tour.model.service.course.CourseMarkService;
 import com.bitcamp.korea_tour.model.service.course.JoinCourseDetailService;
@@ -34,6 +36,7 @@ public class CourseDetailController implements SessionNames {
 	private final JoinCourseDetailService joincourseDetailService;
 	private final CourseLikeService cls;
 	private final CourseMarkService cms;
+	private final TourAnswerService tas;
 
 
 	/**
@@ -51,8 +54,9 @@ public class CourseDetailController implements SessionNames {
 		List<JoinCourseDetailDto> coursePlaceList=joincourseDetailService.getCourseDetail(courseNum);
 		int markTotalCount=joincourseDetailService.getCourseMarkTotal(courseNum);
 		int likeTotalCount=joincourseDetailService.getCourseLikeTotal(courseNum);
+		List<TourAnswerDto> tourAnswer = tas.getAnswerOfCourse(courseNum);
 
-		return new JsonDataList(courseDto, coursePlaceList, markTotalCount, likeTotalCount);
+		return new JsonDataList(courseDto, coursePlaceList, markTotalCount, likeTotalCount, tourAnswer);
 	}
 	
 	/**
@@ -128,6 +132,7 @@ public class CourseDetailController implements SessionNames {
 		private List<JoinCourseDetailDto> coursePlaceList;  //list
 		private int markTotalCount; //즐겨찾기 개수
 		private int likeTotalCount; //좋아요 개수
+		private List<TourAnswerDto> tourAnswerDto;
 	}
 
 	@Data
