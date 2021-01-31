@@ -161,7 +161,7 @@ public class NoticeController{
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("noticeNum", noticeNum);
 		return "admin/noticelist";
-	}
+	} 
 
 	@GetMapping("/admin/notice/delete")
 	public String goAdminNoticeDelete(@RequestParam int noticeNum,@RequestParam int currentPage,Model model) {

@@ -54,7 +54,7 @@
    <select id="getTotalCountCourseReAnswer" parameterType="int" resultType="int">
          select count(*) from tourAnswer where relevel=1 and courseNum is not null and loginNum=#{loginNum}
    </select>
-   <!-- 마이 페이지용 댓글 답글 출력 -->
+   <!-- 마이 페이지용 댓글 답글 출력 --> 
    <select id="getTotalCountAnswer" parameterType="int" resultType="int">
           select count(*) from tourAnswer where relevel=0 and loginNum=#{loginNum}
    </select>
