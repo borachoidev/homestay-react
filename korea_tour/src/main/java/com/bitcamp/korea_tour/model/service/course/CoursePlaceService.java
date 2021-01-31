@@ -9,4 +9,5 @@ public interface CoursePlaceService {
 	void deleteCoursePlace(int coursePlaceNum);
 	int getTotalCoursePlace(int courseNum);
 	void updateCoursePlace(List<CoursePlaceDto> list);
+	int checkNewPlaceInCourse(CoursePlaceDto dto);
 }

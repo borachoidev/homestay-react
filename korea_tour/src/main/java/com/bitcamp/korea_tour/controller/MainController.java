@@ -33,7 +33,7 @@ public class MainController {
       HttpSession session=request.getSession();
       session.invalidate();
       
-      return "home/home";
+      return "redirect:/";
    }
 
 }

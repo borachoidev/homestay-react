@@ -1,156 +1,163 @@
-.top-box__h3{
-    color: #b6b0a9;
+.top-box__h3 {
+  color: #b6b0a9;
 }
 
-#topBox{
-    width: 80%;
-    margin: auto;
+#topBox {
+  width: 80%;
+  margin: auto;
 }
 
-hr{
-    width: 100%;
-    height: 1px;
-    background-color: #353535;
-    border: 0;
-
+hr {
+  width: 100%;
+  height: 1px;
+  background-color: #353535;
+  border: 0;
 }
 
-.hr2{
-    width: 100%;
-    height: 2px;
-    background-color: #b6b0a9;
-    border: 0;
+.hr2 {
+  width: 100%;
+  height: 2px;
+  background-color: #b6b0a9;
+  border: 0;
 }
-#middleBox{
-    display: flex;
-    justify-content: center;
-}
-
-#mainBox{
-    width: 80%;
-    height: 100%;
-    margin-bottom: 100px;
+#middleBox {
+  display: flex;
+  justify-content: center;
 }
 
-
-.course-box{
-    display: flex;
-    margin-top: 20px;
-    margin-bottom: 20px;
+#mainBox {
+  width: 80%;
+  height: 100%;
+  margin-bottom: 100px;
 }
 
-.image-box{
-    width: 20%;
-    height: 150px;
-    background-color: #353535;
-}
-.image-box img{
-    width: 100%;
-    height: 150px;
-}
- .course-info__box{
-    display: flex;
-    justify-content: space-between;
-    width:78%;
-    margin-left: 2%;
-} 
-
-
-.course-icon{
-    font-size: 25px;
-    cursor: pointer;
+.course-box {
+  display: flex;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
-.course-name{
-    font-size: 2rem;
-    margin-bottom: 10px;
-    cursor: pointer;
+.image-box {
+  width: 20%;
+  height: 150px;
+  background-color: #353535;
 }
-.course-start{
-    margin-bottom: 10px;
+.image-box img {
+  width: 100%;
+  height: 150px;
 }
-
-.course-info span{
-    margin-right: 10px;
-}
-
-#courseTitle{
-    text-align: center;
-    margin-bottom: 20px;
-}
-.course-km{
-    text-align: center;
-    margin-bottom: 40px;
+.course-info__box {
+  display: flex;
+  justify-content: space-between;
+  width: 78%;
+  margin-left: 2%;
 }
 
-#iconBox{
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    margin: auto;
-    margin-bottom: 10px;
-}
-#likeIcon{
-    margin-right: 10px;
-    font-size: 1.3em;
-    cursor: pointer;
-}
-#shareIcon{
-    font-size: 1.3em;
-    cursor: pointer;
-}
-#favoriteIcon{
-    margin-right: 10px;
-    font-size: 1.3em;
-    cursor: pointer;
-}
-#saveIcon{
-    font-size: 1.3em;
-    cursor: pointer;
+.course-icon {
+  font-size: 25px;
+  cursor: pointer;
 }
 
-#temaBox{
-    margin-top: 60px;
-    display: flex;
-    justify-content: center;
+.course-name {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  cursor: pointer;
 }
-    
-.duringBox, .whoBox, .howBox{
-    margin: 0px 20px;
-    font-size: 1.8rem;
+.course-start {
+  margin-bottom: 10px;
 }
 
-.tema-icon{
-    color: #b6b0a9;
+.course-info span {
+  margin-right: 10px;
 }
 
-#contentBox{
-    margin-top: 60px;
-    margin-bottom: 60px;
+#courseTitle {
+  text-align: center;
+  margin-bottom: 20px;
 }
-#mapBox{
-    margin-top: 50px;
-    width: 100%;
-    height: 85vh;
+.course-km {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+#iconBox {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  margin-bottom: 10px;
+}
+#likeIcon {
+  margin-right: 10px;
+  font-size: 1.3em;
+  cursor: pointer;
+}
+#shareIcon {
+  font-size: 1.3em;
+  cursor: pointer;
+}
+#favoriteIcon {
+  margin-right: 10px;
+  font-size: 1.3em;
+  cursor: pointer;
+}
+#saveIcon {
+  font-size: 1.3em;
+  cursor: pointer;
+}
+
+#temaBox {
+  margin-top: 60px;
+  display: flex;
+  justify-content: center;
+}
+
+.duringBox,
+.whoBox,
+.howBox {
+  margin: 0px 20px;
+  font-size: 1.8rem;
+}
+
+.tema-icon {
+  color: #b6b0a9;
+}
+
+#contentBox {
+  margin-top: 60px;
+  margin-bottom: 60px;
+}
+#mapBox {
+  margin-top: 50px;
+  width: 100%;
+  height: 85vh;
 }
 
 .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto;
-    
-    background-color: rgba(0,0,0,0.4);
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto;
+
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
-.modal-content{
-    background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 50%;
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%;
+}
+
+.liked {
+  color: dodgerblue;
+}
+
+.favorite {
+  color: orange;
 }

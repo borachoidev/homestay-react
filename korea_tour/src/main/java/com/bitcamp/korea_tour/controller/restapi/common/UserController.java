@@ -1,4 +1,4 @@
-package com.bitcamp.korea_tour.controller;
+package com.bitcamp.korea_tour.controller.restapi.common;
 
 import java.util.List;
 
@@ -34,23 +34,15 @@ public class UserController implements SessionNames {
 	 * 회원탈퇴(사용자), 회원삭제(관리자)
 	 * @param request
 	 */
-	@DeleteMapping(value = "/users/{userNum}")
+	@DeleteMapping(value = {"/mypage/users/{userNum}","/admin/member/{userNum}"})
 	public void deleteUser(@PathVariable(value="userNum") int userNum) {
 		us.deleteUser(userNum);
 	}
 	
-	
-	//회원강퇴
-		@DeleteMapping("/admin/member/delete/{userNum}")
-		public void deleteUserByAdmin(@PathVariable(value = "userNum") int userNum)
-		{
-			us.deleteUserByAdmin(userNum);
-		}
-
 	/**
 	 * @return 사용자 목록(관리자페이지)
 	 */
-	@GetMapping(value="/users/{currentPage}") 
+	@GetMapping(value="/admin/users/{currentPage}") 
 	public JsonData<List<UserDto>>getAllUsers(@PathVariable(value="currentPage") int currentPage) {
 		totalCount=us.getUserTotalCount();
 		start=pagingService.getPagingData(totalCount, currentPage).get("start");

@@ -21,5 +21,6 @@ public class TourAnswerDto {
 	private int relevel;
 	private int regroup;
 	private int deleted;
+	private int restep;
 
 }

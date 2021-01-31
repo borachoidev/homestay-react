@@ -9,6 +9,6 @@ import lombok.Data;
 public class PlaceLikeDto {
 	private int placeLikeNum;
 	private int contentId;
-	private String loginId;
+	private int loginNum;
 //	private int likeCheck;
 }

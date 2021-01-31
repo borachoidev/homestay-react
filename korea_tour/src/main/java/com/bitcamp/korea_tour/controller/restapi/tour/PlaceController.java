@@ -1,34 +1,28 @@
-package com.bitcamp.korea_tour.controller;
+package com.bitcamp.korea_tour.controller.restapi.tour;
 
 import java.io.File;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.core.io.DefaultResourceLoader;
-import org.springframework.core.io.Resource;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.bitcamp.korea_tour.fileupload.SpringFileWriter;
 //import com.bitcamp.korea_tour.fileupload.SpringFileWriter;
 import com.bitcamp.korea_tour.model.CourseDto;
 import com.bitcamp.korea_tour.model.JoinPlaceListDto;
-import com.bitcamp.korea_tour.model.PagingDto;
 import com.bitcamp.korea_tour.model.PlaceApiPhotoDto;
 import com.bitcamp.korea_tour.model.PlaceDto;
 import com.bitcamp.korea_tour.model.PlaceLikeDto;
@@ -36,7 +30,6 @@ import com.bitcamp.korea_tour.model.PlaceMarkDto;
 import com.bitcamp.korea_tour.model.PlacePhotoDto;
 import com.bitcamp.korea_tour.model.TourAnswerDto;
 import com.bitcamp.korea_tour.model.UserDto;
-import com.bitcamp.korea_tour.model.JoinPlaceDto;
 import com.bitcamp.korea_tour.model.service.JoinPlaceService;
 import com.bitcamp.korea_tour.model.service.PlaceLikeService;
 import com.bitcamp.korea_tour.model.service.PlaceMarkService;
@@ -46,11 +39,11 @@ import com.bitcamp.korea_tour.model.service.paging.PagingService;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api")
 public class PlaceController implements SessionNames{
 
 	private final JoinPlaceService service;
@@ -86,18 +79,13 @@ public class PlaceController implements SessionNames{
 		private List<TourAnswerDto> tourAnswer;
 		private PlaceLikeDto userLike;
 		private PlaceMarkDto userMark;
+		private int likeCount;
 	}
 	
 	@Data
 	@AllArgsConstructor
 	static class JsonCourseData {
 		private List<HashMap<String, Object>> course;
-	}
-	
-	@Data
-	@AllArgsConstructor
-	static class JsonAdminPhotos {
-		private List<PlacePhotoDto> photo;
 	}
 	
 	// 관광지 메인페이지 (4개 랜덤 출력)
@@ -187,10 +175,9 @@ public class PlaceController implements SessionNames{
 		PlaceMarkDto userMark = null;
 		if(session.getAttribute(USER)!=null) {
 			UserDto user=(UserDto)session.getAttribute(USER);
-			String loginId= user.getName();
 			int userNum = user.getUserNum();
 			PlaceLikeDto ldto = new PlaceLikeDto();
-			ldto.setLoginId(loginId);
+			ldto.setLoginNum(userNum);
 			ldto.setContentId(contentId);
 			userLike = service3.getDataByUser(ldto);
 			PlaceMarkDto mdto = new PlaceMarkDto();
@@ -198,8 +185,9 @@ public class PlaceController implements SessionNames{
 			mdto.setUserNum(userNum);
 			userMark = service4.getDataByUser(mdto);
 		}
+		int likeCount = service.getLikeCountOfPlace(contentId);
 		
-		return new JsonPlaceDetail(place, apiPhoto, userPhoto, tourAnswer, userLike, userMark);
+		return new JsonPlaceDetail(place, apiPhoto, userPhoto, tourAnswer, userLike, userMark, likeCount);
 	}
 	
 	// 코스 담기 클릭시 사용자 코스 전체 보기
@@ -220,9 +208,20 @@ public class PlaceController implements SessionNames{
 	}
 	
 	// 좋아요 추가
-	@PostMapping("/place/detail/like")
+	@PostMapping("/place/detail/like/{contentId}")
 	public String plusPlaceLike(
-			@RequestBody PlaceLikeDto dto) {
+			@PathVariable(name="contentId") int contentId,
+			HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		PlaceLikeDto dto = new PlaceLikeDto();
+		dto.setContentId(contentId);
+		if(session.getAttribute(USER)!=null) {
+			UserDto user=(UserDto)session.getAttribute(USER);
+			int loginNum = user.getUserNum();
+			dto.setLoginNum(loginNum);
+		}else {
+			return "needlogin";
+		}
 		int cnt = service3.getPlaceLikeCountByUser(dto);
 		if(cnt == 0) {
 			service3.plusPlaceLikes(dto);
@@ -230,26 +229,47 @@ public class PlaceController implements SessionNames{
 		}else {
 			return "fail";
 		}
-		
 	}
 	
 	// 좋아요 삭제
-	@DeleteMapping("/place/detail/like/delete")
+	@DeleteMapping("/place/detail/like/delete/{contentId}")
 	public String minusPlaceLike(
-			@RequestBody PlaceLikeDto dto) {
+			@PathVariable(name="contentId") int contentId,
+			HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		PlaceLikeDto dto = new PlaceLikeDto();
+		dto.setContentId(contentId);
+		if(session.getAttribute(USER)!=null) {
+			UserDto user=(UserDto)session.getAttribute(USER);
+			int loginNum = user.getUserNum();
+			dto.setLoginNum(loginNum);
+		}else {
+			return "needlogin";
+		}
 		int cnt = service3.getPlaceLikeCountByUser(dto);
 		if(cnt == 1) {
 			service3.deletePlaceLikeByUser(dto);
 			return "success";
-		}else{
+		}else {
 			return "fail";
-		}
+		}	
 	}
 	
 	// 즐겨찾기 추가
-	@PostMapping("/place/detail/mark")
+	@PostMapping("/place/detail/mark/{contentId}")
 	public String plusPlaceMark(
-			@RequestBody PlaceMarkDto dto) {
+			@PathVariable(name="contentId") int contentId,
+			HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		PlaceMarkDto dto = new PlaceMarkDto();
+		dto.setContentId(contentId);
+		if(session.getAttribute(USER)!=null) {
+			UserDto user=(UserDto)session.getAttribute(USER);
+			int userNum = user.getUserNum();
+			dto.setUserNum(userNum);
+		}else {
+			return "needlogin";
+		}
 		int cnt = service4.getPlaceMarkCountByUser(dto);
 		if(cnt == 0) {
 			service4.insertPlaceMark(dto);
@@ -257,13 +277,23 @@ public class PlaceController implements SessionNames{
 		}else {
 			return "fail";
 		}
-		
 	}
 	
 	// 즐겨찾기 삭제
-	@DeleteMapping("/place/detail/mark/delete")
+	@DeleteMapping("/place/detail/mark/delete/{contentId}")
 	public String minusPlaceMark(
-			@RequestBody PlaceMarkDto dto) {
+			@PathVariable(name="contentId") int contentId,
+			HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		PlaceMarkDto dto = new PlaceMarkDto();
+		dto.setContentId(contentId);
+		if(session.getAttribute(USER)!=null) {
+			UserDto user=(UserDto)session.getAttribute(USER);
+			int userNum = user.getUserNum();
+			dto.setUserNum(userNum);
+		}else {
+			return "needlogin";
+		}
 		int cnt = service4.getPlaceMarkCountByUser(dto);
 		if(cnt == 1) {
 			service4.deletePlaceMarkByUser(dto);
@@ -278,10 +308,9 @@ public class PlaceController implements SessionNames{
 	public void insertUserPhoto(
 			@RequestParam int contentId,
 			@RequestParam List<MultipartFile> images,
-			@RequestParam String loginId
+			@RequestParam int loginNum
 			,HttpServletRequest request
 			) {
-		
 		// 파일 업로드 경로
 		String path = request.getSession().getServletContext().getRealPath("/placeImg");
 		System.out.println(path);
@@ -301,44 +330,9 @@ public class PlaceController implements SessionNames{
 			PlacePhotoDto dto = new PlacePhotoDto();
 			dto.setContentId(contentId);
 			dto.setImage(upload);
-			dto.setLoginId(loginId);
+			dto.setLoginNum(loginNum);
 			service2.insertData(dto);
 		}
 		
 	}
-	
-	// 관리자 사진 삭제
-	@DeleteMapping("/admin/place/photo/{photoNum}")
-	public void deleteData(@PathVariable(name="photoNum") int photoNum
-			,HttpServletRequest request) {
-		// 파일 업로드 경로
-		String path = request.getSession().getServletContext().getRealPath("/placeImg");
-		System.out.println(path);
-		// db에 저장된 파일명들 얻기
-		String deleteFile = service2.getData(photoNum).getImage();
-		// 저장된 파일들 먼저 삭제
-		if(!deleteFile.equals("no")) {
-			File file = new File(path +"/"+ deleteFile);
-			if(file.exists()) {
-				file.delete();
-			}
-		}
-		// db데이터 삭제
-		service2.deleteData(photoNum);
-	}
-	
-	// 관리자 사진 목록 조회
-	@GetMapping("/admin/place/photo")
-	public JsonAdminPhotos getDisapprovedDatas() {
-		List<PlacePhotoDto> photo = service2.getDisapprovedDatas();
-		
-		return new JsonAdminPhotos(photo);
-	}
-	
-	// 관리자 사진 approval=1로 수정
-	@PutMapping("/admin/place/photo/{photoNum}")
-	public void approvePhoto(@PathVariable(name="photoNum") int photoNum) {
-		service2.approvePhoto(photoNum);
-	}
-	
 }

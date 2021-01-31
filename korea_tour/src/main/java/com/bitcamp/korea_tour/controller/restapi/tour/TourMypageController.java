@@ -1,4 +1,4 @@
-package com.bitcamp.korea_tour.controller;
+package com.bitcamp.korea_tour.controller.restapi.tour;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bitcamp.korea_tour.controller.CourseDetailController.MarkLikeData;
 import com.bitcamp.korea_tour.model.CourseDto;
 import com.bitcamp.korea_tour.model.JoinAnswerDto;
 import com.bitcamp.korea_tour.model.JoinCourseDetailDto;
@@ -40,7 +40,8 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-public class MypageController implements SessionNames {
+@RequestMapping("/api")
+public class TourMypageController implements SessionNames {
 
 	private final JoinCourseDetailService jsds;
 	private final CourseMarkService cms;
@@ -58,7 +59,7 @@ public class MypageController implements SessionNames {
 	int totalPage=0;
 
 	//mypage 첫 페이지
-	@GetMapping("/mypage")
+	@GetMapping("/tourmypage")
 	public String getMypage(HttpServletRequest request) {
 
 		HttpSession session = request.getSession();
@@ -91,7 +92,7 @@ public class MypageController implements SessionNames {
 	}
 
 	//mypage 내가 즐겨찾기한 코스 모아보기
-	@GetMapping("/mypage/coursemarks/{currentPage}")
+	@GetMapping("/tourmypage/coursemarks/{currentPage}")
 	public JsonData<List<JoinCourseMarkDto>> getMyCourseMarks(@PathVariable(value = "currentPage") int currentPage, HttpServletRequest request) {
 		//세션가져오기
 		HttpSession session = request.getSession();
@@ -110,7 +111,7 @@ public class MypageController implements SessionNames {
 	}
 	
 	//mypage 내가 즐겨찾기한 관광지 모아보기
-	@GetMapping("/mypage/placemarks/{currentPage}")
+	@GetMapping("/tourmypage/placemarks/{currentPage}")
 	public JsonData<List<JoinPlaceDto>> getMyPlaceMarks(@PathVariable(value = "currentPage") int currentPage, HttpServletRequest request) {
 		//세션가져오기
 		HttpSession session = request.getSession();
@@ -130,7 +131,7 @@ public class MypageController implements SessionNames {
 	}
 	
 	//내가 단 댓글
-	@GetMapping("/mypage/answer/{currentPage}")
+	@GetMapping("/tourmypage/answer/{currentPage}")
 	public JsonAnswer<List<JoinAnswerDto>> getMyAnswer(@PathVariable(value="currentPage") int currentPage, HttpServletRequest request) {
 	    HttpSession session = request.getSession();
 	    UserDto user = (UserDto)session.getAttribute(USER);
@@ -149,7 +150,7 @@ public class MypageController implements SessionNames {
 	   
     }
 	 //내가 단 답글
-	 @GetMapping("/mypage/reanswer/{currentPage}")
+	 @GetMapping("/tourmypage/reanswer/{currentPage}")
 	 public JsonReAnswer<List<JoinAnswerDto>> getMyReAnswer(@PathVariable(value="currentPage") int currentPage, HttpServletRequest request) {
 	    HttpSession session = request.getSession();
 		UserDto user = (UserDto)session.getAttribute(USER);
@@ -167,7 +168,7 @@ public class MypageController implements SessionNames {
 	 }
 
 	//나의 코스(내가만든코스)모아보기
-	@GetMapping("/mypage/courses/{currentPage}")
+	@GetMapping("/tourmypage/courses/{currentPage}")
 	public JsonData<List<JoinCourseDto>> getMyCourse(@PathVariable(value = "currentPage") int currentPage, HttpServletRequest request) {
 		//세션가져오기
 		HttpSession session = request.getSession();
@@ -184,7 +185,7 @@ public class MypageController implements SessionNames {
 	}
 	
 	//나의 코스 detail
-	@GetMapping("mypage/coursedetail/{courseNum}")
+	@GetMapping("/tourmypage/coursedetail/{courseNum}")
 	public JsonDataList getMyCourseDetail(@PathVariable(value = "courseNum")int courseNum) {
 		CourseDto courseDto=jsds.getCourseData(courseNum);
 		List<JoinCourseDetailDto> coursePlaceList=jsds.getCourseDetail(courseNum);
@@ -192,7 +193,7 @@ public class MypageController implements SessionNames {
 	}
 	
 	// 댓글,답글 삭제
-	@PostMapping(value = "/myanswer/{tourAnswerNum}")
+	@PostMapping(value = "/tourmypage/answer/{tourAnswerNum}")
 	public void deleteAnswer(@PathVariable int tourAnswerNum) {
 		tas.deleteCourseAnswerByUser(tourAnswerNum);
 		tas.deletePlaceAnswerByUser(tourAnswerNum);
@@ -202,7 +203,8 @@ public class MypageController implements SessionNames {
 	public void deletePlaceMark(@PathVariable int markNum){
 		pms.deletePlaceMark(markNum);
 	}
-	@GetMapping("/mypage/courselist")
+	
+	@GetMapping("/tourmypage/courselist")
 	public String getMyCourseList() {
 
 		return "mypage/courselist";

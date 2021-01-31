@@ -27,6 +27,8 @@ public interface JoinPlaceService {
    List<PlaceApiPhotoDto> getPlaceDetailApiPhotos(int contentId);
    List<PlacePhotoDto> getPlaceDetailPhotos(int contentId);
    List<TourAnswerDto> getAnswerOfPlace(int contentId);
+   int getLikeCountOfPlace(int contentId);
+   
    List<CourseDto> getCourseByUser(int userNum);
    void insertPlaceIntoCourse(CoursePlaceDto dto);
    int getMaxOrderNum(int coursePlaceNum);

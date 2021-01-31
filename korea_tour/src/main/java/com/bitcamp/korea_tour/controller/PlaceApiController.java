@@ -14,12 +14,13 @@ import com.bitcamp.korea_tour.model.PlaceApiPhotoDto;
 import com.bitcamp.korea_tour.model.PlaceDto;
 import com.bitcamp.korea_tour.model.service.PlaceApiPhotoServiceImpl;
 import com.bitcamp.korea_tour.model.service.PlaceServiceImpl;
-import com.bitcamp.korea_tour.tourapi.TourApi;
+import com.bitcamp.korea_tour.util.TourApi;
 
 import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
+@RequestMapping(value="/public/place")
 public class PlaceApiController {
 
 	private final PlaceServiceImpl service;
@@ -27,7 +28,7 @@ public class PlaceApiController {
 	private final PlaceApiPhotoServiceImpl service2;
 	
 	@ResponseBody
-	@RequestMapping(value="/api/input")
+	@RequestMapping(value="/input")
 	public String insertApiPlaces() throws IOException, ParserConfigurationException, SAXException {
 		TourApi api = new TourApi();
 		//service.deleteAllApiPlace();
@@ -45,7 +46,7 @@ public class PlaceApiController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/api/update")
+	@RequestMapping(value="/update")
 	public String updateApiPlaces() throws IOException, ParserConfigurationException, SAXException {
 		TourApi api = new TourApi();
 		List<PlaceDto> list = service.getAllApiPlace();
@@ -65,7 +66,7 @@ public class PlaceApiController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/api/photo")
+	@RequestMapping(value="/photo")
 	public String insertAllPlaceApiPhotos() throws IOException, ParserConfigurationException, SAXException {
 		TourApi api = new TourApi();
 		List<PlaceDto> plist = service.getAllApiPlace();

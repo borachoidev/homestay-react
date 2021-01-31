@@ -1,22 +1,18 @@
-package com.bitcamp.korea_tour.controller;
+package com.bitcamp.korea_tour.controller.restapi.tour;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.bitcamp.korea_tour.model.JoinPlaceListDto;
 import com.bitcamp.korea_tour.model.service.JoinPlaceService;
@@ -28,7 +24,8 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-public class SearchController {
+@RequestMapping("/api")
+public class PlaceSearchController {
 
 	private final JoinPlaceService service;
 	private final PagingService pagingService;
@@ -48,6 +45,13 @@ public class SearchController {
 	Date currDate = new Date();
 	int currentMonth = Integer.parseInt(sdf.format(currDate));
 	
+	/**
+	 * 관광지 통합검색(이름순)
+	 * @param currentPage
+	 * @param keyword
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 */
 	@GetMapping("/search/title/{currentPage}/{keyword}")
 	public JsonSearchPlace getKeywordSearchByTitle(
 			@PathVariable(name="currentPage") int currentPage,
@@ -80,6 +84,13 @@ public class SearchController {
 		return new JsonSearchPlace(place, totalPage);
 	}
 	
+	/**
+	 * 관광지 통합검색(인기순)
+	 * @param currentPage
+	 * @param keyword
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 */
 	@GetMapping("/search/like/{currentPage}/{keyword}")
 	public JsonSearchPlace getKeywordSearchByLike(
 			@PathVariable(name="currentPage") int currentPage,

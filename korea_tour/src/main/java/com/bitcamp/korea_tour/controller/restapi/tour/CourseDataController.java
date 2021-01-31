@@ -1,6 +1,5 @@
-package com.bitcamp.korea_tour.controller;
+package com.bitcamp.korea_tour.controller.restapi.tour;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -9,12 +8,11 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bitcamp.korea_tour.model.CourseDto;
@@ -27,6 +25,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api")
 public class CourseDataController implements SessionNames {
 	private final CourseService courseService;
 	private final CoursePlaceService coursePlaceService;
@@ -53,10 +52,14 @@ public class CourseDataController implements SessionNames {
 	 * @param dto
 	 */
 	@PostMapping(value="/courseplaces")
-	public void insertCoursePlace(
+	public String insertCoursePlace(
 			@RequestBody CoursePlaceDto dto
 			) {
-		coursePlaceService.insertCoursePlace(dto);
+		if(coursePlaceService.checkNewPlaceInCourse(dto) == 0) {
+			coursePlaceService.insertCoursePlace(dto);
+			return "success";
+		}
+		return "fail";
 	}
 	
 	/**
@@ -85,10 +88,8 @@ public class CourseDataController implements SessionNames {
 	 * 코스 내용 수정
 	 * @param dto
 	 */
-	@PutMapping(value="/courses")
-	public void updateCourse(
-			@ModelAttribute CourseDto dto
-			) {
+	@PatchMapping(value = "/courses")
+	public void updateCourse(@RequestBody CourseDto dto) {
 		courseService.updateCourseDetail(dto);
 	}
 	
@@ -100,7 +101,6 @@ public class CourseDataController implements SessionNames {
 	public void updateCoursePlace(
 			@RequestBody Map<String, List<CoursePlaceDto>> json
 			) {
-		
 		coursePlaceService.updateCoursePlace(json.get("list"));
 	}
 	

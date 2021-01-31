@@ -43,4 +43,10 @@ public class CoursePlaceServiceImpl implements CoursePlaceService{
 		}
 	}
 
+	@Override
+	public int checkNewPlaceInCourse(CoursePlaceDto dto) {
+		// TODO Auto-generated method stub
+		return mapper.checkNewPlaceInCourse(dto);
+	}
+
 }

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class MainSearchController {
+public class NullSearchController {
    SimpleDateFormat sdf = new SimpleDateFormat("MM");
    Date currDate = new Date();
    int currentMonth = Integer.parseInt(sdf.format(currDate));
@@ -36,21 +36,5 @@ public class MainSearchController {
       model.addAttribute("keyword", keyword);   
       return "search/result";
    }
-   
-   @GetMapping("/course.search")
-   public String goCourseSearch(
-         @RequestParam(defaultValue="1") int currentPage,
-         @RequestParam String who,
-         @RequestParam String during,
-         @RequestParam String how,Model model
-         ) {
-      
-      model.addAttribute("currentPage", currentPage);
-      model.addAttribute("who", who);
-      model.addAttribute("during", during);
-      model.addAttribute("how", how);
-      return "course/search";
-      
-      
-   }
+
 }
