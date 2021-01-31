@@ -9,7 +9,7 @@ const totalCountBox = document.querySelector('#totalCount');
 
 function myCourseList() {
   var xhr = new XMLHttpRequest();
-  var url = '/api/mypage/coursedetail/' + id;
+  var url = '/api/tourmypage/coursedetail/' + id;
   xhr.open('GET', url);
   xhr.send();
 
@@ -83,7 +83,7 @@ function myCourseList() {
 }
 
 var mapxhr = new XMLHttpRequest();
-var mapurl = '/api/mypage/coursedetail/' + id;
+var mapurl = '/api/tourmypage/coursedetail/' + id;
 mapxhr.open('GET', mapurl);
 mapxhr.send();
 
