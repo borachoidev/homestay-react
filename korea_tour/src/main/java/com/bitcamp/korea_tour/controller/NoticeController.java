@@ -14,12 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
-import com.bitcamp.korea_tour.controller.restapi.common.AdminController;
 import com.bitcamp.korea_tour.model.NoticeDto;
 import com.bitcamp.korea_tour.model.service.NoticeService;
-import com.bitcamp.korea_tour.model.service.TourAnswerService;
 import com.bitcamp.korea_tour.model.service.paging.PagingService;
 
 import lombok.AllArgsConstructor;
@@ -112,7 +109,7 @@ public class NoticeController{
 	 * @param noticeNum
 	 */
 	@ResponseBody
-	@PostMapping(value = "/api/admin/noticeviews/{noticeNum}")
+	@PostMapping(value = "/api/noticeviews/{noticeNum}")
 	public void updateViews(@PathVariable int noticeNum) {
 		ns.countViews(noticeNum);
 	}
@@ -120,17 +117,58 @@ public class NoticeController{
 /////////////////////////////////////////뷰매핑
 
 	/**
-	 * 공지사항 리스트
+	 * 공지사항 리스트(관리자)
 	 * @param currentPage
 	 * @param model
 	 * @return 공지사항 리스트
 	 */
-	@GetMapping("/admin/noticelist")
-	public String goNoticeList(@RequestParam int currentPage,Model model) {
+	@GetMapping("/admin/noticelist/{currentPage}")
+	public String goNoticeListAdmin(@PathVariable int currentPage,Model model) {
 		model.addAttribute("currentPage", currentPage);
-		return "admin/noticelist";		
+		return "admin/adminnoticelist";		
+	}
+	
+	/**
+	 * 공지사항 리스트(사용자)
+	 * @param currentPage
+	 * @param model
+	 * @return 공지사항 리스트
+	 */
+	@GetMapping("/noticelist/{currentPage}")
+	public String goNoticeListUser(@PathVariable int currentPage,Model model) {
+		model.addAttribute("currentPage", currentPage);
+		return "admin/usernoticelist";		
+	}
+	
+	/**
+	 * 공지사항 디테일(관리자)
+	 * @param currentPage
+	 * @param noticeNum
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/admin/notice/detail/{currentPage}")
+	public String goAdminNoticeDetailAdmin(@PathVariable int currentPage,@RequestParam int noticeNum,Model model) {
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("noticeNum", noticeNum);
+		return "admin/adminnoticedetail";
+	}
+	
+	/**
+	 * 공지사항 디테일(사용자)
+	 * @param currentPage
+	 * @param noticeNum
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/notice/detail/{currentPage}")
+	public String goAdminNoticeDetailUser(@PathVariable int currentPage,@RequestParam int noticeNum,Model model) {
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("noticeNum", noticeNum);
+		return "admin/usernoticedetail";
 	}
 
+	
 	/**
 	 * 공지사항 입력폼
 	 * @return 
@@ -141,12 +179,6 @@ public class NoticeController{
 		return "admin/noticeaddform";
 	}
 	
-	@GetMapping("/admin/notice/detail/{currentPage}")
-	public String goAdminNoticeDetail(@RequestParam int currentPage,@RequestParam int noticeNum,Model model) {
-		model.addAttribute("currentPage", currentPage);
-		model.addAttribute("noticeNum", noticeNum);
-		return "admin/noticedetail";
-	}
 	/**
 	 * 공지사항 업데이트폼
 	 * @return
@@ -157,29 +189,29 @@ public class NoticeController{
 		return "admin/noticeupdateform";
 	}
 	
-	/**
-	 * 공지사항 업데이트
-	 * @param noticeNum
-	 * @param currentPage
-	 * @param model
-	 * @param dto
-	 * @return 공지사항 리스트
-	 */
-	@PostMapping("/admin/notice/update/{currentPage}")
-	public String goAdminNoticeUpdate(@RequestParam int noticeNum,@RequestParam int currentPage,Model model,@ModelAttribute NoticeDto dto) {
-		ns.updateNotice(noticeNum, dto);
-		model.addAttribute("currentPage", currentPage);
-		model.addAttribute("noticeNum", noticeNum);
-		return "admin/noticedetail";
-	} 
-
-
-	@GetMapping("/admin/notice/delete")
-	public String goAdminNoticeDelete(@RequestParam int noticeNum,@RequestParam int currentPage,Model model) {
-		model.addAttribute("noticeNum", noticeNum);
-		model.addAttribute("currentPage", currentPage);
-		return "admin/noticelist";
-	}
+//	/**
+//	 * 공지사항 업데이트
+//	 * @param noticeNum
+//	 * @param currentPage
+//	 * @param model
+//	 * @param dto
+//	 * @return 공지사항 리스트
+//	 */
+//	@PostMapping("/admin/notice/update/{currentPage}")
+//	public String goAdminNoticeUpdate(@RequestParam int noticeNum,@PathVariable int currentPage,Model model,@ModelAttribute NoticeDto dto) {
+//		ns.updateNotice(noticeNum, dto);
+//		model.addAttribute("currentPage", currentPage);
+//		model.addAttribute("noticeNum", noticeNum);
+//		return "admin/noticedetail";
+//	} 
+//
+//
+//	@GetMapping("/admin/notice/delete")
+//	public String goAdminNoticeDelete(@RequestParam int noticeNum,@RequestParam int currentPage,Model model) {
+//		model.addAttribute("noticeNum", noticeNum);
+//		model.addAttribute("currentPage", currentPage);
+//		return "admin/noticelist";
+//	}
 	
 	
 	@Data

@@ -1,22 +1,49 @@
 package com.bitcamp.korea_tour.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.bitcamp.korea_tour.model.NoticeDto;
-import com.bitcamp.korea_tour.model.service.NoticeService;
-import com.bitcamp.korea_tour.model.service.paging.PagingService;
+import com.bitcamp.korea_tour.model.service.AdminService;
+
+import lombok.RequiredArgsConstructor;
 
 @Controller
+@RequiredArgsConstructor
 public class AdminRedirectController {
-   @Autowired
-
+	private final AdminService adminService;
+	private final HttpServletResponse response;
+	
+	/**
+	 * 관리자 로그인
+	 * @param id
+	 * @param pass
+	 */
+	@PostMapping("/login/admin/check")
+	public void checkAdmin(
+			@Param(value="id") String id,
+			@Param(value="password") String pass
+			) {
+		
+		try {
+			if(adminService.checkAdmin(id, pass)==1) {
+				response.sendRedirect("/admin");
+			}else {
+				response.sendRedirect("/login/admin");
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
    //관리자 메인페이지
 
    @GetMapping("/admin")
