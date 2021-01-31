@@ -20,7 +20,7 @@ function getParam(key) {
 
 function deleteComment(tourAnswerNum){
    const xhr = new XMLHttpRequest();
-   const url =`/adminanswer/${tourAnswerNum}`;
+   const url =`/api/adminanswer/${tourAnswerNum}`;
  	xhr.open('POST',url);
   	
     xhr.onreadystatechange = function () {
@@ -41,7 +41,7 @@ function deleteComment(tourAnswerNum){
 
 function commentList(currentPage){
     var xhr = new XMLHttpRequest();
-    var url = `/adminanswer/${currentPage}`;
+    var url = `/api/adminanswer/${currentPage}`;
     xhr.open('GET', url);
     xhr.send();
     console.log(url);

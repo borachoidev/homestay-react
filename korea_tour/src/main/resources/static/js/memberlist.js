@@ -21,7 +21,7 @@ function getParam(key) {
 function deleteMember(userNum){
     const xhr = new XMLHttpRequest();
   
-    const url =`/admin/member/delete/${userNum}`
+    const url =`/api/admin/member/${userNum}`
   
     xhr.open('DELETE', url);
     xhr.onreadystatechange = function () {
@@ -39,7 +39,7 @@ xhr.send(null);
 
 function memberList(currentPage){
     var xhr = new XMLHttpRequest();
-    var url = `/users/${currentPage}`;
+    var url = `/api/users/${currentPage}`;
     xhr.open('GET', url);
     xhr.send();
     console.log(url);

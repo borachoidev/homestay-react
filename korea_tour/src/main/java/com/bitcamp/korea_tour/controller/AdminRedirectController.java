@@ -84,14 +84,14 @@ public class AdminRedirectController {
 	}
 
 	@GetMapping("/admin/notice/detail")
-	public String goAdminNoticeDetail(@RequestParam int noticeNum,Model model) {
-		model.addAttribute("noticeNum", noticeNum);
+	public String goAdminNoticeDetail(@RequestParam int noticeNum) {
+		
 		return "admin/noticedetail";
 	}
 
 	@GetMapping("/admin/notice/updateform")
-	public String goAdminNoticeUpdateForm() {
-
+	public String goAdminNoticeUpdateForm(@RequestParam int noticeNum,Model model) {
+		model.addAttribute("noticeNum", noticeNum);
 		return "admin/noticeupdateform";
 	}
 
