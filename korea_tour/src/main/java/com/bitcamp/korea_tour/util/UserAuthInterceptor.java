@@ -26,13 +26,22 @@ public class UserAuthInterceptor implements HandlerInterceptor, SessionNames {
         HttpSession session = request.getSession();
         UserDto loginUser= (UserDto) session.getAttribute(USER);
  
-        if(ObjectUtils.isEmpty(loginUser)){
-            response.sendRedirect("/login");
-            return false;
-        }else {
-        	return true;
+        String httpMethod=request.getMethod();
+
+        if(httpMethod.equals("POST") 
+        		|| httpMethod.equals("DELETE") 
+        		|| httpMethod.equals("PUT") 
+        		|| httpMethod.equals("PATCH") 
+        		|| httpMethod.equals("GET")
+        		) {
+        	
+        	if(ObjectUtils.isEmpty(loginUser)){
+        		response.sendRedirect("/login");
+        		return false;
+        	}
         }
         
+        return true;
     }
  
     @Override

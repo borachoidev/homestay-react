@@ -28,7 +28,6 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/api")
 public class NoticeController{
 	private final NoticeService ns;
 	private final PagingService pagingService;
@@ -38,12 +37,14 @@ public class NoticeController{
 	int perPage=0;
 	int totalPage=0;
 	
+//restapi
+	
 	/**
 	 * 공지사항 리스트
 	 * @param currentPage
 	 * @return 공지사항 리스트로 이동
 	 */
-	@GetMapping("/notice/{currentPage}")
+	@GetMapping("/api/notice/{currentPage}")
 	@ResponseBody
 	public JsonData<List<NoticeDto>> getNoticeList(@PathVariable(name = "currentPage") int currentPage) {
 
@@ -65,7 +66,7 @@ public class NoticeController{
 	 * @return 공지사항 디테일 페이지로 이동
 	 */
 
-	@GetMapping("/notice/detail/{noticeNum}")
+	@GetMapping("/api/notice/detail/{noticeNum}")
 	@ResponseBody
 	public JsonDetail getNoticeDetail(@PathVariable(name="noticeNum") int noticeNum) {
 		NoticeDto dto = ns.getData(noticeNum);
@@ -77,7 +78,7 @@ public class NoticeController{
 	 * @param dto
 	 * @return
 	 */
-	@PostMapping("/noticeinsert")
+	@PostMapping("/api/admin/noticeinsert")
 	@ResponseBody
 	public String insertNotice(@ModelAttribute NoticeDto dto) {		
 		ns.insertNotice(dto);
@@ -91,7 +92,7 @@ public class NoticeController{
 	 */
 	
 	@ResponseBody
-	@RequestMapping(value = "/noticeupdate/{noticeNum}", method = RequestMethod.POST)
+	@RequestMapping(value = "/api/admin/noticeupdate/{noticeNum}", method = RequestMethod.POST)
 	public void updateNotice(@RequestBody NoticeDto dto,@PathVariable int noticeNum) {
 		ns.updateNotice(noticeNum, dto);
 	}
@@ -100,7 +101,7 @@ public class NoticeController{
 	 * @param noticeNum
 	 */
 	@ResponseBody
-	@DeleteMapping(value = "/noticedelete/{noticeNum}")
+	@DeleteMapping(value = "/api/admin/noticedelete/{noticeNum}")
 	public void deleteNotice(@PathVariable(name="noticeNum") int noticeNum) {
 		ns.deleteNotice(noticeNum); 
 	}
@@ -111,7 +112,7 @@ public class NoticeController{
 	 * @param noticeNum
 	 */
 	@ResponseBody
-	@PostMapping(value = "/noticeviews/{noticeNum}")
+	@PostMapping(value = "/api/admin/noticeviews/{noticeNum}")
 	public void updateViews(@PathVariable int noticeNum) {
 		ns.countViews(noticeNum);
 	}
@@ -124,7 +125,7 @@ public class NoticeController{
 	 * @param model
 	 * @return 공지사항 리스트
 	 */
-	@GetMapping("/noticelist")
+	@GetMapping("/admin/noticelist")
 	public String goNoticeList(@RequestParam int currentPage,Model model) {
 		model.addAttribute("currentPage", currentPage);
 		return "admin/noticelist";		
