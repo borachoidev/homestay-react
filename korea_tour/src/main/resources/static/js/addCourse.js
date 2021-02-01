@@ -2,8 +2,10 @@
 
 //코스담기 함수
 function showInput() {
-  document.querySelector('#createCourse').classList.remove('hidden');
-  document.querySelector('.create-btn').classList.add('hidden');
+
+        document.querySelector('#createCourse').classList.remove('hidden');
+        document.querySelector('.create-btn').classList.add('hidden');
+       
 }
 function createCousre() {
   const xhr = new XMLHttpRequest();
@@ -56,7 +58,10 @@ function addCourse(courseNum) {
 }
 
 function showCourses() {
+  let UsNum =document.getElementById("uNum");
+  if (UsNum != null) {
   document.querySelector('#addModal').classList.remove('hidden');
+  }
   const userNum = document.querySelector('span#num').getAttribute('data-id');
   if (userNum == 'out') return alert('로그인후 이용가능합니다');
   const xhr = new XMLHttpRequest();
@@ -89,4 +94,4 @@ function showCourses() {
       }
     }
   };
-}
+ }
