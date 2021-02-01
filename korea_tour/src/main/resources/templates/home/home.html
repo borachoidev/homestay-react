@@ -29,8 +29,8 @@
 					
 					<ul class="nav-list">
 						<li class="nav-item"><a th:href="@{/tourplace}" class="nav-link">지역</a></li>
-						<li class="nav-item"><a th:href="@{/tourcourse}" class="nav-link">코스</a></li>
-						<li class="nav-item"><a th:href="@{/festival}" class="nav-link">페스티벌</a></li>
+						<li class="nav-item"><a th:href="@{/tourcourse?who=&during=&how=}" class="nav-link">코스</a></li>
+						<li class="nav-item"><a th:href="@{/festival}" class="nav-link">축제</a></li>
 						<li class="nav-item"><a th:href="@{/login}" th:if="${session.user == null}" class="nav-link">로그인</a></li>
 						<th:block th:unless="${session.user == null}">
 						<li class="nav-item"><a th:href="@{/tourmypage}"> <img th:src="${session.user.photo}" id="userPhoto" class="nav-link"></a></li>
@@ -71,7 +71,7 @@
 			<span class="card-title">코스별보기</span>
 			<span class="card-description">취향에 꼭 맞는 코스로</span>
 			<span class="card-description">여행을 가요</span>
-			<a th:href="@{tourcourse?who=&during=&how=}"><div class="card-btn">자세히 보기<i class="fas fa-angle-double-right"></i></div></a>
+			<a th:href="@{/tourcourse?who=&during=&how=}"><div class="card-btn">자세히 보기<i class="fas fa-angle-double-right"></i></div></a>
 		</div>
 	
 	
@@ -91,7 +91,26 @@
 	</div>
 
 	<div class="notice">
-		공지 출력
+		<h2>공지사항</h2>
+		<a href="/noticelist?currentPage=1"><span>더보기</span></a>
+		<table>
+			<thead>
+				<tr>
+					<td class="tb__title">
+						제목
+					</td>
+					<td class="tb__writeday">
+						작성일
+					</td>
+					<td class="tb__views">
+						조회수
+					</td>
+				</tr>
+			</thead>
+			<tbody id="notice">
+
+			</tbody>
+		</table>
 	</div>
 	<!--/* 코스 검색 */-->
 	<div class="course-search">
