@@ -1,5 +1,3 @@
-
-
 let noticeNum = getParam('noticeNum');
 
 function getParam(key) {
@@ -28,13 +26,14 @@ function updateButton(noticeNum){
 	console.log(content);
   	
 	const data = {
-	 "title":[title],
-	 "content":[content],	
+	 "title":title,
+	 "content":content,	
 	};
   	console.log(data);
 	xhr.send(JSON.stringify(data));
 
-	  	 //window.location.reload(true);
+	  	
+		window.location.replace("/admin/noticelist?currentPage=1");
 
 }
 	
