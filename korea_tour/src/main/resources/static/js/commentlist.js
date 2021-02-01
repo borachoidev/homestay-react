@@ -59,8 +59,9 @@ function commentList(currentPage){
 					a+= `<td class="board_list_data">${i+1}</td>`
 				    a+= `<td class="board_list_data">${item[i].tourAnswerNum}</td>`
 					a+= `<td class="board_list_data">${item[i].contentId}</td>`
-					a+=`<td class="board_list_data">${item[i].loginId}</td>`
+					
 					a+=`<td class="board_list_data">${item[i].content}</td>`
+					a+=`<td class="board_list_data">${item[i].loginId}</td>`
 					a+=`<td class="board_list_data">${item[i].writeDay}</td>`
 					a+=`<td class="board_list_data num"  num="${item[i].tourAnswerNum}"><button type="button" class="delete-btn">삭제</button></td>`
 		}}

@@ -3,17 +3,13 @@
 let link = document.location.href;
 let contentId = link.split('=');
 let id = contentId[1];
-
+let regroupId;
 
 window.onload=function(){
- const ReClick=document.querySelectorAll(".ReAnswerClick");
-  for(const ReAnswerClick of ReClick){ //대댓글 버튼 각각에 이벤트 주기위해서 for 문 돌리기
-  ReAnswerClick.addEventListener("click",	()=>{ //대댓글 버튼을 클릭했을때 
-  ReAnswerClick.nextElementSibling.classList.toggle("active");    
-  })
-} // for문끝 
+
 let ConId= document.getElementById("placeContent");
 ConId.value=id;
+
 }
 
 getPlace();
@@ -35,6 +31,7 @@ function getPlace() {
       let xpos = item.mapX;
       let ypos = item.mapY;
       let UsNum;
+      let str;
       //유저 사진
       let userPhoto = data.userPhoto;
 
@@ -86,10 +83,14 @@ function getPlace() {
       t += `<p>${overview}</p>`;
 
       //유저사진
-      
+      t += `<div id="userPicture">`;
       for (let b = 0; b < userPhoto.length; b++) {
-        q += `<img class="userPhoto" src="/placeImg/${userPhoto[b].image}">`;
+        t += `<img class="userPhoto" src="/placeImg/${userPhoto[b].image}">`;
+        console.log(userPhoto[b].image);
+  
       }
+      t += `</div>`;
+
         UsNum =document.getElementById("uNum");
         if (UsNum != null) 
          str = UsNum.value;
@@ -118,7 +119,7 @@ function getPlace() {
 
         //답글 입력기
         if(str != null) {
-        u += `<i class="fas fa-comment-alt ReAnswerClick" id=${Answer[d].regroup} onclick="ReAnswer(this)"></i>`;
+        u += `<i class="fas fa-comment-alt ReAnswerClick" id=${Answer[d].regroup}></i>`;
         u += `<div class="ReAnswer-List" id="reAnswer${Answer[d].tourAnswerNum}">`;
         u += `<textarea class="ReContent" name="Recontent" onblur="ReforceOut(this.value)"></textarea>`;
         u += `<button class="insertRe" onclick="insertReAnswer()">보내기</button>`;
@@ -153,9 +154,17 @@ function getPlace() {
       document.querySelector('#placeName').innerHTML = w;
       document.querySelector('#picture').innerHTML = y;
       document.querySelector('#placeInfo').innerHTML = t;
-      document.querySelector('#userPicture').innerHTML = q;
+      //console.log(document.querySelector('#userPicture'));
+     // document.querySelector('#userPicture').innerHTML = q;
       document.querySelector('#answerList').innerHTML = u;
-
+     
+      const ReClick=document.querySelectorAll(".ReAnswerClick");
+      for(const ReAnswerClick of ReClick){ //대댓글 버튼 각각에 이벤트 주기위해서 for 문 돌리기
+      ReAnswerClick.addEventListener("click",	()=>{ //대댓글 버튼을 클릭했을때 
+      ReAnswerClick.nextElementSibling.classList.toggle("active");    
+      regroupId = ReAnswerClick.getAttribute("id");
+       })
+      } // for문끝 
       // document.querySelector('#heart').addEventListener('click', e => {
       //   updateLike();
       // });
@@ -337,12 +346,8 @@ const ReforceOut =(e)=>{
 }
 
 
-let regroupId;
 
-const ReAnswer =(f)=>{
-  regroupId = f.getAttribute("id");
- 
-}
+
 
  
 

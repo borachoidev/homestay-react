@@ -18,7 +18,7 @@ function noticeDetailList(noticeNum){
    const url =`/api/notice/detail/${noticeNum}`;
  	xhr.open('GET',url);
     console.log(url);
-xhr.send();
+	xhr.send();
 	xhr.onreadystatechange = function(){
 		console.log(xhr.readyState)
         if (this.readyState == 4) {

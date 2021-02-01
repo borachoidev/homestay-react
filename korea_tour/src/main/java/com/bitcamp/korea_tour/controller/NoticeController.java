@@ -76,11 +76,11 @@ public class NoticeController{
     * @return
     */
    @PostMapping("/api/admin/noticeinsert")
-   @ResponseBody
+  
    public String insertNotice(@ModelAttribute NoticeDto dto) {      
       ns.insertNotice(dto);
 
-      return "redirect:noticelist?currentPage=1";
+      return "redirect:/admin/noticelist?currentPage=1";
    }
    /**
     * 공지사항 수정
@@ -183,7 +183,7 @@ public class NoticeController{
     * 공지사항 업데이트폼
     * @return
     */
-   @PostMapping("/admin/notice/updateform")
+   @GetMapping("/admin/notice/updateform")
    public String goAdminNoticeUpdateForm(@RequestParam int noticeNum,Model model ) {
       model.addAttribute("noticeNum", noticeNum);
       return "admin/noticeupdateform";
