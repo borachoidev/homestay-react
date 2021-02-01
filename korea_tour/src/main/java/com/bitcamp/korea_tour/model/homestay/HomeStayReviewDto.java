@@ -18,6 +18,5 @@ public class HomeStayReviewDto {
 	private int loginNum;
 	private String loginId;
 	private String loginPhoto;
-	private String photoName;
 	private int deleted;
 }
