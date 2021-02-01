@@ -1,5 +1,9 @@
 package com.bitcamp.korea_tour.model.service.homestay;
 
+
+import java.util.List;
+
+
 import com.bitcamp.korea_tour.model.homestay.HomeStayDetailDto;
 import com.bitcamp.korea_tour.model.homestay.HomeStayDto;
 import com.bitcamp.korea_tour.model.homestay.HomeStayPhotoDto;
@@ -13,7 +17,7 @@ public interface HomeStayHouseDetailService {
 	double avgOfAccuracy(int homeStayNum);
 	double avgOfLocation(int homeStayNum);
 	double avgOfSatisfactionForPrice(int homeStayNum);
-	HomeStayPhotoDto getHomeStayPhoto(int homeStayNum);
+	List<HomeStayPhotoDto> getHomeStayPhoto(int homeStayNum);
 	String getHomeStayContent(int homeStayNum);
 	HomeStayDetailDto getHomeStayFacility(int homeStayNum);
 }

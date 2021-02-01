@@ -1,5 +1,7 @@
 package com.bitcamp.korea_tour.model.service.homestay;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.bitcamp.korea_tour.model.homestay.HomeStayDetailDto;
@@ -63,7 +65,7 @@ public class HomeStayHouseDetailServiceImpl implements HomeStayHouseDetailServic
 	}
 
 	@Override
-	public HomeStayPhotoDto getHomeStayPhoto(int homeStayNum) {
+	public List<HomeStayPhotoDto> getHomeStayPhoto(int homeStayNum) {
 		// TODO Auto-generated method stub
 		return mapper.getHomeStayPhoto(homeStayNum);
 	}

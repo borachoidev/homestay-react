@@ -1,5 +1,7 @@
 package com.bitcamp.korea_tour.model.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.bitcamp.korea_tour.model.homestay.HomeStayDetailDto;
@@ -30,7 +32,7 @@ public interface HomeStayMapper {
 	double avgOfAccuracy(int homeStayNum);
 	double avgOfLocation(int homeStayNum);
 	double avgOfSatisfactionForPrice(int homeStayNum);
-	HomeStayPhotoDto getHomeStayPhoto(int homeStayNum);
+	List<HomeStayPhotoDto> getHomeStayPhoto(int homeStayNum);
 	String getHomeStayContent(int homeStayNum);
 	HomeStayDetailDto getHomeStayFacility(int homeStayNum);
 }
