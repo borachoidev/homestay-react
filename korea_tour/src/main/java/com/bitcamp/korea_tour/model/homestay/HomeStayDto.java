@@ -1,8 +1,5 @@
 package com.bitcamp.korea_tour.model.homestay;
 
-import java.sql.Timestamp;
-import java.util.List;
-
 import org.apache.ibatis.type.Alias;
 
 import lombok.Data;

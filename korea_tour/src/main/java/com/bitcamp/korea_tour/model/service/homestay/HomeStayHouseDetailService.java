@@ -1,27 +1,10 @@
-package com.bitcamp.korea_tour.model.mapper;
-
-import org.apache.ibatis.annotations.Mapper;
+package com.bitcamp.korea_tour.model.service.homestay;
 
 import com.bitcamp.korea_tour.model.HomeStayPhotoDto;
 import com.bitcamp.korea_tour.model.homestay.HomeStayDetailDto;
 import com.bitcamp.korea_tour.model.homestay.HomeStayDto;
 
-@Mapper
-public interface HomeStayMapper {
-	/*
-	 * 홈스테이 디테일 -  해당 집의 집이름, 주소1(출력)
-	 * 해당집의 후기 수 (출력)
-	 * cleanliness
-	 * communication
-	 * checkIn
-	 * accuracy
-	 * location
-	 * satisfactionForPrice
-	 * 호스트 집 사진 (출력)
-	 * 소개글(출력)
-	 * 편의시설(8개)및 ,애견동반, 흡연 (출력)
-	 * */
-	
+public interface HomeStayHouseDetailService {
 	HomeStayDto getHomeStayNameAndAddr(int homeStayNum);
 	int countOfHouseAnswer(int homeStayNum);
 	double avgOfCleanliness(int homeStayNum);
