@@ -22,6 +22,7 @@ public interface HomeStayMapper {
 	 * 호스트 집 사진 (출력)
 	 * 소개글(출력)
 	 * 편의시설(8개)및 ,애견동반, 흡연 (출력)
+	 * 집 위치 지도표시하기
 	 * */
 	
 	HomeStayDto getHomeStayNameAndAddr(int homeStayNum);
@@ -35,4 +36,5 @@ public interface HomeStayMapper {
 	List<HomeStayPhotoDto> getHomeStayPhoto(int homeStayNum);
 	String getHomeStayContent(int homeStayNum);
 	HomeStayDetailDto getHomeStayFacility(int homeStayNum);
+	HomeStayDto getHomeStayMap(int homeStayNum);
 }

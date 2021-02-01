@@ -20,4 +20,5 @@ public interface HomeStayHouseDetailService {
 	List<HomeStayPhotoDto> getHomeStayPhoto(int homeStayNum);
 	String getHomeStayContent(int homeStayNum);
 	HomeStayDetailDto getHomeStayFacility(int homeStayNum);
+	HomeStayDto getHomeStayMap(int homeStayNum);
 }
