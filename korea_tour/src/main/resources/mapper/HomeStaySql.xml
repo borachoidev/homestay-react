@@ -60,4 +60,8 @@
 	SELECT * FROM homeStayDetail where homeStayNum=#{homeStayNum}
 	</select>
 	
+	<!-- 집 위치 지도표시 -->
+	<select id="getHomeStayMap" parameterType="int" resultType="homestay">
+	SELECT addr1,xpos,ypos FROM homeStay where homeStayNum=#{homeStayNum}
+	</select>
 </mapper>

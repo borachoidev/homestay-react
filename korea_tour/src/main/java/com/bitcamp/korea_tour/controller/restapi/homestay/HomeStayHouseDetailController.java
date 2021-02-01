@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bitcamp.korea_tour.model.homestay.HomeStayDetailDto;
@@ -23,9 +22,11 @@ public class HomeStayHouseDetailController {
 	
 	//홈스테이 디테일 -  해당 집의 집이름, 주소1(출력)
 	@GetMapping("/homestays/detail/name/{homeStayNum}")
-	public HomeStayDto getHomeStayNameAndAddr(@PathVariable(value = "homeStayNum")int homeStayNum) {
+	public HomeDetailOne getHomeStayNameAndAddr(@PathVariable(value = "homeStayNum")int homeStayNum) {
 		HomeStayDto dto = s.getHomeStayNameAndAddr(homeStayNum);
-		return dto;
+		String title = dto.getTitle();
+		String addr1 = dto.getAddr1();
+		return new HomeDetailOne(title, addr1);
 	}
 	
 	//해당집의 후기 수 (출력) / 평점들의 평균 계산
@@ -71,10 +72,9 @@ public class HomeStayHouseDetailController {
 	
 	//소개글(출력)
 	@GetMapping("/homestays/detail/content/{homeStayNum}")
-	public String getHomeStayContent(@PathVariable(value = "homeStayNum")int homeStayNum) {
+	public JsonContent getHomeStayContent(@PathVariable(value = "homeStayNum")int homeStayNum) {
 		String content = s.getHomeStayContent(homeStayNum);
-		
-		return content;
+		return new JsonContent(content);
 	}
 	
 	
@@ -85,9 +85,24 @@ public class HomeStayHouseDetailController {
 		return dto;
 	}
 	
+	@GetMapping("/homestays/detail/addr/{homeStayNum}")
+	public HomeDetailMap getHomeStayMap(@PathVariable(value = "homeStayNum")int homeStayNum) {
+		HomeStayDto dto = s.getHomeStayMap(homeStayNum);
+		String addr1 = dto.getAddr1();
+		String xpos = dto.getXpos();
+		String ypos = dto.getYpos();
+		return new HomeDetailMap(addr1, xpos, ypos);
+	}
+	
 	
 	
 ////////////////////////////////////////////////////////////////////////////	
+	@Data
+	@AllArgsConstructor
+	static class JsonContent{
+		private String content;
+	}
+	
 	@Data
 	@AllArgsConstructor
 	static class JsonMainStar{
@@ -113,5 +128,20 @@ public class HomeStayHouseDetailController {
 	@AllArgsConstructor
 	static class JsonHomeDetailPhoto<T>{
 		private T photo;
+	}
+	
+	@Data
+	@AllArgsConstructor
+	static class HomeDetailOne{
+		private String title;
+		private String addr1;
+	}
+	
+	@Data
+	@AllArgsConstructor
+	static class HomeDetailMap{
+		private String addr1;
+		private String xpos;
+		private String ypos;
 	}
 }
