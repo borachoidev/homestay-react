@@ -17,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
-public class UserAuthInterceptor implements HandlerInterceptor, SessionNames {
+public class UserGetAuthInterceptor implements HandlerInterceptor, SessionNames {
 	
 	@Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -28,11 +28,7 @@ public class UserAuthInterceptor implements HandlerInterceptor, SessionNames {
  
         String httpMethod=request.getMethod();
 
-        if(httpMethod.equals("POST") 
-        		|| httpMethod.equals("DELETE") 
-        		|| httpMethod.equals("PUT") 
-        		|| httpMethod.equals("PATCH") 
-        		) {
+        if(httpMethod.equals("GET")) {
         	
         	if(ObjectUtils.isEmpty(loginUser)){
         		response.sendRedirect("/login");
