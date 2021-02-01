@@ -87,13 +87,15 @@ function getPlace() {
       t += `<p>${overview}</p>`;
 
       //유저사진
-      
+      t += `<div id="userPicture">`;
       for (let b = 0; b < userPhoto.length; b++) {
-        q += `<img class="userPhoto" src="/placeImg/${userPhoto[b].image}">`;
+        t += `<img class="userPhoto" src="/placeImg/${userPhoto[b].image}">`;
         console.log(userPhoto[b].image);
   
       }
-            UsNum =document.getElementById("uNum");
+      t += `</div>`;
+
+        UsNum =document.getElementById("uNum");
         if (UsNum != null) 
          str = UsNum.value;
         
@@ -156,8 +158,8 @@ function getPlace() {
       document.querySelector('#placeName').innerHTML = w;
       document.querySelector('#picture').innerHTML = y;
       document.querySelector('#placeInfo').innerHTML = t;
-      console.log(document.querySelector('#userPicture'));
-      document.querySelector('#userPicture').innerHTML = q;
+      //console.log(document.querySelector('#userPicture'));
+     // document.querySelector('#userPicture').innerHTML = q;
       document.querySelector('#answerList').innerHTML = u;
 
       // document.querySelector('#heart').addEventListener('click', e => {
