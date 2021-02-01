@@ -2,9 +2,9 @@ package com.bitcamp.korea_tour.model.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.bitcamp.korea_tour.model.HomeStayPhotoDto;
 import com.bitcamp.korea_tour.model.homestay.HomeStayDetailDto;
 import com.bitcamp.korea_tour.model.homestay.HomeStayDto;
+import com.bitcamp.korea_tour.model.homestay.HomeStayPhotoDto;
 
 @Mapper
 public interface HomeStayMapper {
