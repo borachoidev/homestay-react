@@ -4,8 +4,8 @@
 	<!-- 홈스테이 전체 목록 출력 --> <!-- 최저가 , 평점높은순 -->
 	<select id="getAllHomeStayList" parameterType="HashMap" resultType="homestaylist">
 		SELECT * FROM homeStay
-	    WHERE homeStay.approval=1 AND homeStay.open=1
-	    ORDER BY homeStay.price ASC
+	    WHERE approval=1 AND open=1
+	    ORDER BY price ASC
 	    LIMIT #{start}, #{perPage};
 	</select>
 	<select id="getTotalHomeStayList" resultType="int">
