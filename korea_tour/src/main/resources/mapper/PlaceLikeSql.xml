@@ -5,20 +5,19 @@
 		select count(*) from placeLike where contentId=#{contentId}
 	</select>
 	<insert id="plusPlaceLikes" parameterType="placelike">
-		insert into placeLike (contentId,loginId) values (#{contentId},#{loginId})
+		insert into placeLike (contentId,loginNum) values (#{contentId},#{loginNum})
 	</insert>
 	<delete id="deletePlaceLikes" parameterType="int">
 		delete from placeLike where placeLikeNum=#{placeLikeNum}
 	</delete>
 	<!-- 경오 -->
 	<select id="getDataByUser" parameterType="placelike" resultType="placelike">
-		select * from placeLike where contentId=#{contentId} and loginId=#{loginId}
+		select * from placeLike where contentId=#{contentId} and loginNum=#{loginNum}
 	</select>
 	<select id="getPlaceLikeCountByUser" parameterType="placelike" resultType="int">
-		select count(*) from placeLike where contentId=#{contentId} and loginId=#{loginId}
+		select count(*) from placeLike where contentId=#{contentId} and loginNum=#{loginNum}
 	</select>
 	<delete id="deletePlaceLikeByUser" parameterType="placelike">
-		delete from placeLike where contentId=#{contentId} and loginId=#{loginId}
+		delete from placeLike where contentId=#{contentId} and loginNum=#{loginNum}
 	</delete>
-
 </mapper>

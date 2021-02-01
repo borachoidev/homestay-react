@@ -157,19 +157,36 @@ select {
 }
 
 #userPhoto {
-	height:70px;
-	width:70px;
-	padding:-3rem;
-	border-radius: 50%;
-	
+  height: 70px;
+  width: 70px;
+  padding: -3rem;
+  border-radius: 50%;
 }
 
-#homeLogout{
-	font-size:15px;
-	text-align: center;
-	padding:-0.5rem;
-	
+#homeLogout {
+  font-size: 15px;
+  text-align: center;
+  padding: -0.5rem;
+}
 
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+table th {
+  border-bottom: 1px solid black;
+}
+table td {
+  border-bottom: 1px solid black;
+}
+table .tb__title {
+  width: 65%;
+}
+table .tb__writeday {
+  width: 20%;
+}
+table .tb__views {
+  width: 10%;
 }
 
 @keyframes slide {

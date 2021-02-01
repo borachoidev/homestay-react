@@ -21,12 +21,12 @@ function getParam(key) {
 function deleteMember(userNum){
     const xhr = new XMLHttpRequest();
   
-    const url =`/admin/member/delete/${userNum}`
+    const url =`/api/admin/member/${userNum}`
   
     xhr.open('DELETE', url);
     xhr.onreadystatechange = function () {
       if (this.readyState == 4) {
-      alert("1234");
+     
 		window.location.reload(true);
   
  }
@@ -39,7 +39,7 @@ xhr.send(null);
 
 function memberList(currentPage){
     var xhr = new XMLHttpRequest();
-    var url = `/users/${currentPage}`;
+    var url = `/api/admin/users/${currentPage}`;
     xhr.open('GET', url);
     xhr.send();
     console.log(url);
@@ -53,7 +53,7 @@ function memberList(currentPage){
         let a="";
 		for(let i=0;i<item.length;i++){
 			a+= `<tr class="board_list_row">`
-					a+= `<td class="board_list_data" >${i+1}</td>`
+			
 						a+= `<td class="board_list_data" id="memberNum">${item[i].userNum}</td>`
 					a+=`<td class="board_list_data">${item[i].name}</td>`
 					a+=`<td class="board_list_data"><img src="${item[i].photo}" style="width:60px;height:60px;border-radius:50%;"></td>`

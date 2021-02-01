@@ -3,8 +3,8 @@
 <mapper namespace="com.bitcamp.korea_tour.model.mapper.PlacePhotoMapper">
 	<!-- 관광지Detail -->
 	<insert id="insertData" parameterType="placePhoto">
-		insert into placePhoto (contentId,approval,image,loginId) 
-		values (#{contentId},0,#{image},#{loginId})
+		insert into placePhoto (contentId,approval,image,loginNum) 
+		values (#{contentId},0,#{image},#{loginNum})
 	</insert>
 	<delete id="deleteData" parameterType="int">
 		delete from placePhoto where photoNum=#{photoNum}

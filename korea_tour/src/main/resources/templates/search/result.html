@@ -17,12 +17,12 @@
 		<h1 class="keyword-title" th:keyword=${keyword}>"[[${keyword}]]" 검색 결과</h1>
 		
 		<ul class="array-list sort-place">
-			<li class="sort active" id="titlesort" th:value="title" >제목순</li>
-			<li class="sort" id="updatelist" th:value="like" >좋아요순</li>
+			<li class="sort active" id="placeTitle" th:place="title" >제목순</li>
+			<li class="sort" id="placeLike" th:place="like" >좋아요순</li>
 		  </ul>
 		  <ul class="array-list sort-course">
-			<li class="sort active" id="titlesort" th:value="time" >최신순</li>
-			<li class="sort" id="updatelist" th:value="like" >좋아요순</li>
+			<li class="sort active" id="courseTime" th:course="time" >최신순</li>
+			<li class="sort" id="courseLike" th:course="like" >좋아요순</li>
 		  </ul>
 		<div class="list"></div>
 		<ul class="pagination" th:currentPage=${currentPage}></ul>
