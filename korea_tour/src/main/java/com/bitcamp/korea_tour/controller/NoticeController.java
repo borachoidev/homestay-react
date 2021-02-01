@@ -41,9 +41,9 @@ public class NoticeController{
     * @param currentPage
     * @return 공지사항 리스트로 이동
     */
-   @GetMapping("/api/notice")
+   @GetMapping("/api/notice/{currentPage}")
    @ResponseBody
-   public JsonData<List<NoticeDto>> getNoticeList(@RequestParam(name = "currentPage", defaultValue = "1") int currentPage) {
+   public JsonData<List<NoticeDto>> getNoticeList(@PathVariable(value="currentPage") int currentPage) {
 
       totalCount=ns.getTotalCount();
       /* System.out.println(totalCount); */

@@ -37,9 +37,9 @@ function addViews(noticeNum){
 
 	
 
-function noticeList(){
+function noticeList(currentPage){
     var xhr = new XMLHttpRequest();
-    var url = `/api/notice`;
+    var url = `/api/notice/${currentPage}`;
     xhr.open('GET', url);
     xhr.send();
     console.log(url);
