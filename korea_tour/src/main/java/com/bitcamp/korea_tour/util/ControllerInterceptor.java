@@ -11,16 +11,15 @@ import lombok.RequiredArgsConstructor;
 public class ControllerInterceptor implements WebMvcConfigurer {
 	
 	private final UserAuthInterceptor userInterceptor;
+	private final UserGetAuthInterceptor userGetInterceptor;
 	private final AdminAuthInterceptor adminInterceptor;
 	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(userInterceptor)
-				.addPathPatterns("/tourmypage")
 				.addPathPatterns("/tourmypage/**")
 				.addPathPatterns("/placeanswer")
 				.addPathPatterns("/api/place/detail/course/**")
-				.addPathPatterns("/api/courseplaces")
 				.addPathPatterns("/api/tourmypage/**")
 				.addPathPatterns("/api/courses")
 				.addPathPatterns("/api/courses/**")
@@ -39,5 +38,13 @@ public class ControllerInterceptor implements WebMvcConfigurer {
 				.addPathPatterns("/api/admin/**")
 				.addPathPatterns("/public/**");
 		
+		registry.addInterceptor(userGetInterceptor)
+				.addPathPatterns("/tourmypage")
+				.addPathPatterns("/tourmypage/**")
+				.addPathPatterns("/api/place/detail/course/**")
+				.addPathPatterns("/api/tourmypage/**")
+				.addPathPatterns("/api/courses")
+				.addPathPatterns("/api/mypage/**")
+		;
 	}
 }
