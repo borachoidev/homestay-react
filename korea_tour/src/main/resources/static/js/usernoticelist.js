@@ -37,9 +37,9 @@ function addViews(noticeNum){
 
 	
 
-function noticeList(currentPage){
+function noticeList(){
     var xhr = new XMLHttpRequest();
-    var url = `/api/notice/${currentPage}`;
+    var url = `/api/notice`;
     xhr.open('GET', url);
     xhr.send();
     console.log(url);
@@ -55,10 +55,10 @@ function noticeList(currentPage){
 			a+= `<tr class="board_list_row">`
 					a+= `<td class="board_list_data">${i+1}</td>`
 				    a+= `<td class="board_list_data">${item[i].noticeNum}</td>`
-					a+= `<td class="board_list_data num" num="${item[i].noticeNum}"><a class="notice-view" href="/admin/notice/detail?noticeNum=${item[i].noticeNum}">${item[i].title}</a></td>`
+					a+= `<td class="board_list_data num" num="${item[i].noticeNum}"><a class="notice-view" href="/notice/detail?noticeNum=${item[i].noticeNum}">${item[i].title}</a></td>`
 					a+=`<td class="board_list_data">${item[i].writeDay}</td>`
 					a+=`<td class="board_list_data">${item[i].views}</td>`
-					a+=`<td class="board_list_data num"  num="${item[i].noticeNum}"><button type="button" class="delete-btn">삭제</button></td>`
+
 
 					
 		}

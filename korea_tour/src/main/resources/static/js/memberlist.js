@@ -53,7 +53,7 @@ function memberList(currentPage){
         let a="";
 		for(let i=0;i<item.length;i++){
 			a+= `<tr class="board_list_row">`
-					a+= `<td class="board_list_data" >${i+1}</td>`
+			
 						a+= `<td class="board_list_data" id="memberNum">${item[i].userNum}</td>`
 					a+=`<td class="board_list_data">${item[i].name}</td>`
 					a+=`<td class="board_list_data"><img src="${item[i].photo}" style="width:60px;height:60px;border-radius:50%;"></td>`

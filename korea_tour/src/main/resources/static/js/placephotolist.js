@@ -62,7 +62,7 @@ function placePhotoList(){
 					a+= `<td class="board_list_data">${i+1}</td>`
 						a+= `<td class="board_list_data">${item[i].photoNum}</td>`
 					a+=`<td class="board_list_data">${item[i].contentId}</td>`
-					a+=`<td class="board_list_data"><img src="/placeImg/${item[i].image}" width="90" height="80"></td>`
+					a+=`<td class="board_list_data"><img src="/placeImg/${item[i].image}" width="120" height="100"></td>`
 					a+=`<td class="board_list_data">${item[i].loginId}</td>`
 				    a+=`<td class="board_list_data num"  num="${item[i].photoNum}"><button type="button" class="delete-btn">삭제</button></td>`
 

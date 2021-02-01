@@ -81,15 +81,13 @@ Object Title
 }
 
 .page_nation {
-	display: inline-block;
+	display: block;
+	text-align: center;
 }
 
-.page_nation .none {
-	display: none;
-}
 
 .page_nation a {
-	display: block;
+	
 	margin: 0 3px;
 	float: left;
 	border: 1px solid #e6e6e6;
@@ -103,6 +101,9 @@ Object Title
 	text-decoration: none;
 }
 
+.page-list{
+	float: center;
+}
 .page_nation .arrow {
 	border: 1px solid #ccc;
 }
