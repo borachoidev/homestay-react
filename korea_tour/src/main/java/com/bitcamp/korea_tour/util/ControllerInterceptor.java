@@ -20,6 +20,7 @@ public class ControllerInterceptor implements WebMvcConfigurer {
 				.addPathPatterns("/tourmypage/**")
 				.addPathPatterns("/placeanswer")
 				.addPathPatterns("/api/place/detail/course/**")
+				.addPathPatterns("/api/place/detail/photo")
 				.addPathPatterns("/api/tourmypage/**")
 				.addPathPatterns("/api/courses")
 				.addPathPatterns("/api/courses/**")
