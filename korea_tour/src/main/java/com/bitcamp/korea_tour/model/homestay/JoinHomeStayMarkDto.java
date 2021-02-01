@@ -5,8 +5,8 @@ import org.apache.ibatis.type.Alias;
 import lombok.Data;
 
 @Data
-@Alias("joinMark")
-public class JoinHomeStayMark {
+@Alias("joinmark")
+public class JoinHomeStayMarkDto {
 	private int homeStayMarkNum;
 	private int customNum;
 	private int homeStayNum;

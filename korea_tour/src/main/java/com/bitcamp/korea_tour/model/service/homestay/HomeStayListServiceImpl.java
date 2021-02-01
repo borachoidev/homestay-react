@@ -6,8 +6,8 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
-import com.bitcamp.korea_tour.model.HomeStayListDto;
-import com.bitcamp.korea_tour.model.HomeStayPhotoDto;
+import com.bitcamp.korea_tour.model.homestay.HomeStayListDto;
+import com.bitcamp.korea_tour.model.homestay.HomeStayPhotoDto;
 import com.bitcamp.korea_tour.model.mapper.HomeStayListMapper;
 
 import lombok.RequiredArgsConstructor;
