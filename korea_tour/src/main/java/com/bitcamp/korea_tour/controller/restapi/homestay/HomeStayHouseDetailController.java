@@ -1,13 +1,15 @@
 package com.bitcamp.korea_tour.controller.restapi.homestay;
 
+import java.util.List;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bitcamp.korea_tour.model.HomeStayPhotoDto;
 import com.bitcamp.korea_tour.model.homestay.HomeStayDetailDto;
 import com.bitcamp.korea_tour.model.homestay.HomeStayDto;
+import com.bitcamp.korea_tour.model.homestay.HomeStayPhotoDto;
 import com.bitcamp.korea_tour.model.service.homestay.HomeStayHouseDetailService;
 
 import lombok.AllArgsConstructor;
@@ -62,9 +64,9 @@ public class HomeStayHouseDetailController {
 	
 	//호스트 집 사진 (출력)
 	@GetMapping("/homestays/detail/photos/{homeStayNum}")
-	public HomeStayPhotoDto getHomeStayPhoto(@PathVariable(value = "homeStayNum")int homeStayNum) {
-		HomeStayPhotoDto dto = s.getHomeStayPhoto(homeStayNum);
-		return dto;
+	public JsonHomeDetailPhoto<List<HomeStayPhotoDto>> getHomeStayPhoto(@PathVariable(value = "homeStayNum")int homeStayNum) {
+		List<HomeStayPhotoDto> list = s.getHomeStayPhoto(homeStayNum);
+		return new JsonHomeDetailPhoto<List<HomeStayPhotoDto>>(list);
 	}
 	
 	//소개글(출력)
@@ -105,5 +107,11 @@ public class HomeStayHouseDetailController {
 		private double accuracy;
 		private double location;
 		private double satisfactionForPrice;
+	}
+	
+	@Data
+	@AllArgsConstructor
+	static class JsonHomeDetailPhoto<T>{
+		private T photo;
 	}
 }
