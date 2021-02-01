@@ -51,8 +51,13 @@
     <div class="modalBox">
     <button class="closeBtn"><i class="fas fa-times"></i></button>
     <form th:action="@{/api/place/detail/photo}" method="POST" enctype="multipart/form-data" target="iframe1">
+    <th:block th:if="${session.user == null}">
+    <span id="name" data-id="out"></span>
+    </th:block>
+    <th:block th:unless="${session.user == null}">
     <input type="hidden" id="lId" name="loginId" th:value=${session.user.name}></input>
     <input type="hidden" id="uNum" name="loginNum" th:value=${session.user.userNum}></input>
+    </th:block>
     <input type="text" id="placeContent" name="contentId"></input>
     <input type="file"  multiple="multiple" name="images" id="userPicture"/>
     <button type="submit" onclick="insertUserPicture()">사진 등록하기</button>
