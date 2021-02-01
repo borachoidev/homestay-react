@@ -55,10 +55,10 @@
 			SELECT IFNULL(MAX(regroup),0)+1 FROM tourAnswer where
 			courseNum=#{courseNum}
 		</selectKey>
-		INSERT INTO tourAnswer (courseNum, loginNum,userNum loginId, loginPhoto,
+		INSERT INTO tourAnswer (courseNum, loginNum,loginId, loginPhoto,
 		content, writeDay, regroup, relevel, restep)
 		VALUES
-		(#{courseNum}, #{loginNum},#{userNum}, #{loginId}, #{loginPhoto}, #{content},
+		(#{courseNum}, #{loginNum}, #{loginId}, #{loginPhoto}, #{content},
 		now(),#{regroup},0,0)
 	</insert>
 	<insert id="insertCourseReAnswer" parameterType="touranswer">
@@ -67,10 +67,10 @@
 			SELECT IFNULL(MAX(restep),0)+1 FROM tourAnswer where
 			contentId=#{courseNum} and regroup=#{regroup}
 		</selectKey>
-		insert into tourAnswer (courseNum, loginNum,userNum, loginId, loginPhoto,
+		insert into tourAnswer (courseNum, loginNum, loginId, loginPhoto,
 		content, writeDay, regroup, relevel, restep)
 		values
-		(#{courseNum}, #{loginNum},#{userNum}, #{loginId}, #{loginPhoto}, #{content},
+		(#{courseNum}, #{loginNum}, #{loginId}, #{loginPhoto}, #{content},
 		now(),#{regroup},1,#{restep})
 	</insert>
 	<update id="deleteCourseAnswerByUser" parameterType="int">
