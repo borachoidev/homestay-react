@@ -3,7 +3,7 @@
 let link = document.location.href;
 let contentId = link.split('=');
 let id = contentId[1];
-let regroupId;
+
 
 window.onload=function(){
 
