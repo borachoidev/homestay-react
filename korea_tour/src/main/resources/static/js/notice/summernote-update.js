@@ -33,7 +33,7 @@ function updateButton(noticeNum){
 	xhr.send(JSON.stringify(data));
 
 	  	
-		window.location.replace("/admin/noticelist?currentPage=1");
+		window.location.replace("/admin/notice/detail?noticeNum="+noticeNum);
 
 }
 	

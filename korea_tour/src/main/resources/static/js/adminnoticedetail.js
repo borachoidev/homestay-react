@@ -33,6 +33,7 @@ function noticeDetailList(noticeNum){
 			a+= `<div>제목: ${item.title}</div>`
 			a+= `<div>내용: ${item.content}</div>`
 			a+=` <button type="button" onclick="location.href='/admin/notice/updateform?noticeNum='+noticeNum" class="button button-small button-red">수정하기</button>`
+			a+=` <button type="button" onclick="location.href='/admin/noticelist?currentPage=1'" class="button button-small button-green">목록으로</button>`
 
 
 		}
