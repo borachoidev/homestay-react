@@ -32,6 +32,7 @@ xhr.send();
 			a+= `<div>조회수: ${item.views}</div>`
 			a+= `<div>제목: ${item.title}</div>`
 			a+= `<div>내용: ${item.content}</div>`
+			a+=` <button type="button" onclick="history.back()" class="button button-small button-green">돌아가기</button>`
 			
 
 
