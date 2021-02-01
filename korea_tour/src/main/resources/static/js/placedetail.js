@@ -407,7 +407,12 @@ if(xhr.status === 201) { // 201: post 일경우 Created
 //유저사진 출력
 
 const open = () => {
+	let UsNum =document.getElementById("uNum");
+    if (UsNum != null) {
     document.querySelector(".user-modal").classList.remove("hidden");
+    }
+    const userNum = document.querySelector('span#num').getAttribute('data-id');
+    if (userNum == 'out') return alert('로그인후 이용가능합니다');
   }
 
 const close = () => {
