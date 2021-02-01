@@ -1,17 +1,3 @@
-$(document).ready(function() {
-	//여기 아래 부분
-	$('#summernote').summernote({
-		  height: 250,                 // 에디터 높이
-		  minHeight: null,             // 최소 높이
-		  maxHeight: null,             // 최대 높이
-		  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
-		  lang: "ko-KR",					// 한글 설정
-		 
-
-			
-});
-});
-
 
 
 let noticeNum = getParam('noticeNum');
@@ -28,23 +14,31 @@ updateDetail(noticeNum);
 
 
 function updateButton(noticeNum){
+
 	const xhr = new XMLHttpRequest();
-    const url =`/api/noticeupdate/${noticeNum}`;
+    const url =`/api/admin/noticeupdate/${noticeNum}`;
 	
  	xhr.open('POST',url);
-	alert(url);
-  	
-    xhr.onreadystatechange = function () {
-	console.log(xhr.readyState)
-      if (xhr.readyState == 4) {
+	console.log(url);
+	xhr.setRequestHeader('Content-type', 'application/json');
 	
-			alert("성공");
-		    window.location.reload(true);
-			
-		}
-	}
-	xhr.send(null);
-    }
+	const title = document.querySelector('input#notice-title').value;
+	console.log(title);
+ 	const content = document.querySelector('textarea#summernote').value;
+	console.log(content);
+  	
+	const data = {
+	 "title":[title],
+	 "content":[content],	
+	};
+  	console.log(data);
+	xhr.send(JSON.stringify(data));
+
+	  	 //window.location.reload(true);
+
+}
+	
+    
 
 function updateDetail(noticeNum){
   	const xhr = new XMLHttpRequest();
@@ -61,7 +55,17 @@ function updateDetail(noticeNum){
 
         let a="";
 		{
-
+		$(document).ready(function() {
+		//여기 아래 부분
+		$('#summernote').summernote({
+		  height: 250,                 // 에디터 높이
+		  minHeight: null,             // 최소 높이
+		  maxHeight: null,             // 최대 높이
+		  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+		  lang: "ko-KR",					// 한글 설정
+		 	
+		});
+		});
 		a+=`<input type="text" class="notice-title" id="notice-title" name="title" value="${item.title}"></input>`;
 	    a+= `<textarea name="content" id="summernote" class="summernote">${item.content}</textarea>`;
 		a+= `<div class="notice-buttons">`;
@@ -83,11 +87,3 @@ function updateDetail(noticeNum){
 	}
 	}
 	
-	
-	
-
-
-
-	
-	
-

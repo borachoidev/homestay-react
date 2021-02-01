@@ -19,7 +19,7 @@ function getParam(key) {
 
 function deleteNotice(noticeNum){
 	const xhr = new XMLHttpRequest();
-   const url =`/api/noticedelete/${noticeNum}`;
+   const url =`/api/admin/noticedelete/${noticeNum}`;
  	xhr.open('DELETE',url);
   	
     xhr.onreadystatechange = function () {
@@ -38,12 +38,9 @@ function deleteNotice(noticeNum){
 
 
 
-
-	
-
-function noticeList(currentPage){
+function noticeList(){
     var xhr = new XMLHttpRequest();
-    var url = `/api/notice/${currentPage}`;
+    var url = `/api/notice`;
     xhr.open('GET', url);
     xhr.send();
     console.log(url);
