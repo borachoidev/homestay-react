@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.bitcamp.korea_tour.model.homestay.JoinHomeStayMark;
 import com.bitcamp.korea_tour.model.mapper.HomeStayMarkMapper;
 
 import lombok.RequiredArgsConstructor;

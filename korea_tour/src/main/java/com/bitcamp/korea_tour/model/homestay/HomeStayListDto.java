@@ -1,9 +1,8 @@
-package com.bitcamp.korea_tour.model;
+package com.bitcamp.korea_tour.model.homestay;
 
 import java.util.List;
 
 import org.apache.ibatis.type.Alias;
-
 
 import lombok.Data;
 
