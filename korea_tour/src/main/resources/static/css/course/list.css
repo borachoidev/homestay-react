@@ -46,3 +46,7 @@
 .pagination li.active {
   color: #fff;
 }
+
+.sort-list.active {
+  border-bottom: solid 3px var(--a-color);
+}
