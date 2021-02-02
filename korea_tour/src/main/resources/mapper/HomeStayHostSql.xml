@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bitcamp.korea_tour.model.mapper.HomeStayApplyMapper">
-   <insert id="insertHomeStayApply" parameterType="homestay">
+   <insert id="insertHomeStay" parameterType="homestay">
       insert into homestay (title,addr1,addr2,content,approval,checkIn1,checkIn2,
       checkOut1,checkOut2,xpos,ypos,price,open)
       values (#{title},#{addr1},#{addr2},#{content},0,#{checkIn1},#{checkIn2},
@@ -13,7 +13,9 @@
       values (#{dogOk},#{smokingOk},#{maxPeople},#{email1},#{email2},#{hp},#{wifi},#{towel},
       #{breakfast},#{aircon},#{elecProduct},#{kitchen},#{bathroom},#{parking})
    </insert>      
-<!--    <update id="approvalHost" parameterType="int">
-      update homestay set 
-   </update> -->
+   <update id="updateHomeStay" parameterType="Hashmap">
+   	update Homestay set title=#{dto.title}, 
+   
+   </update>
+
 </mapper>

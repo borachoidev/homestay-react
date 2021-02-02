@@ -4,21 +4,21 @@ import org.springframework.stereotype.Service;
 
 import com.bitcamp.korea_tour.model.homestay.HomeStayDetailDto;
 import com.bitcamp.korea_tour.model.homestay.HomeStayDto;
-import com.bitcamp.korea_tour.model.mapper.HomeStayApplyMapper;
+import com.bitcamp.korea_tour.model.mapper.HomeStayHostMapper;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class HomeStayApplyServiceImpl implements HomeStayApplyService {
+public class HomeStayHostServiceImpl implements HomeStayHostService {
 
-	private final HomeStayApplyMapper mapper;
+	private final HomeStayHostMapper mapper;
 
 
 	@Override
-	public void insertHomeStayApply(HomeStayDto dto) {
+	public void insertHomeStay(HomeStayDto dto) {
 		// TODO Auto-generated method stub
-		mapper.insertHomeStayApply(dto);
+		mapper.insertHomeStay(dto);
 	}
 
 	@Override
