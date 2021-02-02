@@ -10,11 +10,11 @@ import lombok.Data;
 @Data
 @Alias("joinreservation")
 public class JoinHomeStayReservationDto {
-	private int homeStayReservationNum;
-	private Date writeday;
-	private String homeTitle;
-	private Date checkInDay;
-	private Date checkOutDay;
-	private int approval;
-	private int deleted;
+	private int homeStayReservationNum; // 예약 고유값
+	private Date writeday; // 예약날짜
+	private String homeTitle; // 홈스테이 이름
+	private Date checkInDay;	// 예약자 체크인날짜
+	private Date checkOutDay;	// 예약자 체크아웃날짜
+	private int approval;	// 승인여부
+	private int deleted;	// 유저 삭제 여부
 }

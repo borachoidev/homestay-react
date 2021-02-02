@@ -5,7 +5,10 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.bitcamp.korea_tour.model.homestay.HomeStayReservationDto;
 import com.bitcamp.korea_tour.model.homestay.JoinHomeStayReservationDto;
+import com.bitcamp.korea_tour.model.homestay.JoinHomeStaySummary;
+import com.bitcamp.korea_tour.model.homestay.JoinReservationDetail;
 import com.bitcamp.korea_tour.model.mapper.HomeStayReservationMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -62,6 +65,30 @@ public class HomeStayReservationServiceImpl implements HomeStayReservationServic
 	public List<JoinHomeStayReservationDto> getDatasByApproved(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub
 		return mapper.getDatasByApproved(map);
+	}
+
+	@Override
+	public JoinHomeStaySummary getHomeStaySummary(int homeStayReservationNum) {
+		// TODO Auto-generated method stub
+		return mapper.getHomeStaySummary(homeStayReservationNum);
+	}
+
+	@Override
+	public JoinReservationDetail getHomeStayDetail(int homeStayReservationNum) {
+		// TODO Auto-generated method stub
+		return mapper.getHomeStayDetail(homeStayReservationNum);
+	}
+
+	@Override
+	public void cancelReservationByUser(int homeStayReservationNum) {
+		// TODO Auto-generated method stub
+		mapper.cancelReservationByUser(homeStayReservationNum);
+	}
+
+	@Override
+	public HomeStayReservationDto getData(int homeStayReservationNum) {
+		// TODO Auto-generated method stub
+		return mapper.getData(homeStayReservationNum);
 	}
 	
 	
