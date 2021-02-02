@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 import Home from 'page/Home';
 import HostForm from 'page/HostForm';
 import HouseDetail from 'components/HouseDetail';
+import ReservationConfirm from 'components/ReservationConfirm';
 
 function RouteMain(props) {
   return (
