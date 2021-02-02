@@ -7,8 +7,9 @@ import java.util.List;
 import com.bitcamp.korea_tour.model.homestay.HomeStayDetailDto;
 import com.bitcamp.korea_tour.model.homestay.HomeStayDto;
 import com.bitcamp.korea_tour.model.homestay.HomeStayPhotoDto;
+import com.bitcamp.korea_tour.model.homestay.HomeStayReservationDto;
 
-public interface HomeStayHouseDetailService {
+public interface HomeStayService {
 	HomeStayDto getHomeStayNameAndAddr(int homeStayNum);
 	int countOfHouseAnswer(int homeStayNum);
 	double avgOfCleanliness(int homeStayNum);
@@ -21,4 +22,6 @@ public interface HomeStayHouseDetailService {
 	String getHomeStayContent(int homeStayNum);
 	HomeStayDetailDto getHomeStayFacility(int homeStayNum);
 	HomeStayDto getHomeStayMap(int homeStayNum);
+	int getHomeStayMaxPeople(int homeStayNum);
+	List<HomeStayReservationDto> getDayImpossible(int homeStayNum);
 }
