@@ -6,7 +6,7 @@ import com.bitcamp.korea_tour.model.homestay.HomeStayDetailDto;
 import com.bitcamp.korea_tour.model.homestay.HomeStayDto;
 
 @Mapper
-public interface HomeStayApplyMapper {
-   void insertHomeStayApply(HomeStayDto dto);
+public interface HomeStayHostMapper {
+   void insertHomeStay(HomeStayDto dto);
    void insertHomeStayDetail(HomeStayDetailDto dto);
 }
