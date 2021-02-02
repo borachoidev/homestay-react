@@ -36,4 +36,9 @@ public class HomeStayListServiceImpl implements HomeStayListService {
 	public int getTotalHomeStayList() {
 		return homeStayListMapper.getTotalHomeStayList();
 	}
+	
+	@Override
+	public Double getTest() {
+		return homeStayListMapper.getTest();
+	}
 }

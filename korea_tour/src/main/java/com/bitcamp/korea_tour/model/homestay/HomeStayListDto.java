@@ -21,6 +21,6 @@ public class HomeStayListDto {
 	private List<HomeStayPhotoDto> homeStayPhotos;
 	private List<HomeStayMarkDto> homeStayMarkNums;
 	private int countOfReview;
-	private int avgOfStar;
+	private Double avgOfStar;
 	
 }

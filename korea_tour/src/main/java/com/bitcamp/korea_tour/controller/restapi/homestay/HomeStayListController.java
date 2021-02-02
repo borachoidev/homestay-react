@@ -36,6 +36,7 @@ public class HomeStayListController {
 		start=pagingService.getPagingData(totalCount, currentPage).get("start");
 		perPage=pagingService.getPagingData(totalCount, currentPage).get("perPage");
 		list=homeStayListService.getAllHomeStayList(start, perPage);
+		System.out.println(homeStayListService.getTest());
 		
 		for(HomeStayListDto dto:list) {
 			int homeStayNum=dto.getHomeStayNum();

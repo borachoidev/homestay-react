@@ -13,4 +13,5 @@ public interface HomeStayListMapper {
 	List<HomeStayListDto> getAllHomeStayList(Map<String, Integer> paging);
 	List<HomeStayPhotoDto> getAllHomeStayPhoto(int homeStayNum);
 	int getTotalHomeStayList();
+	Double getTest();
 }

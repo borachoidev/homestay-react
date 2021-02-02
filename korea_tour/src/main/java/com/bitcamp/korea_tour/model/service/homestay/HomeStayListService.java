@@ -10,4 +10,5 @@ public interface HomeStayListService {
 	List<HomeStayListDto> getAllHomeStayList(int start, int perPage);
 	List<HomeStayPhotoDto> setAllHomeStayPhoto(int homeStayNum);
 	int getTotalHomeStayList();
+	Double getTest();
 }
