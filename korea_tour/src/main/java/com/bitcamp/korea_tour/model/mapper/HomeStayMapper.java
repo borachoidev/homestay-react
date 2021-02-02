@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.bitcamp.korea_tour.model.homestay.HomeStayDetailDto;
 import com.bitcamp.korea_tour.model.homestay.HomeStayDto;
 import com.bitcamp.korea_tour.model.homestay.HomeStayPhotoDto;
+import com.bitcamp.korea_tour.model.homestay.HomeStayReservationDto;
 
 @Mapper
 public interface HomeStayMapper {
@@ -39,4 +40,5 @@ public interface HomeStayMapper {
 	HomeStayDetailDto getHomeStayFacility(int homeStayNum);
 	HomeStayDto getHomeStayMap(int homeStayNum);
 	int getHomeStayMaxPeople(int homeStayNum);
+	List<HomeStayReservationDto> getDayImpossible(int homeStayNum);
 }

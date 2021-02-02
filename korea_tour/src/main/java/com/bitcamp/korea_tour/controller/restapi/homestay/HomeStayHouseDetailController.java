@@ -1,14 +1,18 @@
 package com.bitcamp.korea_tour.controller.restapi.homestay;
 
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bitcamp.korea_tour.controller.restapi.tour.CourseMainController;
 import com.bitcamp.korea_tour.model.homestay.HomeStayDetailDto;
 import com.bitcamp.korea_tour.model.homestay.HomeStayDto;
 import com.bitcamp.korea_tour.model.homestay.HomeStayPhotoDto;
+import com.bitcamp.korea_tour.model.homestay.HomeStayReservationDto;
 import com.bitcamp.korea_tour.model.service.homestay.HomeStayHouseDetailService;
 
 import lombok.AllArgsConstructor;
@@ -101,6 +105,19 @@ public class HomeStayHouseDetailController {
 		return new JsonMaxPeople(maxPeople);
 	}
 	
+	@GetMapping("/homestays/{homeStayNum}/calendar")
+	public JsonImpossible<List<impossibleDays>> getDayImpossible(@PathVariable(value = "homeStayNum")int homeStayNum) {
+		List<HomeStayReservationDto> res = s.getDayImpossible(homeStayNum);
+		List<impossibleDays> day = new ArrayList<impossibleDays>();
+		
+		for(HomeStayReservationDto h:res) {
+			impossibleDays ids = new impossibleDays(h.getCheckInDay(), h.getCheckOutDay());
+			day.add(ids);
+		}
+		
+		return new JsonImpossible<List<impossibleDays>>(day);
+	}
+	
 	
 	
 ////////////////////////////////////////////////////////////////////////////	
@@ -157,4 +174,18 @@ public class HomeStayHouseDetailController {
 	static class JsonMaxPeople{
 		private int maxPeople;
 	}
+	
+	@Data
+	@AllArgsConstructor
+	static class JsonImpossible<T>{
+		private T day;	
+	}
+	
+	@Data
+	@AllArgsConstructor
+	static class impossibleDays {
+		private Date checkInDay;
+		private Date checkOutDay;
+	}
+	
 }
