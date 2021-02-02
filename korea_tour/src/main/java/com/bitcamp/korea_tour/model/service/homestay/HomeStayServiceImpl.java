@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class HomeStayHouseDetailServiceImpl implements HomeStayHouseDetailService{
+public class HomeStayServiceImpl implements HomeStayService{
 	private final HomeStayMapper mapper;
 	
 	@Override
