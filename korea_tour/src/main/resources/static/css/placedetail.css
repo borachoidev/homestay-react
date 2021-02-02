@@ -97,9 +97,27 @@ hr {
 	display: none;
 }
 
+.ReAnswer, .Answer{
+   height: 10vh;
+   border-bottom: 1px solid gray;
+}
+
+.ReAnswer {
+	margin-left: 5vw;
+	background: pink;
+	
+}
+
+.Answer {
+	background: yellow;
+}
+
+
+
+
+
 /*class추가(보이기)용*/
 .active {
-	background: pink;
 	display: block;
 }
 

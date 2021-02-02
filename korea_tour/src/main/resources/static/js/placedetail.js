@@ -103,6 +103,7 @@ function getPlace() {
         
         if(Answer[d].relevel == 0 && Answer[d].deleted == 0) {
 	    //댓글
+        u += `<div class="Answer">`;
         if(str==Answer[d].loginNum){
            u += `<i class="fas fa-trash-alt" id=${Answer[d].tourAnswerNum} onclick="deleteAnswer(this)"></i>`
 	    }
@@ -112,7 +113,7 @@ function getPlace() {
         u += `<p id="content">${Answer[d].content}</p>`;
         u += `<p id="day">${Answer[d].writeDay}</p>`;
         u += `<input type="hidden" class="Rerestep" th:value=${Answer[d].restep}></input>`;
-       
+        u += `</div>`;
         
        
 
@@ -126,6 +127,7 @@ function getPlace() {
         u += `</div>`;
          }
         }else if(Answer[d].relevel != 0 && Answer[d].deleted == 0){
+	     u+= `<div class=ReAnswer>`
 	      if(str==Answer[d].loginNum){
 	         u += `<i class="fas fa-trash-alt" id=${Answer[d].tourAnswerNum} onclick="deleteAnswer(this)"></i>`;
 	       }
@@ -133,10 +135,39 @@ function getPlace() {
          u += `<p id="loginId">${Answer[d].loginId}</p>`;
          u += `<p id="content">${Answer[d].content}</p>`;
          u += `<p id="day">${Answer[d].writeDay}</p>`;
-         }else if(Answer[d].deleted == 1){
-         u+= `사용자가 삭제한 댓글입니다`
-         }else if(Answer[d].deleted == 2){
-	     u+= `관리자가 삭제한 댓글입니다`
+         u += `</div>`
+         }else if(Answer[d].relevel != 0 && Answer[d].deleted == 1){
+	     u+= `<div class="ReAnswer">`;
+         u+= `<img id="loginPhoto" src=${Answer[d].loginPhoto}>`;
+         u+= `<p id="loginId">${Answer[d].loginId}</p>`;
+	     u+= `<div class="deleteUser">`;      
+         u+= `<div>사용자가 삭제한 답글입니다</div>`;
+         u+= `<input type="hidden" id=${Answer[d].tourAnswerNum}></div>`;
+         u+= `</div>`;
+         }else if(Answer[d].relevel == 0 && Answer[d].deleted == 1){
+	     u+= `<div class="Answer">`;
+	     u += `<img id="loginPhoto" src=${Answer[d].loginPhoto}>`;
+         u += `<p id="loginId">${Answer[d].loginId}</p>`;
+         u+= `<div class="deleteUser">`;      
+         u+= `<div>사용자가 삭제한 댓글입니다</div>`;
+         u+= `<input type="hidden" id=${Answer[d].tourAnswerNum}></div>`;
+         u+= `</div>`;
+         }else if(Answer[d].relevel != 0 && Answer[d].deleted == 2){
+	     u+= `<div class="ReAnswer">`;
+         u += `<img id="loginPhoto" src=${Answer[d].loginPhoto}>`;
+         u += `<p id="loginId">${Answer[d].loginId}</p>`;
+	     u+= `<div class="deleteAdmin">`;
+         u+= `<div>관리자가 삭제한 답글입니다</div>`
+         u+= `<input type="hidden" id=${Answer[d].tourAnswerNum}></div>`;
+         u+= `</div>`;
+         }else if(Answer[d].relevel == 0 && Answer[d].deleted == 2){
+	     u+= `<div class="Answer">`;
+         u += `<img id="loginPhoto" src=${Answer[d].loginPhoto}>`;
+         u += `<p id="loginId">${Answer[d].loginId}</p>`; 
+	     u+= `<div class="deleteAdmin">`;
+         u+= `<div>관리자가 삭제한 댓글입니다</div>`
+         u+= `<input type="hidden" id=${Answer[d].tourAnswerNum}></div>`;
+         u+= `</div>`;
          }
       }
 

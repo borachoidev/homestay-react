@@ -11,12 +11,7 @@ import "./ReviewInput.css"
 import StarRating from './AllStarRating';
 import ReTextarea from './ReviewTextarea';
 
-
 const ReviewInput = ({addReview}) => {
-
-
-
-
 
         return (
             <div>

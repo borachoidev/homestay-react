@@ -1,19 +1,19 @@
 import React, { Component,useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 
-import Input from './ReviewInput';
+import Input from 'components/ReviewInput';
 
 
-class ReviewForm extends Component {
+const ReviewForm =()=> {
   
 
-    render() {
+    
         return (
-              <div>
-                <Input/>
-              </div>
+          <div>
+          <Input/>
+          </div>
         );
-    }
+    
 }
 
 export default ReviewForm;
