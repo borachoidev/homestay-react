@@ -94,6 +94,13 @@ public class HomeStayHouseDetailController {
 		return new HomeDetailMap(addr1, xpos, ypos);
 	}
 	
+	@GetMapping("/homestays/{homeStayNum}/maxpeople")
+	public JsonMaxPeople getHomeStayMaxPeople(@PathVariable(value = "homeStayNum")int homeStayNum) {
+		int maxPeople = s.getHomeStayMaxPeople(homeStayNum);
+		
+		return new JsonMaxPeople(maxPeople);
+	}
+	
 	
 	
 ////////////////////////////////////////////////////////////////////////////	
@@ -143,5 +150,11 @@ public class HomeStayHouseDetailController {
 		private String addr1;
 		private String xpos;
 		private String ypos;
+	}
+	
+	@Data
+	@AllArgsConstructor
+	static class JsonMaxPeople{
+		private int maxPeople;
 	}
 }

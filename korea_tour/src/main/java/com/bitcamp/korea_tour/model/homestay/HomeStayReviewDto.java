@@ -15,8 +15,10 @@ public class HomeStayReviewDto {
 	private int homeStayNum;
 	private int relevel;
 	private int regroup;
+	private int restep;
 	private int loginNum;
 	private String loginId;
 	private String loginPhoto;
+	private String content;
 	private int deleted;
 }

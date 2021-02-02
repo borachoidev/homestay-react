@@ -64,4 +64,9 @@
 	<select id="getHomeStayMap" parameterType="int" resultType="homestay">
 	SELECT addr1,xpos,ypos FROM homeStay where homeStayNum=#{homeStayNum}
 	</select>
+	
+	<!-- 최대 인원수(출력) -->
+	<select id="getHomeStayMaxPeople" parameterType="int" resultType="int">
+	SELECT maxPeople FROM homeStayDetail where homeStayNum=#{homeStayNum}
+	</select>
 </mapper>
