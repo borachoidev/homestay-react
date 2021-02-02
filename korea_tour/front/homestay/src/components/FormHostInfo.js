@@ -1,39 +1,27 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, TextField } from '@material-ui/core';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import DaumPostcode from 'react-daum-postcode';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from '@material-ui/core';
+import { HostContext } from 'HostContext';
 export default function FormHostInfo(props) {
-  const [state, setState] = useState({
-    addr1: '',
-    addr2: '',
-    email1: '',
-    email2: '',
-    hp: '',
-  });
-  const postCodeStyle = {
-    display: 'block',
-    position: 'absolute',
-    top: '50%',
-    width: '400px',
-    height: '500px',
-    padding: '7px',
-  };
+  const { houseRules, setHouseRules } = useContext(HostContext);
+
   const handleChange = e => {
-    setState({ ...state, [e.target.name]: e.target.value });
+    setHouseRules({ ...houseRules, [e.target.name]: e.target.value });
   };
   const handleCreataeMap = data => {
-    setState({ ...state, addr1: data.address });
+    setHouseRules({ ...houseRules, addr1: data.address });
   };
 
-  const showPost = () => {};
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -43,6 +31,8 @@ export default function FormHostInfo(props) {
   const handleClose = () => {
     setOpen(false);
   };
+
+  console.log(houseRules.addr1);
   return (
     <div>
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>
@@ -70,28 +60,28 @@ export default function FormHostInfo(props) {
       <TextField
         label="주소"
         margin="normal"
-        value={state.addr1}
+        value={houseRules.addr1}
         name="addr1"
         onChange={handleChange}
       />
       <TextField
         label="상세주소"
         margin="normal"
-        value={state.addr2}
+        value={houseRules.addr2}
         name="addr2"
         onChange={handleChange}
       />
       <TextField
         label="email"
         margin="normal"
-        value={state.email1}
+        value={houseRules.email1}
         name="email1"
         onChange={handleChange}
       />
       <TextField
         label="도메인"
         margin="normal"
-        value={state.email2}
+        value={houseRules.email2}
         name="email2"
         onChange={handleChange}
       />
@@ -99,7 +89,7 @@ export default function FormHostInfo(props) {
       <Select
         labelId="domain"
         id="domain-select"
-        value={state.email2}
+        value={houseRules.email2}
         name="email2"
         onChange={handleChange}
       >
@@ -112,7 +102,7 @@ export default function FormHostInfo(props) {
       <TextField
         label="연락처"
         margin="normal"
-        value={state.hp}
+        value={houseRules.hp}
         name="hp"
         onChange={handleChange}
       />

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import PetsIcon from '@material-ui/icons/Pets';
 import PetsOutlinedIcon from '@material-ui/icons/PetsOutlined';
 import SmokingRoomsIcon from '@material-ui/icons/SmokingRooms';
@@ -22,23 +22,12 @@ import Bathtub from '@material-ui/icons/Bathtub';
 import BathtubOutlined from '@material-ui/icons/BathtubOutlined';
 import WifiOff from '@material-ui/icons/WifiOff';
 import Wifi from '@material-ui/icons/Wifi';
-
+import { HostContext } from 'HostContext';
 export default function FormAmenities() {
-  const [state, setState] = useState({
-    petAllow: false,
-    wifiService: false,
-    smoking: false,
-    restroom: false,
-    parking: false,
-    bathAmenity: false,
-    breakfast: false,
-    ac: false,
-    elect: false,
-    useKitchen: false,
-  });
+  const { amenities, setAmenities } = useContext(HostContext);
 
   const handleChange = event => {
-    setState({ ...state, [event.target.name]: event.target.checked });
+    setAmenities({ ...amenities, [event.target.name]: event.target.checked });
   };
 
   return (
@@ -46,7 +35,7 @@ export default function FormAmenities() {
       <FormControlLabel
         control={
           <Checkbox
-            checked={state.petAllow}
+            checked={amenities.petAllow}
             icon={<PetsOutlinedIcon />}
             checkedIcon={<PetsIcon />}
             name="petAllow"
@@ -58,7 +47,7 @@ export default function FormAmenities() {
       <FormControlLabel
         control={
           <Checkbox
-            checked={state.smoking}
+            checked={amenities.smoking}
             icon={<SmokeFreeIcon />}
             checkedIcon={<SmokingRoomsIcon />}
             name="smoking"
@@ -70,7 +59,7 @@ export default function FormAmenities() {
       <FormControlLabel
         control={
           <Checkbox
-            checked={state.wifiService}
+            checked={amenities.wifiService}
             icon={<WifiOff />}
             checkedIcon={<Wifi />}
             name="wifiService"
@@ -82,7 +71,7 @@ export default function FormAmenities() {
       <FormControlLabel
         control={
           <Checkbox
-            checked={state.bathAmenity}
+            checked={amenities.bathAmenity}
             icon={<BathtubOutlined />}
             checkedIcon={<Bathtub />}
             name="bathAmenity"
@@ -94,7 +83,7 @@ export default function FormAmenities() {
       <FormControlLabel
         control={
           <Checkbox
-            checked={state.breakfast}
+            checked={amenities.breakfast}
             icon={<EmojiFoodBeverageOutlined />}
             checkedIcon={<EmojiFoodBeverage />}
             name="breakfast"
@@ -106,7 +95,7 @@ export default function FormAmenities() {
       <FormControlLabel
         control={
           <Checkbox
-            checked={state.ac}
+            checked={amenities.ac}
             icon={<AcUnitOutlined />}
             checkedIcon={<AcUnit />}
             name="ac"
@@ -118,7 +107,7 @@ export default function FormAmenities() {
       <FormControlLabel
         control={
           <Checkbox
-            checked={state.elect}
+            checked={amenities.elect}
             icon={<OfflineBoltOutlined />}
             checkedIcon={<OfflineBolt />}
             name="elect"
@@ -130,7 +119,7 @@ export default function FormAmenities() {
       <FormControlLabel
         control={
           <Checkbox
-            checked={state.useKitchen}
+            checked={amenities.useKitchen}
             icon={<KitchenOutlined />}
             checkedIcon={<Kitchen />}
             name="useKitchen"
@@ -142,7 +131,7 @@ export default function FormAmenities() {
       <FormControlLabel
         control={
           <Checkbox
-            checked={state.restroom}
+            checked={amenities.restroom}
             icon={<WcOutlined />}
             checkedIcon={<Wc />}
             name="restroom"
@@ -154,7 +143,7 @@ export default function FormAmenities() {
       <FormControlLabel
         control={
           <Checkbox
-            checked={state.parking}
+            checked={amenities.parking}
             icon={<LocalParkingOutlined />}
             checkedIcon={<LocalParking />}
             name="parking"
