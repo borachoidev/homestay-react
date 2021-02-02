@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
-import AddPerson from './AddPerson';
+import AddPerson from 'components/AddPerson';
 import DateFnsUtils from '@date-io/date-fns';
 import Grid from '@material-ui/core/Grid';
 import {
   MuiPickersUtilsProvider,
   KeyboardTimePicker,
-  KeyboardDatePicker,
 } from '@material-ui/pickers';
-import { TimePicker } from '@material-ui/pickers';
 import FormAmenities from './FormAmenities';
 export default function FormHouseRules() {
   const [checkinTime, setCheckinTime] = useState(new Date());
@@ -25,18 +23,19 @@ export default function FormHouseRules() {
     <div>
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <Grid container justify="space-around">
-          <TimePicker
+          <KeyboardTimePicker
             autoOk
-            variant="static"
+            variant="inline"
             openTo="hours"
             label="체크인시간"
             value={checkinTime}
             minutesStep={15}
             onChange={handleCheckinTimeChange}
           />
-          <TimePicker
+
+          <KeyboardTimePicker
             autoOk
-            variant="static"
+            variant="inline"
             openTo="hours"
             label="체크아웃시간"
             value={checkoutTime}
