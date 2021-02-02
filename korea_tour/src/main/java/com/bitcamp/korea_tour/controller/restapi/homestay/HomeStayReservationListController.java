@@ -6,8 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bitcamp.korea_tour.controller.NoticeController;
-import com.bitcamp.korea_tour.controller.restapi.homestay.HomeStayListController.JsonData;
 import com.bitcamp.korea_tour.model.homestay.HomeStayReservationDto;
 import com.bitcamp.korea_tour.model.service.homestay.HomeStayHostService;
 import com.bitcamp.korea_tour.model.service.paging.PagingService;
