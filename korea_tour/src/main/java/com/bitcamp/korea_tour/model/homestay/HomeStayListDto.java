@@ -1,7 +1,5 @@
 package com.bitcamp.korea_tour.model.homestay;
 
-import java.util.List;
-
 import org.apache.ibatis.type.Alias;
 
 import lombok.Data;
@@ -18,8 +16,8 @@ public class HomeStayListDto {
 	private int approval;
 	private int price;
 	private int open;
-	private List<HomeStayPhotoDto> homeStayPhotos;
-	private List<HomeStayMarkDto> homeStayMarkNums;
+	private String photoName;
+	private int isMarked;
 	private int countOfReview;
 	private Double avgOfStar;
 	

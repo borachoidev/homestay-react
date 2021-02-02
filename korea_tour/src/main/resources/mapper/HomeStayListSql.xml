@@ -27,7 +27,10 @@
 	<select id="isMarked" parameterType="HashMap" resultType="int">
 		SELECT count(*) FROM homeStayMark WHERE homeStayNum=#{homeStayNum} AND loginNum=#{loginNum}
 	</select>
-	<select id="getTest" resultType="java.lang.Double">
-		select truncate((avg(cleanliness)+avg(communication)+avg(checkIn)+avg(accuracy)+avg(location)+avg(satisfactionForPrice))/6,2) from homeStayStar where homeStayNum=10
+	<!-- 평점 평균 -->
+	<select id="getAvgOfStar" parameterType="int" resultType="java.lang.Double">
+		select truncate((avg(cleanliness)+avg(communication)+avg(checkIn)+avg(accuracy)+avg(location)+avg(satisfactionForPrice))/6,2) 
+		from homeStayStar 
+		where homeStayNum=#{homeStayNum}
 	</select>
 </mapper>

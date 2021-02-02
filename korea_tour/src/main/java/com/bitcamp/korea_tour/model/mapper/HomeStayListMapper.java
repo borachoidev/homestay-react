@@ -13,5 +13,6 @@ public interface HomeStayListMapper {
 	int getTotalHomeStayList();
 	Integer getHomeStayPhotoNumOfList(int homeStayNum);
 	String getHomeStayPhotoOfList(int homeStayPhotoNum);
-	Double getTest();
+	int isMarked(Map<String, Integer> map);
+	Double getAvgOfStar(int homeStayNum);
 }
