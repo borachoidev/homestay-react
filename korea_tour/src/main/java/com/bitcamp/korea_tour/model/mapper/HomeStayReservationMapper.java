@@ -5,7 +5,10 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.bitcamp.korea_tour.model.homestay.HomeStayReservationDto;
 import com.bitcamp.korea_tour.model.homestay.JoinHomeStayReservationDto;
+import com.bitcamp.korea_tour.model.homestay.JoinHomeStaySummary;
+import com.bitcamp.korea_tour.model.homestay.JoinReservationDetail;
 
 @Mapper
 public interface HomeStayReservationMapper {
@@ -17,4 +20,8 @@ public interface HomeStayReservationMapper {
 	List<JoinHomeStayReservationDto> getDatasByWating(HashMap<String, Object> map);
 	List<JoinHomeStayReservationDto> getDatasByCancel(HashMap<String, Object> map);
 	List<JoinHomeStayReservationDto> getDatasByApproved(HashMap<String, Object> map);
+	JoinHomeStaySummary getHomeStaySummary(int homeStayReservationNum);
+	JoinReservationDetail getHomeStayDetail(int homeStayReservationNum);
+	void cancelReservationByUser(int homeStayReservationNum);
+	HomeStayReservationDto getData(int homeStayReservationNum);
 }

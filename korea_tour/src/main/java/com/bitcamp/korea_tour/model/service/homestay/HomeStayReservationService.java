@@ -3,7 +3,10 @@ package com.bitcamp.korea_tour.model.service.homestay;
 import java.util.HashMap;
 import java.util.List;
 
+import com.bitcamp.korea_tour.model.homestay.HomeStayReservationDto;
 import com.bitcamp.korea_tour.model.homestay.JoinHomeStayReservationDto;
+import com.bitcamp.korea_tour.model.homestay.JoinHomeStaySummary;
+import com.bitcamp.korea_tour.model.homestay.JoinReservationDetail;
 
 public interface HomeStayReservationService {
 	int getTotalCount(int loginNum);
@@ -14,4 +17,8 @@ public interface HomeStayReservationService {
 	List<JoinHomeStayReservationDto> getDatasByWating(HashMap<String, Object> map);
 	List<JoinHomeStayReservationDto> getDatasByCancel(HashMap<String, Object> map);
 	List<JoinHomeStayReservationDto> getDatasByApproved(HashMap<String, Object> map);
+	JoinHomeStaySummary getHomeStaySummary(int homeStayReservationNum);
+	JoinReservationDetail getHomeStayDetail(int homeStayReservationNum);
+	void cancelReservationByUser(int homeStayReservationNum);
+	HomeStayReservationDto getData(int homeStayReservationNum);
 }
