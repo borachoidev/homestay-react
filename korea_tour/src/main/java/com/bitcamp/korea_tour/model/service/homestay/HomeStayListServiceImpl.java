@@ -26,14 +26,13 @@ public class HomeStayListServiceImpl implements HomeStayListService {
 	}
 	
 	@Override
-	public List<HomeStayPhotoDto> setAllHomeStayPhoto(int homeStayNum) {
-//		HomeStayListDto dto=new HomeStayListDto();
-//		dto.setHomeStayPhotos(homeStayListMapper.getAllHomeStayPhoto(homeStayNum));
-		return homeStayListMapper.getAllHomeStayPhoto(homeStayNum);
-	}
-	
-	@Override
 	public int getTotalHomeStayList() {
 		return homeStayListMapper.getTotalHomeStayList();
+	}
+	
+	
+	@Override
+	public Double getTest() {
+		return homeStayListMapper.getTest();
 	}
 }

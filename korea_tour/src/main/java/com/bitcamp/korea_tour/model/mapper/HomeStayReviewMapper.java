@@ -10,3 +10,4 @@ import com.bitcamp.korea_tour.model.homestay.JoinHomeStayReviewDto;
 public interface HomeStayReviewMapper {
 		List<JoinHomeStayReviewDto> getAllReview(int homeStayNum);
 }
+ 
