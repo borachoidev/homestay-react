@@ -21,7 +21,7 @@ public class HomeStayHouseDetailController {
 	private final HomeStayHouseDetailService s;
 	
 	//홈스테이 디테일 -  해당 집의 집이름, 주소1(출력)
-	@GetMapping("/homestays/detail/name/{homeStayNum}")
+	@GetMapping("/homestays/{homeStayNum}/name")
 	public HomeDetailOne getHomeStayNameAndAddr(@PathVariable(value = "homeStayNum")int homeStayNum) {
 		HomeStayDto dto = s.getHomeStayNameAndAddr(homeStayNum);
 		String title = dto.getTitle();
@@ -30,7 +30,7 @@ public class HomeStayHouseDetailController {
 	}
 	
 	//해당집의 후기 수 (출력) / 평점들의 평균 계산
-	@GetMapping("/homestays/detail/star/{homeStayNum}")
+	@GetMapping("/homestays/{homeStayNum}/star")
 	public JsonMainStar countOfHouseAnswer(@PathVariable(value = "homeStayNum")int homeStayNum) {
 		//후기수
 		int countOfReview = s.countOfHouseAnswer(homeStayNum);
@@ -50,7 +50,7 @@ public class HomeStayHouseDetailController {
 	
 	//각각의 평점 모아보기
 	//cleanliness/communication/checkIn/accuracy/location/satisfactionForPrice
-	@GetMapping("/homestays/detail/staravg/{homeStayNum}")
+	@GetMapping("/homestays/{homeStayNum}/staravg")
 	public JsonStarList AvgOfReviewStars(@PathVariable(value = "homeStayNum")int homeStayNum) {
 		
 		double cleanliness=s.avgOfCleanliness(homeStayNum);
@@ -64,14 +64,14 @@ public class HomeStayHouseDetailController {
 	}
 	
 	//호스트 집 사진 (출력)
-	@GetMapping("/homestays/detail/photos/{homeStayNum}")
+	@GetMapping("/homestays/{homeStayNum}/photos")
 	public JsonHomeDetailPhoto<List<HomeStayPhotoDto>> getHomeStayPhoto(@PathVariable(value = "homeStayNum")int homeStayNum) {
 		List<HomeStayPhotoDto> list = s.getHomeStayPhoto(homeStayNum);
 		return new JsonHomeDetailPhoto<List<HomeStayPhotoDto>>(list);
 	}
 	
 	//소개글(출력)
-	@GetMapping("/homestays/detail/content/{homeStayNum}")
+	@GetMapping("/homestays/{homeStayNum}/content")
 	public JsonContent getHomeStayContent(@PathVariable(value = "homeStayNum")int homeStayNum) {
 		String content = s.getHomeStayContent(homeStayNum);
 		return new JsonContent(content);
@@ -79,13 +79,13 @@ public class HomeStayHouseDetailController {
 	
 	
 	//편의시설(8개)및 ,애견동반, 흡연 (출력)
-	@GetMapping("/homestays/detail/facility/{homeStayNum}")
+	@GetMapping("/homestays/{homeStayNum}/facility")
 	public HomeStayDetailDto getHomeStayFacility(@PathVariable(value = "homeStayNum")int homeStayNum) {
 		HomeStayDetailDto dto = s.getHomeStayFacility(homeStayNum);
 		return dto;
 	}
 	
-	@GetMapping("/homestays/detail/addr/{homeStayNum}")
+	@GetMapping("/homestays/{homeStayNum}/addr}")
 	public HomeDetailMap getHomeStayMap(@PathVariable(value = "homeStayNum")int homeStayNum) {
 		HomeStayDto dto = s.getHomeStayMap(homeStayNum);
 		String addr1 = dto.getAddr1();
