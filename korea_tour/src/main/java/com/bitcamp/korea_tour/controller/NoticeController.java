@@ -89,7 +89,7 @@ public class NoticeController{
     */
    
    @ResponseBody
-   @RequestMapping(value = "/api/admin/noticeupdate/{noticeNum}", method = RequestMethod.POST)
+   @RequestMapping(value = "/api/noticeupdate/{noticeNum}", method = RequestMethod.PUT)
    public void updateNotice(@RequestBody NoticeDto dto,@PathVariable int noticeNum) {
       ns.updateNotice(noticeNum, dto);
    }
