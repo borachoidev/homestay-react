@@ -13,8 +13,8 @@ public class JoinHomeStayReservationDto {
 	private int homeStayReservationNum;
 	private Date writeday;
 	private String homeTitle;
-	private String checkInDay;
-	private String checkOutDay;
+	private Date checkInDay;
+	private Date checkOutDay;
 	private int approval;
 	private int deleted;
 }
