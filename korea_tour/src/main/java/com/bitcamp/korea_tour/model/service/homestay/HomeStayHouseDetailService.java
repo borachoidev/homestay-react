@@ -21,4 +21,5 @@ public interface HomeStayHouseDetailService {
 	String getHomeStayContent(int homeStayNum);
 	HomeStayDetailDto getHomeStayFacility(int homeStayNum);
 	HomeStayDto getHomeStayMap(int homeStayNum);
+	int getHomeStayMaxPeople(int homeStayNum);
 }

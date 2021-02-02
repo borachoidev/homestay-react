@@ -87,6 +87,12 @@ public class HomeStayHouseDetailServiceImpl implements HomeStayHouseDetailServic
 		// TODO Auto-generated method stub
 		return mapper.getHomeStayMap(homeStayNum);
 	}
+
+	@Override
+	public int getHomeStayMaxPeople(int homeStayNum) {
+		// TODO Auto-generated method stub
+		return mapper.getHomeStayMaxPeople(homeStayNum);
+	}
 	
 	
 	
