@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
-import FormHostInfo from './FormHostInfo';
-import FormHouseRules from './FormHouseRules';
-import FormHouseIntro from './FormHouseIntro';
+import FormHostInfo from 'components/FormHostInfo';
+import FormHouseRules from 'components/FormHouseRules';
+import FormHouseIntro from 'components/FormHouseIntro';
 import { makeStyles } from '@material-ui/core/styles';
 import { Stepper, Step, StepLabel } from '@material-ui/core';
 // import { multiStepHostFormContext } from './HostFormContext';
