@@ -90,8 +90,10 @@ public class NoticeController{
    
    @ResponseBody
    @RequestMapping(value = "/api/admin/noticeupdate/{noticeNum}", method = RequestMethod.POST)
-   public void updateNotice(@RequestBody NoticeDto dto,@PathVariable int noticeNum) {
+   public String updateNotice(@RequestBody NoticeDto dto,@PathVariable int noticeNum) {
       ns.updateNotice(noticeNum, dto);
+      
+      return "redirect:/api/notice/detail/{noticeNum}";
    }
    /**
     * 공지사항 삭제

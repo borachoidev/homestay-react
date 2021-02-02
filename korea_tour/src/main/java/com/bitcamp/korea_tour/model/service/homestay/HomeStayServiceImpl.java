@@ -7,13 +7,14 @@ import org.springframework.stereotype.Service;
 import com.bitcamp.korea_tour.model.homestay.HomeStayDetailDto;
 import com.bitcamp.korea_tour.model.homestay.HomeStayDto;
 import com.bitcamp.korea_tour.model.homestay.HomeStayPhotoDto;
+import com.bitcamp.korea_tour.model.homestay.HomeStayReservationDto;
 import com.bitcamp.korea_tour.model.mapper.HomeStayMapper;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class HomeStayHouseDetailServiceImpl implements HomeStayHouseDetailService{
+public class HomeStayServiceImpl implements HomeStayService{
 	private final HomeStayMapper mapper;
 	
 	@Override
@@ -87,6 +88,21 @@ public class HomeStayHouseDetailServiceImpl implements HomeStayHouseDetailServic
 		// TODO Auto-generated method stub
 		return mapper.getHomeStayMap(homeStayNum);
 	}
+
+	@Override
+	public int getHomeStayMaxPeople(int homeStayNum) {
+		// TODO Auto-generated method stub
+		return mapper.getHomeStayMaxPeople(homeStayNum);
+	}
+
+	@Override
+	public List<HomeStayReservationDto> getDayImpossible(int homeStayNum) {
+		// TODO Auto-generated method stub
+		return mapper.getDayImpossible(homeStayNum);
+	}
+
+	
+
 	
 	
 	

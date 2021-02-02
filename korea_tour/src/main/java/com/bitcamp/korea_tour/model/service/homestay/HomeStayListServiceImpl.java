@@ -26,14 +26,30 @@ public class HomeStayListServiceImpl implements HomeStayListService {
 	}
 	
 	@Override
-	public List<HomeStayPhotoDto> setAllHomeStayPhoto(int homeStayNum) {
-//		HomeStayListDto dto=new HomeStayListDto();
-//		dto.setHomeStayPhotos(homeStayListMapper.getAllHomeStayPhoto(homeStayNum));
-		return homeStayListMapper.getAllHomeStayPhoto(homeStayNum);
+	public int getTotalHomeStayList() {
+		return homeStayListMapper.getTotalHomeStayList();
 	}
 	
 	@Override
-	public int getTotalHomeStayList() {
-		return homeStayListMapper.getTotalHomeStayList();
+	public String getHomeStayPhotoOfList(int homeStayNum) {
+		int homeStayPhotoNum=0;
+		if(homeStayListMapper.getHomeStayPhotoNumOfList(homeStayNum)!=null) {
+			homeStayPhotoNum=homeStayListMapper.getHomeStayPhotoNumOfList(homeStayNum);
+			return homeStayListMapper.getHomeStayPhotoOfList(homeStayPhotoNum);
+		}
+		return null;
+	}
+	
+	@Override
+	public int isMarked(int homeStayNum, int loginNum) {
+		Map<String, Integer> map=new HashMap<String, Integer>();
+		map.put("homeStayNum", homeStayNum);
+		map.put("loginNum", loginNum);
+		return homeStayListMapper.isMarked(map);
+	}
+	
+	@Override
+	public Double getAvgOfStar(int homeStayNum) {
+		return homeStayListMapper.getAvgOfStar(homeStayNum);
 	}
 }

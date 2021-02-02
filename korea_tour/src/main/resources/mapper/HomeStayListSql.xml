@@ -12,11 +12,25 @@
 		SELECT count(*) FROM homeStay
 	    WHERE approval=1 AND open=1
 	</select>
-	<select id="getAllHomeStayPhoto" parameterType="int" resultType="homestayphoto">
-		SELECT * FROM homeStay
+	<!-- 사진 한장 -->
+	<select id="getHomeStayPhotoNumOfList" parameterType="int" resultType="integer">
+		SELECT min(homeStayPhotoNum) FROM homeStay
 		join homeStayPhoto on homeStay.homeStayNum=homeStayPhoto.homeStayNum
         And homeStay.approval=1 And homeStay.open=1
         WHERE homeStay.homeStayNum=#{homeStayNum}
-        ORDER BY homeStayPhoto.homeStayPhotoNum ASC;
+        ORDER BY homeStayPhoto.homeStayPhotoNum ASC
+	</select>
+	<select id="getHomeStayPhotoOfList" parameterType="int" resultType="String">
+		SELECT photoName FROM homeStayPhoto WHERE homeStayPhotoNum=#{homeStayPhotoNum}
+	</select>
+	<!-- 즐겨찾기 여부 -->
+	<select id="isMarked" parameterType="HashMap" resultType="int">
+		SELECT count(*) FROM homeStayMark WHERE homeStayNum=#{homeStayNum} AND loginNum=#{loginNum}
+	</select>
+	<!-- 평점 평균 -->
+	<select id="getAvgOfStar" parameterType="int" resultType="java.lang.Double">
+		select truncate((avg(cleanliness)+avg(communication)+avg(checkIn)+avg(accuracy)+avg(location)+avg(satisfactionForPrice))/6,2) 
+		from homeStayStar 
+		where homeStayNum=#{homeStayNum}
 	</select>
 </mapper>
