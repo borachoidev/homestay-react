@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bitcamp.korea_tour.model.UserDto;
@@ -23,6 +24,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/homestays")
 public class HomeStayListController implements SessionNames {
 	private final HomeStayListService homeStayListService;
 	private final HomeStayService homeStayService;
@@ -39,8 +41,15 @@ public class HomeStayListController implements SessionNames {
 	Double avgOfStar=0.0;
 	int countOfReview=0;
 	
-	@GetMapping("/homestays/{currentPage}")
-	public JsonList<List<HomeStayListDto>> getHomeStayList(
+	
+	/**
+	 * 홈스테이 집목록(최저가순)
+	 * @param currentPage
+	 * @param request
+	 * @return Json(list)
+	 */
+	@GetMapping("/price/{currentPage}")
+	public JsonList<List<HomeStayListDto>> getHomeStayListByPrice (
 			@PathVariable(value="currentPage") int currentPage,
 			HttpServletRequest request
 			) {
@@ -71,8 +80,43 @@ public class HomeStayListController implements SessionNames {
 	}
 	
 	
+	@GetMapping("/review/{currentPage}")
+	public JsonList<List<HomeStayListDto>> getHomeStayListByReview (
+			@PathVariable(value="currentPage") int currentPage,
+			HttpServletRequest request
+			) {
+		
+		HttpSession session=request.getSession();
+		UserDto user=(UserDto) session.getAttribute(USER);
+		
+		totalCount=homeStayListService.getTotalHomeStayList();
+		start=pagingService.getPagingStart(currentPage, perPage);
+		list=homeStayListService.getAllHomeStayList(start, perPage);
+		
+		for(HomeStayListDto dto:list) {
+			int homeStayNum=dto.getHomeStayNum();
+			
+			photoName=homeStayListService.getHomeStayPhotoOfList(homeStayNum);
+			if(user!=null) isMarked=homeStayListService.isMarked(homeStayNum, user.getUserNum());
+			countOfReview=homeStayService.countOfHouseAnswer(homeStayNum);
+			if(countOfReview!=0) avgOfStar=homeStayListService.getAvgOfStar(homeStayNum);
+			
+			dto.setPhotoName(photoName);
+			dto.setIsMarked(isMarked);
+			dto.setCountOfReview(countOfReview);
+			dto.setAvgOfStar(avgOfStar);
+			
+		}
+		
+		return new JsonList<List<HomeStayListDto>>(list);
+	}
 	
-	@GetMapping("/homestays/paging/homestay-list")
+	
+	/**
+	 * 홈스테이 집목록 토탈페이지
+	 * @return int
+	 */
+	@GetMapping("/paging/homestay-list")
 	public int getTotalPage() {
 		totalCount=homeStayListService.getTotalHomeStayList();
 		return pagingService.getPagingTotalPage(totalCount, perPage);

@@ -8,4 +8,18 @@
 	<select id="getTotalCount" parameterMap="int" resultType="int">
 		select count(*) from homeStayMark where userNum=#{userNum}
 	</select> -->
+	<!-- 즐겨찾기 추가 -->
+	<select id="insertMark" parameterType="HashMap">
+		INSERT INTO homeStayMark (HomeStayNum, userNum, loginNum) 
+		VALUES 
+		(#{homeStayNum},
+		(SELECT userNum from homeStay WHERE homeStayNum=#{homeStayNum}),
+		#{loginNum})
+	</select>
+	<!-- 즐겨찾기 취소 -->
+	<select id="deleteMark" parameterType="HashMap">
+		DELETE FROM homeStayMark 
+		WHERE homeStayNum=#{homeStayNum} 
+		AND loginNum=#{loginNum}
+	</select>
 </mapper>
