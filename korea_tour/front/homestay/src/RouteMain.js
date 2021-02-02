@@ -10,6 +10,10 @@ function RouteMain(props) {
       <Route exact path="/homestay" component={Home} />
       <Route path="/homestay/apply" component={HostForm} />
       <Route path="/homestay/housedetail:num" component={HouseDetail} />
+      <Route
+        path="/homestay/reservationconfirm:num"
+        component={ReservationConfirm}
+      />
     </div>
   );
 }
