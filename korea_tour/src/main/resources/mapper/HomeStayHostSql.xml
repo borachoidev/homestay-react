@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.bitcamp.korea_tour.model.mapper.HomeStayApplyMapper">
+<mapper namespace="com.bitcamp.korea_tour.model.mapper.HomeStayHostMapper">
    <insert id="insertHomeStay" parameterType="homestay">
       insert into homestay (title,addr1,addr2,content,approval,checkIn1,checkIn2,
       checkOut1,checkOut2,xpos,ypos,price,open)
@@ -17,5 +17,14 @@
    	update Homestay set title=#{dto.title}, 
    
    </update>
-
+   
+   <select id="getTotalCount" parameterType="int" resultType="int">
+   	select count(*) from homeStayReservation where homestayNum=#{homestayNum}
+   </select>
+   <select id="getAllReservation" parameterType="hashmap" resultType="homestayreservation">
+   	select * from homeStayReservation where homestayNum=#{homestayNum} order by homeStayReservationNum asc Limit #{start},#{perPage}
+   </select>
+   <select id="getReservation" parameterType="int" resultType="homestayreservation">
+    select * from homeStayReservation where homeStayReservationNum=#{homeStayReserVationNum}
+   </select>
 </mapper>
