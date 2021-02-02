@@ -9,7 +9,7 @@ import com.bitcamp.korea_tour.model.homestay.HomeStayDto;
 import com.bitcamp.korea_tour.model.homestay.HomeStayPhotoDto;
 import com.bitcamp.korea_tour.model.homestay.HomeStayReservationDto;
 
-public interface HomeStayHouseDetailService {
+public interface HomeStayService {
 	HomeStayDto getHomeStayNameAndAddr(int homeStayNum);
 	int countOfHouseAnswer(int homeStayNum);
 	double avgOfCleanliness(int homeStayNum);

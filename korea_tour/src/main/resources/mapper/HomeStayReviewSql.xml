@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bitcamp.korea_tour.model.mapper.HomeStayReviewMapper">
-
+	<!-- JOIN : 리뷰출력(글쓴이, 내용, 사진) -->
+	<select id="getAllReview" parameterType="int" resultType="joinhomestayreview">
+	SELECT * FROM homeStayReview
+	LEFT JOIN homeStayReviewPhoto
+	ON homeStayReview.homeStayReviewNum=homeStayReviewPhoto.homeStayReviewNum
+	WHERE homeStayNum=#{homeStayNum} ORDER BY regroup
+	</select>
 </mapper>
