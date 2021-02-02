@@ -33,18 +33,16 @@ public class PagingServiceImpl implements PagingService {
 	}
 	
 	@Override
-	public Map<String, Integer> getPagingHomeStay(int totalCount, int currentPage) {
+	public int getPagingStart(int currentPage, int perPage) {
 		// mysql은 첫글이 0번(오라클은 1번)
-		perPage=5;
 		start = (currentPage-1)*perPage;
-		totalPage=totalCount/perPage + (totalCount%perPage>0?1:0);;
-
-		Map<String, Integer> paging=new HashMap<String, Integer>();
-		paging.put("start", start);
-		paging.put("perPage", perPage);
-		paging.put("totalPage", totalPage);
-		System.out.println(totalPage+","+totalCount+","+perPage);
-		return paging;	
+		return start;	
+	}
+	
+	@Override
+	public int getPagingTotalPage(int totalCount, int perPage) {
+		totalPage=totalCount/perPage + (totalCount%perPage>0?1:0);
+		return totalPage;
 	}
 
 }

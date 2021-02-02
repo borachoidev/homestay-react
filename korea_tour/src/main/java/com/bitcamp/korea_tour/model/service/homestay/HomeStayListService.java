@@ -8,5 +8,7 @@ import com.bitcamp.korea_tour.model.homestay.HomeStayListDto;
 public interface HomeStayListService {
 	List<HomeStayListDto> getAllHomeStayList(int start, int perPage);
 	int getTotalHomeStayList();
-	Double getTest();
+	String getHomeStayPhotoOfList(int homeStayNum);
+	int isMarked(int homeStayNum, int loginNum);
+	Double getAvgOfStar(int homeStayNum);
 }
