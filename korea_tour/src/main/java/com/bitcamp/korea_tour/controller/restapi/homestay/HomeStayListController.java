@@ -40,7 +40,6 @@ public class HomeStayListController {
 		
 		for(HomeStayListDto dto:list) {
 			int homeStayNum=dto.getHomeStayNum();
-			dto.setHomeStayPhotos(homeStayListService.setAllHomeStayPhoto(homeStayNum));
 		}
 		
 		return new JsonData<List<HomeStayListDto>>(list, currentPage);
