@@ -1,14 +1,11 @@
-package com.bitcamp.korea_tour.model.mapper;
+package com.bitcamp.korea_tour.model.service.homestay;
 
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.ibatis.annotations.Mapper;
-
 import com.bitcamp.korea_tour.model.homestay.JoinHomeStayReservationDto;
 
-@Mapper
-public interface HomeStayReservationMapper {
+public interface HomeStayReservationService {
 	int getTotalCount(int loginNum);
 	int getCountByWating(int loginNum);
 	int getCountByCancel(int loginNum);
