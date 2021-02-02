@@ -3,8 +3,12 @@ import { Button, TextField } from '@material-ui/core';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
-import MapContainer from './MapContainer';
-import PostCodeSearch from './PostCodeSearch';
+import DaumPostcode from 'react-daum-postcode';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 export default function FormHostInfo(props) {
   const [state, setState] = useState({
@@ -14,14 +18,55 @@ export default function FormHostInfo(props) {
     email2: '',
     hp: '',
   });
-
+  const postCodeStyle = {
+    display: 'block',
+    position: 'absolute',
+    top: '50%',
+    width: '400px',
+    height: '500px',
+    padding: '7px',
+  };
   const handleChange = e => {
     setState({ ...state, [e.target.name]: e.target.value });
   };
+  const handleCreataeMap = data => {
+    setState({ ...state, addr1: data.address });
+  };
 
+  const showPost = () => {};
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
     <div>
-      <MapContainer />
+      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+        주소검색
+      </Button>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="form-dialog-title"
+      >
+        <DialogTitle id="form-dialog-title">주소검색</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            홈스테이를 등록할 집의 주소를 입력해주세요!
+          </DialogContentText>
+          <DaumPostcode onComplete={handleCreataeMap} />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            확인
+          </Button>
+        </DialogActions>
+      </Dialog>
+
       <TextField
         label="주소"
         margin="normal"
@@ -71,7 +116,6 @@ export default function FormHostInfo(props) {
         name="hp"
         onChange={handleChange}
       />
-      <PostCodeSearch />c
     </div>
   );
 }
