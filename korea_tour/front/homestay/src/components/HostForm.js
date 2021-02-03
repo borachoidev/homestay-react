@@ -1,42 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import FormHostInfo from 'components/FormHostInfo';
 import FormHouseRules from 'components/FormHouseRules';
 import FormHouseIntro from 'components/FormHouseIntro';
 import { Stepper, Step, StepLabel } from '@material-ui/core';
+import { HostContext } from 'HostContext';
 import Button from '@material-ui/core/Button';
 
 export default function HostForm() {
-  const [step, setStep] = useState(0);
-  const [hostInfo, setHostInfo] = useState({
-    addr1: '',
-    addr2: '',
-    email1: '',
-    email2: '',
-    hp: '',
-  });
-  const [houseRules, setHouseRules] = useState({
-    checkIn: new Date(),
-    checkOut: new Date(),
-    maxPerson: 0,
-  });
-  const [amenities, setAmenities] = useState({
-    petAllow: false,
-    wifiService: false,
-    smoking: false,
-    restroom: false,
-    parking: false,
-    bathAmenity: false,
-    breakfast: false,
-    ac: false,
-    elect: false,
-    useKitchen: false,
-  });
-  const [houseIntro, setHouseIntro] = useState({
-    title: '',
-    description: '',
-    photo: '',
-  });
-
+  const { step, setStep } = useContext(HostContext);
   function getSteps() {
     return [
       '호스트정보',
@@ -49,11 +20,11 @@ export default function HostForm() {
   function showStep(step) {
     switch (step) {
       case 0:
-        return <FormHostInfo info={[hostInfo, setHostInfo]} />;
+        return <FormHostInfo />;
       case 1:
-        return <FormHouseRules rules={[houseRules, setHouseRules]} />;
+        return <FormHouseRules />;
       case 2:
-        return <FormHouseIntro intro={[houseIntro, setHouseIntro]} />;
+        return <FormHouseIntro />;
       case 3:
         return <FormHouseIntro />;
       case 4:
