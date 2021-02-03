@@ -14,11 +14,17 @@
 	SELECT MAX(regroup) from homeStayReview
 	</select>
 	
+	<!-- <select id="getReviewsByUser" parameterType="hashmap" resultType="joinmypagereview">
+		select r.homeStayReviewNum, r.userNum as hostNum, r.homeStayNum, r.relevel, r.regroup, r.loginNum,
+		r.loginId, r.loginPhoto, r.content, r.writeday, r.deleted, p.homeStayPhotoNum, p.photoName 
+		from homeStayReview r join homeStayPhoto 
+	</select> -->
 	<!-- 댓글쓰기 -->
 	<insert id="insertReview" parameterType="homestayreview">
 	INSERT into homeStayReview
 	(userNum,homeStayNum,relevel,regroup,loginNum,loginId,loginPhoto,content,writeday,deleted)
-	VALUES ((SELECT userNum from homeStay WHERE homeStayNum=#{homeStayNum}),#{homeStayNum},0,#{regroup},#{loginNum},#{loginId},#{loginPhoto},#{content},now(),0)
+	VALUES ((SELECT userNum from homeStay WHERE homeStayNum=#{homeStayNum}),#{homeStayNum},0,
+	#{regroup},#{loginNum},#{loginId},#{loginPhoto},#{content},now(),0)
 	</insert>
 	
 	<!-- 답글쓰기 -->
