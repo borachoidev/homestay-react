@@ -12,7 +12,7 @@ function HostMyBooks({ history }) {
       setLoading(true);
       try {
         const response = await axios.get(
-          `http://localhost:9003/homestay/reservation/${userNum}/1/${currentPage}`
+          `http://localhost:9003/homestay/reservation/${userNum}/2/${currentPage}`
         );
         setContents(response.data.list);
       } catch (e) {
