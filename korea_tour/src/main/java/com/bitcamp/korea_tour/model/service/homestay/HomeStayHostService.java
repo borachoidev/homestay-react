@@ -13,6 +13,8 @@ public interface HomeStayHostService {
 	   int getUserNum(int homeStayNum);
 	   int getHomeStayNum2(int userNum);
 	   void insertHomeStayDetail(int homestayNum,int userNum, JoinHomeStayDetailDto dto);
+	   void updateHomeStay(int homeStayNum);
+	   void updateHomeStayDetail(int homeStayNum);
 	   int getTotalCount(int homestayNum);
 	   List<HomeStayReservationDto> getAllReservation(int homestayNum,int approval,int start, int perPage);
 	   int getApprovalCount(int homeStayNum);
