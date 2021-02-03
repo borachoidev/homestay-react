@@ -1,6 +1,7 @@
 package com.bitcamp.korea_tour.controller.restapi.homestay;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -38,9 +39,8 @@ public class HomeStayListController implements SessionNames {
 	
 	String photoName=null;
 	int isMarked=0;
-	Double avgOfStar=0.0;
 	int countOfReview=0;
-	
+	Double avgOfStar=0.0;
 	
 	/**
 	 * 홈스테이 집목록(최저가순)
@@ -66,20 +66,26 @@ public class HomeStayListController implements SessionNames {
 			
 			photoName=homeStayListService.getHomeStayPhotoOfList(homeStayNum);
 			if(user!=null) isMarked=homeStayListService.isMarked(homeStayNum, user.getUserNum());
+			
 			countOfReview=homeStayService.countOfHouseAnswer(homeStayNum);
-			if(countOfReview!=0) avgOfStar=homeStayListService.getAvgOfStar(homeStayNum);
+			if(countOfReview==0) avgOfStar=0.0;
+			else avgOfStar=homeStayListService.getAvgOfStar(homeStayNum);
 			
 			dto.setPhotoName(photoName);
 			dto.setIsMarked(isMarked);
 			dto.setCountOfReview(countOfReview);
 			dto.setAvgOfStar(avgOfStar);
-			
 		}
 		
 		return new JsonList<List<HomeStayListDto>>(list);
 	}
 	
-	
+	/**
+	 * 홈스테이 집목록(평점높은순)
+	 * @param currentPage
+	 * @param request
+	 * @return
+	 */
 	@GetMapping("/review/{currentPage}")
 	public JsonList<List<HomeStayListDto>> getHomeStayListByReview (
 			@PathVariable(value="currentPage") int currentPage,
@@ -98,15 +104,31 @@ public class HomeStayListController implements SessionNames {
 			
 			photoName=homeStayListService.getHomeStayPhotoOfList(homeStayNum);
 			if(user!=null) isMarked=homeStayListService.isMarked(homeStayNum, user.getUserNum());
+			
 			countOfReview=homeStayService.countOfHouseAnswer(homeStayNum);
-			if(countOfReview!=0) avgOfStar=homeStayListService.getAvgOfStar(homeStayNum);
+			if(countOfReview==0) avgOfStar=0.0;
+			else avgOfStar=homeStayListService.getAvgOfStar(homeStayNum);
 			
 			dto.setPhotoName(photoName);
 			dto.setIsMarked(isMarked);
 			dto.setCountOfReview(countOfReview);
 			dto.setAvgOfStar(avgOfStar);
-			
 		}
+		
+		list.sort(new Comparator<HomeStayListDto>() {
+			@Override
+			public int compare(HomeStayListDto dto0, HomeStayListDto dto1) {
+				double avgOfStar0=0.0;
+				double avgOfStar1=0.0;
+				
+				if(dto0.getAvgOfStar()!=null) avgOfStar0=dto0.getAvgOfStar();
+				if(dto1.getAvgOfStar()!=null) avgOfStar1=dto1.getAvgOfStar();
+				
+				if(avgOfStar0==avgOfStar1) return 0;
+				else if(avgOfStar0<avgOfStar1) return 1;
+				else return -1;
+			}
+		});
 		
 		return new JsonList<List<HomeStayListDto>>(list);
 	}
