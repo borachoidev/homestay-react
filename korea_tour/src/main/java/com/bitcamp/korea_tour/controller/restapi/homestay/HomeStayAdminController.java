@@ -20,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/homestays")
+@RequestMapping("/admin/homestays")
 public class HomeStayAdminController {
 	private final HomeStayListService homeStayListService;
 	private final UserService userService;
