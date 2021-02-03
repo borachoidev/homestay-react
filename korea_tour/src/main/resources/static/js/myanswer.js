@@ -7,7 +7,7 @@ const printBox = document.querySelector("#printBox");
 
 function myAnswerList(){
     var xhr = new XMLHttpRequest();
-    var url = '/mypage/answer/1';
+    var url = '/api/tourmypage/answer/1';
     xhr.open('GET', url);
     xhr.send();
     console.log(url);
@@ -28,17 +28,35 @@ function myAnswerList(){
                  let writeday = item[i].writeDay;
                  let title = item[i].title;
                  let contentId = item[i].contentId;
+                 let tourAnswerNum = item[i].tourAnswerNum;
+                 let deleted = item[i].deleted;
+                 let courseNum = item[i].courseNum;
+                 let name = item[i].name;
                  s+="<div class='answer-box'>";
                  s+="<div class='image-box'>";
                  s+="<img src='"+loginPhoto+"' alt='"+loginId+"'>";
                  s+="</div>";
                  s+="<div class='answer-info__box'>";
                  s+="<div class='answer-info'>";
-                 s+=`<p class='answer-name' onclick='location.href="/tourplace/detail?contentId=${contentId}"'>${title}</p>`;
-                 s+="<p class='answer-start'>"+content+"</p>";
+                 if(title==null && name!=null){
+                    s+=`<p class='answer-name' onclick='location.href="/tourcourse/detail?contentId=${courseNum}"'>${name}</p>`;
+                 }else if(title==null && name==null){
+                    s+=`<p class='answer-name' '>삭제된 코스입니다</p>`;
+                 } else{
+                    s+=`<p class='answer-name' onclick='location.href="/tourplace/detail?contentId=${contentId}"'>${title}</p>`;
+                 }
+                 if(deleted==1){
+                    s+="<p class='answer-start' style='color:red'>사용자가 삭제한 글 입니다.</p>";
+                 }else if(deleted==2){
+                    s+="<p class='answer-start' style='color:red'>관리자가 삭제한 글 입니다.</p>";
+                 }else{
+                    s+="<p class='answer-start'>"+content+"</p>";
+                 }
                  s+="<span>"+loginId+"</span><span>|</span><span>"+writeday+"</span>";
                  s+="</div>";
-                 s+="<i class='fas fa-ellipsis-v answer-icon'></i>";
+                 if(deleted == 0){
+                    s+="<i class='fas fa-trash-alt answer-icon' onclick='deleteAnswer("+tourAnswerNum+")'></i>";
+                 }
                  s+="</div>";
                  s+="</div>";
                  s+="<hr class='hr2'>";
@@ -47,7 +65,6 @@ function myAnswerList(){
                 
              }   
              printBox.innerHTML=s;
-            
             
             
             
@@ -63,9 +80,9 @@ function myAnswerList(){
     }
 }
 
-reanswerBox.addEventListener('click', e => {
+function reAnserList(){
     var xhr = new XMLHttpRequest();
-    var url = '/mypage/reanswer/1';
+    var url = '/api/tourmypage/reanswer/1';
     xhr.open('GET', url);
     xhr.send();
     console.log(url);
@@ -84,22 +101,43 @@ reanswerBox.addEventListener('click', e => {
                  let writeday = item[i].writeDay;
                  let title = item[i].title;
                  let contentId = item[i].contentId;
+                 let tourAnswerNum = item[i].tourAnswerNum;
+                 let deleted = item[i].deleted;
+                 let courseNum = item[i].courseNum;
+                 let name = item[i].name;
                  c+="<div class='answer-box'>";
                  c+="<div class='image-box'>";
                  c+="<img src='"+loginPhoto+"' alt='"+loginId+"'>";
                  c+="</div>";
                  c+="<div class='answer-info__box'>";
                  c+="<div class='answer-info'>";
-                 c+=`<p class='answer-name' onclick='location.href="/tourplace/detail?contentId=${contentId}"'>${title}</p>`;
-                 c+="<p class='answer-start'>"+content+"</p>";
+
+                 if(title==null && name!=null){
+                    c+=`<p class='answer-name' onclick='location.href="/tourcourse/detail?contentId=${courseNum}"'>${name}</p>`;
+                 }else if(title==null && name==null){
+                    c+=`<p class='answer-name' '>삭제된 코스입니다</p>`;
+                 } else{
+                    c+=`<p class='answer-name' onclick='location.href="/tourplace/detail?contentId=${contentId}"'>${title}</p>`;
+                 }
+
+
+                 if(deleted==1){
+                    c+="<p class='answer-start' style='color:red'>사용자가 삭제한 글 입니다.</p>";
+                 }else if(deleted==2){
+                    c+="<p class='answer-start' style='color:red'>관리자가 삭제한 글 입니다.</p>";
+                 }else{
+                    c+="<p class='answer-start'>"+content+"</p>";
+                 }
+                 
                  c+="<span>"+loginId+"</span><span>|</span><span>"+writeday+"</span>";
                  c+="</div>";
-                 c+="<i class='fas fa-ellipsis-v answer-icon'></i>";
+                 if(deleted==0){
+                    c+="<i class='fas fa-trash-alt answer-icon' onclick='deleteReAnswer("+tourAnswerNum+")'></i>"; 
+                 }
                  c+="</div>";
                  c+="</div>";
                  c+="<hr class='hr2'>";
                
-                
                 
              }   
              printBox.innerHTML=c;
@@ -117,10 +155,36 @@ reanswerBox.addEventListener('click', e => {
         }
     
     }
-});
+}
 
+function deleteReAnswer(n){
+    var xhr = new XMLHttpRequest();
+    var url = '/api/tourmypage/answer/'+n;
+    xhr.open('POST', url);
+    
+  
+    xhr.onreadystatechange = function(){
+        if (this.readyState == 4) {
+            
+            reAnserList();
+        }
+      }
+      xhr.send();
+    }
 
-
+    function deleteAnswer(n){
+        var xhr = new XMLHttpRequest();
+        var url = '/api/tourmypage/answer/'+n;
+        xhr.open('POST', url);
+        
+      
+        xhr.onreadystatechange = function(){
+            if (this.readyState == 4) {
+                myAnswerList();
+            }
+          }
+          xhr.send();
+        }   
 
 
 myAnswerList();

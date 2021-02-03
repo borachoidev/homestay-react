@@ -26,7 +26,7 @@ myAnswerPage.addEventListener('click', e => {
 
 
 var xhr = new XMLHttpRequest();
-var url = 'mypage';
+var url = '/api/tourmypage';
 xhr.open('GET', url);
 xhr.send();
 
