@@ -89,6 +89,7 @@ public class HomeStayController {
 		return dto;
 	}
 	
+	//집 위치 지도표시
 	@GetMapping("/homestays/{homeStayNum}/addr}")
 	public HomeDetailMap getHomeStayMap(@PathVariable(value = "homeStayNum")int homeStayNum) {
 		HomeStayDto dto = s.getHomeStayMap(homeStayNum);
@@ -98,6 +99,7 @@ public class HomeStayController {
 		return new HomeDetailMap(addr1, xpos, ypos);
 	}
 	
+	//최대 인원수(출력)
 	@GetMapping("/homestays/{homeStayNum}/maxpeople")
 	public JsonMaxPeople getHomeStayMaxPeople(@PathVariable(value = "homeStayNum")int homeStayNum) {
 		int maxPeople = s.getHomeStayMaxPeople(homeStayNum);
@@ -105,6 +107,7 @@ public class HomeStayController {
 		return new JsonMaxPeople(maxPeople);
 	}
 	
+	//예약불가날짜 표시하기(출력)
 	@GetMapping("/homestays/{homeStayNum}/calendar")
 	public JsonImpossible<List<impossibleDays>> getDayImpossible(@PathVariable(value = "homeStayNum")int homeStayNum) {
 		List<HomeStayReservationDto> res = s.getDayImpossible(homeStayNum);
@@ -118,7 +121,12 @@ public class HomeStayController {
 		return new JsonImpossible<List<impossibleDays>>(day);
 	}
 	
-	
+	//Host이름 출력하기
+	@GetMapping("/homestays/{homeStayNum}/hostname")
+	public JsonHostName getHostName(@PathVariable(value = "homeStayNum")int homeStayNum) {
+		String name = s.getHostName(homeStayNum);
+		return new JsonHostName(name);
+	}
 	
 ////////////////////////////////////////////////////////////////////////////	
 	@Data
@@ -188,4 +196,9 @@ public class HomeStayController {
 		private Date checkOutDay;
 	}
 	
+	@Data
+	@AllArgsConstructor
+	static class JsonHostName{
+		private String name;
+	}
 }
