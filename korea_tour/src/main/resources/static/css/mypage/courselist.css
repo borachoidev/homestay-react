@@ -30,6 +30,11 @@ hr{
     width: 65%;
     height: 100%;
     margin-bottom: 100px;
+    
+}
+#infoBox{
+    display: flex;
+    justify-content: space-between;
 }
 
 #navBox{
@@ -103,3 +108,10 @@ hr{
     margin: 20px 0;
 }
 
+#makeCourse{
+    margin: 20px 0;
+    cursor: pointer;
+    background-color: #98938d;
+    color: white;
+    padding: 1%;
+}
