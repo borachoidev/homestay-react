@@ -39,10 +39,11 @@ public class HomeStayHostServiceImpl implements HomeStayHostService {
 	}
 
 	@Override
-	public List<HomeStayReservationDto> getAllReservation(int homestayNum, int start, int perPage) {
+	public List<HomeStayReservationDto> getAllReservation(int homestayNum,int approval, int start, int perPage) {
 		// TODO Auto-generated method stub
 		Map<String,Object> map=new HashMap<String, Object>();
 		map.put("homestayNum", homestayNum);
+		map.put("approval", approval);
 		map.put("start", start);
 		map.put("perPage", perPage);
 		List<HomeStayReservationDto> list = mapper.getAllReservation(map);
@@ -53,6 +54,69 @@ public class HomeStayHostServiceImpl implements HomeStayHostService {
 	public HomeStayReservationDto getReservation(int homeStayReservationNum) {
 		// TODO Auto-generated method stub
 		return mapper.getReservation(homeStayReservationNum);
+	}
+
+	@Override
+	public int getApprovalCount(int homeStayNum) {
+		// TODO Auto-generated method stub
+		return mapper.getApprovalCount(homeStayNum);
+	}
+
+	@Override
+	public List<HomeStayReservationDto> getApprovalReservation(int homeStayNum, int start, int perPage) {
+		// TODO Auto-generated method stub
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("homeStayNum", homeStayNum);
+		map.put("Start", start);
+		map.put("perPage", perPage);
+		List<HomeStayReservationDto> list = mapper.getApprovalReservation(map);
+		return list;
+	}
+
+	@Override
+	public int getRefusedCount(int homeStayNum) {
+		// TODO Auto-generated method stub
+		return mapper.getRefusedCount(homeStayNum);
+	}
+
+	@Override
+	public List<HomeStayReservationDto> getRefusedReservation(int homeStayNum, int start, int perPage) {
+		// TODO Auto-generated method stub
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("homeStayNum", homeStayNum);
+		map.put("Start", start);
+		map.put("perPage", perPage);
+		List<HomeStayReservationDto> list = mapper.getRefusedReservation(map);
+		return list;
+	}
+
+	@Override
+	public int getPendingCount(int homeStayNum) {
+		// TODO Auto-generated method stub
+		return mapper.getPendingCount(homeStayNum);
+	}
+
+	@Override
+	public List<HomeStayReservationDto> getPendingReservation(int homeStayNum, int start, int perPage) {
+		// TODO Auto-generated method stub
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("homeStayNum", homeStayNum);
+		map.put("Start", start);
+		map.put("perPage", perPage);
+		List<HomeStayReservationDto> list = mapper.getPendingReservation(map);
+		return list;
+	}
+
+	@Override
+	public void updateApproval(HomeStayReservationDto dto, int homeStayReservationNum, int approval) {
+		// TODO Auto-generated method stub
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("dto", dto);
+		map.put("homeStayReservationNum", homeStayReservationNum);
+		map.put("approval", approval);
+		
+		mapper.updateApproval(map);
+		
 	}
 
 
