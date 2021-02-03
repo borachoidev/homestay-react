@@ -15,6 +15,6 @@ public class JoinHomeStayReservationDto {
 	private String homeTitle; // 홈스테이 이름
 	private Date checkInDay;	// 예약자 체크인날짜
 	private Date checkOutDay;	// 예약자 체크아웃날짜
-	private int approval;	// 승인여부
-	private int deleted;	// 유저 삭제 여부
+	private int approval;	// 승인여부 0:대기, 1:호스트가거절, 2:승인
+	private int deleted;	// 예약자취소여부 0:대기 1:예약자가취소
 }
