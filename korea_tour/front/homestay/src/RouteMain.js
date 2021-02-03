@@ -16,8 +16,9 @@ import HouseListFeatured from 'components/HouseListFeatured';
 
 function RouteMain(props) {
   return (
-    <div>
+    <div className="main">
       {/* 네브바 */}
+
       {/* 메인 */}
       <Route exact path="/homestay" component={Home} />
       {/* 홈스테이 신청폼 */}
@@ -38,8 +39,8 @@ function RouteMain(props) {
         component={ReservationDetail}
       />
       {/* 호스트페이지 */}
-      <Route exact path="/homestay/host" component={HostMain} />
-      <Route path="/homestay/host/books" component={HostMyBooks} />
+      <Route path="/homestay/host" component={HostMain} />
+      <Route exact path="/homestay/host/books" component={HostMyBooks} />
       <Route path="/homestay/host/manage/books" component={HostPenddingBooks} />
       <Route path="/homestay/host/books/:num" component={HostBookDetail} />
       <Route path="/homestay/host/manage/house" component={HostManageHouse} />
