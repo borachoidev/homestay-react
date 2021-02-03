@@ -6,11 +6,11 @@
 		SELECT * FROM homeStay
 	    WHERE approval=1 AND open=1
 	    ORDER BY price ASC
-	    LIMIT #{start}, #{perPage};
+	    LIMIT #{start}, #{perPage}
 	</select>
 	<select id="getTotalHomeStayList" resultType="int">
 		SELECT count(*) FROM homeStay
-	    WHERE approval=1 AND open=1
+	    WHERE approval=2 AND open=1
 	</select>
 	<!-- 사진 한장 -->
 	<select id="getHomeStayPhotoNumOfList" parameterType="int" resultType="integer">
@@ -32,5 +32,25 @@
 		select truncate((avg(cleanliness)+avg(communication)+avg(checkIn)+avg(accuracy)+avg(location)+avg(satisfactionForPrice))/6,2) 
 		from homeStayStar 
 		where homeStayNum=#{homeStayNum}
+	</select>
+	<!-- 관리자 홈스테이 목록(대기중) -->
+	<select id="getAdminHomeStayList" parameterType="HashMap" resultType="homestay">
+		SELECT * FROM homeStay
+	    WHERE approval=0
+	    ORDER BY homeStayNum ASC
+	    LIMIT #{start}, #{perPage}
+	</select>
+	<!-- 관리자 홈스테이 목록(대기중) 개수 -->
+	<select id="getTotalAdminHomeStayList" resultType="int">
+		SELECT count(*) FROM homeStay
+	    WHERE approval=0
+	</select>
+	<!-- 관리자 홈스테이 승인 -->
+	<select id="approveHomeStay" parameterType="int">
+		UPDATE homeStay SET approval=2 WHERE homeStayNum=#{homeStayNum}
+	</select>
+	<!-- 관리자 홈스테이 거절 -->
+	<select id="denyHomeStay" parameterType="int">
+		UPDATE homeStay SET approval=1 WHERE homeStayNum=#{homeStayNum}
 	</select>
 </mapper>

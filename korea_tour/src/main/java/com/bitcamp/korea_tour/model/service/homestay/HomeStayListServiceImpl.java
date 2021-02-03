@@ -6,8 +6,8 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.bitcamp.korea_tour.model.homestay.HomeStayDto;
 import com.bitcamp.korea_tour.model.homestay.HomeStayListDto;
-import com.bitcamp.korea_tour.model.homestay.HomeStayPhotoDto;
 import com.bitcamp.korea_tour.model.mapper.HomeStayListMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -51,5 +51,28 @@ public class HomeStayListServiceImpl implements HomeStayListService {
 	@Override
 	public Double getAvgOfStar(int homeStayNum) {
 		return homeStayListMapper.getAvgOfStar(homeStayNum);
+	}
+	
+	@Override
+	public List<HomeStayDto> getAdminHomeStayList(int start, int perPage) {
+		Map<String, Integer> map=new HashMap<String, Integer>();
+		map.put("start", start);
+		map.put("perPage", perPage);
+		return homeStayListMapper.getAdminHomeStayList(map);
+	}
+	
+	@Override
+	public int getTotalAdminHomeStayList() {
+		return homeStayListMapper.getTotalAdminHomeStayList();
+	}
+	
+	@Override
+	public void approveHomeStay(int homeStayNum) {
+		homeStayListMapper.approveHomeStay(homeStayNum);
+	}
+	
+	@Override
+	public void denyHomeStay(int homeStayNum) {
+		homeStayListMapper.denyHomeStay(homeStayNum);
 	}
 }
