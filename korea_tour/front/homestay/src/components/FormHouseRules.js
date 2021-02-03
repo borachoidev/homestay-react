@@ -42,8 +42,7 @@ export default function FormHouseRules(props) {
           />
         </Grid>
       </MuiPickersUtilsProvider>
-      <AddPerson maxValue={houseRules.maxPerson} />
-      <FormAmenities />
+      <FormAmenities amenity={props.amenity} />
     </div>
   );
 }

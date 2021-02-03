@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button, TextField } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
-import { HostContext } from 'HostContext';
+
 export default function FormHouseIntro(props) {
   const [houseIntro, setHouseIntro] = props.intro;
 

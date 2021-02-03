@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import FormHostInfo from 'components/FormHostInfo';
 import FormHouseRules from 'components/FormHouseRules';
 import FormHouseIntro from 'components/FormHouseIntro';
+import FormConfirm from 'components/FormConfirm';
 import { Stepper, Step, StepLabel } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 
@@ -17,7 +18,6 @@ export default function HostForm() {
   const [houseRules, setHouseRules] = useState({
     checkIn: new Date(),
     checkOut: new Date(),
-    maxPerson: 0,
   });
   const [amenities, setAmenities] = useState({
     petAllow: false,
@@ -51,11 +51,23 @@ export default function HostForm() {
       case 0:
         return <FormHostInfo info={[hostInfo, setHostInfo]} />;
       case 1:
-        return <FormHouseRules rules={[houseRules, setHouseRules]} />;
+        return (
+          <FormHouseRules
+            rules={[houseRules, setHouseRules]}
+            amenity={[amenities, setAmenities]}
+          />
+        );
       case 2:
         return <FormHouseIntro intro={[houseIntro, setHouseIntro]} />;
       case 3:
-        return <FormHouseIntro />;
+        return (
+          <FormConfirm
+            info={hostInfo}
+            rules={houseRules}
+            amenity={amenities}
+            intro={houseIntro}
+          />
+        );
       case 4:
         return <FormHouseIntro />;
     }

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import PetsIcon from '@material-ui/icons/Pets';
 import PetsOutlinedIcon from '@material-ui/icons/PetsOutlined';
 import SmokingRoomsIcon from '@material-ui/icons/SmokingRooms';
@@ -22,9 +22,9 @@ import Bathtub from '@material-ui/icons/Bathtub';
 import BathtubOutlined from '@material-ui/icons/BathtubOutlined';
 import WifiOff from '@material-ui/icons/WifiOff';
 import Wifi from '@material-ui/icons/Wifi';
-import { HostContext } from 'HostContext';
-export default function FormAmenities() {
-  const { amenities, setAmenities } = useContext(HostContext);
+
+export default function FormAmenities(props) {
+  const [amenities, setAmenities] = props.amenity;
 
   const handleChange = event => {
     setAmenities({ ...amenities, [event.target.name]: event.target.checked });
