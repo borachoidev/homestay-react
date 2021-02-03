@@ -11,7 +11,7 @@ import lombok.Data;
 public class HomeStayReviewDto {
 	private int homeStayReviewNum;
 	private Date writeday;
-	private int userNum;
+	private Integer userNum;
 	private int homeStayNum;
 	private int relevel;
 	private int regroup;
