@@ -142,15 +142,23 @@ public class HomeStayHostServiceImpl implements HomeStayHostService {
 	}
 
 	@Override
-	public void updateHomeStay(int homeStayNum) {
+	public void updateHomeStay(JoinHomeStayDetailDto dto,int homeStayNum) {
 		// TODO Auto-generated method stub
-		mapper.updateHomeStay(homeStayNum);
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("homeStayNum", homeStayNum);
+		map.put("dto", dto);
+		
+		mapper.updateHomeStay(map);
 	}
 
 	@Override
-	public void updateHomeStayDetail(int homeStayNum) {
+	public void updateHomeStayDetail(JoinHomeStayDetailDto dto,int homeStayNum) {
 		// TODO Auto-generated method stub
-		mapper.updateHomeStayDetail(homeStayNum);
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("homeStayNum", homeStayNum);
+		map.put("dto", dto);
+		
+		mapper.updateHomeStayDetail(map);
 	}
 
 
