@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bitcamp.korea_tour.model.mapper.HomeStayMarkMapper">
-	<!-- <select id="getMarkList" parameterType="int" resultType="joinmark">
-		select m.homeStayMarkNum, m.userNum as customNum, m.homeStayNum, h.userNum as hostNum, h.title, h.addr1, h.content, h.approval, h.price, h.open  
-		from homeStayMark m left join homeStay h on m.homeStayNum=h.homeStayNum where m.userNum=#{userNum} order by homeStayMarkNum desc
+	<select id="getTotalCountOfMarkByUser" parameterType="int" resultType="int">
+		select count(*) from homeStayMark where loginNum=#{loginNum}
 	</select>
-	<select id="getTotalCount" parameterMap="int" resultType="int">
-		select count(*) from homeStayMark where userNum=#{userNum}
-	</select> -->
+	<select id="getMarkListByUser" parameterType="hashmap" resultType="joinmark">
+		select a.homeStayMarkNum, a.homeStayNum, a.title, a.hostNum, b.name as hostName, a.addr1, a.addr2 from 
+		(select m.homeStayMarkNum, m.userNum as customNum, m.homeStayNum, h.userNum as hostNum, h.title, h.addr1, h.addr2, h.content, h.approval, h.price, h.open  
+		from homeStayMark m left join homeStay h on m.homeStayNum=h.homeStayNum where m.loginNum=#{loginNum}) a 
+        join user b on a.hostNum = b.userNum 
+        order by homeStayMarkNum desc limit #{start},#{perPage}
+	</select>
+	
 	<!-- 즐겨찾기 추가 -->
 	<select id="insertMark" parameterType="HashMap">
 		INSERT INTO homeStayMark (HomeStayNum, userNum, loginNum) 

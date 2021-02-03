@@ -1,5 +1,6 @@
 package com.bitcamp.korea_tour.controller.restapi.homestay;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bitcamp.korea_tour.controller.restapi.tour.PlaceController;
+import com.bitcamp.korea_tour.model.JoinPlaceListDto;
 import com.bitcamp.korea_tour.model.UserDto;
+import com.bitcamp.korea_tour.model.homestay.JoinHomeStayMarkDto;
+import com.bitcamp.korea_tour.model.service.homestay.HomeStayListService;
 import com.bitcamp.korea_tour.model.service.homestay.HomeStayMarkService;
 import com.bitcamp.korea_tour.model.service.login.setting.SessionNames;
 import com.bitcamp.korea_tour.model.service.paging.PagingService;
@@ -28,33 +33,40 @@ import lombok.RequiredArgsConstructor;
 public class HomeStayMarkController implements SessionNames {
 	
 	private final HomeStayMarkService homeStayMarkService;
+	private final HomeStayListService homeStayListService;
+	private final PagingService pagingService;
 	
-//	private final HomeStayMarkService service;
-//	private final PagingService pagingService;
-//	
-//	@Data
-//	@AllArgsConstructor
-//	public class JsonHomeStayMarkJoin {
-//		private List<JoinHomeStayMark> marks;
-//		private int totalCount;
-//		private int totalPage;
-//	}
-//	
-//	@GetMapping("/homestay/mark/{userNum}/{currentPage}")
-//	public JsonHomeStayMarkJoin getMarkList(
-//			@PathVariable(name="userNum") int userNum,
-//			@PathVariable(name="currentPage") int currentPage
-//			) {
-//		
-//		int totalCount = service.getTotalCount(userNum);
-//		System.out.println(totalCount);
-//		int totalPage = pagingService.getPagingData(totalCount, currentPage).get("totalPage");
-//		System.out.println(totalPage);
-//		List<JoinHomeStayMark> marks = service.getMarkList(userNum);
-//		System.out.println(marks);
-//		
-//		return new JsonHomeStayMarkJoin(marks, totalCount, totalPage);
-//	}
+	@Data
+	@AllArgsConstructor
+	static class JsonMypageMarkList {
+		private List<JoinHomeStayMarkDto> marks;
+		private int totalCount;
+		private int totalPage;
+	}
+	
+	@GetMapping("/mypage/marks/{loginNum}/{currentPage}")
+	public JsonMypageMarkList getMarkList(
+			@PathVariable(name="loginNum") int loginNum,
+			@PathVariable(name="currentPage") int currentPage
+			) {
+		int totalCount = homeStayMarkService.getTotalCountOfMarkByUser(loginNum);
+		int start = pagingService.getPagingData(totalCount, currentPage).get("start");
+		int perPage = pagingService.getPagingData(totalCount, currentPage).get("perPage");
+		int totalPage = pagingService.getPagingData(totalCount, currentPage).get("totalPage");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("start", start);
+		map.put("perPage", perPage);
+		map.put("loginNum", loginNum);
+		List<JoinHomeStayMarkDto> marks = homeStayMarkService.getMarkListByUser(map);
+		for(JoinHomeStayMarkDto mdto: marks) {
+			int homeStayNum = mdto.getHomeStayNum();
+			Double avgOfStars = homeStayListService.getAvgOfStar(homeStayNum);
+			mdto.setAvgOfStars(avgOfStars);
+		}
+		System.out.println(marks);
+		
+		return new JsonMypageMarkList(marks, totalCount, totalPage);
+	}
 	
 	/**
 	 * 즐겨찾기 추가
