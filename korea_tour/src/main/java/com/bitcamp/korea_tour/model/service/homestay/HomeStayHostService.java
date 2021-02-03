@@ -5,10 +5,14 @@ import java.util.List;
 import com.bitcamp.korea_tour.model.homestay.HomeStayDetailDto;
 import com.bitcamp.korea_tour.model.homestay.HomeStayDto;
 import com.bitcamp.korea_tour.model.homestay.HomeStayReservationDto;
+import com.bitcamp.korea_tour.model.homestay.JoinHomeStayDetail;
 
 public interface HomeStayHostService {
-	   void insertHomeStay(HomeStayDto dto);
-	   void insertHomeStayDetail(HomeStayDetailDto dto);
+	   void insertHomeStay(JoinHomeStayDetail dto);
+	   int getHomeStayNum();
+	   int getUserNum(int homeStayNum);
+	   int getHomeStayNum2(int userNum);
+	   void insertHomeStayDetail(int homestayNum,int userNum, JoinHomeStayDetail dto);
 	   int getTotalCount(int homestayNum);
 	   List<HomeStayReservationDto> getAllReservation(int homestayNum,int approval,int start, int perPage);
 	   int getApprovalCount(int homeStayNum);
@@ -18,5 +22,5 @@ public interface HomeStayHostService {
 	   int getPendingCount(int homeStayNum);
 	   List<HomeStayReservationDto> getPendingReservation(int homeStayNum, int start, int perPage);
 	   HomeStayReservationDto getReservation(int homeStayReservationNum);
-	   void updateApproval(HomeStayReservationDto dto, int homeStayReservationNum, int approval);
+	   void updateApproval(int homeStayReservationNum, int approval);
 }
