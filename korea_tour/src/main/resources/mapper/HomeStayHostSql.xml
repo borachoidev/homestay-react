@@ -23,7 +23,7 @@
       #{dto.breakfast},#{dto.aircon},#{dto.elecProduct},#{dto.kitchen},#{dto.bathroom},#{dto.parking})
    </insert>      
    <update id="updateHomeStay" parameterType="hashmap">
-   	update homeStay set title=#{dto.title}, addr1=#{dto.addr1},addr2=#{dto.addr2},content=#{dto.content},checkIn1=#{dto.checkIn1},checkIn2=#{dto.checkIn2},
+   	update homeStay set title=#{dto.title}, addr1=#{dto.addr1},addr2=#{dto.addr2},content=#{dto.content},approval=0,checkIn1=#{dto.checkIn1},checkIn2=#{dto.checkIn2},
       checkOut1=#{dto.checkOut1},checkOut2=#{dto.checkOut2},xpos=#{dto.xpos},ypos=#{dto.ypos},price=#{dto.price},open=#{dto.open}
       where homeStayNum=#{homeStayNum}
    </update>
