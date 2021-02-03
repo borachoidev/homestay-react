@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React from 'react';
 import { Button, TextField } from '@material-ui/core';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -11,15 +11,15 @@ import {
   DialogContentText,
   DialogTitle,
 } from '@material-ui/core';
-import { HostContext } from 'HostContext';
+
 export default function FormHostInfo(props) {
-  const { houseRules, setHouseRules } = useContext(HostContext);
+  const [hostInfo, setHostInfo] = props.info;
 
   const handleChange = e => {
-    setHouseRules({ ...houseRules, [e.target.name]: e.target.value });
+    setHostInfo({ ...hostInfo, [e.target.name]: e.target.value });
   };
   const handleCreataeMap = data => {
-    setHouseRules({ ...houseRules, addr1: data.address });
+    setHostInfo({ ...hostInfo, addr1: data.address });
   };
 
   const [open, setOpen] = React.useState(false);
@@ -32,7 +32,6 @@ export default function FormHostInfo(props) {
     setOpen(false);
   };
 
-  console.log(houseRules.addr1);
   return (
     <div>
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>
@@ -60,28 +59,28 @@ export default function FormHostInfo(props) {
       <TextField
         label="주소"
         margin="normal"
-        value={houseRules.addr1}
+        value={hostInfo.addr1}
         name="addr1"
         onChange={handleChange}
       />
       <TextField
         label="상세주소"
         margin="normal"
-        value={houseRules.addr2}
+        value={hostInfo.addr2}
         name="addr2"
         onChange={handleChange}
       />
       <TextField
         label="email"
         margin="normal"
-        value={houseRules.email1}
+        value={hostInfo.email1}
         name="email1"
         onChange={handleChange}
       />
       <TextField
         label="도메인"
         margin="normal"
-        value={houseRules.email2}
+        value={hostInfo.email2}
         name="email2"
         onChange={handleChange}
       />
@@ -89,7 +88,7 @@ export default function FormHostInfo(props) {
       <Select
         labelId="domain"
         id="domain-select"
-        value={houseRules.email2}
+        value={hostInfo.email2}
         name="email2"
         onChange={handleChange}
       >
@@ -102,7 +101,7 @@ export default function FormHostInfo(props) {
       <TextField
         label="연락처"
         margin="normal"
-        value={houseRules.hp}
+        value={hostInfo.hp}
         name="hp"
         onChange={handleChange}
       />

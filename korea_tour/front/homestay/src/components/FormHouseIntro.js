@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useState } from 'react';
 import { Button, TextField } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import { HostContext } from 'HostContext';
 export default function FormHouseIntro(props) {
-  const { houseIntro, setHouseIntro } = useContext(HostContext);
+  const [houseIntro, setHouseIntro] = props.intro;
 
   return (
     <div>
