@@ -16,5 +16,12 @@ public interface HomeStayHostMapper {
    void insertHomeStayDetail(HomeStayDetailDto dto);
    int getTotalCount(int homestayNum);
    List<HomeStayReservationDto> getAllReservation(Map<String, Object> map);
+   int getApprovalCount(int homeStayNum);
+   List<HomeStayReservationDto> getApprovalReservation(Map<String, Object> map);
+   int getRefusedCount(int homeStayNum);
+   List<HomeStayReservationDto> getRefusedReservation(Map<String, Object> map);
+   int getPendingCount(int homeStayNum);
+   List<HomeStayReservationDto> getPendingReservation(Map<String, Object> map);
    HomeStayReservationDto getReservation(int homeStayReservationNum);
+   void updateApproval(Map<String, Object> map);
 }
