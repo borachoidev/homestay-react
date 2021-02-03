@@ -35,7 +35,7 @@
 	<select id="getDatasByApproved" parameterType="hashmap" resultType="joinreservation">
 		select a.homeStayReservationNum, a.writeday, b.title as homeTitle, a.checkInDay, a.checkOutDay, a.approval, a.deleted 
 		from homeStayReservation a left join homeStay b on (a.homeStayNum=b.homeStayNum) 
-		where a.approval=2 and deleted=0 
+		where a.approval=2 and a.loginNum=#{loginNum} and a.deleted=0 
 		order by homeStayReservationNum asc LIMIT #{start},#{perPage}
 	</select>
 	<select id="getHomeStaySummary" parameterType="int" resultType="joinhomestaysummary">
