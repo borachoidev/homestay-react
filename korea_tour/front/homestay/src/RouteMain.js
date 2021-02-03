@@ -7,26 +7,42 @@ import ReservationConfirm from 'components/ReservationConfirm';
 import ReviewForm from 'page/ReviewForm';
 import ReservationList from 'page/ReservationList';
 import ReservationDetail from 'page/ReservationDetail';
+import HostPenddingBooks from 'page/HostPenddingBooks';
+import HostBookDetail from 'page/HostBookDetail';
+import HostManageHouse from 'page/HostManageHouse';
+import HostMain from 'page/HostMain';
+import HostMyBooks from 'page/HostMyBooks';
+import HouseListFeatured from 'components/HouseListFeatured';
 
 function RouteMain(props) {
   return (
     <div>
+      {/* 네브바 */}
+      {/* 메인 */}
       <Route exact path="/homestay" component={Home} />
+      {/* 홈스테이 신청폼 */}
       <Route path="/homestay/apply" component={HostForm} />
+      {/* 집목록 */}
+      <Route path="/homestay/houselistfeatured" component={HouseListFeatured} />
+      {/* 집상세 및 예약 */}
       <Route path="/homestay/housedetail:num" component={HouseDetail} />
       <Route
         path="/homestay/reservationconfirm:num"
         component={ReservationConfirm}
       />
-      <Route path="/homestay/mypage/reviewwrite" component={ReviewForm} />
+      {/* 마이페이지 */}
+      <Route path="/homestay/mypage/review/:num" component={ReviewForm} />
+      <Route path="/homestay/mypage/Reservation" component={ReservationList} />
       <Route
-        path="/homestay/mypage/ReservationList"
-        component={ReservationList}
-      />
-      <Route
-        path="/homestay/mypage/Reservationdetail:num"
+        path="/homestay/mypage/Reservation/:num"
         component={ReservationDetail}
       />
+      {/* 호스트페이지 */}
+      <Route exact path="/homestay/host" component={HostMain} />
+      <Route path="/homestay/host/books" component={HostMyBooks} />
+      <Route path="/homestay/host/manage/books" component={HostPenddingBooks} />
+      <Route path="/homestay/host/books/:num" component={HostBookDetail} />
+      <Route path="/homestay/host/manage/house" component={HostManageHouse} />
     </div>
   );
 }
