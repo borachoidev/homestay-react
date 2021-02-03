@@ -5,10 +5,16 @@ import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
 import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
+import TextField from '@material-ui/core/TextField';
+import MenuItem from '@material-ui/core/MenuItem';
+import AddPerson from './AddPerson';
+
+
 
 const useStyles = makeStyles((theme) => ({
+
   toolbar: {
-    minHeight: 128,
+   
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
@@ -38,12 +44,23 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up("md")]: {
       paddingLeft: theme.spacing(3),
     },
+    container: {
+      display: 'flex',
+      flexWrap: 'wrap',
+    },
+    textField: {
+      marginLeft: theme.spacing(1),
+      marginRight: theme.spacing(1),
+      width: 100,
+    },
   },
 }));
 
 export default function NavBar() {
   const classes = useStyles();
   const [activeBtn, setActiveBtn] = useState("destinations");
+
+
 
   return (
     <Container>
@@ -58,8 +75,31 @@ export default function NavBar() {
         >
           로고를 여기에!
         </Typography>
+        <form className={classes.container} noValidate>
+      <TextField
+        name="date"
+        label="시작일"
+        type="date"
+        defaultValue="2017-05-24"
+        className={classes.textField}
+        InputLabelProps={{
+          shrink: true,
+        }}
+      />
+      <TextField
+        name="date"
+        label="종료일"
+        type="date"
+        defaultValue="2017-05-24"
+        className={classes.textField}
+        InputLabelProps={{
+          shrink: true,
+        }}
+      />
+      <AddPerson/>
+   </form>
         <Box className={classes.menuButtons}>
-          {["호스트 되기", "홈으로 가기", "마이페이지"].map((item) => (
+          {["호스트 신청", "홈으로", "마이페이지"].map((item) => (
             <Link
               component="button"
               variant="body2"
@@ -72,6 +112,7 @@ export default function NavBar() {
             </Link>
           ))}
         </Box>
+       
       </Toolbar>
     </Container>
   );
