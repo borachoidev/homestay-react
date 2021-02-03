@@ -5,25 +5,14 @@ const courseMark = document.getElementById("courseMark");
 const totalCount = document.getElementById("totalCount");
 const t1 = document.querySelector("#t1");
 
-function getParam(key) {
-    let param;
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    param = urlParams.get(key);
-    return param;
-  }
 
-let perBlock = 5;
 let currentPage = document.querySelector('#paging').getAttribute('currentPage');
-let startPage = Math.floor((currentPage - 1) / perBlock) * perBlock + 1;
-let endPage = startPage + perBlock - 1;
-
 
 
     function placeMarkspage(currentPage){
    
     var xhr = new XMLHttpRequest();
-    var url = `/mypage/placemarks/${currentPage}`;
+    var url = `/api/tourmypage/placemarks/${currentPage}`;
     xhr.open('GET', url);
     xhr.send();
     console.log(url);
@@ -39,7 +28,7 @@ let endPage = startPage + perBlock - 1;
                 let addrs = item[i].addr1;
                 let firstImages = item[i].firstImage;
                 let contentId = item[i].contentId;
-                
+                let markNum = item[i].markNum;
                 
                 s+="<div class='favorite-infobox'>";
                 s+="<div class='image-box'>";
@@ -50,42 +39,14 @@ let endPage = startPage + perBlock - 1;
                 s+=`<p class='favorite-name' onclick='location.href="/tourplace/detail?contentId=${contentId}"'>${titles}</p>`;
                 s+="<p class='favorite-start'>"+addrs+"</p>";
                 s+="</div>";
-                s+="<i class='far fa-times-circle favorite-icon'></i>";
+                s+=`<i class='fas fa-trash-alt favorite-icon' onclick='deleteFavoritePlace(${markNum})'></i>`;
                 s+="</div>";
                 s+="</div>";
                 s+="<hr class='hr2'>";
             }   
             t1.innerHTML=s;
 
-                //페이징 처리
-      const totalPage = data.totalPage; //
-
-      if (endPage > totalPage) {
-        endPage = totalPage;
-      }
-      
-      let p = '';
-      if (startPage > 1) {
-        p += `<li class='page-list'><a href='/tourmypage/favorite?currentPage=${
-          startPage - 1
-        }'><i class="fas fa-chevron-left"></i></li>`;
-      }
-      for (let i = startPage; i <= endPage; i++) {
-        p += `<li class='page-list'><a href='/tourmypage/favorite?currentPage=${i}'>${i}</a></li>`;
-      }
-      if (endPage < totalPage) {
-        p += `<li page='${
-          endPage + 1
-        }' class='page-list'><a href='/tourmypage/favorite?currentPage=${
-          endPage + 1
-        }'><i class="fas fa-chevron-right"></i></a></li>`;
-      }
-
-      document.querySelector('#paging').innerHTML = p;
-
-            // console.log(data);
-            // console.log(data.list);
-            // console.log(data.list.length);
+                
             let placeCount = data.list.length;
             totalCount.innerText = "총"+placeCount+"건";
             placeMark.style.color="black";
@@ -97,9 +58,26 @@ let endPage = startPage + perBlock - 1;
     
 };
 
+function deleteFavoritePlace(n){
+  var xhr = new XMLHttpRequest();
+  var url = '/api/placemarks/'+n;
+  xhr.open('DELETE', url);
+  
+  console.log(url);
+
+  xhr.onreadystatechange = function(){
+      if (this.readyState == 4) {
+          placeMarkspage(currentPage);
+
+      }
+    }
+    xhr.send();
+  }
+
+
 function courseMarkForm(currentPage){
     var xhr = new XMLHttpRequest();
-    var url = `/mypage/coursemarks/${currentPage}`;
+    var url = `/api/tourmypage/coursemarks/${currentPage}`;
     xhr.open('GET', url);
     xhr.send();
     console.log(url);
@@ -118,6 +96,8 @@ function courseMarkForm(currentPage){
                 let who;
                 let during;
                 let how;
+                let courseMarkNum = item[i].courseMarkNum;
+               
                 console.log(`who ${item[i].who}`);
                 switch (item[i].who) {
                 case 'W1':
@@ -171,43 +151,14 @@ function courseMarkForm(currentPage){
                 c+="<span class='favortie-tema'>#"+during+"</span>";
                 c+="<span class='favortie-tema'>#"+how+"</span>";
                 c+="</div>";
-                c+="<i class='far fa-times-circle favorite-icon'></i>";
+                c+="<i class='fas fa-trash-alt favorite-icon' onclick='deleteFavoriteCourse("+courseMarkNum+")'></i>";
                 c+="</div>";
                 c+="</div>";
                 c+="<hr class='hr2'>";
             }   
             t1.innerHTML=c;
             
-            //페이징 처리
-      const totalPage = data.totalPage; //
-
-      if (endPage > totalPage) {
-        endPage = totalPage;
-      }
-      
-      let p = '';
-      if (startPage > 1) {
-        p += `<li class='page-list'><a href='/tourmypage/favorite?currentPage=${
-          startPage - 1
-        }'><i class="fas fa-chevron-left"></i></li>`;
-      }
-      for (let i = startPage; i <= endPage; i++) {
-        p += `<li class='page-list'><a href='/tourmypage/favorite?currentPage=${i}'>${i}</a></li>`;
-      }
-      if (endPage < totalPage) {
-        p += `<li page='${
-          endPage + 1
-        }' class='page-list'><a href='/tourmypage/favorite?currentPage=${
-          endPage + 1
-        }'><i class="fas fa-chevron-right"></i></a></li>`;
-      }
-
-      document.querySelector('#paging').innerHTML = p;
-            
-            
-            // console.log(data);
-            // console.log(data.list);
-            // console.log(data.list.length);
+           
             let courseCount = data.list.length;
             totalCount.innerText = "총"+courseCount+"건";
             courseMark.style.color="black";
@@ -220,22 +171,22 @@ function courseMarkForm(currentPage){
 }
 
 
-function deleteFavorite(){
+function deleteFavoriteCourse(n){
     var xhr = new XMLHttpRequest();
-    var url = '/coursemarks/{courseMarkNum}';
+    var url = '/api/coursemarks/'+n;
     xhr.open('DELETE', url);
-    xhr.send();
+    
     console.log(url);
 
     xhr.onreadystatechange = function(){
         if (this.readyState == 4) {
-            let data = JSON.parse(this.responseText);
-            console.data
+
+          location.href = location.href;
 
         }
       }
+      xhr.send();
     }
-
 
 
 

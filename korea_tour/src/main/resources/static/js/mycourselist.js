@@ -4,22 +4,11 @@ const totalCount = document.querySelector(".count-box");
 const printBox = document.querySelector("#printBox");
 
 
-function deleteCourse(){
-    var delxhr = new XMLHttpRequest();
-    var delurl = '/courses/{courseNum}';
-    delxhr.open('DELETE', delurl);
-    delxhr.send();
 
-    delxhr.onreadystatechange = function(){
-        if (this.readyState == 4) {
-            alert("삭제완료");
-        }
-    }
-}
 
 function myAnswerList(){
     var xhr = new XMLHttpRequest();
-    var url = '/mypage/courses/1';
+    var url = '/api/tourmypage/courses/1';
     xhr.open('GET', url);
     xhr.send();
     console.log(url);
@@ -90,7 +79,7 @@ function myAnswerList(){
                 s+="<p class='courselist-start'>"+addr+"</p>";
                 s+="<span>#"+during+"</span><span>#"+who+"</span><span>#"+how+"</span>";
                 s+="</div>";
-                s+=`<i class='fas fa-ellipsis-v courselist-icon' onclick="deleteCourse()"></i>`;
+                s+=`<i class='fas fa-trash-alt courselist-icon' onclick='deleteCourse(${courseNum})'></i>`;
                 s+="</div>";
                 s+="</div>";
                 
@@ -112,22 +101,31 @@ function myAnswerList(){
     }
 }
 
+function deleteCourse(num){
+    var delxhr = new XMLHttpRequest();
+    var delurl = '/api/courses/'+num;
+    delxhr.open('DELETE', delurl);
+    delxhr.send();
 
+    delxhr.onreadystatechange = function(){
+        if (this.readyState == 4) {
+            location.href = location.href;
+        }
+    }
+}
 
 myAnswerList();
 
-//const deleteBtn = document.getElementsByClassName("courselist-icon");
 
-// deleteBtn.addEventListener('click', e => {
-//     var delxhr = new XMLHttpRequest();
-//     var delurl = '/courses/{courseNum}';
-//     delxhr.open('DELETE', delurl);
-//     delxhr.send();
 
-//     delxhr.onreadystatechange = function(){
-//         if (this.readyState == 4) {
-//             alert("삭제완료");
-//         }
-//     }
-// });
-
+function createCourse(){
+    var delxhr = new XMLHttpRequest();
+    var delurl = '/api/courses/'
+    delxhr.open('POST', delurl);
+    delxhr.onreadystatechange = function(){
+        if (this.readyState == 4) {
+            location.href = location.href;
+        }
+    }
+    delxhr.send();
+}

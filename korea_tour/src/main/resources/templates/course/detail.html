@@ -13,6 +13,7 @@
 <th:block layout:fragment="script" >
       <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=31ce38fe7ad5a778d898c960e51d1167"></script>
       <script th:src="@{/js/courseDetail.js}" defer></script>
+      <script th:src="@{/js/coursedetailreply.js}" defer></script>
 </th:block>
 
 <div layout:fragment="content">
@@ -28,12 +29,12 @@
             <h4 class="course-km">코스총거리</h4>
             <div id="iconBox">
                   <div id="leftIconBox">
-                        <i id="likeIcon" class="far fa-thumbs-up" onclick="clickLike()"></i>
-                        <i id="shareIcon" class="fas fa-share-alt"></i>
+                        
                   </div>
                   <div id="rightIconBox">
+                        <i id="likeIcon" class="far fa-thumbs-up" onclick="clickLike()"></i>
+                        <i id="shareIcon" class="fas fa-share-alt"></i>
                         <i id="favoriteIcon" class="fas fa-star" onclick="clickFavorite()"></i>
-                        <i id="saveIcon" class="fas fa-bookmark"></i>
                   </div>
             </div>
             <!-- 모달 -->
@@ -94,6 +95,77 @@
               
 
                   <div id="mapBox"></div>
+
+                  <!-- 댓글입력창 -->
+                  <div id="createAnswerBox">
+                        <div id="answerCount"><i class="far fa-comment-dots"></i>&nbsp;여행톡 2</div>
+                        <input type="hidden" id="userLoginNum" name="loginNum" th:value=${session.user.userNum}></input>
+                        <input type="hidden" id="userId" name="loginId" th:value=${session.user.name}></input>
+                        <input type="hidden" id="userPhotoGo" name="loginPhoto" th:value=${session.user.photo}></input>
+                        <textarea id="textBox" name="textBox" onblur="forceOut(this.value)" placeholder="소중한 댓글을 남겨주세요."></textarea>
+                        <button onclick="insertAnswer()">보내기</button>
+                  </div>
+
+                  <!-- 반복문 댓글출력창 -->
+                  <div id="printAnswer">
+                        <div class="answer-box">
+                              <!-- 프로필사진 텍스트 아이콘상자 -->
+                              <div class="profile-text-icon"> 
+                                    <!-- 프사 -->
+                                    <div class="profile-box"><img src="" alt=""></div>
+
+                                    <!-- 텍스트 아이콘 -->
+                                    <div class="text-icon">
+                                          <!-- 텍스트 -->
+                                          <div class="text-box">
+                                                <p>content</p>
+                                                <p><span style="margin-right: 5px;">작성자</span>|<span style="margin-left: 5px;">작성일</span></p>
+                                          </div>
+                                          <!-- 아이콘 -->
+                                          <div class="icon-box"><i class='fas fa-trash-alt answer-delete-icon'></i></div>
+                                    </div>
+                              </div>
+
+                              <!-- 답글버튼, 숨겨진답글출력창 -->
+                              <div class="reanswer-btn" name="1" onclick="ReAnswer(this)">답글</div>
+                              <!-- 답글출력창 -->
+                              <div class="reanswer-mainbox hide-btn">
+                                    <div>
+                                          <!-- 프사 -->
+                                          <div class="reanswer-box">
+                                                <div class="reprofile-box"><img src="" alt=""></div>
+
+                                                <!-- 텍스트 아이콘 -->
+                                                <div class="retext-icon">
+                                                      <!-- 텍스트 -->
+                                                      <div class="retext-box">
+                                                            <p>content</p>
+                                                            <p><span style="margin-right: 5px;">작성자</span>|<span style="margin-left: 5px;">작성일</span></p>
+                                                      </div>
+                                                      <!-- 아이콘 -->
+                                                      <div class="reicon-box"><i class='fas fa-trash-alt answer-delete-icon'></i></div>
+                                                </div>
+                                          </div>      
+                                          <hr class="hrline">
+                                    </div>
+                                    
+                                    
+
+                                    
+                                    <!-- 답글입력창 -->
+                                    <div class="create-ReAnswerBox">
+                                          
+                                          <input type="hidden" id="reUserLoginNum" name="reLoginNum" th:value=${session.user.userNum}></input>
+                                          <input type="hidden" id="reUserId" name="reLoginId" th:value=${session.user.name}></input>
+                                          <input type="hidden" id="reUserPhotoGo" name="reLoginPhoto" th:value=${session.user.photo}></input>
+                                          <textarea class="reTextBox" name="textBox" onblur="ReforceOut(this.value)" placeholder="답글을 남겨주세요."></textarea>
+                                          <button class="reAnswer-push" onclick="insertReAnswer()">보내기</button>
+                                    </div>
+                              </div>
+                        </div>
+                        
+                        
+                  </div>
 
             </div>
       </div>

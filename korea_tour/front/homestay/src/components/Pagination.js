@@ -16,10 +16,18 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PaginationRounded() {
   const classes = useStyles();
+  //const [currentPage, setPage] = React.useState(1);
+  //const handleChange = (event, value) => {
+  //  setPage(value);
+  //}
+
+  // <Pagination totalPages={totalPages} currentPage={currentPage}
+  // onChange={handleChange} />
 
   return (
     <div className={classes.root}>
-      <Pagination count={10} variant="outlined" shape="rounded" />
+      
+      <Pagination count={10}  variant="outlined" shape="rounded" />
     </div>
   );
 }
