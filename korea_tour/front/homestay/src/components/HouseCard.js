@@ -7,11 +7,12 @@ import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
-import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';
+import Heart from './Heart';
+import Star from './Star';
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles(() => ({
   root: { maxwidth: 365 },
@@ -20,6 +21,7 @@ const useStyles = makeStyles(() => ({
     paddingTop: "56.25%",
   },
 }));
+
 
 export default function HouseCard(props) {
   const classes = useStyles();
@@ -30,7 +32,7 @@ export default function HouseCard(props) {
       <CardHeader
         action={
           <IconButton aria-label="add to favorites" id="Liked">
-            <FavoriteIcon />
+           <Heart />
           </IconButton>
         }
         title="무슨무슨 집입니다 오세요"
@@ -39,19 +41,23 @@ export default function HouseCard(props) {
       <CardMedia
         className={classes.media}
         image={props.url}
-        title="자세히 보러가기"
       />
+
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-          이러이러하구요
+          이러이러하구요 
         </Typography>
+        <Star /> 
+         <Box component="fieldset" mb={3} borderColor="transparent">
+         <Typography id="rate" variant="legend" color="textSecondary" component="p">
+        4.6</Typography>
+         <Typography component="legend" id="reviewCnt" color="textSecondary">(6)</Typography>
+         <Typography component="legend" id="price" color="textSecondary">10,000원</Typography>
+        </Box>
       </CardContent>
       <CardActions disableSpacing>
-        
-      <Box component="fieldset" mb={3} borderColor="transparent">
-        <Typography component="legend">4.6(6)</Typography>
-        <Rating name="read-only" value="4" readOnly />
-      </Box>
+      <Button color="secondary">자세히보기>></Button>
+      
       </CardActions>
     </Card>
   );
