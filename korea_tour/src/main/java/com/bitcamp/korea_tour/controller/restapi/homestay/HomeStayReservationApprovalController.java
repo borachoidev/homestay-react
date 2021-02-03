@@ -17,13 +17,12 @@ public class HomeStayReservationApprovalController {
 	private final HomeStayHostService hhs;
 	
 	@PatchMapping("/homestay/reservation/{homeStayReservationNum}/{approval}")
-	public String ApprovalReservation(
+	public void ApprovalReservation(
 			@PathVariable(value="homeStayReservationNum")int homeStayReservationNum,
-			@PathVariable(value="approval") int approval,
-			@ModelAttribute HomeStayReservationDto dto, Model model
+			@PathVariable(value="approval") int approval
+
 			) {
-		model.addAttribute("homestayReservationNum", homeStayReservationNum);
-		hhs.updateApproval(dto, homeStayReservationNum,approval);
-		return "";
+
+		hhs.updateApproval(homeStayReservationNum,approval);
 	}
 }

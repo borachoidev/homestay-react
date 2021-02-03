@@ -1,6 +1,5 @@
 package com.bitcamp.korea_tour.model.mapper;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,11 +8,15 @@ import org.apache.ibatis.annotations.Mapper;
 import com.bitcamp.korea_tour.model.homestay.HomeStayDetailDto;
 import com.bitcamp.korea_tour.model.homestay.HomeStayDto;
 import com.bitcamp.korea_tour.model.homestay.HomeStayReservationDto;
+import com.bitcamp.korea_tour.model.homestay.JoinHomeStayDetailDto;
 
 @Mapper
 public interface HomeStayHostMapper {
-   void insertHomeStay(HomeStayDto dto);
-   void insertHomeStayDetail(HomeStayDetailDto dto);
+   void insertHomeStay(JoinHomeStayDetailDto dto);
+   int getHomeStayNum();
+   int getUserNum(int homeStayNum);
+   int getHomeStayNum2(int userNum);
+   void insertHomeStayDetail(Map<String, Object> map);
    int getTotalCount(int homestayNum);
    List<HomeStayReservationDto> getAllReservation(Map<String, Object> map);
    int getApprovalCount(int homeStayNum);
