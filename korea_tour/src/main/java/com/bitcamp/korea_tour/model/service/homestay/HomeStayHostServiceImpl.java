@@ -141,6 +141,18 @@ public class HomeStayHostServiceImpl implements HomeStayHostService {
 		return mapper.getHomeStayNum2(userNum);
 	}
 
+	@Override
+	public void updateHomeStay(int homeStayNum) {
+		// TODO Auto-generated method stub
+		mapper.updateHomeStay(homeStayNum);
+	}
+
+	@Override
+	public void updateHomeStayDetail(int homeStayNum) {
+		// TODO Auto-generated method stub
+		mapper.updateHomeStayDetail(homeStayNum);
+	}
+
 
 
 }
