@@ -8,4 +8,23 @@
 	ON homeStayReview.homeStayReviewNum=homeStayReviewPhoto.homeStayReviewNum
 	WHERE homeStayNum=#{homeStayNum} ORDER BY regroup
 	</select>
+	
+	<!-- Regroup Max 값 구하기 -->
+	<select id="maxOfRegroup" resultType="int">
+	SELECT MAX(regroup) from homeStayReview
+	</select>
+	
+	<!-- 댓글쓰기 -->
+	<insert id="insertReview" parameterType="homestayreview">
+	INSERT into homeStayReview
+	(userNum,homeStayNum,relevel,regroup,loginNum,loginId,loginPhoto,content,writeday,deleted)
+	VALUES ((SELECT userNum from homeStay WHERE homeStayNum=#{homeStayNum}),#{homeStayNum},0,#{regroup},#{loginNum},#{loginId},#{loginPhoto},#{content},now(),0)
+	</insert>
+	
+	<!-- 답글쓰기 -->
+	<insert id="insertAnswerReview" parameterType="homestayreview">
+	INSERT into homeStayReview 
+	(userNum,homeStayNum,relevel,regroup,loginNum,loginId,loginPhoto,content,writeday,deleted)
+	VALUES (#{userNum},#{homeStayNum},1,#{regroup},#{loginNum},#{loginId},#{loginPhoto},#{content},now(),0)
+	</insert>
 </mapper>
