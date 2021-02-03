@@ -8,11 +8,11 @@ import org.apache.ibatis.annotations.Mapper;
 import com.bitcamp.korea_tour.model.homestay.HomeStayDetailDto;
 import com.bitcamp.korea_tour.model.homestay.HomeStayDto;
 import com.bitcamp.korea_tour.model.homestay.HomeStayReservationDto;
-import com.bitcamp.korea_tour.model.homestay.JoinHomeStayDetail;
+import com.bitcamp.korea_tour.model.homestay.JoinHomeStayDetailDto;
 
 @Mapper
 public interface HomeStayHostMapper {
-   void insertHomeStay(JoinHomeStayDetail dto);
+   void insertHomeStay(JoinHomeStayDetailDto dto);
    int getHomeStayNum();
    int getUserNum(int homeStayNum);
    int getHomeStayNum2(int userNum);
