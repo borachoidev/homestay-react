@@ -141,6 +141,26 @@ public class HomeStayHostServiceImpl implements HomeStayHostService {
 		return mapper.getHomeStayNum2(userNum);
 	}
 
+	@Override
+	public void updateHomeStay(JoinHomeStayDetailDto dto,int homeStayNum) {
+		// TODO Auto-generated method stub
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("homeStayNum", homeStayNum);
+		map.put("dto", dto);
+		
+		mapper.updateHomeStay(map);
+	}
+
+	@Override
+	public void updateHomeStayDetail(JoinHomeStayDetailDto dto,int homeStayNum) {
+		// TODO Auto-generated method stub
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("homeStayNum", homeStayNum);
+		map.put("dto", dto);
+		
+		mapper.updateHomeStayDetail(map);
+	}
+
 
 
 }

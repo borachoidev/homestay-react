@@ -34,7 +34,7 @@ public class HomeStayApplyController implements SessionNames{
 	public void insertApply(@RequestBody JoinHomeStayDetailDto dto,HttpServletRequest request ) {
 //		HttpSession session=request.getSession();
 //		UserDto user=(UserDto) session.getAttribute(USER);
-		int userNum=7;
+		int userNum=500;
 		
 	
 		
@@ -44,7 +44,7 @@ public class HomeStayApplyController implements SessionNames{
 		hsas.insertHomeStay(dto);
 		System.out.println(userNum);
 		System.out.println(dto);
-		int homeStayNum = hsas.getHomeStayNum();
+		int homeStayNum = hsas.getHomeStayNum2(userNum);
 		hsas.insertHomeStayDetail(homeStayNum,userNum, dto);
 		System.out.println(dto);
 	}
