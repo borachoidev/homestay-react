@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @Alias("joinhomestaydetail")
-public class JoinHomeStayDetail {
+public class JoinHomeStayDetailDto {
 	private int homeStayNum;
 	private int userNum;
 	private String title;

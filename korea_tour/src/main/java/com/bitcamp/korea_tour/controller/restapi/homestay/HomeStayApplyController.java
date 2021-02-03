@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bitcamp.korea_tour.model.UserDto;
 import com.bitcamp.korea_tour.model.homestay.HomeStayDetailDto;
 import com.bitcamp.korea_tour.model.homestay.HomeStayDto;
-import com.bitcamp.korea_tour.model.homestay.JoinHomeStayDetail;
+import com.bitcamp.korea_tour.model.homestay.JoinHomeStayDetailDto;
 import com.bitcamp.korea_tour.model.service.homestay.HomeStayHostService;
 import com.bitcamp.korea_tour.model.service.login.setting.SessionNames;
 
@@ -31,7 +31,7 @@ public class HomeStayApplyController implements SessionNames{
 	 * }
 	 */
 	@PostMapping("/homestay/house")
-	public void insertApply(@RequestBody JoinHomeStayDetail dto,HttpServletRequest request ) {
+	public void insertApply(@RequestBody JoinHomeStayDetailDto dto,HttpServletRequest request ) {
 //		HttpSession session=request.getSession();
 //		UserDto user=(UserDto) session.getAttribute(USER);
 		int userNum=7;

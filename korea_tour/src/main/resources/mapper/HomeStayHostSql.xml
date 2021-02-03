@@ -38,28 +38,28 @@
       #{breakfast},#{aircon},#{elecProduct},#{kitchen},#{bathroom},#{parking})
    </insert>
    <select id="getTotalCount" parameterType="int" resultType="int">
-   	select count(*) from homeStayReservation where homestayNum=#{homestayNum}
+   	select count(*) from homeStayReservation where homestayNum=#{homestayNum} and deleted=0
    </select>
    <select id="getAllReservation" parameterType="hashmap" resultType="homestayreservation">
-   	select * from homeStayReservation where homestayNum=#{homestayNum} and approval=#{approval} order by homeStayReservationNum asc Limit #{start},#{perPage}
+   	select * from homeStayReservation where homestayNum=#{homestayNum} and approval=#{approval} and deleted=0 order by homeStayReservationNum asc Limit #{start},#{perPage}
    </select>
    <select id="getApprovalCount" parameterType="int" resultType="int">
-    select count(*) from homeStayReservation where homeStayNum=#{homeStayNum} and approval=2
+    select count(*) from homeStayReservation where homeStayNum=#{homeStayNum} and approval=2 and deleted=0
    </select>
    <select id="getApprovalReservation" parameterType="hashmap" resultType="homestayreservation">
-   	select * from homeStayReservation where homeStayNum=#{homeStayNum} and approval=2 order by homeStayReservationNum asc Limit #{start},#{perPage}
+   	select * from homeStayReservation where homeStayNum=#{homeStayNum} and approval=2 and deleted=0 order by homeStayReservationNum asc Limit #{start},#{perPage}
    </select>
    <select id="getRefusedCount" parameterType="int" resultType="int">
-    select count(*) from homeStayReservation where homeStayNum=#{homeStayNum} and approval=1
+    select count(*) from homeStayReservation where homeStayNum=#{homeStayNum} and approval=1 and deleted=0
    </select>
    <select id="getRefusedReservation" parameterType="hashmap" resultType="homestayreservation">
-   	select * from homeStayReservation where homeStayNum=#{homeStayNum} and approval=1 order by homeStayReservationNum asc Limit #{start},#{perPage}
+   	select * from homeStayReservation where homeStayNum=#{homeStayNum} and approval=1 and deleted=0 order by homeStayReservationNum asc Limit #{start},#{perPage}
    </select>
    <select id="getPendingCount" parameterType="int" resultType="int">
-   	select count(*) from hoeStayReservation where homeStayNum=#{homeStayNum} and approval=0
+   	select count(*) from hoeStayReservation where homeStayNum=#{homeStayNum} and approval=0 and deleted=0
    </select>
    <select id="getPendingReservation" parameterType="hashmap" resultType="homestayreservation">
-    select * from homeStayReservation where homeStayNum=#{homeStayNum} and approval=2 order by homeStayReservationNum asc Limit #{start},#{perPage}
+    select * from homeStayReservation where homeStayNum=#{homeStayNum} and approval=2  and deleted=0 order by homeStayReservationNum asc Limit #{start},#{perPage}
    </select>
    <select id="getReservation" parameterType="int" resultType="homestayreservation">
     select * from homeStayReservation where homeStayReservationNum=#{homeStayReservationNum}

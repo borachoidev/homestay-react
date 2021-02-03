@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.bitcamp.korea_tour.model.homestay.HomeStayDetailDto;
 import com.bitcamp.korea_tour.model.homestay.HomeStayDto;
 import com.bitcamp.korea_tour.model.homestay.HomeStayReservationDto;
-import com.bitcamp.korea_tour.model.homestay.JoinHomeStayDetail;
+import com.bitcamp.korea_tour.model.homestay.JoinHomeStayDetailDto;
 import com.bitcamp.korea_tour.model.mapper.HomeStayHostMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -22,13 +22,13 @@ public class HomeStayHostServiceImpl implements HomeStayHostService {
 
 
 	@Override
-	public void insertHomeStay(JoinHomeStayDetail dto) {
+	public void insertHomeStay(JoinHomeStayDetailDto dto) {
 		// TODO Auto-generated method stub
 		mapper.insertHomeStay(dto);
 	}
 
 	@Override
-	public void insertHomeStayDetail(int homeStayNum, int userNum, JoinHomeStayDetail dto) {
+	public void insertHomeStayDetail(int homeStayNum, int userNum, JoinHomeStayDetailDto dto) {
 		// TODO Auto-generated method stub
 		Map<String,Object> map=new HashMap<String, Object>();
 		map.put("homeStayNum", homeStayNum);
