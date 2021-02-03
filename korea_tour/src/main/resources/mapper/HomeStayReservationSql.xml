@@ -42,14 +42,14 @@
 		select i.homeStayNum, i.photoName, i.homeTitle, j.name as hostName, i.addr1, i.addr2 from 
 		(select n.homeStayNum, n.userNum, m.photoName, n.homeTitle, n.addr1, n.addr2 from 
 		(select a.homeStayNum, a.userNum, a.title as homeTitle, a.addr1, a.addr2 from homeStay a 
-		join homeStayReservation b on a.homeStayNum = b.homeStayNum where b.homeStayReservationNum=#{homeStayReservationNum}) n
-		join homeStayPhoto m on (n.homeStayNum = m.homeStayNum) limit 1) i 
-		join user j on (i.userNum = j.userNum)
+		left join homeStayReservation b on a.homeStayNum = b.homeStayNum where b.homeStayReservationNum=#{homeStayReservationNum}) n
+		left join homeStayPhoto m on (n.homeStayNum = m.homeStayNum) limit 1) i 
+		left join user j on (i.userNum = j.userNum)
 	</select>
 	<select id="getHomeStayDetail" parameterType="int" resultType="joinreservationdetail">
 		select r.homeStayReservationNum, u.name as customName, r.email1, r.email2, r.writeday, r.checkInDay, r.checkOutDay, r.numberOfPeople,
 		r.totalPrice, r.approval, r.deleted from homeStayReservation r 
-		join user u on (r.userNum = u.userNum) where homeStayReservationNum = #{homeStayReservationNum}
+		left join user u on (r.userNum = u.userNum) where homeStayReservationNum = #{homeStayReservationNum}
 	</select>
 	<select id="getData" parameterType="int" resultType="homestayreservation">
 		select * from homeStayReservation where homeStayReservationNum = #{homeStayReservationNum} 
