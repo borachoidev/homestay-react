@@ -35,7 +35,7 @@ export default function FormAmenities(props) {
       <FormControlLabel
         control={
           <Checkbox
-            checked={amenities.petAllow}
+            checked={amenities.dogOk}
             icon={<PetsOutlinedIcon />}
             checkedIcon={<PetsIcon />}
             name="petAllow"
@@ -47,7 +47,7 @@ export default function FormAmenities(props) {
       <FormControlLabel
         control={
           <Checkbox
-            checked={amenities.smoking}
+            checked={amenities.smokingOk}
             icon={<SmokeFreeIcon />}
             checkedIcon={<SmokingRoomsIcon />}
             name="smoking"
@@ -59,7 +59,7 @@ export default function FormAmenities(props) {
       <FormControlLabel
         control={
           <Checkbox
-            checked={amenities.wifiService}
+            checked={amenities.wifi}
             icon={<WifiOff />}
             checkedIcon={<Wifi />}
             name="wifiService"
@@ -71,7 +71,7 @@ export default function FormAmenities(props) {
       <FormControlLabel
         control={
           <Checkbox
-            checked={amenities.bathAmenity}
+            checked={amenities.towel}
             icon={<BathtubOutlined />}
             checkedIcon={<Bathtub />}
             name="bathAmenity"
@@ -95,7 +95,7 @@ export default function FormAmenities(props) {
       <FormControlLabel
         control={
           <Checkbox
-            checked={amenities.ac}
+            checked={amenities.aircon}
             icon={<AcUnitOutlined />}
             checkedIcon={<AcUnit />}
             name="ac"
@@ -107,7 +107,7 @@ export default function FormAmenities(props) {
       <FormControlLabel
         control={
           <Checkbox
-            checked={amenities.elect}
+            checked={amenities.elecProduct}
             icon={<OfflineBoltOutlined />}
             checkedIcon={<OfflineBolt />}
             name="elect"
@@ -119,7 +119,7 @@ export default function FormAmenities(props) {
       <FormControlLabel
         control={
           <Checkbox
-            checked={amenities.useKitchen}
+            checked={amenities.kitchen}
             icon={<KitchenOutlined />}
             checkedIcon={<Kitchen />}
             name="useKitchen"
@@ -131,7 +131,7 @@ export default function FormAmenities(props) {
       <FormControlLabel
         control={
           <Checkbox
-            checked={amenities.restroom}
+            checked={amenities.bathroom}
             icon={<WcOutlined />}
             checkedIcon={<Wc />}
             name="restroom"

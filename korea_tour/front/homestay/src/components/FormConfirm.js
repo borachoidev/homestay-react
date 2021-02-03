@@ -74,7 +74,7 @@ export default function FormConfirm(props) {
   const [value, setValue] = React.useState(0);
 
   const hostInfo = props.info;
-  const FormHouseIntro = props.intro;
+  const houseIntro = props.intro;
   const amenities = props.amenity;
   const houseRules = props.rules;
   const handleChange = (event, newValue) => {
@@ -105,7 +105,8 @@ export default function FormConfirm(props) {
         {houseRules.checkOut}
       </TabPanel>
       <TabPanel value={value} index={2}>
-        Item Three
+        {houseIntro.title}
+        {houseIntro.description}
       </TabPanel>
     </div>
   );

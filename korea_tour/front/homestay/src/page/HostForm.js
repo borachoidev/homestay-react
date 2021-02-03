@@ -16,24 +16,28 @@ export default function HostForm() {
     hp: '',
   });
   const [houseRules, setHouseRules] = useState({
-    checkIn: new Date(),
-    checkOut: new Date(),
+    checkIn1: '',
+    checkIn2: '',
+    checkOut1: '',
+    checkOut2: '',
+    maxPeople: '',
+    price: '',
   });
   const [amenities, setAmenities] = useState({
-    petAllow: false,
-    wifiService: false,
-    smoking: false,
-    restroom: false,
+    dogOk: false,
+    wifi: false,
+    smokingOk: false,
+    bathroom: false,
     parking: false,
-    bathAmenity: false,
+    towel: false,
     breakfast: false,
-    ac: false,
-    elect: false,
-    useKitchen: false,
+    aircon: false,
+    elecProduct: false,
+    kitchen: false,
   });
   const [houseIntro, setHouseIntro] = useState({
     title: '',
-    description: '',
+    content: '',
     photo: '',
   });
 
