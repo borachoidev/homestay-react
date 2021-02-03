@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bitcamp.korea_tour.model.UserDto;
@@ -29,6 +30,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/homestays")
 public class HomeStayMyPageController implements SessionNames{
 
 	private final HomeStayReservationService reservationService;
@@ -47,14 +49,11 @@ public class HomeStayMyPageController implements SessionNames{
 	/*
 	 * 예약확인 리스트 출력(전체)
 	 */
-	@GetMapping("/homeStays/mypage/reservations/all/{currentPage}")
+	@GetMapping("/mypage/reservations/all/{loginNum}/{currentPage}")
 	public JsonReservationDataList getAllReservationDataList(
-			@PathVariable(name="currentPage") int currentPage,
-			HttpServletRequest request) {
-		HttpSession session = request.getSession();
-//		System.out.println(session.getAttribute(USER));
-		UserDto user=(UserDto)session.getAttribute(USER);
-		int loginNum = user.getUserNum();
+			@PathVariable(name="loginNum") int loginNum,
+			@PathVariable(name="currentPage") int currentPage
+			) {
 		int totalCount = reservationService.getTotalCount(loginNum);
 		int start = pagingService.getPagingData(totalCount, currentPage).get("start");
 		int perPage = pagingService.getPagingData(totalCount, currentPage).get("perPage");
@@ -70,14 +69,11 @@ public class HomeStayMyPageController implements SessionNames{
 	/*
 	 *  예약확인 리스트 출력(예약대기)
 	 */
-	@GetMapping("/homeStays/mypage/reservations/wating/{currentPage}")
+	@GetMapping("/mypage/reservations/wating/{loginNum}/{currentPage}")
 	public JsonReservationDataList getWatingReservationDataList(
-			@PathVariable(name="currentPage") int currentPage,
-			HttpServletRequest request
+			@PathVariable(name="loginNum") int loginNum,
+			@PathVariable(name="currentPage") int currentPage
 			) {
-		HttpSession session = request.getSession();
-		UserDto user=(UserDto)session.getAttribute(USER);
-		int loginNum = user.getUserNum();
 		int totalCount = reservationService.getCountByWating(loginNum);
 		int start = pagingService.getPagingData(totalCount, currentPage).get("start");
 		int perPage = pagingService.getPagingData(totalCount, currentPage).get("perPage");
@@ -86,18 +82,15 @@ public class HomeStayMyPageController implements SessionNames{
 		map.put("start", start);
 		map.put("perPage", perPage);
 		List<JoinHomeStayReservationDto> list = reservationService.getDatasByWating(map);
-		return new JsonReservationDataList(list, currentPage);
+		return new JsonReservationDataList(list, totalCount);
 	}
 	
 	// 예약확인 리스트 출력(예약취소)
-	@GetMapping("/homeStays/mypage/reservations/cancel/{currentPage}")
+	@GetMapping("/mypage/reservations/cancel/{loginNum}/{currentPage}")
 	public JsonReservationDataList getCanCelReservationDataList(
-			@PathVariable(name="currentPage") int currentPage,
-			HttpServletRequest request
+			@PathVariable(name="loginNum") int loginNum,
+			@PathVariable(name="currentPage") int currentPage
 			) {
-		HttpSession session = request.getSession();
-		UserDto user=(UserDto)session.getAttribute(USER);
-		int loginNum = user.getUserNum();
 		int totalCount = reservationService.getCountByCancel(loginNum);
 		int start = pagingService.getPagingData(totalCount, currentPage).get("start");
 		int perPage = pagingService.getPagingData(totalCount, currentPage).get("perPage");
@@ -106,20 +99,17 @@ public class HomeStayMyPageController implements SessionNames{
 		map.put("start", start);
 		map.put("perPage", perPage);
 		List<JoinHomeStayReservationDto> list = reservationService.getDatasByCancel(map);
-		return new JsonReservationDataList(list, currentPage);
+		return new JsonReservationDataList(list, totalCount);
 	}
 	
 	/*
 	 *  예약확인 리스트 출력(예약승인)
 	 */
-	@GetMapping("/homeStays/mypage/reservations/approved/{currentPage}")
+	@GetMapping("/mypage/reservations/approved/{loginNum}/{currentPage}")
 	public JsonReservationDataList getApprovedReservationDataList(
-			@PathVariable(name="currentPage") int currentPage,
-			HttpServletRequest request
+			@PathVariable(name="loginNum") int loginNum,
+			@PathVariable(name="currentPage") int currentPage
 			) {
-		HttpSession session = request.getSession();
-		UserDto user=(UserDto)session.getAttribute(USER);
-		int loginNum = user.getUserNum();
 		int totalCount = reservationService.getCountByApproved(loginNum);
 		int start = pagingService.getPagingData(totalCount, currentPage).get("start");
 		int perPage = pagingService.getPagingData(totalCount, currentPage).get("perPage");
@@ -128,13 +118,13 @@ public class HomeStayMyPageController implements SessionNames{
 		map.put("start", start);
 		map.put("perPage", perPage);
 		List<JoinHomeStayReservationDto> list = reservationService.getDatasByApproved(map);
-		return new JsonReservationDataList(list, currentPage);
+		return new JsonReservationDataList(list, totalCount);
 	}
 	
 	/*
 	 * 예약확인 상세 출력1
 	 */
-	@GetMapping("/homeStays/mypage/reservation/detail/homeStay/summary/{homeStayReservationNum}")
+	@GetMapping("/mypage/reservation/detail/homeStay/summary/{homeStayReservationNum}")
 	public JoinHomeStaySummary getHomeStaySummary(
 			@PathVariable(name="homeStayReservationNum") int homeStayReservationNum) {
 		JoinHomeStaySummary jsonData = reservationService.getHomeStaySummary(homeStayReservationNum);
@@ -144,7 +134,7 @@ public class HomeStayMyPageController implements SessionNames{
 	/*
 	 * 예약확인 상세 출력2
 	 */
-	@GetMapping("/homeStays/mypage/reservation/detail/{homeStayReservationNum}")
+	@GetMapping("/mypage/reservation/detail/{homeStayReservationNum}")
 	public JoinReservationDetail getReservationDetail(
 			@PathVariable(name="homeStayReservationNum") int homeStayReservationNum) {
 		JoinReservationDetail jsonData = reservationService.getHomeStayDetail(homeStayReservationNum);
@@ -154,7 +144,7 @@ public class HomeStayMyPageController implements SessionNames{
 	/*
 	 * 유저가 예약취소
 	 */
-	@PatchMapping("/homeStays/mypage/reservation/customer/cancel/{homeStayReservationNum}")
+	@PatchMapping("/mypage/reservation/customer/cancel/{homeStayReservationNum}")
 	public String cancelReservationByUser(
 			@PathVariable(name="homeStayReservationNum") int homeStayReservationNum) {
 		HomeStayReservationDto dto = reservationService.getData(homeStayReservationNum);
