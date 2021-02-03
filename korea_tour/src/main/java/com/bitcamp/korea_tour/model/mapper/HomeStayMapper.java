@@ -25,6 +25,7 @@ public interface HomeStayMapper {
 	 * 편의시설(8개)및 ,애견동반, 흡연 (출력)
 	 * 집 위치 지도표시하기
 	 * 최대 인원수(출력)
+	 * Host이름 출력하기
 	 * */
 	
 	HomeStayDto getHomeStayNameAndAddr(int homeStayNum);
@@ -41,4 +42,5 @@ public interface HomeStayMapper {
 	HomeStayDto getHomeStayMap(int homeStayNum);
 	int getHomeStayMaxPeople(int homeStayNum);
 	List<HomeStayReservationDto> getDayImpossible(int homeStayNum);
+	String getHostName(int homeStayNum);
 }
