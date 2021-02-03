@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import AddPerson from 'components/AddPerson';
 import DateFnsUtils from '@date-io/date-fns';
 import Grid from '@material-ui/core/Grid';
@@ -7,10 +7,9 @@ import {
   KeyboardTimePicker,
 } from '@material-ui/pickers';
 import FormAmenities from './FormAmenities';
-import { HostContext } from 'HostContext';
 
-export default function FormHouseRules() {
-  const { houseRules, setHouseRules } = useContext(HostContext);
+export default function FormHouseRules(props) {
+  const [houseRules, setHouseRules] = props.rules;
 
   const handleCheckinTimeChange = date => {
     setHouseRules.checkIn(date);
