@@ -3,6 +3,7 @@ import FormHostInfo from 'components/hostform/FormHostInfo';
 import FormHouseRules from 'components/hostform/FormHouseRules';
 import FormHouseIntro from 'components/hostform/FormHouseIntro';
 import FormConfirm from 'components/hostform/FormConfirm';
+import FormSubmit from 'components/hostform/FormSubmit';
 import { Stepper, Step, StepLabel } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 
@@ -40,8 +41,7 @@ export default function HostForm() {
     content: '',
     photo: '',
   });
-  console.log(amenities.dogOk);
-  console.log(amenities.wifi);
+
   function getSteps() {
     return [
       '호스트정보',
@@ -74,7 +74,14 @@ export default function HostForm() {
           />
         );
       case 4:
-        return <FormHouseIntro />;
+        return (
+          <FormSubmit
+            info={hostInfo}
+            rules={houseRules}
+            amenity={amenities}
+            intro={houseIntro}
+          />
+        );
     }
   }
 
