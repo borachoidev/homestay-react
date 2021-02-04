@@ -7,6 +7,7 @@
 	<select id="getUserTotalCount" resultType="int">
 		select count(*) from user
 	</select>
+	<!-- 관리자 + 홈스테이 로그인정보 가져오기 -->
 	<select id="getUserData" parameterType="int" resultType="user">
 		select * from user where userNum=#{userNum}
 	</select>
@@ -36,4 +37,9 @@
 	<delete id="deleteUserByAdmin" parameterType="int">
 		delete from user where userNum=#{userNum}
 	</delete>
+	
+	<!-- 호스트인지 알아보기 -->
+	<select id="ifHost" parameterType="int" resultType="int">
+		select count(*) from homeStay where userNum=#{loginNum}
+	</select>
 </mapper>

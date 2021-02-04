@@ -57,7 +57,6 @@ public class HomeStayListController implements SessionNames {
 		HttpSession session=request.getSession();
 		UserDto user=(UserDto) session.getAttribute(USER);
 		
-		totalCount=homeStayListService.getTotalHomeStayList();
 		start=pagingService.getPagingStart(currentPage, perPage);
 		list=homeStayListService.getAllHomeStayList(start, perPage);
 		
@@ -95,7 +94,6 @@ public class HomeStayListController implements SessionNames {
 		HttpSession session=request.getSession();
 		UserDto user=(UserDto) session.getAttribute(USER);
 		
-		totalCount=homeStayListService.getTotalHomeStayList();
 		start=pagingService.getPagingStart(currentPage, perPage);
 		list=homeStayListService.getAllHomeStayList(start, perPage);
 		

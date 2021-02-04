@@ -101,9 +101,11 @@ public class HomeStayServiceImpl implements HomeStayService{
 		return mapper.getDayImpossible(homeStayNum);
 	}
 
-	
-
-	
+	@Override
+	public String getHostName(int homeStayNum) {
+		// TODO Auto-generated method stub
+		return mapper.getHostName(homeStayNum);
+	}
 	
 	
 }

@@ -24,4 +24,5 @@ public interface HomeStayService {
 	HomeStayDto getHomeStayMap(int homeStayNum);
 	int getHomeStayMaxPeople(int homeStayNum);
 	List<HomeStayReservationDto> getDayImpossible(int homeStayNum);
+	String getHostName(int homeStayNum);
 }

@@ -69,9 +69,14 @@
 	SELECT maxPeople FROM homeStayDetail WHERE homeStayNum=#{homeStayNum}
 	</select>
 	
-	<!-- 예약불가날짜 표시하기(출력 -->
+	<!-- 예약불가날짜 표시하기(출력) -->
 	<select id="getDayImpossible" parameterType="int" resultType="homestayreservation">
-	SELECT checkInDay,checkOutDay FROM homeStayReservation WHERE homeStayNum=#{homeStayNum}
+	SELECT checkInDay,checkOutDay FROM homeStayReservation WHERE homeStayNum=#{homeStayNum} order by checkInDay asc
 	</select>
 	
+	<!-- Host이름 출력하기 -->
+	<select id="getHostName" parameterType="int" resultType="String">
+	SELECT user.name FROM homeStay LEFT JOIN user
+	ON homeStay.userNum=user.userNum WHERE homeStayNum=#{homeStayNum};
+	</select>
 </mapper>

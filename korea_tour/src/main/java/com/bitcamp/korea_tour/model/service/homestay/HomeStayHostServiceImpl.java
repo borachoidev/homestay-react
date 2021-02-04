@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.bitcamp.korea_tour.model.homestay.HomeStayDetailDto;
 import com.bitcamp.korea_tour.model.homestay.HomeStayDto;
 import com.bitcamp.korea_tour.model.homestay.HomeStayReservationDto;
+import com.bitcamp.korea_tour.model.homestay.JoinHomeStayDetailDto;
 import com.bitcamp.korea_tour.model.mapper.HomeStayHostMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -21,15 +22,19 @@ public class HomeStayHostServiceImpl implements HomeStayHostService {
 
 
 	@Override
-	public void insertHomeStay(HomeStayDto dto) {
+	public void insertHomeStay(JoinHomeStayDetailDto dto) {
 		// TODO Auto-generated method stub
 		mapper.insertHomeStay(dto);
 	}
 
 	@Override
-	public void insertHomeStayDetail(HomeStayDetailDto dto) {
+	public void insertHomeStayDetail(int homeStayNum, int userNum, JoinHomeStayDetailDto dto) {
 		// TODO Auto-generated method stub
-		mapper.insertHomeStayDetail(dto);
+		Map<String,Object> map=new HashMap<String, Object>();
+		map.put("homeStayNum", homeStayNum);
+		map.put("userNum", userNum);
+		map.put("dto", dto);
+		mapper.insertHomeStayDetail(map);
 	}
 	
 	@Override
@@ -108,15 +113,52 @@ public class HomeStayHostServiceImpl implements HomeStayHostService {
 	}
 
 	@Override
-	public void updateApproval(HomeStayReservationDto dto, int homeStayReservationNum, int approval) {
+	public void updateApproval(int homeStayReservationNum, int approval) {
 		// TODO Auto-generated method stub
 		Map<String, Object> map=new HashMap<String, Object>();
-		map.put("dto", dto);
 		map.put("homeStayReservationNum", homeStayReservationNum);
 		map.put("approval", approval);
 		
 		mapper.updateApproval(map);
 		
+	}
+
+	@Override
+	public int getHomeStayNum() {
+		// TODO Auto-generated method stub
+		return mapper.getHomeStayNum();
+	}
+
+	@Override
+	public int getUserNum(int homeStayNum) {
+		// TODO Auto-generated method stub
+		return mapper.getUserNum(homeStayNum);
+	}
+
+	@Override
+	public int getHomeStayNum2(int userNum) {
+		// TODO Auto-generated method stub
+		return mapper.getHomeStayNum2(userNum);
+	}
+
+	@Override
+	public void updateHomeStay(JoinHomeStayDetailDto dto,int homeStayNum) {
+		// TODO Auto-generated method stub
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("homeStayNum", homeStayNum);
+		map.put("dto", dto);
+		
+		mapper.updateHomeStay(map);
+	}
+
+	@Override
+	public void updateHomeStayDetail(JoinHomeStayDetailDto dto,int homeStayNum) {
+		// TODO Auto-generated method stub
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("homeStayNum", homeStayNum);
+		map.put("dto", dto);
+		
+		mapper.updateHomeStayDetail(map);
 	}
 
 

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import FormHostInfo from 'components/FormHostInfo';
-import FormHouseRules from 'components/FormHouseRules';
-import FormHouseIntro from 'components/FormHouseIntro';
-import FormConfirm from 'components/FormConfirm';
+import FormHostInfo from 'components/hostform/FormHostInfo';
+import FormHouseRules from 'components/hostform/FormHouseRules';
+import FormHouseIntro from 'components/hostform/FormHouseIntro';
+import FormConfirm from 'components/hostform/FormConfirm';
 import { Stepper, Step, StepLabel } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 
@@ -16,27 +16,32 @@ export default function HostForm() {
     hp: '',
   });
   const [houseRules, setHouseRules] = useState({
-    checkIn: new Date(),
-    checkOut: new Date(),
+    checkIn1: '',
+    checkIn2: '',
+    checkOut1: '',
+    checkOut2: '',
+    maxPeople: '',
+    price: '',
   });
   const [amenities, setAmenities] = useState({
-    petAllow: false,
-    wifiService: false,
-    smoking: false,
-    restroom: false,
+    dogOk: false,
+    wifi: false,
+    smokingOk: false,
+    bathroom: false,
     parking: false,
-    bathAmenity: false,
+    towel: false,
     breakfast: false,
-    ac: false,
-    elect: false,
-    useKitchen: false,
+    aircon: false,
+    elecProduct: false,
+    kitchen: false,
   });
   const [houseIntro, setHouseIntro] = useState({
     title: '',
-    description: '',
+    content: '',
     photo: '',
   });
-
+  console.log(amenities.dogOk);
+  console.log(amenities.wifi);
   function getSteps() {
     return [
       '호스트정보',
@@ -64,7 +69,7 @@ export default function HostForm() {
           <FormConfirm
             info={hostInfo}
             rules={houseRules}
-            amenity={amenities}
+            amenity={[amenities, setAmenities]}
             intro={houseIntro}
           />
         );
@@ -86,7 +91,7 @@ export default function HostForm() {
   const handleReset = () => {
     setStep(0);
   };
-  console.log(step);
+
   return (
     <>
       <Stepper activeStep={step} alternativeLabel>

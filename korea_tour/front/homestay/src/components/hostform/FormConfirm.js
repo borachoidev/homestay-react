@@ -6,28 +6,21 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import IconButton from '@material-ui/core/IconButton';
+import EditIcon from '@material-ui/icons/Edit';
 import PetsIcon from '@material-ui/icons/Pets';
-import PetsOutlinedIcon from '@material-ui/icons/PetsOutlined';
 import SmokingRoomsIcon from '@material-ui/icons/SmokingRooms';
 import SmokeFreeIcon from '@material-ui/icons/SmokeFree';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import LocalParking from '@material-ui/icons/LocalParking';
-import LocalParkingOutlined from '@material-ui/icons/LocalParkingOutlined';
 import OfflineBolt from '@material-ui/icons/OfflineBolt';
-import OfflineBoltOutlined from '@material-ui/icons/OfflineBoltOutlined';
 import Kitchen from '@material-ui/icons/Kitchen';
-import KitchenOutlined from '@material-ui/icons/KitchenOutlined';
 import EmojiFoodBeverage from '@material-ui/icons/EmojiFoodBeverage';
-import EmojiFoodBeverageOutlined from '@material-ui/icons/EmojiFoodBeverageOutlined';
 import AcUnit from '@material-ui/icons/AcUnit';
-import AcUnitOutlined from '@material-ui/icons/AcUnitOutlined';
 import Wc from '@material-ui/icons/Wc';
-import WcOutlined from '@material-ui/icons/WcOutlined';
 import Bathtub from '@material-ui/icons/Bathtub';
-import BathtubOutlined from '@material-ui/icons/BathtubOutlined';
-import WifiOff from '@material-ui/icons/WifiOff';
 import Wifi from '@material-ui/icons/Wifi';
 
 function TabPanel(props) {
@@ -74,8 +67,8 @@ export default function FormConfirm(props) {
   const [value, setValue] = React.useState(0);
 
   const hostInfo = props.info;
-  const FormHouseIntro = props.intro;
-  const amenities = props.amenity;
+  const houseIntro = props.intro;
+  const [amenities, setAmenities] = props.amenity;
   const houseRules = props.rules;
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -89,9 +82,9 @@ export default function FormConfirm(props) {
           onChange={handleChange}
           aria-label="simple tabs example"
         >
-          <Tab label="호스트정보" {...a11yProps(0)} />
-          <Tab label="Item Two" {...a11yProps(1)} />
-          <Tab label="Item Three" {...a11yProps(2)} />
+          <Tab label="호스트 정보" {...a11yProps(0)} />
+          <Tab label="숙소 정보" {...a11yProps(1)} />
+          <Tab label="홈스테이 소개" {...a11yProps(2)} />
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
@@ -99,13 +92,40 @@ export default function FormConfirm(props) {
         {hostInfo.addr2}
         {hostInfo.email1}@{hostInfo.email2}
         {hostInfo.hp}
+        <IconButton aria-label="delete">
+          <EditIcon />
+        </IconButton>
       </TabPanel>
       <TabPanel value={value} index={1}>
         {houseRules.checkIn}
         {houseRules.checkOut}
+        {amenities.dogOk ? (
+          <span>
+            <PetsIcon />
+            반려동물동반
+          </span>
+        ) : (
+          ''
+        )}
+        {amenities.wifi ? <Wifi /> : ''}
+        {amenities.smokingOk ? <SmokingRoomsIcon /> : <SmokeFreeIcon />}
+        {amenities.bathroom ? <Wc /> : ''}
+        {amenities.parking ? <LocalParking /> : ''}
+        {amenities.towel ? <Bathtub /> : ''}
+        {amenities.breakfast ? <EmojiFoodBeverage /> : ''}
+        {amenities.aircon ? <AcUnit /> : ''}
+        {amenities.elecProduct ? <OfflineBolt /> : ''}
+        {amenities.kitchen ? <Kitchen /> : ''}
+        <IconButton aria-label="delete">
+          <EditIcon />
+        </IconButton>
       </TabPanel>
       <TabPanel value={value} index={2}>
-        Item Three
+        {houseIntro.title}
+        {houseIntro.content}
+        <IconButton aria-label="delete">
+          <EditIcon />
+        </IconButton>
       </TabPanel>
     </div>
   );

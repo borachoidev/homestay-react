@@ -22,7 +22,6 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-
 export default function HouseCard(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState(2);
@@ -31,21 +30,20 @@ export default function HouseCard(props) {
     <Card className={classes.root}>
       <CardHeader
         action={
-          <IconButton aria-label="add to favorites" id="Liked">
+          <IconButton aria-label="add to favorites">
            <Heart />
           </IconButton>
         }
-        title="무슨무슨 집입니다 오세요"
+        title={props.title}
         
       />
       <CardMedia
         className={classes.media}
         image={props.url}
       />
-
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-          이러이러하구요 
+         
         </Typography>
         <Star /> 
          <Box component="fieldset" mb={3} borderColor="transparent">
@@ -57,7 +55,6 @@ export default function HouseCard(props) {
       </CardContent>
       <CardActions disableSpacing>
       <Button color="secondary">자세히보기>></Button>
-      
       </CardActions>
     </Card>
   );

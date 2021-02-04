@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bitcamp.korea_tour.controller.restapi.tour.PlaceController;
 import com.bitcamp.korea_tour.model.JoinPlaceListDto;
 import com.bitcamp.korea_tour.model.UserDto;
+import com.bitcamp.korea_tour.model.homestay.HomeStayMarkDto;
 import com.bitcamp.korea_tour.model.homestay.JoinHomeStayMarkDto;
 import com.bitcamp.korea_tour.model.service.homestay.HomeStayListService;
 import com.bitcamp.korea_tour.model.service.homestay.HomeStayMarkService;
@@ -66,6 +67,22 @@ public class HomeStayMarkController implements SessionNames {
 		System.out.println(marks);
 		
 		return new JsonMypageMarkList(marks, totalCount, totalPage);
+	}
+	
+	
+	
+	//디테일에서 즐겨찾기 확인하기
+	@GetMapping("/{homeStayNum}/mark")
+	public int checkMyMark(@RequestParam(value="homeStayNum") int homeStayNum,
+							HttpServletRequest request) {
+		HttpSession session=request.getSession();
+		UserDto user=(UserDto)session.getAttribute(USER);
+		int loginNum = user.getUserNum();
+		
+		System.out.println("디테일즐겨찾기 로그인넘 : "+loginNum);
+		
+		return homeStayMarkService.countOfMyMark(homeStayNum, loginNum);
+		
 	}
 	
 	/**

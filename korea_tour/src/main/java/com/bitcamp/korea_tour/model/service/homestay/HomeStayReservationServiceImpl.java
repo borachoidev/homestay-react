@@ -110,5 +110,10 @@ public class HomeStayReservationServiceImpl implements HomeStayReservationServic
 		return mapper.checkReviewWritten(dto);
 	}
 	
+	@Override
+	public void insertMyReservation(HomeStayReservationDto dto) {
+		// TODO Auto-generated method stub
+		mapper.insertMyReservation(dto);
+	}
 	
 }

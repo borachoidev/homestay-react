@@ -19,4 +19,5 @@ public interface UserService {
 	UserDto getUserByKey(String sns, String key);
 	void setSession(UserDto dto,  HttpServletRequest request);
 	void deleteUserByAdmin(int userNum);
+	int ifHost(int loginNum);
 }

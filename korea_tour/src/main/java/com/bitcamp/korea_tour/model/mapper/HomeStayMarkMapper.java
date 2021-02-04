@@ -14,4 +14,5 @@ public interface HomeStayMarkMapper {
 	List<JoinHomeStayMarkDto> getMarkListByUser(HashMap<String, Object> map);
 	void insertMark(Map<String, Integer> map);
 	void deleteMark(Map<String, Integer> map);
+	int countOfMyMark(Map<String, Integer> map);
 }

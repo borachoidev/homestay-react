@@ -27,7 +27,10 @@ export default function FormAmenities(props) {
   const [amenities, setAmenities] = props.amenity;
 
   const handleChange = event => {
-    setAmenities({ ...amenities, [event.target.name]: event.target.checked });
+    setAmenities({
+      ...amenities,
+      [event.target.name]: event.target.checked,
+    });
   };
 
   return (
@@ -35,10 +38,10 @@ export default function FormAmenities(props) {
       <FormControlLabel
         control={
           <Checkbox
-            checked={amenities.petAllow}
+            checked={amenities.dogOk}
             icon={<PetsOutlinedIcon />}
             checkedIcon={<PetsIcon />}
-            name="petAllow"
+            name="dogOk"
             onClick={handleChange}
           />
         }
@@ -47,10 +50,10 @@ export default function FormAmenities(props) {
       <FormControlLabel
         control={
           <Checkbox
-            checked={amenities.smoking}
+            checked={amenities.smokingOk}
             icon={<SmokeFreeIcon />}
             checkedIcon={<SmokingRoomsIcon />}
-            name="smoking"
+            name="smokingOk"
             onClick={handleChange}
           />
         }
@@ -59,10 +62,10 @@ export default function FormAmenities(props) {
       <FormControlLabel
         control={
           <Checkbox
-            checked={amenities.wifiService}
+            checked={amenities.wifi}
             icon={<WifiOff />}
             checkedIcon={<Wifi />}
-            name="wifiService"
+            name="wifi"
             onClick={handleChange}
           />
         }
@@ -71,10 +74,10 @@ export default function FormAmenities(props) {
       <FormControlLabel
         control={
           <Checkbox
-            checked={amenities.bathAmenity}
+            checked={amenities.towel}
             icon={<BathtubOutlined />}
             checkedIcon={<Bathtub />}
-            name="bathAmenity"
+            name="towel"
             onClick={handleChange}
           />
         }
@@ -95,10 +98,10 @@ export default function FormAmenities(props) {
       <FormControlLabel
         control={
           <Checkbox
-            checked={amenities.ac}
+            checked={amenities.aircon}
             icon={<AcUnitOutlined />}
             checkedIcon={<AcUnit />}
-            name="ac"
+            name="aircon"
             onClick={handleChange}
           />
         }
@@ -107,10 +110,10 @@ export default function FormAmenities(props) {
       <FormControlLabel
         control={
           <Checkbox
-            checked={amenities.elect}
+            checked={amenities.elecProduct}
             icon={<OfflineBoltOutlined />}
             checkedIcon={<OfflineBolt />}
-            name="elect"
+            name="elecProduct"
             onClick={handleChange}
           />
         }
@@ -119,10 +122,10 @@ export default function FormAmenities(props) {
       <FormControlLabel
         control={
           <Checkbox
-            checked={amenities.useKitchen}
+            checked={amenities.kitchen}
             icon={<KitchenOutlined />}
             checkedIcon={<Kitchen />}
-            name="useKitchen"
+            name="kitchen"
             onClick={handleChange}
           />
         }
@@ -131,10 +134,10 @@ export default function FormAmenities(props) {
       <FormControlLabel
         control={
           <Checkbox
-            checked={amenities.restroom}
+            checked={amenities.bathroom}
             icon={<WcOutlined />}
             checkedIcon={<Wc />}
-            name="restroom"
+            name="bathroom"
             onClick={handleChange}
           />
         }

@@ -13,17 +13,23 @@
 	</select>
 	
 	<!-- 즐겨찾기 추가 -->
-	<select id="insertMark" parameterType="HashMap">
+	<insert id="insertMark" parameterType="HashMap">
 		INSERT INTO homeStayMark (HomeStayNum, userNum, loginNum) 
 		VALUES 
 		(#{homeStayNum},
 		(SELECT userNum from homeStay WHERE homeStayNum=#{homeStayNum}),
 		#{loginNum})
-	</select>
+	</insert>
+	
 	<!-- 즐겨찾기 취소 -->
 	<select id="deleteMark" parameterType="HashMap">
 		DELETE FROM homeStayMark 
 		WHERE homeStayNum=#{homeStayNum} 
 		AND loginNum=#{loginNum}
+	</select>
+	
+	<!-- 해당 집에 즐겨찾기를 했는지 안했는지 알기 -->
+	<select id="countOfMyMark" parameterType="HashMap" resultType="int">
+		SELECT count(*) FROM homeStayMark WHERE homeStayNum=#{homeStayNum} AND loginNum=#{loginNum}
 	</select>
 </mapper>

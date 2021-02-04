@@ -26,12 +26,14 @@ public class HomeStayReservationListController {
 	int totalPage = 0;
 
 	
-	  @GetMapping("/homestay/reservation/{homestayNum}/{approval}/{currentPage}") public
+	  @GetMapping("/homestay/reservation/{userNum}/{approval}/{currentPage}") public
 	  JsonData<List<HomeStayReservationDto>> getReservationList(
 	  
 	  @PathVariable(value="currentPage") int currentPage,
 	  @PathVariable(value="approval") int approval,
-	  @PathVariable(value="homestayNum") int homestayNum){
+	  @PathVariable(value="userNum") int userNum){
+		  
+	  int homestayNum = hhs.getHomeStayNum2(userNum);
 	  
 	  totalCount=hhs.getTotalCount(homestayNum);
 	  start=pagingService.getPagingData(totalCount, currentPage).get("start");
