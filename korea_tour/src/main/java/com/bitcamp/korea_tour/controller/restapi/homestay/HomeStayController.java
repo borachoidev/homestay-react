@@ -90,7 +90,7 @@ public class HomeStayController {
 	}
 	
 	//집 위치 지도표시
-	@GetMapping("/homestays/{homeStayNum}/addr}")
+	@GetMapping("/homestays/{homeStayNum}/addr")
 	public HomeDetailMap getHomeStayMap(@PathVariable(value = "homeStayNum")int homeStayNum) {
 		HomeStayDto dto = s.getHomeStayMap(homeStayNum);
 		String addr1 = dto.getAddr1();
