@@ -18,11 +18,8 @@ public class HomeStayListServiceImpl implements HomeStayListService {
 	private final HomeStayListMapper homeStayListMapper;
 	
 	@Override
-	public List<HomeStayListDto> getAllHomeStayList(int start, int perPage) {
-		Map<String, Integer> paging=new HashMap<String, Integer>();
-		paging.put("start", start);
-		paging.put("perPage", perPage);
-		return homeStayListMapper.getAllHomeStayList(paging);
+	public List<HomeStayListDto> getAllHomeStayList(Map<String, Object> map) {
+		return homeStayListMapper.getAllHomeStayList(map);
 	}
 	
 	@Override
