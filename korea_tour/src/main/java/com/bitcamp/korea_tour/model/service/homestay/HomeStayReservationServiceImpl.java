@@ -90,6 +90,13 @@ public class HomeStayReservationServiceImpl implements HomeStayReservationServic
 		// TODO Auto-generated method stub
 		return mapper.getData(homeStayReservationNum);
 	}
+
+	@Override
+	public void insertMyReservation(HomeStayReservationDto dto) {
+		// TODO Auto-generated method stub
+		mapper.insertMyReservation(dto);
+	}
+	
 	
 	
 }
