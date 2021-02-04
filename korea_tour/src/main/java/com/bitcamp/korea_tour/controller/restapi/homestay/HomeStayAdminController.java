@@ -65,15 +65,15 @@ public class HomeStayAdminController {
 	}
 	
 	
-	/**
-	 * 관리자 홈스테이 집목록 토탈페이지
-	 * @return int
-	 */
-	@GetMapping("/paging/homestay-list")
-	public int getTotalPage() {
-		totalCount=homeStayListService.getTotalAdminHomeStayList();
-		return pagingService.getPagingTotalPage(totalCount, perPage);
-	}
+//	/**
+//	 * 관리자 홈스테이 집목록 토탈페이지
+//	 * @return int
+//	 */
+//	@GetMapping("/paging/homestay-list")
+//	public int getTotalPage() {
+//		totalCount=homeStayListService.getTotalAdminHomeStayList();
+//		return pagingService.getPagingTotalPage(totalCount, perPage);
+//	}
 	
 	/**
 	 * 홈스테이 승인

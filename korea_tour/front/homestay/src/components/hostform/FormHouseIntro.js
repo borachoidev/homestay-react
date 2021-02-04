@@ -8,6 +8,26 @@ export default function FormHouseIntro(props) {
   const handleChange = e => {
     setHouseIntro({ ...houseIntro, [e.target.name]: e.target.value });
   };
+  const uploadImage = e => {
+    const uploadFile = e.target.files;
+    const imageFile = new FormData();
+    if (uploadFile.length < 5) {
+      alert('5장이상의 사진을 올려주세요!');
+    }
+    imageFile.append('uploadFile', uploadFile);
+    // let url = document.getElementById('url').textContent + `/homestay/photo/${usernum}`;
+    // axios({
+    //   method: 'post',
+    //   url: url,
+    //   data: imageFile,
+    //   headers: { 'Content-Type': 'multipart/form-data' },
+    // }).then(res => {
+    //   this.setState({
+    //     photoname: res.data.photoname,
+    //   });
+    // });
+    console.log(uploadFile);
+  };
   return (
     <div>
       <TextField
@@ -28,6 +48,7 @@ export default function FormHouseIntro(props) {
         accept="image/*"
         id="icon-button-file"
         type="file"
+        onChange={uploadImage}
         style={{ display: 'none' }}
         multiple
       />

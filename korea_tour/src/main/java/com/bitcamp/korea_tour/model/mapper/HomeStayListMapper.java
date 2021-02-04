@@ -10,7 +10,7 @@ import com.bitcamp.korea_tour.model.homestay.HomeStayListDto;
 
 @Mapper
 public interface HomeStayListMapper {
-	List<HomeStayListDto> getAllHomeStayList(Map<String, Integer> paging);
+	List<HomeStayListDto> getAllHomeStayList(Map<String, Object> map);
 	int getTotalHomeStayList();
 	Integer getHomeStayPhotoNumOfList(int homeStayNum);
 	String getHomeStayPhotoOfList(int homeStayPhotoNum);

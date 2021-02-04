@@ -1,47 +1,81 @@
 import React from 'react';
+import TextField from '@material-ui/core/TextField';
 import AddPerson from 'components/AddPerson';
-import DateFnsUtils from '@date-io/date-fns';
-import Grid from '@material-ui/core/Grid';
-import {
-  MuiPickersUtilsProvider,
-  KeyboardTimePicker,
-} from '@material-ui/pickers';
+
 import FormAmenities from './FormAmenities';
 
 export default function FormHouseRules(props) {
   const [houseRules, setHouseRules] = props.rules;
+  const handleChange = event => {
+    setHouseRules({
+      ...houseRules,
+      [event.target.name]: event.target.value,
+    });
+  };
 
-  const handleCheckinTimeChange = date => {
-    setHouseRules.checkIn(date);
-  };
-  const handleCheckoutTimeChange = date => {
-    setHouseRules.checkOut(date);
-  };
   return (
     <div>
-      <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <Grid container justify="space-around">
-          <KeyboardTimePicker
-            autoOk
-            variant="inline"
-            openTo="hours"
-            label="체크인시간"
-            value={houseRules.checkIn}
-            minutesStep={15}
-            onChange={handleCheckinTimeChange}
-          />
-
-          <KeyboardTimePicker
-            autoOk
-            variant="inline"
-            openTo="hours"
-            label="체크아웃시간"
-            value={houseRules.checkOut}
-            minutesStep={15}
-            onChange={handleCheckoutTimeChange}
-          />
-        </Grid>
-      </MuiPickersUtilsProvider>
+      <TextField
+        id="checkInHour"
+        label="체크인 시간"
+        type="number"
+        name="checkIn1"
+        value={houseRules.checkIn1}
+        inputProps={{ placeholder: '1', min: '1', max: '24' }}
+        InputLabelProps={{
+          shrink: true,
+        }}
+        onChange={handleChange}
+      />
+      <TextField
+        id="checkInMins"
+        label="체크인 분"
+        type="number"
+        step="15"
+        name="checkIn2"
+        value={houseRules.checkIn2}
+        inputProps={{ placeholder: '0', step: '15', min: '0', max: '45' }}
+        InputLabelProps={{
+          shrink: true,
+        }}
+        onChange={handleChange}
+      />
+      <TextField
+        id="checkOutHour"
+        label="체크아웃 시간"
+        type="number"
+        name="checkOut1"
+        value={houseRules.checkOut1}
+        inputProps={{ placeholder: '1', min: '1', max: '24' }}
+        InputLabelProps={{
+          shrink: true,
+        }}
+        onChange={handleChange}
+      />
+      <TextField
+        id="checkOutMins"
+        label="체크아웃 분"
+        type="number"
+        step="15"
+        name="checkOut2"
+        value={houseRules.checkOut2}
+        inputProps={{ placeholder: '0', step: '15', min: '0', max: '45' }}
+        InputLabelProps={{
+          shrink: true,
+        }}
+        onChange={handleChange}
+      />
+      <TextField
+        id="price"
+        label="1인당 가격"
+        type="number"
+        name="price"
+        value={houseRules.price}
+        InputLabelProps={{
+          shrink: true,
+        }}
+        onChange={handleChange}
+      />
       <FormAmenities amenity={props.amenity} />
     </div>
   );

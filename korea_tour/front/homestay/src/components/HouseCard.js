@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -10,9 +11,44 @@ import Typography from "@material-ui/core/Typography";
 import ShareIcon from "@material-ui/icons/Share";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Box from '@material-ui/core/Box';
-import Heart from './Heart';
 import Star from './Star';
 import Button from '@material-ui/core/Button';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import { pink } from '@material-ui/core/colors';
+
+
+
+function UpdateMark(num){
+   
+    console.log(num)
+  useEffect(() =>{
+  // async를 사용하는 함수 따로 선언
+  const axios = require('axios')
+  axios.post('http://localhost:9003/homestays/mark'
+  ).then(function(response){
+    console.log(response);
+  });
+
+},
+[])};
+
+
+
+
+
+function DeleteMark(homeStayNum){
+ 
+}
+
+// useEffect(() =>{
+//   // async를 사용하는 함수 따로 선언
+//   const axios = require('axios')
+//   axios.post('http://localhost:9003/homestays/mark'+homeStayNum
+//   ).then(function(response){
+//     console.log(response);
+//   })
+
 
 const useStyles = makeStyles(() => ({
   root: { maxwidth: 365 },
@@ -25,21 +61,30 @@ const useStyles = makeStyles(() => ({
 export default function HouseCard(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState(2);
+  const [state, setState] = useState(true);
 
   return (
     <Card className={classes.root}>
       <CardHeader
         action={
           <IconButton aria-label="add to favorites">
-           <Heart />
+           <div onClick={function toggle() {
+            setState(!state);
+        
+            }}>
+             {state ? <span onClick={()=>UpdateMark(props.homeStayNum)}><FavoriteBorderIcon /></span> : <span onClick={()=>DeleteMark(props.homeStayNum)}><FavoriteIcon style={{ color: pink[500] }} /></span>}
+            </div> 
           </IconButton>
         }
         title={props.title}
-        
+
+      
       />
       <CardMedia
         className={classes.media}
-        image={props.url}
+
+        
+       
       />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">

@@ -55,15 +55,15 @@ return (
            <Grid item xs={6} sm={4} md={4} key={content}>
              <HouseCard src={content.photoName} title={content.title}
              addr1={content.addr1} price={content.price} countOfReview={content.countOfReview}
-             avgOfStar={content.avgOfStar} />
+             avgOfStar={content.avgOfStar} homeStayNum={content.homeStayNum} />
              
         </Grid>
         
         ))}
-        
       
     </Grid>
     }
+    <Pagination />
      </div>
   );
 }

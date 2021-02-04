@@ -34,10 +34,9 @@ public class HomeStayHostController {
 		hsas.updateHomeStayDetail(dto, homeStayNum);
 	}
 	
-	@PostMapping("/homestay/photo/{homeStayNum}")
+	@PostMapping("/homestay/photo/{userNum}")
 	public void insertPhoto(
-			@PathVariable(value = "homeStayNum") int homeStayNum,
-			@RequestParam int userNum,
+			@PathVariable(value = "userNum") int userNum,
 			/* @RequestParam int homeStayNum, */
 			@RequestParam List<MultipartFile> images,
 			HttpServletRequest request
@@ -54,10 +53,11 @@ public class HomeStayHostController {
 			upload = writer.changeFilename(file.getOriginalFilename());
 			writer.writeFile(file, upload, path);
 			
+			int homeStayNum = hsas.getHomeStayNum2(userNum);
 			HomeStayPhotoDto dto = new HomeStayPhotoDto();
-			dto.setHomeStayNum(homeStayNum);
 			dto.setPhotoName(upload);
 			dto.setUserNum(userNum);
+			dto.setHomeStayNum(homeStayNum);
 			hshps.insertPhoto(dto);
 		}
 	}

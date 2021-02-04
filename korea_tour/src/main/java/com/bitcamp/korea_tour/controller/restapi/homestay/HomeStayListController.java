@@ -1,14 +1,18 @@
 package com.bitcamp.korea_tour.controller.restapi.homestay;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -48,17 +52,29 @@ public class HomeStayListController implements SessionNames {
 	 * @param request
 	 * @return Json(list)
 	 */
-	@GetMapping("/price/{currentPage}")
+	@GetMapping(value="/price/{currentPage}", produces = "application/json;charset=utf8")
 	public JsonList<List<HomeStayListDto>> getHomeStayListByPrice (
 			@PathVariable(value="currentPage") int currentPage,
+			@RequestBody Map<String, Object> json,
 			HttpServletRequest request
 			) {
 		
 		HttpSession session=request.getSession();
 		UserDto user=(UserDto) session.getAttribute(USER);
 		
+		Map<String, Object> map=new HashMap<String, Object>();
 		start=pagingService.getPagingStart(currentPage, perPage);
-		list=homeStayListService.getAllHomeStayList(start, perPage);
+		String keyword=json.get("keyword").toString();
+		Integer maxPeople=Integer.parseInt(json.get("maxPeople").toString());
+		String checkInDay=json.get("checkInDay").toString();
+		String checkOutDay=json.get("checkOutDay").toString();
+		map.put("start", start);
+		map.put("perPage", perPage);
+		map.put("keyword", keyword);
+		map.put("maxPeople", maxPeople);
+		map.put("checkInDay", checkInDay);
+		map.put("checkOutDay", checkOutDay);
+		list=homeStayListService.getAllHomeStayList(map);
 		
 		for(HomeStayListDto dto:list) {
 			int homeStayNum=dto.getHomeStayNum();
@@ -85,17 +101,29 @@ public class HomeStayListController implements SessionNames {
 	 * @param request
 	 * @return
 	 */
-	@GetMapping("/review/{currentPage}")
+	@GetMapping(value="/review/{currentPage}", produces = "application/json;charset=utf8")
 	public JsonList<List<HomeStayListDto>> getHomeStayListByReview (
 			@PathVariable(value="currentPage") int currentPage,
+			@RequestBody Map<String, Object> json,
 			HttpServletRequest request
 			) {
 		
 		HttpSession session=request.getSession();
 		UserDto user=(UserDto) session.getAttribute(USER);
 		
+		Map<String, Object> map=new HashMap<String, Object>();
 		start=pagingService.getPagingStart(currentPage, perPage);
-		list=homeStayListService.getAllHomeStayList(start, perPage);
+		String keyword=json.get("keyword").toString();
+		Integer maxPeople=Integer.parseInt(json.get("maxPeople").toString());
+		String checkInDay=json.get("checkInDay").toString();
+		String checkOutDay=json.get("checkOutDay").toString();
+		map.put("start", start);
+		map.put("perPage", perPage);
+		map.put("keyword", keyword);
+		map.put("maxPeople", maxPeople);
+		map.put("checkInDay", checkInDay);
+		map.put("checkOutDay", checkOutDay);
+		list=homeStayListService.getAllHomeStayList(map);
 		
 		for(HomeStayListDto dto:list) {
 			int homeStayNum=dto.getHomeStayNum();
@@ -132,15 +160,15 @@ public class HomeStayListController implements SessionNames {
 	}
 	
 	
-	/**
-	 * 홈스테이 집목록 토탈페이지
-	 * @return int
-	 */
-	@GetMapping("/paging/homestay-list")
-	public int getTotalPage() {
-		totalCount=homeStayListService.getTotalHomeStayList();
-		return pagingService.getPagingTotalPage(totalCount, perPage);
-	}
+//	/**
+//	 * 홈스테이 집목록 토탈페이지
+//	 * @return int
+//	 */
+//	@GetMapping("/paging/homestay-list")
+//	public int getTotalPage() {
+//		totalCount=homeStayListService.getTotalHomeStayList();
+//		return pagingService.getPagingTotalPage(totalCount, perPage);
+//	}
 	
 	
 	@Data
