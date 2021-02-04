@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bitcamp.korea_tour.model.UserDto;
@@ -31,11 +32,12 @@ public class HomeStayApplyController implements SessionNames{
 	 * }
 	 */
 	@PostMapping("/homestay/house")
-	public void insertApply(@RequestBody JoinHomeStayDetailDto dto,HttpServletRequest request ) {
+	public void insertApply(@RequestBody JoinHomeStayDetailDto dto,
+			@RequestParam int userNum,
+			HttpServletRequest request
+				) {
 //		HttpSession session=request.getSession();
 //		UserDto user=(UserDto) session.getAttribute(USER);
-		int userNum=500;
-		
 	
 		
 	
