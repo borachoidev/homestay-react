@@ -1,5 +1,6 @@
 package com.bitcamp.korea_tour.model.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -19,5 +20,7 @@ public interface HomeStayReviewMapper {
 		int maxOfRegroup();
 		void insertReview(HomeStayReviewDto dto);
 		void insertAnswerReview(HomeStayReviewDto dto);
+		int getReviewNum(HashMap<String, Object> map);
+		int checkReviewWritten(int homeStayNum, int loginNum);
 }
  
