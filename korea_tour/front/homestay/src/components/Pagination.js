@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PaginationRounded() {
+export default function PaginationRounded(props) {
   const classes = useStyles();
   //const [currentPage, setPage] = React.useState(1);
   //const handleChange = (event, value) => {
