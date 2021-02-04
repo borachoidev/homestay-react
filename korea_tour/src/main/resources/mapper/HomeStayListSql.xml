@@ -3,14 +3,57 @@
 <mapper namespace="com.bitcamp.korea_tour.model.mapper.HomeStayListMapper">
 	<!-- 홈스테이 전체 목록 출력 --> <!-- 최저가 , 평점높은순 -->
 	<select id="getAllHomeStayList" parameterType="HashMap" resultType="homestaylist">
-		SELECT * FROM homeStay
-	    WHERE approval=1 AND open=1
+		SELECT distinct(homeStay.homeStayNum),homeStay.title,homeStay.addr1,homeStay.price FROM homeStay
+		JOIN homeStayDetail 
+		ON homeStay.homeStayNum=homeStayDetail.homeStayNum
+        AND homeStay.approval=2 AND homeStay.open=1 
+        AND homeStay.addr1 LIKE CONCAT('%',#{keyword},'%')
+        <![CDATA[
+        AND homeStayDetail.maxPeople>=#{maxPeople}
+        ]]>
+        AND homeStay.homeStayNum 
+        NOT IN 
+        (SELECT distinct homeStayReservation.homeStayNum FROM homeStayReservation 
+			WHERE (homeStayReservation.approval=2 
+				<![CDATA[
+				AND homeStayReservation.checkOutDay>#{checkInDay}
+				AND homeStayReservation.checkInDay<=#{checkInDay}) 
+				]]>
+			OR (homeStayReservation.approval=2 
+				<![CDATA[
+				AND homeStayReservation.checkOutDay>=#{checkOutDay}
+				AND homeStayReservation.checkInDay<#{checkOutDay})
+				]]>
+		)
 	    ORDER BY price ASC
-	    LIMIT #{start}, #{perPage}
+	    LIMIT #{start},#{perPage}
 	</select>
 	<select id="getTotalHomeStayList" resultType="int">
-		SELECT count(*) FROM homeStay
-	    WHERE approval=2 AND open=1
+		SELECT count(*) FROM homeStay 
+		WHERE homeStayNum 
+		IN
+		(SELECT distinct homeStayNum FROM homeStay
+		JOIN homeStayDetail 
+		ON homeStay.homeStayNum=homeStayDetail.homeStayNum
+        AND homeStay.approval=2 AND homeStay.open=1 
+        AND homeStay.addr1 LIKE CONCAT('%',#{keyword},'%')
+        <![CDATA[
+        AND homeStayDetail.maxPeople>=#{maxPeople}
+        ]]>
+        AND homeStay.homeStayNum 
+        NOT IN 
+        (SELECT distinct homeStayReservation.homeStayNum FROM homeStayReservation 
+			WHERE (homeStayReservation.approval=2 
+				<![CDATA[
+				AND homeStayReservation.checkOutDay>#{checkInDay}
+				AND homeStayReservation.checkInDay<=#{checkInDay}) 
+				]]>
+			OR (homeStayReservation.approval=2 
+				<![CDATA[
+				AND homeStayReservation.checkOutDay>=#{checkOutDay}
+				AND homeStayReservation.checkInDay<#{checkOutDay})
+				]]>
+		))
 	</select>
 	<!-- 사진 한장 -->
 	<select id="getHomeStayPhotoNumOfList" parameterType="int" resultType="integer">
