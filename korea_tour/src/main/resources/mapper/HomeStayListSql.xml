@@ -58,10 +58,9 @@
 	<!-- 사진 한장 -->
 	<select id="getHomeStayPhotoNumOfList" parameterType="int" resultType="integer">
 		SELECT min(homeStayPhotoNum) FROM homeStay
-		join homeStayPhoto on homeStay.homeStayNum=homeStayPhoto.homeStayNum
-        And homeStay.approval=1 And homeStay.open=1
+		JOIN homeStayPhoto 
+		ON homeStay.homeStayNum=homeStayPhoto.homeStayNum
         WHERE homeStay.homeStayNum=#{homeStayNum}
-        ORDER BY homeStayPhoto.homeStayPhotoNum ASC
 	</select>
 	<select id="getHomeStayPhotoOfList" parameterType="int" resultType="String">
 		SELECT photoName FROM homeStayPhoto WHERE homeStayPhotoNum=#{homeStayPhotoNum}
