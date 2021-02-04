@@ -109,6 +109,24 @@ export default function HostForm() {
         ))}
       </Stepper>
       <div>{showStep(step)}</div>
+      <div>
+        {step === steps.length ? (
+          <div>
+            <Button onClick={handleReset}>Reset</Button>
+          </div>
+        ) : (
+          <div>
+            <div>
+              <Button disabled={step === 0} onClick={handleBack}>
+                Back
+              </Button>
+              <Button variant="contained" color="primary" onClick={handleNext}>
+                {step === steps.length - 1 ? 'Finish' : 'Next'}
+              </Button>
+            </div>
+          </div>
+        )}
+      </div>
     </>
   );
 }
