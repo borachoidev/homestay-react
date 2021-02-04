@@ -67,6 +67,8 @@ public class AdminController {
 		perPage=pagingService.getPagingData(totalCount, currentPage).get("perPage");
 		totalPage=pagingService.getPagingData(totalCount, currentPage).get("totalPage");
 		
+		System.out.println("답글 토탈페이지: "+totalPage);
+		System.out.println("답글 퍼페이지: "+perPage);
 		List<TourAnswerDto> reAnswer = tas.getAdminReAnswer(start, perPage);
 		return new JsonReAnswer<List<TourAnswerDto>>(reAnswer, totalPage);
 		
