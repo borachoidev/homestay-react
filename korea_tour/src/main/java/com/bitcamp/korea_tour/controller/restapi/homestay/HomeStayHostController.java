@@ -1,11 +1,21 @@
 package com.bitcamp.korea_tour.controller.restapi.homestay;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.bitcamp.korea_tour.fileupload.SpringFileWriter;
+import com.bitcamp.korea_tour.model.homestay.HomeStayPhotoDto;
 import com.bitcamp.korea_tour.model.homestay.JoinHomeStayDetailDto;
+import com.bitcamp.korea_tour.model.service.homestay.HomeStayHostPhotoService;
 import com.bitcamp.korea_tour.model.service.homestay.HomeStayHostService;
 
 import lombok.RequiredArgsConstructor;
@@ -14,6 +24,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class HomeStayHostController {
 	private final HomeStayHostService hsas;
+	private final HomeStayHostPhotoService hshps;
 	
 	@PutMapping("/homestay/house/{homeStayNum}")
 	public void updateHouse(
@@ -22,4 +33,34 @@ public class HomeStayHostController {
 		hsas.updateHomeStay(dto, homeStayNum);
 		hsas.updateHomeStayDetail(dto, homeStayNum);
 	}
+	
+	@PostMapping("/homestay/photo/{homeStayNum}")
+	public void insertPhoto(
+			@PathVariable(value = "homeStayNum") int homeStayNum,
+			@RequestParam int userNum,
+			/* @RequestParam int homeStayNum, */
+			@RequestParam List<MultipartFile> images,
+			HttpServletRequest request
+			) {
+		String path = request.getSession().getServletContext().getRealPath("/homeStayImg");
+		SpringFileWriter writer = new SpringFileWriter(); 
+		String upload = "";
+		for(MultipartFile file: images) {
+			if(file.getOriginalFilename().length() == 0) {
+				upload = "no";
+				break;			
+			}
+			
+			upload = writer.changeFilename(file.getOriginalFilename());
+			writer.writeFile(file, upload, path);
+			
+			HomeStayPhotoDto dto = new HomeStayPhotoDto();
+			dto.setHomeStayNum(homeStayNum);
+			dto.setPhotoName(upload);
+			dto.setUserNum(userNum);
+			hshps.insertPhoto(dto);
+		}
+	}
+	
+	
 }
