@@ -79,6 +79,12 @@ public class UserServiceImpl implements UserService,SessionNames {
 	public void deleteUserByAdmin(int userNum) {
 		mapper.deleteUserByAdmin(userNum);
 	}
+
+	@Override
+	public int ifHost(int loginNum) {
+		// TODO Auto-generated method stub
+		return mapper.ifHost(loginNum);
+	}
 	
 	
 	
