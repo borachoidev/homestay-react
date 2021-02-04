@@ -27,7 +27,10 @@ export default function FormAmenities(props) {
   const [amenities, setAmenities] = props.amenity;
 
   const handleChange = event => {
-    setAmenities({ ...amenities, [event.target.name]: event.target.checked });
+    setAmenities({
+      ...amenities,
+      [event.target.name]: event.target.checked,
+    });
   };
 
   return (
@@ -38,7 +41,7 @@ export default function FormAmenities(props) {
             checked={amenities.dogOk}
             icon={<PetsOutlinedIcon />}
             checkedIcon={<PetsIcon />}
-            name="petAllow"
+            name="dogOk"
             onClick={handleChange}
           />
         }
@@ -50,7 +53,7 @@ export default function FormAmenities(props) {
             checked={amenities.smokingOk}
             icon={<SmokeFreeIcon />}
             checkedIcon={<SmokingRoomsIcon />}
-            name="smoking"
+            name="smokingOk"
             onClick={handleChange}
           />
         }
@@ -62,7 +65,7 @@ export default function FormAmenities(props) {
             checked={amenities.wifi}
             icon={<WifiOff />}
             checkedIcon={<Wifi />}
-            name="wifiService"
+            name="wifi"
             onClick={handleChange}
           />
         }
@@ -74,7 +77,7 @@ export default function FormAmenities(props) {
             checked={amenities.towel}
             icon={<BathtubOutlined />}
             checkedIcon={<Bathtub />}
-            name="bathAmenity"
+            name="towel"
             onClick={handleChange}
           />
         }
@@ -98,7 +101,7 @@ export default function FormAmenities(props) {
             checked={amenities.aircon}
             icon={<AcUnitOutlined />}
             checkedIcon={<AcUnit />}
-            name="ac"
+            name="aircon"
             onClick={handleChange}
           />
         }
@@ -110,7 +113,7 @@ export default function FormAmenities(props) {
             checked={amenities.elecProduct}
             icon={<OfflineBoltOutlined />}
             checkedIcon={<OfflineBolt />}
-            name="elect"
+            name="elecProduct"
             onClick={handleChange}
           />
         }
@@ -122,7 +125,7 @@ export default function FormAmenities(props) {
             checked={amenities.kitchen}
             icon={<KitchenOutlined />}
             checkedIcon={<Kitchen />}
-            name="useKitchen"
+            name="kitchen"
             onClick={handleChange}
           />
         }
@@ -134,7 +137,7 @@ export default function FormAmenities(props) {
             checked={amenities.bathroom}
             icon={<WcOutlined />}
             checkedIcon={<Wc />}
-            name="restroom"
+            name="bathroom"
             onClick={handleChange}
           />
         }
