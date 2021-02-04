@@ -21,4 +21,5 @@ public interface HomeStayReservationService {
 	JoinReservationDetail getHomeStayDetail(int homeStayReservationNum);
 	void cancelReservationByUser(int homeStayReservationNum);
 	HomeStayReservationDto getData(int homeStayReservationNum);
+	void insertMyReservation(HomeStayReservationDto dto);
 }

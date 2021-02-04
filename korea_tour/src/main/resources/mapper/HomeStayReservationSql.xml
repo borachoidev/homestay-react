@@ -57,4 +57,12 @@
 	<update id="cancelReservationByUser" parameterType="int">
 		update homeStayReservation set deleted=1 where homeStayReservationNum = #{homeStayReservationNum}
 	</update>
+	
+	<!-- 숙소 예약하기 -->
+	<select id="insertMyReservation" parameterType="homestayreservation">
+		INSERT INTO homeStayReservation 
+		(userNum,homeStayNum,loginNum,checkInDay,checkOutDay,numberOfPeople,totalPrice,approval,writeday,name,email1,email2,gender,birthYear,birthMonth,birthDay,deleted)
+		VALUES
+		((SELECT userNum from homeStay WHERE homeStayNum=#{homeStayNum}),#{homeStayNum},#{loginNum},#{checkInDay},#{checkOutDay},#{numberOfPeople},#{totalPrice},0,now(),#{name},#{email1},#{email2},#{gender},#{birthYear},#{birthMonth},#{birthDay},0)
+	</select>
 </mapper>
