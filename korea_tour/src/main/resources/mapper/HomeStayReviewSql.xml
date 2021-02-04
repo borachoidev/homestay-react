@@ -17,8 +17,9 @@
 	<!-- <select id="getReviewsByUser" parameterType="hashmap" resultType="joinmypagereview">
 		select r.homeStayReviewNum, r.userNum as hostNum, r.homeStayNum, r.relevel, r.regroup, r.loginNum,
 		r.loginId, r.loginPhoto, r.content, r.writeday, r.deleted, p.homeStayPhotoNum, p.photoName 
-		from homeStayReview r join homeStayPhoto 
+		from homeStayReview r join homeStayPhoto p on 
 	</select> -->
+	
 	<!-- 댓글쓰기 -->
 	<insert id="insertReview" parameterType="homestayreview">
 	INSERT into homeStayReview
