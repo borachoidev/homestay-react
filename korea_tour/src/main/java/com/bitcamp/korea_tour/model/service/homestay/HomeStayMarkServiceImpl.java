@@ -45,4 +45,16 @@ public class HomeStayMarkServiceImpl implements HomeStayMarkService {
 		// TODO Auto-generated method stub
 		return homeStayMarkMapper.getMarkListByUser(map);
 	}
+
+	@Override
+	public int countOfMyMark(int homeStayNum, int loginNum) {
+		// TODO Auto-generated method stub
+		Map<String, Integer> map=new HashMap<String, Integer>();
+		map.put("homeStayNum", homeStayNum);
+		map.put("loginNum", loginNum);
+		
+		return homeStayMarkMapper.countOfMyMark(map);
+	}
+	
+	
 }
