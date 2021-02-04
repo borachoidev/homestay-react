@@ -13,6 +13,7 @@ import HostManageHouse from 'page/HostManageHouse';
 import HostMain from 'page/HostMain';
 import HostMyBooks from 'page/HostMyBooks';
 import HouseListFeatured from 'components/HouseListFeatured';
+import NavBar from 'components/NavBar';
 
 function RouteMain(props) {
   return (

@@ -21,7 +21,7 @@ export default function FormHouseIntro(props) {
         label="설명 해주세요!"
         margin="normal"
         value={houseIntro.content}
-        name="description"
+        name="content"
         onChange={handleChange}
       />
       <input
