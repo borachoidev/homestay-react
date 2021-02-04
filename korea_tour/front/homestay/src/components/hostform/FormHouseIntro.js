@@ -13,6 +13,7 @@ export default function FormHouseIntro(props) {
     const imageFile = new FormData();
     if (uploadFile.length < 5) {
       alert('5장이상의 사진을 올려주세요!');
+      e.target.value = '';
     }
     imageFile.append('uploadFile', uploadFile);
     // let url = document.getElementById('url').textContent + `/homestay/photo/${usernum}`;
