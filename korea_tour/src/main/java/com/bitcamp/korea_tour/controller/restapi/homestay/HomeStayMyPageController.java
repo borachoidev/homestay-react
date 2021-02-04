@@ -19,6 +19,7 @@ import com.bitcamp.korea_tour.model.UserDto;
 import com.bitcamp.korea_tour.model.homestay.HomeStayReservationDto;
 import com.bitcamp.korea_tour.model.homestay.JoinHomeStayReservationDto;
 import com.bitcamp.korea_tour.model.homestay.JoinHomeStaySummary;
+import com.bitcamp.korea_tour.model.homestay.JoinMypageReviewWithPhotoDto;
 import com.bitcamp.korea_tour.model.homestay.JoinReservationDetail;
 import com.bitcamp.korea_tour.model.service.homestay.HomeStayReservationService;
 import com.bitcamp.korea_tour.model.service.login.setting.SessionNames;
@@ -156,5 +157,41 @@ public class HomeStayMyPageController implements SessionNames{
 		}else {
 			return "fail";
 		}
+	}
+	
+	@Data
+	@AllArgsConstructor
+	static class JsonReservationsForReview {
+		private List<JoinMypageReviewWithPhotoDto> reservations;
+		private int totalCount;
+		private int totalPage;
+	}
+	
+	/*
+	 * 후기 작성할 숙박완료 리스트 출력
+	 */
+	@GetMapping("/mypage/reservations-for-review/{loginNum}/{currentPage}")
+	public JsonReservationsForReview getReservationsForReview(
+			@PathVariable(name="loginNum") int loginNum,
+			@PathVariable(name="currentPage") int currentPage
+			) {
+		int totalCount = reservationService.getTotalCountOfReservationsForReview(loginNum);
+		int totalPage = pagingService.getPagingData(totalCount, currentPage).get("totalPage");
+		int start = pagingService.getPagingData(totalCount, currentPage).get("start");
+		int perPage = pagingService.getPagingData(totalCount, currentPage).get("perPage");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("loginNum", loginNum);
+		map.put("start", start);
+		map.put("perPage", perPage);
+		List<JoinMypageReviewWithPhotoDto> reservations = reservationService.getDoneReservationsByUser(map);
+		for(JoinMypageReviewWithPhotoDto dto: reservations) {
+			if(reservationService.checkReviewWritten(dto) == 0) {
+				dto.setReviewWrite(0);
+			}else if(reservationService.checkReviewWritten(dto) >= 1) {
+				dto.setReviewWrite(1);
+			}
+		}
+		
+		return new JsonReservationsForReview(reservations, totalCount, totalPage);
 	}
 }

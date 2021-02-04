@@ -57,4 +57,24 @@
 	<update id="cancelReservationByUser" parameterType="int">
 		update homeStayReservation set deleted=1 where homeStayReservationNum = #{homeStayReservationNum}
 	</update>
+	
+	<!-- 마이페이지 아직후기작성안한 완료된 예약 목록 개수 출력 -->
+	<select id="getTotalCountOfReservationsForReview" parameterType="int" resultType="int">
+		select count(*) from homeStayReservation where loginNum = #{loginNum} and approval=2 and deleted=0 and checkOutDay &lt; now()
+	</select>
+	
+	<!-- 마이페이지 아직후기작성안한 완료된 예약 목록 출력 -->
+	<select id="getDoneReservationsByUser" parameterType="hashmap" resultType="joinmypagedonereservation">
+		select a.homeStayReservationNum, a.hostNum, a.homeStayNum, a.homeStayTitle,b.photoName as homeStayPhoto, b. a.customerNum, 
+		a.checkInDay, a.checkOutDay from (select r.homeStayReservationNum, r.userNum as hostNum, r.homeStayNum, h.title as homeStayTitle, r.loginNum as customerNum, 
+		r.checkInDay, r.checkOutDay from homeStayReservation r left join homeStay h on r.homeStayNum = h.homeStayNum 
+		where r.loginNum = #{loginNum} and r.approval=2 and r.deleted=0 and r.checkOutDay &lt; now()) a 
+		left join homeStayPhoto b on a.homeStayNum = b.homeStayNum group by a.homeStayReservationNum 
+        limit #{start}, #{perPage}
+	</select>
+	
+	<!-- 해당 예약에 리뷰 썻나안썻나 체크 -->
+	<select id="checkReviewWritten" parameterType="joinmypagedonereservation" resultType="int">
+		select count(*) from homeStayReview where homeStayNum = #{homeStayNum} and loginNum = #{customerNum} and deleted = 0
+	</select>
 </mapper>

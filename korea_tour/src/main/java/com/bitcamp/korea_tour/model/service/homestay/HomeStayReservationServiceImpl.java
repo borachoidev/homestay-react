@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.bitcamp.korea_tour.model.homestay.HomeStayReservationDto;
 import com.bitcamp.korea_tour.model.homestay.JoinHomeStayReservationDto;
 import com.bitcamp.korea_tour.model.homestay.JoinHomeStaySummary;
+import com.bitcamp.korea_tour.model.homestay.JoinMypageReviewWithPhotoDto;
 import com.bitcamp.korea_tour.model.homestay.JoinReservationDetail;
 import com.bitcamp.korea_tour.model.mapper.HomeStayReservationMapper;
 
@@ -89,6 +90,24 @@ public class HomeStayReservationServiceImpl implements HomeStayReservationServic
 	public HomeStayReservationDto getData(int homeStayReservationNum) {
 		// TODO Auto-generated method stub
 		return mapper.getData(homeStayReservationNum);
+	}
+
+	@Override
+	public List<JoinMypageReviewWithPhotoDto> getDoneReservationsByUser(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		return mapper.getDoneReservationsByUser(map);
+	}
+
+	@Override
+	public int getTotalCountOfReservationsForReview(int loginNum) {
+		// TODO Auto-generated method stub
+		return mapper.getTotalCountOfReservationsForReview(loginNum);
+	}
+
+	@Override
+	public int checkReviewWritten(JoinMypageReviewWithPhotoDto dto) {
+		// TODO Auto-generated method stub
+		return mapper.checkReviewWritten(dto);
 	}
 	
 	
