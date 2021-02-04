@@ -6,6 +6,7 @@ import java.util.List;
 import com.bitcamp.korea_tour.model.homestay.HomeStayReservationDto;
 import com.bitcamp.korea_tour.model.homestay.JoinHomeStayReservationDto;
 import com.bitcamp.korea_tour.model.homestay.JoinHomeStaySummary;
+import com.bitcamp.korea_tour.model.homestay.JoinMypageReviewWithPhotoDto;
 import com.bitcamp.korea_tour.model.homestay.JoinReservationDetail;
 
 public interface HomeStayReservationService {
@@ -21,5 +22,8 @@ public interface HomeStayReservationService {
 	JoinReservationDetail getHomeStayDetail(int homeStayReservationNum);
 	void cancelReservationByUser(int homeStayReservationNum);
 	HomeStayReservationDto getData(int homeStayReservationNum);
+	int getTotalCountOfReservationsForReview(int loginNum);
+	List<JoinMypageReviewWithPhotoDto> getDoneReservationsByUser(HashMap<String, Object> map);
+	int checkReviewWritten(JoinMypageReviewWithPhotoDto dto);
 	void insertMyReservation(HomeStayReservationDto dto);
 }
