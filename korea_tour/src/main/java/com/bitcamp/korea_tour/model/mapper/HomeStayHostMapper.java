@@ -17,6 +17,8 @@ public interface HomeStayHostMapper {
    int getUserNum(int homeStayNum);
    int getHomeStayNum2(int userNum);
    void insertHomeStayDetail(Map<String, Object> map);
+   void updateHomeStay(Map<String, Object> map);
+   void updateHomeStayDetail(Map<String, Object> map);
    int getTotalCount(int homestayNum);
    List<HomeStayReservationDto> getAllReservation(Map<String, Object> map);
    int getApprovalCount(int homeStayNum);
