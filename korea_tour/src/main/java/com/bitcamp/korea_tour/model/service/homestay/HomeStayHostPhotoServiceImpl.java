@@ -30,4 +30,10 @@ public class HomeStayHostPhotoServiceImpl implements HomeStayHostPhotoService {
 		// TODO Auto-generated method stub
 		mapper.updatePhoto(homeStayPhotoNum);
 	}
+
+	@Override
+	public HomeStayPhotoDto getData(int homeStayPhotoNum) {
+		// TODO Auto-generated method stub
+		return mapper.getData(homeStayPhotoNum);
+	}
 }

@@ -9,4 +9,5 @@ public interface HomeStayHostPhotoMapper {
 	void insertPhoto(HomeStayPhotoDto dto);
 	void deletePhoto(int homeStayPhotoNum);
 	void updatePhoto(int homeStayPhotoNum);
+	HomeStayPhotoDto getData(int homeStayPhotoNum);
 }

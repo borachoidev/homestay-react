@@ -31,7 +31,7 @@ public class HomeStayApplyController implements SessionNames{
 	 * 
 	 * }
 	 */
-	@PostMapping("/homestay/house")
+	@PostMapping("/homestays/house")
 	public void insertApply(@RequestBody JoinHomeStayDetailDto dto,
 			@RequestParam int userNum,
 			HttpServletRequest request
