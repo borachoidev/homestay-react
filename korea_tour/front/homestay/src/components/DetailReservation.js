@@ -10,7 +10,7 @@ function DetailReservation(props) {
             <h3>요금을 확인하려면 날짜를 입력하세요</h3>
                 <div><CalendarCheckIn /></div>
                 <div><AddPerson /></div>
-                <Link to="/reservationconfirm" style={{ textDecoration: 'none' }}>
+                <Link to="/homestay/reservationconfirm" style={{ textDecoration: 'none' }}>
                     <Button variant="contained" color="secondary">
                         예약하기
                     </Button>

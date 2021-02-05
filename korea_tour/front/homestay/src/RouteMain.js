@@ -27,9 +27,9 @@ function RouteMain(props) {
       {/* 집목록 */}
       <Route path="/homestay/houselistfeatured" component={HouseListFeatured} />
       {/* 집상세 및 예약 */}
-      <Route path="/homestay/housedetail:num" component={HouseDetail} />
+      <Route path="/homestay/housedetail" component={HouseDetail} />
       <Route
-        path="/homestay/reservationconfirm:num"
+        path="/homestay/reservationconfirm"
         component={ReservationConfirm}
       />
       {/* 마이페이지 */}

@@ -1,21 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import RoomIcon from '@material-ui/icons/Room';
 
+function HouseAddr(props) {
 
-
-
-function HouseName(props) {
     const [content, setContent] = useState(null);
     const [loading,setLoading] = useState(false);
     const [error, setError] = useState(null);
 
     let linkurl = document.location.href;
     let courseNum = linkurl.split('=')[1];
-    //console.log(courseNum);
 
-    
     useEffect( () => {
-        const getTitle = async () =>{
+        const getAddress = async () =>{
             try{
                 setContent(null);
                 setError(null);
@@ -30,21 +27,22 @@ function HouseName(props) {
             }
             setLoading(false);
         };
-        getTitle();
+        getAddress();
     }, []);
 
     if (loading) return <p>로딩중....</p>;
     if (error) return <p>에러가 발생했습니다.</p>;
     if (!content) return null;
-    
-     
+
 
     return (
         <div>
-            <h1>{content.title}</h1>
+            <span>
+                <span id="mapicon"><RoomIcon color="error" /></span>
+                <span>{content.addr1}</span>
+            </span>
         </div>
     );
-    
-
 }
-export default HouseName;
+
+export default HouseAddr;

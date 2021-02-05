@@ -2,7 +2,8 @@ import React from 'react';
 import DetailInfoReservation from './DetailInfoReservation';
 import DetailMap from './DetailMap';
 import DetailPhotos from './DetailPhotos';
-import HouseName from './HouseName';
+import HouseCarousel from './HouseCarousel';
+import HouseHeader from './HouseHeader';
 import ReviewList from './ReviewList';
 
 
@@ -13,7 +14,10 @@ function HouseDetail(props) {
             {/* header */}
 
             {/* 집이름,즐겨찾기,별점 */}
-            <HouseName />
+            <HouseHeader />
+                {/* <HouseName /> */}
+                {/* <HouseLike> */}
+                {/* <HouseStarAvg> */}
 
             {/* 사진 DetailPhotos */}
             <DetailPhotos />
@@ -30,10 +34,12 @@ function HouseDetail(props) {
 
             {/* ReviewList */}
             <ReviewList />
+                {/* ReviewStarAvg */}
                 {/* Review */}
 
             {/* DetailMap */}
             <DetailMap />
+            <HouseCarousel />
             
             
 
