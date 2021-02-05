@@ -12,3 +12,28 @@
 #scoreText{
     font-weight: bold;
 }
+
+
+#reviewPoint{
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+.reviewPoint-box:nth-child(2n){
+    padding-left: 5%;
+    padding-top: 1.5%;
+    padding-bottom: 1.5%;
+    width: 45%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.reviewPoint-box:nth-child(2n+1){
+    padding-right: 5%;
+    padding-top: 1.5%;
+    padding-bottom: 1.5%;
+    width: 45%;
+    display: flex;
+    justify-content: space-between;
+}
+

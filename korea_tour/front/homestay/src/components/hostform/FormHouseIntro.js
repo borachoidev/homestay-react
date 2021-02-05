@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, TextField } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
+import axios from 'axios';
 
 export default function FormHouseIntro(props) {
   const [houseIntro, setHouseIntro] = props.intro;
@@ -15,18 +16,22 @@ export default function FormHouseIntro(props) {
       alert('5장이상의 사진을 올려주세요!');
       e.target.value = '';
     }
-    imageFile.append('uploadFile', uploadFile);
-    // let url = document.getElementById('url').textContent + `/homestay/photo/${usernum}`;
-    // axios({
-    //   method: 'post',
-    //   url: url,
-    //   data: imageFile,
-    //   headers: { 'Content-Type': 'multipart/form-data' },
-    // }).then(res => {
-    //   this.setState({
-    //     photoname: res.data.photoname,
-    //   });
-    // });
+
+    for (const upload of uploadFile) {
+      imageFile.append('uploadFile', upload);
+    }
+
+    let url = `http://localhost:9003/homestay/photo/200`;
+    axios({
+      method: 'post',
+      url: url,
+      data: imageFile,
+      headers: { 'Content-Type': 'multipart/form-data' },
+    }).then(res => {
+      this.setState({
+        photoname: res.data.photoname,
+      });
+    });
     console.log(uploadFile);
   };
   return (
