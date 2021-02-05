@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import Grid from "@material-ui/core/Grid";
-import HouseListSort from "./HouseListSort";
+//import HouseListSort from "./HouseListSort";
 import HouseCard from "./HouseCard";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
-import NavBar from "./NavBar";
+
 
 const HouseListFeatured = () =>{
 
@@ -14,12 +14,18 @@ const HouseListFeatured = () =>{
   const [loading,setLoading] = useState(false);
 
 useEffect(() =>{
+  const startday =new Date("2021-02-04");
+  const endday=new Date("2021-02-14");
+  const data={ keyword:"서울",maxPeople:"1",
+  checkInDay:"2021-02-23",
+  checkOutDay:"2021-02-26"}
+  console.log(data)
   const fatchData = async ()=> {
       setLoading(true);
       try {
-          const response = await axios.get(
+          const response = await axios.post(
               'http://localhost:9003/homestays/price/1'
-          );
+          ,data);
           setContents(response.data.list);
           console.log(response.data.list);
           
@@ -40,7 +46,7 @@ return null;
 }
 // articles 값이 유효할때
 //<p>{contents[0].homeStayNum}</p>
-
+//<HouseListSort/>
 
 return (
 <div>
@@ -49,7 +55,7 @@ return (
     
     <Grid container spacing={3}>
       <Grid item xs={12}>
-        <HouseListSort/>
+        
       </Grid>
 
       {contents.map(content => (

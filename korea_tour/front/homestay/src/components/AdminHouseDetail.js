@@ -7,14 +7,20 @@ import HouseName from './HouseName';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
 
-const handleConfirm = async () => {
+
+
+function AdminHouseDetail({match,history}) {
+  const{num}=match.params;
+const detailnum=num.split("=")[1];
+  const handleConfirm = async () => {
     try {
-      const num = props.content.homeStayNum;
-      console.log(num);
+     const url=`http://localhost:9003/homestays/${num}/approve`
+      console.log(url);
       const response = await axios.patch(
-        `/admin/homestays/${num}/approve`
-      );
-      props.history.push(`http://localhost:9003/admin/homestays/1`);
+        url
+      ).then(res=>{console.log(res)});
+
+      // history.push(`http://localhost:9003/admin/homestays/1`);
     } catch (e) {
       console.log(e);
     }
@@ -22,19 +28,17 @@ const handleConfirm = async () => {
 
   const handleDeny = async () => {
     try {
-      const num = props.content.homeStayNum;
+     
       console.log(num);
       const response = await axios.patch(
-        `/admin/homestays/${num}/deny`
+        `http://localhost:9003/homestays/${num}/deny`
       );
-      props.history.push(`http://localhost:9003/admin/homestays/1`);
+      // history.push(`http://localhost:9003/admin/homestays/1`);
     } catch (e) {
       console.log(e);
     }
   };
 
-
-function AdminHouseDetail(props) {
     return (
         <div>
            

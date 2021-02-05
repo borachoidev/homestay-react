@@ -7,7 +7,6 @@ import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
-
 import { withRouter } from 'react-router-dom';
 
 
@@ -25,6 +24,7 @@ import { withRouter } from 'react-router-dom';
 //           );
 //           setContents(response.data.list);
 //           console.log(response.data.list);
+//          props.history.push(`/homestay/houselistfeatured`);
           
 //       } catch (e) {
 //           console.log(e);
@@ -95,67 +95,54 @@ const useStyles = makeStyles((theme) => ({
 export default function NavBar() {
   const classes = useStyles();
   const [activeBtn, setActiveBtn] = useState("destinations");
-  // const [state, changeState] = useState({
-  //   keyword: "",
-  //   maxPeople: "",
-  //   checkInDay: "",
-  //   checkOutDay:  "",
-  //   });
+  const [state, changeState] = useState({
+  keyword: "",
+  maxPeople: "",
+  checkInDay: "",
+  checkOutDay:  "",
+  });
   
-  //   const handleKeyword = event => {
-  //     const { target } = event;
+  const handleKeyword = event => {
+  const { target } = event;
   
-  //     changeState(state => ({
-  //       ...state,
-  //       keyword: target.value
-  //     }));
-  //   };
+  changeState(state => ({
+  ...state,
+   keyword: target.value
+  }));
+   };
   
-  //   const handleEventMaxPeople = event => {
-  //     const { target } = event;
+  const handleEventMaxPeople = event => {
+  const { target } = event;
   
-  //     changeState(state => ({
-  //       ...state,
-  //       maxPeople: target.value
-  //     }));
-  //   };
+  changeState(state => ({
+   ...state,
+  maxPeople: target.value
+  }));
+  };
   
-  //   const handleCheckInDay = event => {
-  //     const { target } = event;
+const handleCheckInDay = event => {
+ const { target } = event;
   
-  //     changeState(state => ({
-  //       ...state,
-  //       checkInDay: target.value
-  //     }));
-  //   };
+ changeState(state => ({
+  ...state,
+   checkInDay: target.value
+  }));
+  };
 
-  //   const handleOutDay = event => {
-  //     const { target } = event;
+const handleOutDay = event => {
+ const { target } = event;
   
-  //     changeState(state => ({
-  //       ...state,
-  //       checkOutDay: target.value
-  //     }));
-  //   };
+ changeState(state => ({
+  ...state,
+  checkOutDay: target.value
+  }));
+  };
   
-  //   const submitHandle = () => {
-  //     const { keyword, maxPeople, checkInDay, checkOutDay } = state;
-  //   }
-  // };
-
-
-
 
   return (
         <div>
-                {/* <form className="form-elements">
-                  <input
-                    value={state.name}
-                    className="form-control form-inputs form-elements"
-                    type="text"
-                    onChange={handleName}
-                    placeholder="user name"
-                  />
+                {/* 
+                  
                   <input
                     value={state.eventTitle}
                     className="form-control form-inputs form-elements"
@@ -170,7 +157,7 @@ export default function NavBar() {
                     onChange={handleDetails}
                     placeholder="Details "
                   />
-                </form>
+               
                  */}
 
 
@@ -190,12 +177,17 @@ export default function NavBar() {
         <form className={classes.container} noValidate>
       
         <TextField
+         value={state.keyword}
+         type="text"
+         onChange={handleKeyword}
           label="장소"
           id="outlined-size-normal"
           defaultValue="Normal"
           variant="outlined"
         />
       <TextField
+      value={state.checkInDay}
+      onChange={handleCheckInDay}
         name="date"
         label="시작일"
         type="date"
@@ -206,6 +198,8 @@ export default function NavBar() {
         }}
       />
       <TextField
+      value={state.checkOutDay}
+      onChange={handleOutDay}
         name="date"
         label="종료일"
         type="date"
@@ -217,6 +211,9 @@ export default function NavBar() {
       />
 
     <TextField
+    value={state.maxPeople}
+    onChange={handleEventMaxPeople}
+    type="text"
           label="인원"
           id="outlined-size-normal"
           defaultValue="Normal"
