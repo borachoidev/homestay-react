@@ -40,7 +40,7 @@ function HouseCard(props) {
         url
       ).then(res=>{console.log(res)});
 
-      // history.push(`http://localhost:9003/admin/homestays/1`);
+      
     } catch (e) {
       console.log(e);
     }
@@ -51,8 +51,8 @@ function HouseCard(props) {
       const response = await axios.delete(
         `http://localhost:9003/homestays/mark?homeStayNum=${props.homeStayNum}`
       );
-      alert("삭제성공");
-      // history.push(`http://localhost:9003/admin/homestays/1`);
+      console.log("삭제성공");
+       
     } catch (e) {
       console.log(e);
       
@@ -74,24 +74,21 @@ function HouseCard(props) {
           </IconButton>
         }
         title={props.title}
-
-
       />
       <CardMedia
         className={classes.media}
         image={"http://localhost:9003/homeStayImg/"+props.photoName}
-       
       />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-         
+         {props.addr1}
         </Typography>
-        <Star /> 
+        <Star /> {props.avgOfStar}
          <Box component="fieldset" mb={3} borderColor="transparent">
          <Typography id="rate" variant="legend" color="textSecondary" component="p">
-        4.6</Typography>
-         <Typography component="legend" id="reviewCnt" color="textSecondary">(6)</Typography>
-         <Typography component="legend" id="price" color="textSecondary">10,000원</Typography>
+        {props.price}</Typography>
+         <Typography component="legend" id="reviewCnt" color="textSecondary">({props.countOfReview})</Typography>
+         <Typography component="legend" id="price" color="textSecondary"></Typography>
         </Box>
       </CardContent>
       <CardActions disableSpacing>

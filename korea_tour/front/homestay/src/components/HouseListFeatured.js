@@ -54,7 +54,7 @@ return (
     
     <Grid container spacing={3}>
       <Grid item xs={12}>
-        
+      
       </Grid>
 
       {contents.map(content => (
@@ -63,7 +63,6 @@ return (
              <HouseCard photoName={content.photoName} title={content.title}
              addr1={content.addr1} price={content.price} countOfReview={content.countOfReview}
              avgOfStar={content.avgOfStar} homeStayNum={content.homeStayNum}/>
-             
         </Grid>
         
         ))}
