@@ -19,36 +19,6 @@ import { pink } from '@material-ui/core/colors';
 import HouseListSort from './HouseListSort';
 import { withRouter } from 'react-router-dom';
 
-function UpdateMark(num){
-   
-  console.log(num)
-  useEffect(() =>{
-  // async를 사용하는 함수 따로 선언
-  const axios = require('axios')
-  axios.post('http://localhost:9003/homestays/mark?homeStayNum='+num
-  ).then(function(response){
-    console.log(response);
-  });
-
-},
-[])};
-
-
-function DeleteMark(num){
- 
-useEffect(() =>{
-  // async를 사용하는 함수 따로 선언
-  const axios = require('axios')
-  axios.delete('http://localhost:9003/homestays/mark?homeStayNum='+num
-  ).then(function(response){
-    console.log(response);
-  });
-},
-
-  [])};
-
-
-
 const useStyles = makeStyles(() => ({
   root: { maxwidth: 365 },
   media: {
@@ -57,28 +27,60 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function HouseCard(props) {
+function HouseCard(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState(2);
   const [state, setState] = useState(true);
 
+  const UpdateMark = async () => {
+    try {
+     const url=`http://localhost:9003/homestays/mark?homeStayNum=${props.homeStayNum}`
+      console.log(url);
+      const response = await axios.post(
+        url
+      ).then(res=>{console.log(res)});
+
+      // history.push(`http://localhost:9003/admin/homestays/1`);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const DeleteMark = async () => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:9003/homestays/mark?homeStayNum=${props.homeStayNum}`
+      );
+      alert("삭제성공");
+      // history.push(`http://localhost:9003/admin/homestays/1`);
+    } catch (e) {
+      console.log(e);
+      
+    }
+  };
+
+
   return (
     <Card className={classes.root}>
       <CardHeader
+     
         action={
           <IconButton aria-label="add to favorites">
            <div onClick={function toggle() {
             setState(!state);
             }}>
-             {state ? <span onClick={()=>UpdateMark(props.homeStayNum)}><FavoriteBorderIcon /></span> : <span onClick={()=>DeleteMark(props.homeStayNum)}><FavoriteIcon style={{ color: pink[500] }} /></span>}
+             {state ? <span onClick={UpdateMark}><FavoriteBorderIcon /></span> : <span onClick={DeleteMark}><FavoriteIcon style={{ color: pink[500] }} /></span>}
             </div> 
           </IconButton>
         }
         title={props.title}
 
+
       />
       <CardMedia
         className={classes.media}
+        image={"http://localhost:9003/homeStayImg/"+props.photoName}
+       
       />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
@@ -101,3 +103,5 @@ export default function HouseCard(props) {
     </Card>
   );
 }
+
+export default withRouter(HouseCard);

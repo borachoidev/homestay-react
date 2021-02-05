@@ -46,11 +46,10 @@ return null;
 }
 // articles 값이 유효할때
 //<p>{contents[0].homeStayNum}</p>
-//<HouseListSort/>
+//
 
 return (
 <div>
-   
     {
     
     <Grid container spacing={3}>
@@ -60,9 +59,10 @@ return (
 
       {contents.map(content => (
            <Grid item xs={6} sm={4} md={4} key={content}>
-             <HouseCard src={content.photoName} title={content.title}
+             
+             <HouseCard photoName={content.photoName} title={content.title}
              addr1={content.addr1} price={content.price} countOfReview={content.countOfReview}
-             avgOfStar={content.avgOfStar} homeStayNum={content.homeStayNum} />
+             avgOfStar={content.avgOfStar} homeStayNum={content.homeStayNum}/>
              
         </Grid>
         
