@@ -38,40 +38,48 @@ public class HomeStayReviewController implements SessionNames{
 	private final HomeStayStarService ss;
 	private final HomeStayReviewPhotoService ps;
 
-	//해당 집의 댓글 모두 출력
+	//해당 집의 댓글 출력
 	@GetMapping("/homestays/{homeStayNum}/allreview")
-	public JsonAllReviews<List<JoinHomeStayReviewDto>>getAllReview(@PathVariable(value = "homeStayNum")int homeStayNum){
-		List<JoinHomeStayReviewDto> reviews = s.getAllReview(homeStayNum);
-		return new JsonAllReviews<List<JoinHomeStayReviewDto>>(reviews);
+	public JsonAllReviews<List<HomeStayReviewDto>>getAllReview(@PathVariable(value = "homeStayNum")int homeStayNum){
+		List<HomeStayReviewDto> reviews = s.getAllReview(homeStayNum);
+		return new JsonAllReviews<List<HomeStayReviewDto>>(reviews);
+	}
+
+	//해당 집의 댓글에 해당하는 사진 출력
+	@GetMapping("/homestays/{homeStayNum}/allreview/{homeStayReviewNum}")
+	public JsonReviewPhoto<List<HomeStayReviewPhotoDto>>getReviewPhoto(@PathVariable(value = "homeStayNum")int homeStayNum,
+			@PathVariable(value = "homeStayReviewNum")int homeStayReviewNum){
+		List<HomeStayReviewPhotoDto> photos = s.getAllReviewPhoto(homeStayReviewNum);
+		return new JsonReviewPhoto<List<HomeStayReviewPhotoDto>>(photos);
 	}
 
 	//해당 집에 댓글 입력하기
 	@PostMapping("/homestays/{homeStayNum}/insertreview")
 	public void insertReview(@PathVariable(value="homeStayNum") int homeStayNum,
-		HttpServletRequest request, @ModelAttribute HomeStayReviewDto dto) {
+			HttpServletRequest request, @ModelAttribute HomeStayReviewDto dto) {
 		HttpSession session=request.getSession();
 		UserDto user=(UserDto)session.getAttribute(USER);
-		
-		 int loginNum = user.getUserNum(); 
-		 String loginId = user.getName(); 
-		 String loginPhoto = user.getPhoto();
-		 
-		
+
+		int loginNum = user.getUserNum(); 
+		String loginId = user.getName(); 
+		String loginPhoto = user.getPhoto();
+
+
 		//regroup max 값
 		int max = s.maxOfRegroup();
 		//userNum,homeStayNum,relevel,regroup,loginNum,loginId,loginPhoto,content,writeday,deleted
-		
+
 		dto.setHomeStayNum(homeStayNum);
 		dto.setRegroup(max+1);
 		dto.setLoginNum(loginNum);
 		dto.setLoginId(loginId);
 		dto.setLoginPhoto(loginPhoto);
-		
+
 		System.out.println(dto);
-		
+
 		s.insertReview(dto);
 	}
-	
+
 	//해당 집에 답글 입력하기
 	@PostMapping("/homestays/{homeStayNum}/insertanswerofreview")
 	public void insertAnswerReview(@PathVariable(value="homeStayNum") int homeStayNum,
@@ -81,17 +89,17 @@ public class HomeStayReviewController implements SessionNames{
 		int loginNum = user.getUserNum();
 		String loginId = user.getName();
 		String loginPhoto = user.getPhoto();
-		
+
 		dto.setHomeStayNum(homeStayNum);
 		dto.setLoginNum(loginNum);
 		dto.setLoginId(loginId);
 		dto.setLoginPhoto(loginPhoto);
-		
+
 		System.out.println(dto);
-		
+
 		s.insertAnswerReview(dto);
 	}
-	
+
 	/*
 	 * 마이페이지에서 후기 작성
 	 */
@@ -112,12 +120,12 @@ public class HomeStayReviewController implements SessionNames{
 			rdto.setLoginPhoto(loginPhoto);
 			rdto.setContent(content);
 			s.insertReview(rdto);
-			
+
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("homeStayNum", homeStayNum);
 			map.put("loginNum", loginNum);
 			int homeStayReviewNum = s.getReviewNum(map);
-			
+
 			HomeStayStarDto sdto = new HomeStayStarDto();
 			sdto.setHomeStayNum(homeStayNum);
 			sdto.setHomeStayReviewNum(homeStayReviewNum);
@@ -127,9 +135,9 @@ public class HomeStayReviewController implements SessionNames{
 			sdto.setAccuracy(accuracy);
 			sdto.setLocation(location);
 			sdto.setSatisfactionForPrice(satisfactionForPrice);
-			
+
 			ss.insertStar(sdto);
-			
+
 			// 파일 업로드 경로
 			String path = request.getSession().getServletContext().getRealPath("/homeStayReviewImg");
 			System.out.println(path);
@@ -141,29 +149,35 @@ public class HomeStayReviewController implements SessionNames{
 					upload = "no";
 					break;
 				}
-				
+
 				upload = writer.changeFilename(file.getOriginalFilename());
 				// 이미지 save 폴더에 저장
 				writer.writeFile(file, upload, path);
-				
+
 				HomeStayReviewPhotoDto pdto = new HomeStayReviewPhotoDto();
 				pdto.setHomeStayReviewNum(homeStayReviewNum);
 				pdto.setPhotoName(upload);
 				ps.insertData(pdto);
 			}
-			
+
 			return "success";
 		}else {
 			return "alreadyreview";
 		}
-		
+
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////////////////////////////
 	@Data
 	@AllArgsConstructor
 	static class JsonAllReviews<T>{
 		private T reviews;
+	}
+	
+	@Data
+	@AllArgsConstructor
+	static class JsonReviewPhoto<T>{
+		private T photos;
 	}
 
 }

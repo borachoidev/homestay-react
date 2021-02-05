@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bitcamp.korea_tour.model.mapper.HomeStayReviewMapper">
-	<!-- JOIN : 리뷰출력(글쓴이, 내용, 사진) -->
-	<select id="getAllReview" parameterType="int" resultType="joinhomestayreview">
+	<!-- 리뷰출력(글쓴이, 내용) -->
+	<select id="getAllReview" parameterType="int" resultType="homestayreview">
 	SELECT * FROM homeStayReview
-	LEFT JOIN homeStayReviewPhoto
-	ON homeStayReview.homeStayReviewNum=homeStayReviewPhoto.homeStayReviewNum
 	WHERE homeStayNum=#{homeStayNum} ORDER BY regroup desc
+	</select>
+	
+	<!-- 리뷰출력(해당 댓글에 해당하는 사진) -->
+	<select id="getAllReviewPhoto" parameterType="int" resultType="homestayreviewphoto">
+	SELECT * FROM homeStayReviewPhoto WHERE homeStayReviewNum=#{homeStayReviewNum}
 	</select>
 	
 	<!-- Regroup Max 값 구하기 -->

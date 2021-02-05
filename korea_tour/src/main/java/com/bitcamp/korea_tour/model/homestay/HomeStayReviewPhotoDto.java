@@ -8,6 +8,7 @@ import lombok.Data;
 @Alias("homestayreviewphoto")
 public class HomeStayReviewPhotoDto {
 	private int photoNum;
+	private int homeStayNum;	
 	private int homeStayReviewNum;
 	private String photoName;
 	
