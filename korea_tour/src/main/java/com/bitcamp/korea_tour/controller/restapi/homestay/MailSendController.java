@@ -17,6 +17,12 @@ public class MailSendController {
 	@Autowired
 	private JavaMailSender mailSender;
 	
+	
+	/**
+	 * 승인메일
+	 * @param email1
+	 * @param email2
+	 */
 	@PostMapping("/mailsend1")
 	public void mailsend1(
 			@RequestParam String email1,
@@ -43,6 +49,13 @@ public class MailSendController {
 		}
 	
 	}
+	
+	
+	/**
+	 * 거절 메일
+	 * @param email1
+	 * @param email2
+	 */
 	
 	@PostMapping("/mailsend2")
 	public void mailsend2(

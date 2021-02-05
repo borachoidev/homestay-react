@@ -65,26 +65,6 @@ public class HomeStayReservationListController {
 		private T list;
 		int totalPage;
 	}
-
-	@Data
-	@AllArgsConstructor
-	static class JsonAlist<T> {
-		private T alist;
-		int totalPage;
-	}
-
-	@Data
-	@AllArgsConstructor
-	static class JsonRlist<T> {
-		private T rlist;
-		int totalPage;
-	}
-
-	@Data
-	@AllArgsConstructor
-	static class JsonPlist<T> {
-		private T plist;
-		int totalPage;
-	}
+	
 
 }
