@@ -31,8 +31,8 @@ import lombok.RequiredArgsConstructor;
 public class HomeStayHostController {
 	private final HomeStayHostService hsas;
 	private final HomeStayHostPhotoService hshps;
-	
-	
+
+
 	/**
 	 * 예약 승인,거절(호스트용)
 	 * @param homeStayReservationNum
@@ -41,12 +41,12 @@ public class HomeStayHostController {
 	@PatchMapping("/homestays/reservation/{homeStayReservationNum}/{approval}")
 	public void ApprovalReservation(
 			@PathVariable(value="homeStayReservationNum")int homeStayReservationNum,
-			@PathVariable(value="approval") int approval
-
-			) {
-
+			@PathVariable(value="approval") int approval) {
 		hsas.updateApproval(homeStayReservationNum,approval);
 	}
+	
+	
+	
 	/**
 	 * 호스트 집정보 수정
 	 * @param userNum
@@ -61,6 +61,9 @@ public class HomeStayHostController {
 		hsas.updateHomeStay(dto, homeStayNum);
 		hsas.updateHomeStayDetail(dto, homeStayNum);
 	}
+	
+	
+	
 	/**
 	 * userNum으로 집정보 얻기(수정폼에서 사용)
 	 * @param userNum
@@ -70,7 +73,7 @@ public class HomeStayHostController {
 	public JsonData getHomeStayData(@PathVariable(value = "userNum")int userNum) {
 		JoinHomeStayDetailDto dto = hsas.getHomeStayData(userNum);
 		JoinHomeStayDetailDto ddto = hsas.getHomeStayDetailData(userNum);
-	    int homeStayNum = dto.getHomeStayNum();
+		int homeStayNum = dto.getHomeStayNum();
 		/* int userNum = dto.getUserNum(); */
 		String title = dto.getTitle();
 		String addr1 = dto.getAddr1();
@@ -85,8 +88,8 @@ public class HomeStayHostController {
 		String ypos = dto.getYpos();
 		int price = dto.getPrice();
 		int open = dto.getOpen();
-		
-	
+
+
 		int dogOk = dto.getDogOk();
 		int smokingOk = dto.getSmokingOk();
 		int maxPeople = dto.getMaxPeople();
@@ -105,6 +108,8 @@ public class HomeStayHostController {
 				,checkIn2,checkOut1,checkOut2,xpos,ypos,price,open,dogOk,smokingOk,
 				maxPeople,parking, email1,email2,hp,wifi,towel,breakfast,aircon,elecProduct,kitchen,bathroom,parking);
 	}
+
+	
 	
 	/**
 	 * 호스트 집 사진 올리기
@@ -127,10 +132,10 @@ public class HomeStayHostController {
 				upload = "no";
 				break;			
 			}
-			
+
 			upload = writer.changeFilename(file.getOriginalFilename());
 			writer.writeFile(file, upload, path);
-			
+
 			int homeStayNum = hsas.getHomeStayNum2(userNum);
 			HomeStayPhotoDto dto = new HomeStayPhotoDto();
 			dto.setPhotoName(upload);
@@ -140,6 +145,7 @@ public class HomeStayHostController {
 		}
 	}
 	
+
 	/**
 	 * 호스트 집 사진 삭제하기
 	 * @param homeStayPhotoNum
@@ -159,18 +165,23 @@ public class HomeStayHostController {
 		// db데이터 삭제
 		hshps.deletePhoto(homeStayPhotoNum);
 	}
+	
+	
 	/**
 	 * 호스트 집 사진정보 얻기
 	 * @param userNum
 	 * @param request
 	 */
+	
 	@GetMapping("/homestays/photo/{userNum}")
 	public JsonName<List<HomeStayPhotoDto>> getPhotoName(@PathVariable(name="userNum")int userNum
 			,HttpServletRequest request) {
-		List<HomeStayPhotoDto> list = hshps.getData2(userNum);			
+		System.out.println(userNum);
+		List<HomeStayPhotoDto> list = hshps.getData2(userNum);		
+		System.out.println(list);
 		return new JsonName<List<HomeStayPhotoDto>>(list);
 	}
-	
+
 	@Data
 	@AllArgsConstructor
 	static class JsonData{
@@ -189,7 +200,7 @@ public class HomeStayHostController {
 		private String ypos;
 		private int price;
 		private int open;
-		
+
 		private int homeStayDetailNum;
 		private int dogOk;
 		private int smokingOk;
@@ -211,6 +222,6 @@ public class HomeStayHostController {
 	static class JsonName<T>{
 		private T list;
 	}
-	
-	
+
+
 }
