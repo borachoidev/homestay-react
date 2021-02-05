@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, TextField } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
+import axios from 'axios';
 
 export default function FormHouseIntro(props) {
   const [houseIntro, setHouseIntro] = props.intro;
@@ -16,7 +17,7 @@ export default function FormHouseIntro(props) {
       e.target.value = '';
     }
 
-    for (upload of uploadFile) {
+    for (const upload of uploadFile) {
       imageFile.append('uploadFile', upload);
     }
 
