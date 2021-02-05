@@ -7,20 +7,18 @@ import HouseName from './HouseName';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
 
-
-
 function AdminHouseDetail({match,history}) {
   const{num}=match.params;
-const detailnum=num.split("=")[1];
+  const detailnum=num.split("=")[1];
   const handleConfirm = async () => {
     try {
-     const url=`http://localhost:9003/homestays/${num}/approve`
+      const url=`http://localhost:9003/homestays/admin/${num}/approve`
       console.log(url);
       const response = await axios.patch(
         url
       ).then(res=>{console.log(res)});
-
-      // history.push(`http://localhost:9003/admin/homestays/1`);
+     
+       history.push(`/admin/host/list?currentPage=1`);
     } catch (e) {
       console.log(e);
     }
@@ -31,9 +29,9 @@ const detailnum=num.split("=")[1];
      
       console.log(num);
       const response = await axios.patch(
-        `http://localhost:9003/homestays/${num}/deny`
+        `http://localhost:9003/homestays/admin/${num}/deny`
       );
-      // history.push(`http://localhost:9003/admin/homestays/1`);
+      history.push(`/admin/host/list?currentPage=1`);
     } catch (e) {
       console.log(e);
     }
@@ -54,16 +52,13 @@ const detailnum=num.split("=")[1];
                 </Button>
             {/* 사진 DetailPhotos */}
             <DetailPhotos />
-            
-           
+
              {/* DetailInfoReservation */}
              <AdminHouseInfo />
 
             {/* DetailMap */}
             <DetailMap />
             
-            
-
             {/* Footer */}
         </div>
     );
