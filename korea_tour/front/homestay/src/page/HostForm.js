@@ -41,7 +41,7 @@ export default function HostForm() {
     content: '',
     photo: '',
   });
-
+  const [imageFile, setImageFile] = useState('');
   function getSteps() {
     return [
       '호스트정보',
@@ -63,7 +63,12 @@ export default function HostForm() {
           />
         );
       case 2:
-        return <FormHouseIntro intro={[houseIntro, setHouseIntro]} />;
+        return (
+          <FormHouseIntro
+            intro={[houseIntro, setHouseIntro]}
+            setImageFile={setImageFile}
+          />
+        );
       case 3:
         return (
           <FormConfirm
@@ -80,6 +85,7 @@ export default function HostForm() {
             rules={houseRules}
             amenity={amenities}
             intro={houseIntro}
+            image={imageFile}
           />
         );
     }

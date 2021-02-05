@@ -9,7 +9,7 @@ function FormSubmit(props) {
   const [contents, setContents] = useState(null);
   const [loading, setLoading] = useState(false);
   const data = {
-    userNum: 220,
+    userNum: 227,
     addr1: hostInfo.addr1,
     addr2: hostInfo.addr2,
     email1: hostInfo.email1,
@@ -35,14 +35,14 @@ function FormSubmit(props) {
     content: houseIntro.content,
     photo: houseIntro.photo,
   };
-
+  const imageFile = props.image;
   useEffect(() => {
     // async를 사용하는 함수 따로 선언
     const sendData = async () => {
       setLoading(true);
       try {
         const response = await axios
-          .post(`http://localhost:9003/homestay/house`, data)
+          .post(`http://localhost:9003/homestay/house?userNum=228`, data)
           .then(() => {
             alert('완료!');
           });
@@ -53,6 +53,24 @@ function FormSubmit(props) {
       setLoading(false);
     };
     sendData();
+  }, []);
+  useEffect(() => {
+    let url = `http://localhost:9003/homestay/photo/228`;
+
+    // async를 사용하는 함수 따로 선언
+    const sendPhoto = async () => {
+      setLoading(true);
+      try {
+        const response = await axios.post(url, imageFile).then(() => {
+          alert('완료!');
+        });
+        console.log(data);
+      } catch (e) {
+        console.log(e);
+      }
+      setLoading(false);
+    };
+    sendPhoto();
   }, []);
 
   if (loading) {

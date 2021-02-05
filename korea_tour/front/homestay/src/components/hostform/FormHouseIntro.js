@@ -18,21 +18,9 @@ export default function FormHouseIntro(props) {
     }
 
     for (const upload of uploadFile) {
-      imageFile.append('uploadFile', upload);
+      imageFile.append('images', upload);
     }
-
-    let url = `http://localhost:9003/homestay/photo/200`;
-    axios({
-      method: 'post',
-      url: url,
-      data: imageFile,
-      headers: { 'Content-Type': 'multipart/form-data' },
-    }).then(res => {
-      this.setState({
-        photoname: res.data.photoname,
-      });
-    });
-    console.log(uploadFile);
+    props.setImageFile(imageFile);
   };
   return (
     <div>
