@@ -6,7 +6,7 @@
 	SELECT * FROM homeStayReview
 	LEFT JOIN homeStayReviewPhoto
 	ON homeStayReview.homeStayReviewNum=homeStayReviewPhoto.homeStayReviewNum
-	WHERE homeStayNum=#{homeStayNum} ORDER BY regroup
+	WHERE homeStayNum=#{homeStayNum} ORDER BY regroup desc
 	</select>
 	
 	<!-- Regroup Max 값 구하기 -->
