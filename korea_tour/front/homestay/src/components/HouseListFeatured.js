@@ -1,21 +1,19 @@
 import React, { useEffect, useState } from 'react';
+import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import Grid from "@material-ui/core/Grid";
 import HouseListSort from "./HouseListSort";
 import HouseCard from "./HouseCard";
-import NavBar from "./NavBar";
-import Pagination from "./Pagination";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
+import NavBar from "./NavBar";
 
 const HouseListFeatured = () =>{
 
   const [contents,setContents] = useState(null);
   const [loading,setLoading] = useState(false);
 
-
 useEffect(() =>{
-  // async를 사용하는 함수 따로 선언
   const fatchData = async ()=> {
       setLoading(true);
       try {
@@ -42,13 +40,16 @@ return null;
 }
 // articles 값이 유효할때
 //<p>{contents[0].homeStayNum}</p>
+
+
 return (
 <div>
    
     {
+    
     <Grid container spacing={3}>
       <Grid item xs={12}>
-        <HouseListSort />
+        <HouseListSort/>
       </Grid>
 
       {contents.map(content => (
@@ -63,7 +64,7 @@ return (
       
     </Grid>
     }
-    <Pagination />
+ 
      </div>
   );
 }
