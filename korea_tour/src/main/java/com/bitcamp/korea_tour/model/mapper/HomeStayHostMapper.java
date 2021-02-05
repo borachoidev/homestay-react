@@ -29,4 +29,7 @@ public interface HomeStayHostMapper {
    List<HomeStayReservationDto> getPendingReservation(Map<String, Object> map);
    HomeStayReservationDto getReservation(int homeStayReservationNum);
    void updateApproval(Map<String, Object> map);
+   JoinHomeStayDetailDto getHomeStayData(int userNum);
+   JoinHomeStayDetailDto getHomeStayDetailData(int userNum);
+   
 }

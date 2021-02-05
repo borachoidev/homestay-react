@@ -13,6 +13,12 @@
  	 <select id="getUserNum" parameterType="int" resultType="int" >
  	 select userNum from homeStay where homeStayNum=#{homeStayNum}
  	</select>
+ 	<select id="getHomeStayData" parameterType="int" resultType="joinhomestaydetail">
+ 	 select * from homeStay where userNum=#{userNum}
+ 	</select>
+ 	<select id="getHomeStayDetailData" parameterType="int" resultType="joinhomestaydetail">
+ 	 select * from homeStayDetail where userNum=#{userNum}
+ 	</select>
  	<select id="getHomeStayNum2" parameterType="int" resultType="int">
  	select homeStayNum from homeStay where userNum=#{userNum}
  	</select>

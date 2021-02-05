@@ -11,4 +11,7 @@
 	<update id="updatePhoto" parameterType="int">
 		update homeStayPhoto set photoName=#{photoName} where homeStayPhotoNum=#{homeStayPhotoNum}
 	</update>
+	<select id="getData" parameterType="int" resultType="homestayphoto">
+		select * from homeStayPhoto where homeStayPhotoNum=#{homeStayPhotoNum}
+	</select>
 </mapper>

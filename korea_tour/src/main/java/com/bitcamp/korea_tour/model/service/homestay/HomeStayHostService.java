@@ -25,4 +25,6 @@ public interface HomeStayHostService {
 	   List<HomeStayReservationDto> getPendingReservation(int homeStayNum, int start, int perPage);
 	   HomeStayReservationDto getReservation(int homeStayReservationNum);
 	   void updateApproval(int homeStayReservationNum, int approval);
+	   JoinHomeStayDetailDto getHomeStayData(int userNum);
+	   JoinHomeStayDetailDto getHomeStayDetailData(int userNum);
 }

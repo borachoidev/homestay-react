@@ -10,6 +10,27 @@ spring:
   devtools:
     livereload:
       enabled: true
+  mail:
+    default-encoding: UTF-8
+    host: smtp.gmail.com
+    password: bit301301
+    port: 587
+    properties:
+      mail:
+        debug: true
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+        transport: 
+          protocol: smtp
+      mailmime:
+        charset: UTF-8
+    username: koreatour301@gmail.com
+  servlet:
+    multipart: 
+     maxFileSize: 10MB
+     maxRequestSize: 10MB
 #mysql
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
