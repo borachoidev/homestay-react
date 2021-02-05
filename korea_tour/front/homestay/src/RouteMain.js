@@ -20,7 +20,7 @@ function RouteMain(props) {
   return (
     <div>
       {/* 네브바 */}
-      <Route path="/homestay/navbar" component={NavBar} />
+      <NavBar />
 
       {/* 메인 */}
       <Route exact path="/homestay" component={Home} />
@@ -48,7 +48,7 @@ function RouteMain(props) {
       />
       {/* 호스트페이지 */}
       <Route path="/homestay/host" component={HostMain} />
-      <Route path="/homestay/host/books" component={HostMyBooks} />
+      <Route exact path="/homestay/host/books" component={HostMyBooks} />
       <Route path="/homestay/host/manage/books" component={HostPenddingBooks} />
       <Route path="/homestay/host/books/:num" component={HostBookDetail} />
       <Route path="/homestay/host/manage/house" component={HostManageHouse} />

@@ -7,12 +7,13 @@ function HostPenddingBooks({ history }) {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // async를 사용하는 함수 따로 선언
     const fatchData = async (userNum, currentPage) => {
+      //대기중인 예약일시 0
+      const approval = 0;
       setLoading(true);
       try {
         const response = await axios.get(
-          `http://localhost:9003/homestay/reservation/${userNum}/0/${currentPage}`
+          `http://localhost:9003/homestay/reservation/${userNum}/${approval}/${currentPage}`
         );
         setContents(response.data.list);
       } catch (e) {
@@ -20,7 +21,7 @@ function HostPenddingBooks({ history }) {
       }
       setLoading(false);
     };
-    fatchData(686, 1);
+    fatchData(200, 1);
   }, []);
 
   if (loading) {
