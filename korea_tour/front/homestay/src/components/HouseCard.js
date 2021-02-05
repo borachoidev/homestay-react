@@ -16,16 +16,16 @@ import Button from '@material-ui/core/Button';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import { pink } from '@material-ui/core/colors';
-
-
+import HouseListSort from './HouseListSort';
+import { withRouter } from 'react-router-dom';
 
 function UpdateMark(num){
    
-    console.log(num)
+  console.log(num)
   useEffect(() =>{
   // async를 사용하는 함수 따로 선언
   const axios = require('axios')
-  axios.post('http://localhost:9003/homestays/mark'
+  axios.post('http://localhost:9003/homestays/mark?homeStayNum='+num
   ).then(function(response){
     console.log(response);
   });
@@ -34,20 +34,19 @@ function UpdateMark(num){
 [])};
 
 
-
-
-
-function DeleteMark(homeStayNum){
+function DeleteMark(num){
  
-}
+useEffect(() =>{
+  // async를 사용하는 함수 따로 선언
+  const axios = require('axios')
+  axios.delete('http://localhost:9003/homestays/mark?homeStayNum='+num
+  ).then(function(response){
+    console.log(response);
+  });
+},
 
-// useEffect(() =>{
-//   // async를 사용하는 함수 따로 선언
-//   const axios = require('axios')
-//   axios.post('http://localhost:9003/homestays/mark'+homeStayNum
-//   ).then(function(response){
-//     console.log(response);
-//   })
+  [])};
+
 
 
 const useStyles = makeStyles(() => ({
@@ -70,7 +69,6 @@ export default function HouseCard(props) {
           <IconButton aria-label="add to favorites">
            <div onClick={function toggle() {
             setState(!state);
-        
             }}>
              {state ? <span onClick={()=>UpdateMark(props.homeStayNum)}><FavoriteBorderIcon /></span> : <span onClick={()=>DeleteMark(props.homeStayNum)}><FavoriteIcon style={{ color: pink[500] }} /></span>}
             </div> 
@@ -78,13 +76,9 @@ export default function HouseCard(props) {
         }
         title={props.title}
 
-      
       />
       <CardMedia
         className={classes.media}
-
-        
-       
       />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
@@ -99,7 +93,10 @@ export default function HouseCard(props) {
         </Box>
       </CardContent>
       <CardActions disableSpacing>
-      <Button color="secondary">자세히보기>></Button>
+      <Button color="secondary" onClick={() => {
+        props.history.push(
+        `/homestay/housedetail:${props.homeStayNum}` )
+      }}>자세히보기>></Button>
       </CardActions>
     </Card>
   );
