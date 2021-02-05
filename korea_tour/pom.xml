@@ -69,10 +69,11 @@
 		    <artifactId>maven-resources-plugin</artifactId>
 		    <version>2.4.3</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-jar-plugin -->
 		<dependency>
-			<groupId>org.apache.maven.plugins</groupId>
+		    <groupId>org.apache.maven.plugins</groupId>
 		    <artifactId>maven-jar-plugin</artifactId>
-		    <version>3.2.0</version>
+		    <version>3.0.2</version>
 		</dependency>
 		
 		<dependency>
