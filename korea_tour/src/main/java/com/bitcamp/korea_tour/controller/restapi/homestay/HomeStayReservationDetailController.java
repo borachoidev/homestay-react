@@ -17,6 +17,11 @@ import lombok.RequiredArgsConstructor;
 public class HomeStayReservationDetailController {
 	private final HomeStayHostService hhs;
 	
+	/**
+	 * 예약 디테일 출력
+	 * @param homeStayReservationNum
+	 * @return
+	 */
 	@GetMapping("/homestay/reservation/{homeStayReservationNum}")
 	@ResponseBody
 	public JsonData getReservationDetail(

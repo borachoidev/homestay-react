@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -31,6 +32,26 @@ public class HomeStayHostController {
 	private final HomeStayHostService hsas;
 	private final HomeStayHostPhotoService hshps;
 	
+	
+	/**
+	 * 예약 승인,거절(호스트용)
+	 * @param homeStayReservationNum
+	 * @param approval
+	 */
+	@PatchMapping("/homestays/reservation/{homeStayReservationNum}/{approval}")
+	public void ApprovalReservation(
+			@PathVariable(value="homeStayReservationNum")int homeStayReservationNum,
+			@PathVariable(value="approval") int approval
+
+			) {
+
+		hsas.updateApproval(homeStayReservationNum,approval);
+	}
+	/**
+	 * 호스트 집정보 수정
+	 * @param userNum
+	 * @param dto
+	 */
 	@PutMapping("/homestays/house/{userNum}")
 	public void updateHouse(
 			@PathVariable(value = "userNum") int userNum,
@@ -40,6 +61,11 @@ public class HomeStayHostController {
 		hsas.updateHomeStay(dto, homeStayNum);
 		hsas.updateHomeStayDetail(dto, homeStayNum);
 	}
+	/**
+	 * userNum으로 집정보 얻기(수정폼에서 사용)
+	 * @param userNum
+	 * @return
+	 */
 	@GetMapping("/homestays/house/{userNum}")
 	public JsonData getHomeStayData(@PathVariable(value = "userNum")int userNum) {
 		JoinHomeStayDetailDto dto = hsas.getHomeStayData(userNum);
@@ -79,6 +105,13 @@ public class HomeStayHostController {
 				,checkIn2,checkOut1,checkOut2,xpos,ypos,price,open,dogOk,smokingOk,
 				maxPeople,parking, email1,email2,hp,wifi,towel,breakfast,aircon,elecProduct,kitchen,bathroom,parking);
 	}
+	
+	/**
+	 * 호스트 집 사진 올리기
+	 * @param userNum
+	 * @param images
+	 * @param request
+	 */
 	@PostMapping("/homestays/photo/{userNum}")
 	public void insertPhoto(
 			@PathVariable(value = "userNum") int userNum,
@@ -107,6 +140,11 @@ public class HomeStayHostController {
 		}
 	}
 	
+	/**
+	 * 호스트 집 사진 삭제하기
+	 * @param homeStayPhotoNum
+	 * @param request
+	 */
 	@DeleteMapping("/homestays/photo/{homeStayPhotoNum}")
 	public void deleteData(@PathVariable(name="homeStayPhotoNum") int homeStayPhotoNum
 			,HttpServletRequest request) {
@@ -121,6 +159,18 @@ public class HomeStayHostController {
 		// db데이터 삭제
 		hshps.deletePhoto(homeStayPhotoNum);
 	}
+	/**
+	 * 호스트 집 사진정보 얻기
+	 * @param userNum
+	 * @param request
+	 */
+	@GetMapping("/homestays/photo/{userNum}")
+	public JsonName<List<HomeStayPhotoDto>> getPhotoName(@PathVariable(name="userNum")int userNum
+			,HttpServletRequest request) {
+		List<HomeStayPhotoDto> list = hshps.getData2(userNum);			
+		return new JsonName<List<HomeStayPhotoDto>>(list);
+	}
+	
 	@Data
 	@AllArgsConstructor
 	static class JsonData{
@@ -155,6 +205,11 @@ public class HomeStayHostController {
 		private int kitchen;
 		private int bathroom;
 		private int parking;
+	}
+	@Data
+	@AllArgsConstructor
+	static class JsonName<T>{
+		private T list;
 	}
 	
 	

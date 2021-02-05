@@ -12,7 +12,7 @@ public interface HomeStayHostService {
 	   int getHomeStayNum();
 	   int getUserNum(int homeStayNum);
 	   int getHomeStayNum2(int userNum);
-	   void insertHomeStayDetail(int homestayNum,int userNum, JoinHomeStayDetailDto dto);
+	   void insertHomeStayDetail(int homestayNum, JoinHomeStayDetailDto dto);
 	   void updateHomeStay(JoinHomeStayDetailDto dto,int homeStayNum);
 	   void updateHomeStayDetail(JoinHomeStayDetailDto dto,int homeStayNum);
 	   int getTotalCount(int homestayNum);

@@ -25,7 +25,7 @@
    <insert id="insertHomeStayDetail" parameterType="joinhomestaydetail">
       insert into homeStayDetail (userNum, homeStayNum, dogOk,smokingOk,maxPeople,email1,email2,hp,wifi,towel,breakfast,aircon,
       elecProduct,kitchen,bathroom,parking)
-      values (#{userNum}, #{homeStayNum}, #{dto.dogOk},#{dto.smokingOk},#{dto.maxPeople},#{dto.email1},#{dto.email2},#{dto.hp},#{dto.wifi},#{dto.towel},
+      values (#{dto.userNum}, #{homeStayNum}, #{dto.dogOk},#{dto.smokingOk},#{dto.maxPeople},#{dto.email1},#{dto.email2},#{dto.hp},#{dto.wifi},#{dto.towel},
       #{dto.breakfast},#{dto.aircon},#{dto.elecProduct},#{dto.kitchen},#{dto.bathroom},#{dto.parking})
    </insert>      
    <update id="updateHomeStay" parameterType="hashmap">
