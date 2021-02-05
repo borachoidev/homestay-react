@@ -73,7 +73,7 @@ public class HomeStayMarkController implements SessionNames {
 	
 	//디테일에서 즐겨찾기 확인하기
 	@GetMapping("/{homeStayNum}/mark")
-	public int checkMyMark(@RequestParam(value="homeStayNum") int homeStayNum,
+	public int checkMyMark(@PathVariable(value = "homeStayNum")int homeStayNum,
 							HttpServletRequest request) {
 		HttpSession session=request.getSession();
 		UserDto user=(UserDto)session.getAttribute(USER);

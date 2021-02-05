@@ -26,6 +26,7 @@ public interface HomeStayMapper {
 	 * 집 위치 지도표시하기
 	 * 최대 인원수(출력)
 	 * Host이름 출력하기
+	 * 집가격 출력하기
 	 * */
 	
 	HomeStayDto getHomeStayNameAndAddr(int homeStayNum);
@@ -43,4 +44,5 @@ public interface HomeStayMapper {
 	int getHomeStayMaxPeople(int homeStayNum);
 	List<HomeStayReservationDto> getDayImpossible(int homeStayNum);
 	String getHostName(int homeStayNum);
+	int getHomeStayPrice(int homeStayNum);
 }

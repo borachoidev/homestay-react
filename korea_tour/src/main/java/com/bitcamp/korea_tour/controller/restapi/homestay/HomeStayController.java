@@ -46,8 +46,9 @@ public class HomeStayController {
 		double d=s.avgOfAccuracy(homeStayNum);
 		double e=s.avgOfLocation(homeStayNum);
 		double f=s.avgOfSatisfactionForPrice(homeStayNum);
-		
-		double allOfAvg=(a+b+c+d+e+f)/6;
+		//String.format("%.2f", a)
+		//double j = (a+b+c+d+e+f)/6;
+		String allOfAvg = String.format("%.2f",((a+b+c+d+e+f)/6));
 		
 		return new JsonMainStar(countOfReview,allOfAvg);
 	}
@@ -128,6 +129,13 @@ public class HomeStayController {
 		return new JsonHostName(name);
 	}
 	
+	//집 가격 출력하기
+	@GetMapping("/homestays/{homeStayNum}/price")
+	public JsonHomePrice getHomeStayPrice(@PathVariable(value = "homeStayNum")int homeStayNum) {
+		int price = s.getHomeStayPrice(homeStayNum);
+		return new JsonHomePrice(price);
+	}
+	
 ////////////////////////////////////////////////////////////////////////////	
 	@Data
 	@AllArgsConstructor
@@ -141,7 +149,7 @@ public class HomeStayController {
 		//후기들의 개수
 		private int countOfReview;
 		//평점들의 평균
-		private double allOfAvg;
+		private String allOfAvg;
 	}
 	
 	@Data
@@ -200,5 +208,11 @@ public class HomeStayController {
 	@AllArgsConstructor
 	static class JsonHostName{
 		private String name;
+	}
+	
+	@Data
+	@AllArgsConstructor
+	static class JsonHomePrice{
+		private int price;
 	}
 }
