@@ -15,32 +15,32 @@
 	<!-- 해당 집의 각 항목별 평균별점 구하기 -->
 	<!-- 1.cleanliness -->
 	<select id="avgOfCleanliness" parameterType="int" resultType="double">
-	SELECT avg(cleanliness) FROM homeStayStar WHERE homeStayNum=#{homeStayNum}
+	SELECT round(avg(cleanliness),2) FROM homeStayStar WHERE homeStayNum=#{homeStayNum}
 	</select>
 	
 	<!-- 2.communication -->
 	<select id="avgOfCommunication" parameterType="int" resultType="double">
-	SELECT avg(communication) FROM homeStayStar WHERE homeStayNum=#{homeStayNum}
+	SELECT round(avg(communication),2) FROM homeStayStar WHERE homeStayNum=#{homeStayNum}
 	</select>
 	
 	<!-- 3.checkIn -->
 	<select id="avgOfCheckIn" parameterType="int" resultType="double">
-	SELECT avg(checkIn) FROM homeStayStar WHERE homeStayNum=#{homeStayNum}
+	SELECT round(avg(checkIn),2) FROM homeStayStar WHERE homeStayNum=#{homeStayNum}
 	</select>
 	
 	<!-- 4.accuracy -->
 	<select id="avgOfAccuracy" parameterType="int" resultType="double">
-	SELECT avg(accuracy) FROM homeStayStar WHERE homeStayNum=#{homeStayNum}
+	SELECT round(avg(accuracy),2) FROM homeStayStar WHERE homeStayNum=#{homeStayNum}
 	</select>
 	
 	<!-- 5.location -->
 	<select id="avgOfLocation" parameterType="int" resultType="double">
-	SELECT avg(location) FROM homeStayStar WHERE homeStayNum=#{homeStayNum}
+	SELECT round(avg(location),2) FROM homeStayStar WHERE homeStayNum=#{homeStayNum}
 	</select>
 	
 	<!-- 6.satisfactionForPrice -->
 	<select id="avgOfSatisfactionForPrice" parameterType="int" resultType="double">
-	SELECT avg(satisfactionForPrice) FROM homeStayStar WHERE homeStayNum=#{homeStayNum}
+	SELECT round(avg(satisfactionForPrice),2) FROM homeStayStar WHERE homeStayNum=#{homeStayNum}
 	</select>
 	
 	<!-- 호스트 집 사진 (출력) -->
@@ -78,5 +78,10 @@
 	<select id="getHostName" parameterType="int" resultType="String">
 	SELECT user.name FROM homeStay LEFT JOIN user
 	ON homeStay.userNum=user.userNum WHERE homeStayNum=#{homeStayNum};
+	</select>
+	
+	<!-- 집 가격출력하기 -->
+	<select id="getHomeStayPrice" parameterType="int" resultType="int">
+	SELECT price FROM homeStay WHERE homeStayNum=#{homeStayNum}
 	</select>
 </mapper>

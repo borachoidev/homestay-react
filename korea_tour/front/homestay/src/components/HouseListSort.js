@@ -3,6 +3,34 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Button from '@material-ui/core/Button';
+import { withRouter } from 'react-router-dom';
+
+const byCost = async () => {
+  try {
+    const num = props.content.homeStayNum;
+    console.log(num);
+    const response = await axios.patch(
+      `/homestays/price/1`
+    );
+    props.history.push(`http://localhost:9003/homestays/price/1`);
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+const byStars = async () => {
+  try {
+    const num = props.content.homeStayNum;
+    console.log(num);
+    const response = await axios.patch(
+      `/homestays/review/1`
+    );
+    props.history.push(`http://localhost:9003/homestays/review/1`);
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 
 const useStyles = makeStyles((theme) => ({
   mainFeatured: {
@@ -28,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function HouseListSort() {
+export default function HouseListSort(props) {
   const classes = useStyles();
 
   return (
@@ -41,8 +69,8 @@ export default function HouseListSort() {
         
 
         <div className={classes.button}>
-        <Button variant="contained" size="small" id="orderByCost">요금순</Button>&nbsp;&nbsp;
-        <Button variant="contained" color="secondary" size="small" id="orderByStars">평점순</Button>
+        <Button variant="contained" size="small" onClick={byCost}>요금순</Button>&nbsp;&nbsp;
+        <Button variant="contained" color="secondary" size="small" id="orderByStars" onClick={byStars}>평점순</Button>
         </div>
       </Grid>
     </Grid>

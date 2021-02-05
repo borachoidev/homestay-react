@@ -6,7 +6,7 @@
 	SELECT * FROM homeStayReview
 	LEFT JOIN homeStayReviewPhoto
 	ON homeStayReview.homeStayReviewNum=homeStayReviewPhoto.homeStayReviewNum
-	WHERE homeStayNum=#{homeStayNum} ORDER BY regroup
+	WHERE homeStayNum=#{homeStayNum} ORDER BY regroup desc
 	</select>
 	
 	<!-- Regroup Max 값 구하기 -->
@@ -28,4 +28,14 @@
 	(userNum,homeStayNum,relevel,regroup,loginNum,loginId,loginPhoto,content,writeday,deleted)
 	VALUES (#{userNum},#{homeStayNum},1,#{regroup},#{loginNum},#{loginId},#{loginPhoto},#{content},now(),0)
 	</insert>
+	
+	<!-- 이미 후기를 썼는지 체크 -->
+	<select id="checkReviewWritten" parameterType="int" resultType="int">
+		select count(*) from homeStayReview where homeStayNum = #{homeStayNum} and loginNum = #{loginNum}
+	</select>
+	
+	<!-- homeStayReviewNum 찾기 -->
+	<select id="getReviewNum" parameterType="hashmap" resultType="int">
+		select homeStayReviewNum from homeStayReview where homeStayNum=#{homeStayNum} and loginNum=#{loginNum}
+	</select>
 </mapper>

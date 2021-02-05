@@ -13,7 +13,7 @@ public class HomeStayStarDto {
 	private int homeStayReviewNum;
 	private double cleanliness;
 	private double communication;
-	private double checkin;
+	private double checkIn;
 	private double accuracy;
 	private double location;
 	private double satisfactionForPrice;
