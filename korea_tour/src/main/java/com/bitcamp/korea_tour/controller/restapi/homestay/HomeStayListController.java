@@ -1,6 +1,5 @@
 package com.bitcamp.korea_tour.controller.restapi.homestay;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -10,8 +9,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -52,7 +51,7 @@ public class HomeStayListController implements SessionNames {
 	 * @param request
 	 * @return Json(list)
 	 */
-	@GetMapping(value="/price/{currentPage}", produces = "application/json;charset=utf8")
+	@PostMapping(value="/price/{currentPage}", produces = "application/json;charset=utf8")
 	public JsonList<List<HomeStayListDto>> getHomeStayListByPrice (
 			@PathVariable(value="currentPage") int currentPage,
 			@RequestBody Map<String, Object> json,
@@ -101,7 +100,7 @@ public class HomeStayListController implements SessionNames {
 	 * @param request
 	 * @return
 	 */
-	@GetMapping(value="/review/{currentPage}", produces = "application/json;charset=utf8")
+	@PostMapping(value="/review/{currentPage}", produces = "application/json;charset=utf8")
 	public JsonList<List<HomeStayListDto>> getHomeStayListByReview (
 			@PathVariable(value="currentPage") int currentPage,
 			@RequestBody Map<String, Object> json,
