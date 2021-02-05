@@ -36,3 +36,11 @@
     vertical-align: middle;
     margin-right: 10px;
 }
+
+#HouseIntro_content{
+    margin-bottom: 70px;
+}
+
+#maxPeople{
+    font-size: 0.8em;
+}

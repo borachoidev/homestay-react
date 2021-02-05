@@ -20,7 +20,11 @@ body{
 #star{
     margin-right: 5px;
 }
-#share, #favorite, #mapicon{
+#share, #favorite{
     margin-left: 5px;
+    margin-right: 5px;
+}
+
+#mapicon{
     margin-right: 5px;
 }
