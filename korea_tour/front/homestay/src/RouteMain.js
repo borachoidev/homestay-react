@@ -48,12 +48,9 @@ function RouteMain(props) {
       />
       {/* 호스트페이지 */}
       <Route path="/homestay/host" component={HostMain} />
-      <Route path="/homestay/host/manage/books" component={HostMyBooks} />
-      <Route path="/homestay/host/books" component={HostPenddingBooks} />
-      <Route
-        path="/homestay/host/manage/books/:num"
-        component={HostBookDetail}
-      />
+      <Route path="/homestay/host/books" component={HostMyBooks} />
+      <Route path="/homestay/host/manage/books" component={HostPenddingBooks} />
+      <Route path="/homestay/host/books/:num" component={HostBookDetail} />
       <Route path="/homestay/host/manage/house" component={HostManageHouse} />
     </div>
   );
