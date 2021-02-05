@@ -29,7 +29,7 @@ public class MailSendController {
 		
 		try {
 			//메일제목
-			message.setSubject("귀하의 호스트 신청이 반려 되었습니다.");
+			message.setSubject("귀하의 호스트 신청이 승인 되었습니다.");
 			//메일 본문
 			message.setText("내용 내용 내용 내용");
 			//받을 메일 주소
@@ -56,7 +56,7 @@ public class MailSendController {
 		
 		try {
 			//메일제목
-			message.setSubject("귀하의 호스트 신청이 승인 되었습니다.");
+			message.setSubject("귀하의 호스트 신청이 거절 되었습니다.");
 			//메일 본문
 			message.setText("내용 내용 내용 내용");
 			//받을 메일 주소
