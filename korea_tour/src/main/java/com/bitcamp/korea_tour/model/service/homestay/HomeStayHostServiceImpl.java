@@ -28,11 +28,10 @@ public class HomeStayHostServiceImpl implements HomeStayHostService {
 	}
 
 	@Override
-	public void insertHomeStayDetail(int homeStayNum, int userNum, JoinHomeStayDetailDto dto) {
+	public void insertHomeStayDetail(int homeStayNum, JoinHomeStayDetailDto dto) {
 		// TODO Auto-generated method stub
 		Map<String,Object> map=new HashMap<String, Object>();
 		map.put("homeStayNum", homeStayNum);
-		map.put("userNum", userNum);
 		map.put("dto", dto);
 		mapper.insertHomeStayDetail(map);
 	}

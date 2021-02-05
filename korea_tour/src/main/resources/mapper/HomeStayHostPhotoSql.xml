@@ -14,4 +14,7 @@
 	<select id="getData" parameterType="int" resultType="homestayphoto">
 		select * from homeStayPhoto where homeStayPhotoNum=#{homeStayPhotoNum}
 	</select>
+	<select id="getData2" parameterType="int" resultType="homestayphoto">
+		select * from homeStayPhoto where userNum=#{userNum}
+	</select>
 </mapper>

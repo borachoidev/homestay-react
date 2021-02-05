@@ -22,32 +22,18 @@ import lombok.RequiredArgsConstructor;
 public class HomeStayApplyController implements SessionNames{
 	private final HomeStayHostService hsas;
 	
-	/*
-	 * @PostMapping("/homestay/house") public void insertApply(@RequestBody
-	 * HomeStayDto dto,@RequestBody HomeStayDetailDto ddto ) {
-	 * hsas.insertHomeStay(dto); int homeStayNum = hsas.getHomeStayNum();
-	 * 
-	 * hsas.insertHomeStayDetail(homeStayNum, ddto);
-	 * 
-	 * }
+	/**
+	 * 호스트 신청하기
+	 * @param dto
+	 * @param request
 	 */
 	@PostMapping("/homestays/house")
 	public void insertApply(@RequestBody JoinHomeStayDetailDto dto,
-			@RequestParam int userNum,
 			HttpServletRequest request
 				) {
-//		HttpSession session=request.getSession();
-//		UserDto user=(UserDto) session.getAttribute(USER);
-	
-		
-	
-		dto.setUserNum(userNum);
-
+		int userNum=dto.getUserNum();
 		hsas.insertHomeStay(dto);
-		System.out.println(userNum);
-		System.out.println(dto);
 		int homeStayNum = hsas.getHomeStayNum2(userNum);
-		hsas.insertHomeStayDetail(homeStayNum,userNum, dto);
-		System.out.println(dto);
+		hsas.insertHomeStayDetail(homeStayNum, dto);
 	}
 }

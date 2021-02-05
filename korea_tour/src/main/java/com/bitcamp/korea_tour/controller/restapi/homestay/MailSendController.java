@@ -18,32 +18,57 @@ public class MailSendController {
 	private JavaMailSender mailSender;
 	
 	@PostMapping("/mailsend1")
-	public ModelAndView mailRead(
-			@RequestParam String emailaddr,
-			@RequestParam String emailcontent			
+	public void mailsend1(
+			@RequestParam String email1,
+			@RequestParam String email2		
 			)
 	{
 		MimeMessage message=mailSender.createMimeMessage();
 
-		ModelAndView mview=new ModelAndView();
+	
 		
 		try {
 			//메일제목
-			message.setSubject("스프링으로 메일보내기 ");
+			message.setSubject("귀하의 호스트 신청이 반려 되었습니다.");
 			//메일 본문
-			message.setText(emailcontent);
+			message.setText("내용 내용 내용 내용");
 			//받을 메일 주소
 			message.setRecipients(MimeMessage.RecipientType.TO,
-					InternetAddress.parse(emailaddr));
+					InternetAddress.parse(email1+"@"+email2));
 			//메일전송
 			mailSender.send(message);
 			//포워드파일로 메세지 보내기
-			mview.addObject("msg", emailaddr+" 이메일로 메일 전송 성공!!!");
-		} catch (MessagingException e) {
-			//실패시 오류 메세지 보냄
-			mview.addObject("msg", "오류 : "+e.getMessage());
-		}		
-		return mview;
+		} catch (MessagingException e) 	{
+		
+		}
+	
+	}
+	
+	@PostMapping("/mailsend2")
+	public void mailsend2(
+			@RequestParam String email1,
+			@RequestParam String email2		
+			)
+	{
+		MimeMessage message=mailSender.createMimeMessage();
+
+	
+		
+		try {
+			//메일제목
+			message.setSubject("귀하의 호스트 신청이 승인 되었습니다.");
+			//메일 본문
+			message.setText("내용 내용 내용 내용");
+			//받을 메일 주소
+			message.setRecipients(MimeMessage.RecipientType.TO,
+					InternetAddress.parse(email1+"@"+email2));
+			//메일전송
+			mailSender.send(message);
+			//포워드파일로 메세지 보내기
+		} catch (MessagingException e) 	{
+		
+		}
+	
 	}
 }
 	
