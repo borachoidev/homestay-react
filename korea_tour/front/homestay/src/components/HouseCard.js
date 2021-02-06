@@ -16,8 +16,8 @@ import Button from '@material-ui/core/Button';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import { pink } from '@material-ui/core/colors';
-import HouseListSort from './HouseListSort';
 import { withRouter } from 'react-router-dom';
+//import HouseListSort from './HouseListSort';
 
 const useStyles = makeStyles(() => ({
   root: { maxwidth: 365 },
@@ -61,9 +61,9 @@ function HouseCard(props) {
 
 
   return (
+    
     <Card className={classes.root}>
       <CardHeader
-     
         action={
           <IconButton aria-label="add to favorites">
            <div onClick={function toggle() {
@@ -97,6 +97,7 @@ function HouseCard(props) {
         `/homestay/housedetail/${props.homeStayNum}` )
       }}>자세히보기>></Button>
       </CardActions>
+      {/*<HouseListSort /> */}
     </Card>
   );
 }

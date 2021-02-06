@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
-import AdminHouseInfo from './AdminHouseInfo';
+import DetailInfo from './DetailInfo';
 import DetailMap from './DetailMap';
 import DetailPhotos from './DetailPhotos';
 import HouseName from './HouseName';
+import HouseAddr from './HouseAddr';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
 
@@ -44,6 +45,7 @@ function AdminHouseDetail({match,history}) {
             {/* HouseName -> AdminHouseName 으로 custom을 하였으나 custom시 HouseName이  최종본이 아니였음 수정필요 */}
             {/* 집이름,즐겨찾기,별점 */}
             <HouseName />
+            <HouseAddr />
                 <Button variant="contained" size="small" onClick={handleConfirm}>
                 승인
                 </Button>
@@ -54,7 +56,7 @@ function AdminHouseDetail({match,history}) {
             <DetailPhotos />
 
              {/* DetailInfoReservation */}
-             <AdminHouseInfo />
+             <DetailInfo />
 
             {/* DetailMap */}
             <DetailMap />
