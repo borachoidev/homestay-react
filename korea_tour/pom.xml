@@ -132,8 +132,10 @@
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-	            <artifactId>maven-compiler-plugin</artifactId>
+	            <artifactId>maven-jar-plugin</artifactId>
 	            <configuration>
+		            <fork>true</fork>
+			        <executable>/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.amzn2.0.1.x86_64/bin/javac</executable>
 	                <source>1.8</source>
 	                <target>1.8</target>
 	            </configuration>
