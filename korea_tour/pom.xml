@@ -144,6 +144,7 @@
 					<descriptorRefs>
 						<descriptorRef>jar-with-dependencies</descriptorRef>
 					</descriptorRefs>
+					<argLine>-Xmx1024m</argLine>
 				</configuration>
 				<executions>
 					<execution>
