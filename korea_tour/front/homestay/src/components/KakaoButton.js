@@ -1,6 +1,6 @@
 import React from 'react';
 import KakaoLogin from 'react-kakao-login';
-import { request } from 'utils/axios';
+import axios from 'axios';
 const token = 'ef2b91ef7608dc08c402b6c4764534cd';
 
 export default function KakaoButton(props) {
@@ -18,7 +18,10 @@ export default function KakaoButton(props) {
 
     console.log(data);
     try {
-      const response = await request('post', '/homestays/signin', data);
+      const response = await await axios.post(
+        `http://localhost:9003/homestays/signin/`,
+        data
+      );
       console.log(response.data);
     } catch (e) {
       console.log(e);

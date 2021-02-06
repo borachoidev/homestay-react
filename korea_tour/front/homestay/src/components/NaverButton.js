@@ -1,6 +1,6 @@
 import React from 'react';
 import NaverLogin from 'react-naver-login';
-import { request } from 'utils/axios';
+import axios from 'axios';
 
 function NaverButton(props) {
   const sendUserInfo = async res => {
@@ -15,7 +15,10 @@ function NaverButton(props) {
       img: avatar,
     };
     try {
-      const response = await request('post', '/homestays/signin', data);
+      const response = await axios.post(
+        `http://localhost:9003/homestays/signin/`,
+        data
+      );
       console.log(response.data);
     } catch (e) {
       console.log(e);

@@ -1,6 +1,6 @@
 import React from 'react';
 import GoogleLogin from 'react-google-login';
-import { request } from 'utils/axios';
+import axios from 'axios';
 const clientId =
   '779685065070-lbrojg14lasf8j3g0gcapnctskou7pct.apps.googleusercontent.com';
 
@@ -17,7 +17,10 @@ export default function GoogleButton({ onSocial }) {
       img: avatar,
     };
     try {
-      const response = await request('post', '/homestays/signin', data);
+      const response = await axios.post(
+        `http://localhost:9003/homestays/signin/`,
+        data
+      );
       console.log(response.data);
     } catch (e) {
       console.log(e);
