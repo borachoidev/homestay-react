@@ -94,7 +94,7 @@ function HouseCard(props) {
       <CardActions disableSpacing>
       <Button color="secondary" onClick={() => {
         props.history.push(
-        `/homestay/housedetail:${props.homeStayNum}` )
+        `/homestay/housedetail/${props.homeStayNum}` )
       }}>자세히보기>></Button>
       </CardActions>
     </Card>
