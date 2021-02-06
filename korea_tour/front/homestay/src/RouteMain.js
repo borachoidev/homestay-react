@@ -13,14 +13,13 @@ import HostManageHouse from 'page/HostManageHouse';
 import HostMain from 'page/HostMain';
 import HostMyBooks from 'page/HostMyBooks';
 import HouseListFeatured from 'components/HouseListFeatured';
-import NavBar from 'components/NavBar';
+
 import AdminHouseDetail from 'components/AdminHouseDetail';
 
 function RouteMain(props) {
   return (
     <div>
       {/* 네브바 */}
-      <NavBar />
 
       {/* 메인 */}
       <Route exact path="/homestay" component={Home} />
