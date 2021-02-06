@@ -54,6 +54,7 @@ public class HomeStayHostController {
 			@PathVariable(value="approval") int approval) {
 		hsas.updateApproval(homeStayReservationNum,approval);
 		HomeStayReservationDto dto = hsrs.getData(homeStayReservationNum);
+		String name= dto.getName();
 		String email1 = dto.getEmail1();
 		String email2 = dto.getEmail2();
 		
@@ -63,13 +64,13 @@ public class HomeStayHostController {
 		try {
 			//메일제목
 			if(approval==1) {
-			message.setSubject("예약 완료되었습니다.");
+			message.setSubject(name+"님의 예약이 완료되었습니다.");
 			message.setText("승인 승인 승인");
 			message.setRecipients(MimeMessage.RecipientType.TO,
 					InternetAddress.parse(email1+"@"+email2));
 			}
 			if(approval==2) {
-			message.setSubject("회원님의 예약신청이 거절 되었습니다.");			
+			message.setSubject(name+"님의 예약신청이 거절 되었습니다.");			
 			//메일 본문
 			message.setText("거절 거절 거절");
 			//받을 메일 주소
