@@ -20,7 +20,7 @@ function getParam(key) {
 
 function hostList(currentPage){
     var xhr = new XMLHttpRequest();
-    var url = `/admin/homestays/${currentPage}`;
+    var url = `/homestays/admin/${currentPage}`;
     xhr.open('GET', url);
     xhr.send();
     console.log(url);

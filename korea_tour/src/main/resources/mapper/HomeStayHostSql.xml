@@ -13,13 +13,19 @@
  	 <select id="getUserNum" parameterType="int" resultType="int" >
  	 select userNum from homeStay where homeStayNum=#{homeStayNum}
  	</select>
+ 	<select id="getHomeStayData" parameterType="int" resultType="joinhomestaydetail">
+ 	 select * from homeStay where userNum=#{userNum}
+ 	</select>
+ 	<select id="getHomeStayDetailData" parameterType="int" resultType="joinhomestaydetail">
+ 	 select * from homeStayDetail where userNum=#{userNum}
+ 	</select>
  	<select id="getHomeStayNum2" parameterType="int" resultType="int">
  	select homeStayNum from homeStay where userNum=#{userNum}
  	</select>
    <insert id="insertHomeStayDetail" parameterType="joinhomestaydetail">
       insert into homeStayDetail (userNum, homeStayNum, dogOk,smokingOk,maxPeople,email1,email2,hp,wifi,towel,breakfast,aircon,
       elecProduct,kitchen,bathroom,parking)
-      values (#{userNum}, #{homeStayNum}, #{dto.dogOk},#{dto.smokingOk},#{dto.maxPeople},#{dto.email1},#{dto.email2},#{dto.hp},#{dto.wifi},#{dto.towel},
+      values (#{dto.userNum}, #{homeStayNum}, #{dto.dogOk},#{dto.smokingOk},#{dto.maxPeople},#{dto.email1},#{dto.email2},#{dto.hp},#{dto.wifi},#{dto.towel},
       #{dto.breakfast},#{dto.aircon},#{dto.elecProduct},#{dto.kitchen},#{dto.bathroom},#{dto.parking})
    </insert>      
    <update id="updateHomeStay" parameterType="hashmap">

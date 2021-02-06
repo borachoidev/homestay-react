@@ -16,13 +16,16 @@ import lombok.RequiredArgsConstructor;
 public class HomeStayReservationApprovalController {
 	private final HomeStayHostService hhs;
 	
-	@PatchMapping("/homestay/reservation/{homeStayReservationNum}/{approval}")
-	public void ApprovalReservation(
-			@PathVariable(value="homeStayReservationNum")int homeStayReservationNum,
-			@PathVariable(value="approval") int approval
-
-			) {
-
-		hhs.updateApproval(homeStayReservationNum,approval);
-	}
+	/*
+	 * @PatchMapping("/homestays/reservation/{homeStayReservationNum}/{approval}")
+	 * public void ApprovalReservation(
+	 * 
+	 * @PathVariable(value="homeStayReservationNum")int homeStayReservationNum,
+	 * 
+	 * @PathVariable(value="approval") int approval
+	 * 
+	 * ) {
+	 * 
+	 * hhs.updateApproval(homeStayReservationNum,approval); }
+	 */
 }

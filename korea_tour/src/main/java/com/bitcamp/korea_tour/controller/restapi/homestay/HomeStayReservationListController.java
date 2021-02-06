@@ -24,15 +24,22 @@ public class HomeStayReservationListController {
 	int start = 0;
 	int perPage = 0;
 	int totalPage = 0;
-
 	
-	  @GetMapping("/homestay/reservation/{userNum}/{approval}/{currentPage}") public
+	/**
+	 * 예약 리스트 출력
+	 * @param currentPage
+	 * @param approval
+	 * @param userNum
+	 * @return
+	 */
+	
+	  @GetMapping("/homestays/reservation/{userNum}/{approval}/{currentPage}") public
 	  JsonData<List<HomeStayReservationDto>> getReservationList(
 	  
 	  @PathVariable(value="currentPage") int currentPage,
 	  @PathVariable(value="approval") int approval,
 	  @PathVariable(value="userNum") int userNum){
-		  
+	  System.out.println(userNum);
 	  int homestayNum = hhs.getHomeStayNum2(userNum);
 	  
 	  totalCount=hhs.getTotalCount(homestayNum);
@@ -50,88 +57,7 @@ public class HomeStayReservationListController {
 	  
 	  
 	  }
-	 
 
-	/**
-	 * 예약 승인 리스트
-	 * 
-	 * @param currentPage
-	 * @param homeStayNum
-	 * @return
-	 */
-	/*
-	 * @GetMapping("/homestay/reservation/{homeStayNum}/{currentPage}") public
-	 * JsonAlist<List<HomeStayReservationDto>> getApprovalList(
-	 * 
-	 * @PathVariable(value="currentPage") int currentPage,
-	 * 
-	 * @PathVariable(value="homeStayNum") int homeStayNum) {
-	 * 
-	 * totalCount=hhs.getApprovalCount(homeStayNum);
-	 * start=pagingService.getPagingData(totalCount, currentPage).get("start");
-	 * perPage=pagingService.getPagingData(totalCount, currentPage).get("perPage");
-	 * totalPage=pagingService.getPagingData(totalCount,
-	 * currentPage).get("totalPage");
-	 * 
-	 * List<HomeStayReservationDto> list =
-	 * hhs.getApprovalReservation(homeStayNum,start, perPage);
-	 * 
-	 * return new JsonAlist<List<HomeStayReservationDto>>(list, totalPage); }
-	 *//**
-		 * 예약 거절 리스트
-		 * 
-		 * @param currentPage
-		 * @param homeStayNum
-		 * @return
-		 */
-
-	/*
-	 * @GetMapping("") public JsonRlist<List<HomeStayReservationDto>>
-	 * getRefusedList(
-	 * 
-	 * @PathVariable(value="currentPage") int currentPage,
-	 * 
-	 * @PathVariable(value="homeStayNum") int homeStayNum){
-	 * 
-	 * totalCount=hhs.getApprovalCount(homeStayNum);
-	 * start=pagingService.getPagingData(totalCount, currentPage).get("start");
-	 * perPage=pagingService.getPagingData(totalCount, currentPage).get("perPage");
-	 * totalPage=pagingService.getPagingData(totalCount,
-	 * currentPage).get("totalPage");
-	 * 
-	 * List<HomeStayReservationDto> list =
-	 * hhs.getRefusedReservation(homeStayNum,start, perPage);
-	 * 
-	 * 
-	 * return new JsonRlist<List<HomeStayReservationDto>>(list, totalPage); }
-	 *//**
-		 * 예약 대기중 리스트
-		 * 
-		 * @param currentPage
-		 * @param homeStayNum
-		 * @return
-		 *//*
-			 * @GetMapping("") public JsonPlist<List<HomeStayReservationDto>>
-			 * getPendingList(
-			 * 
-			 * @PathVariable(value="currentPage") int currentPage,
-			 * 
-			 * @PathVariable(value="homeStayNum") int homeStayNum){
-			 * 
-			 * totalCount=hhs.getApprovalCount(homeStayNum);
-			 * start=pagingService.getPagingData(totalCount, currentPage).get("start");
-			 * perPage=pagingService.getPagingData(totalCount, currentPage).get("perPage");
-			 * totalPage=pagingService.getPagingData(totalCount,
-			 * currentPage).get("totalPage");
-			 * 
-			 * List<HomeStayReservationDto> list =
-			 * hhs.getPendingReservation(homeStayNum,start, perPage);
-			 * 
-			 * 
-			 * return new JsonPlist<List<HomeStayReservationDto>>(list, totalPage);
-			 * 
-			 * }
-			 */
 
 	@Data
 	@AllArgsConstructor
@@ -139,26 +65,6 @@ public class HomeStayReservationListController {
 		private T list;
 		int totalPage;
 	}
-
-	@Data
-	@AllArgsConstructor
-	static class JsonAlist<T> {
-		private T alist;
-		int totalPage;
-	}
-
-	@Data
-	@AllArgsConstructor
-	static class JsonRlist<T> {
-		private T rlist;
-		int totalPage;
-	}
-
-	@Data
-	@AllArgsConstructor
-	static class JsonPlist<T> {
-		private T plist;
-		int totalPage;
-	}
+	
 
 }

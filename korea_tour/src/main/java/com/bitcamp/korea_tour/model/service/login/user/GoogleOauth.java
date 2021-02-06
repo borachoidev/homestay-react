@@ -84,7 +84,7 @@ public class GoogleOauth implements OauthService {
 		UserDto userDto = new UserDto();
 		userDto.setName(decodeJwt.getClaims().get("name").asString());
 		userDto.setPhoto(decodeJwt.getClaims().get("picture").asString());
-		userDto.setGoogleKey(decodeJwt.getHeaderClaim("kid").asString());
+		userDto.setGoogleKey(decodeJwt.getClaims().get("sub").asString());
 		userDto.setKakaoKey(null);
 		userDto.setNaverKey(null);
 

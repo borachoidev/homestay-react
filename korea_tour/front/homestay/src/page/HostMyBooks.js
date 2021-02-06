@@ -9,10 +9,12 @@ function HostMyBooks({ history }) {
   useEffect(() => {
     // async를 사용하는 함수 따로 선언
     const fatchData = async (userNum, currentPage) => {
+      // 승인된 예약
+      const approval = 2;
       setLoading(true);
       try {
         const response = await axios.get(
-          `http://localhost:9003/homestay/reservation/${userNum}/2/${currentPage}`
+          `http://localhost:9003/homestay/reservation/${userNum}/${approval}/${currentPage}`
         );
         setContents(response.data.list);
       } catch (e) {
@@ -20,7 +22,7 @@ function HostMyBooks({ history }) {
       }
       setLoading(false);
     };
-    fatchData(686, 1);
+    fatchData(200, 1);
   }, []);
 
   if (loading) {

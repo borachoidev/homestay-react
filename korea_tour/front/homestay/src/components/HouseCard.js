@@ -16,38 +16,8 @@ import Button from '@material-ui/core/Button';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import { pink } from '@material-ui/core/colors';
-import HouseListSort from './HouseListSort';
 import { withRouter } from 'react-router-dom';
-
-function UpdateMark(num){
-   
-  console.log(num)
-  useEffect(() =>{
-  // async를 사용하는 함수 따로 선언
-  const axios = require('axios')
-  axios.post('http://localhost:9003/homestays/mark?homeStayNum='+num
-  ).then(function(response){
-    console.log(response);
-  });
-
-},
-[])};
-
-
-function DeleteMark(num){
- 
-useEffect(() =>{
-  // async를 사용하는 함수 따로 선언
-  const axios = require('axios')
-  axios.delete('http://localhost:9003/homestays/mark?homeStayNum='+num
-  ).then(function(response){
-    console.log(response);
-  });
-},
-
-  [])};
-
-
+//import HouseListSort from './HouseListSort';
 
 const useStyles = makeStyles(() => ({
   root: { maxwidth: 365 },
@@ -57,12 +27,41 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function HouseCard(props) {
+function HouseCard(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState(2);
   const [state, setState] = useState(true);
 
+  const UpdateMark = async () => {
+    try {
+     const url=`http://localhost:9003/homestays/mark?homeStayNum=${props.homeStayNum}`
+      console.log(url);
+      const response = await axios.post(
+        url
+      ).then(res=>{console.log(res)});
+
+      
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const DeleteMark = async () => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:9003/homestays/mark?homeStayNum=${props.homeStayNum}`
+      );
+      console.log("삭제성공");
+       
+    } catch (e) {
+      console.log(e);
+      
+    }
+  };
+
+
   return (
+    
     <Card className={classes.root}>
       <CardHeader
         action={
@@ -70,34 +69,37 @@ export default function HouseCard(props) {
            <div onClick={function toggle() {
             setState(!state);
             }}>
-             {state ? <span onClick={()=>UpdateMark(props.homeStayNum)}><FavoriteBorderIcon /></span> : <span onClick={()=>DeleteMark(props.homeStayNum)}><FavoriteIcon style={{ color: pink[500] }} /></span>}
+             {state ? <span onClick={UpdateMark}><FavoriteBorderIcon /></span> : <span onClick={DeleteMark}><FavoriteIcon style={{ color: pink[500] }} /></span>}
             </div> 
           </IconButton>
         }
         title={props.title}
-
       />
       <CardMedia
         className={classes.media}
+        image={"http://localhost:9003/homeStayImg/"+props.photoName}
       />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-         
+         {props.addr1}
         </Typography>
-        <Star /> 
+        <Star /> {props.avgOfStar}
          <Box component="fieldset" mb={3} borderColor="transparent">
          <Typography id="rate" variant="legend" color="textSecondary" component="p">
-        4.6</Typography>
-         <Typography component="legend" id="reviewCnt" color="textSecondary">(6)</Typography>
-         <Typography component="legend" id="price" color="textSecondary">10,000원</Typography>
+        {props.price}</Typography>
+         <Typography component="legend" id="reviewCnt" color="textSecondary">({props.countOfReview})</Typography>
+         <Typography component="legend" id="price" color="textSecondary"></Typography>
         </Box>
       </CardContent>
       <CardActions disableSpacing>
       <Button color="secondary" onClick={() => {
         props.history.push(
-        `/homestay/housedetail:${props.homeStayNum}` )
+        `/homestay/housedetail/${props.homeStayNum}` )
       }}>자세히보기>></Button>
       </CardActions>
+      {/*<HouseListSort /> */}
     </Card>
   );
 }
+
+export default withRouter(HouseCard);
