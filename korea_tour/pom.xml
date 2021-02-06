@@ -12,6 +12,7 @@
 	<artifactId>korea_tour</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>korea_tour</name>
+	<packaging>jar</packaging>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
@@ -136,15 +137,19 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-	            <artifactId>maven-jar-plugin</artifactId>
-	            <configuration>
-		            <fork>true</fork>
-			        <executable>/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.amzn2.0.1.x86_64/bin/javac</executable>
-	                <source>1.8</source>
-	                <target>1.8</target>
-	            </configuration>
-			</plugin>
+		        <artifactId>maven-compiler-plugin</artifactId>
+		        <configuration>
+		          <source>1.8</source>
+		          <target>1.8</target>
+		        </configuration>
+		      </plugin>
+		      <plugin>
+		        <artifactId>maven-jar-plugin</artifactId>
+		        <configuration>
+		          <source>1.8</source>
+		          <target>1.8</target>
+		        </configuration>
+		      </plugin>
 		</plugins>
 	</build>
 
