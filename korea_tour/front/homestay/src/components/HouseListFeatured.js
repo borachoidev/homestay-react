@@ -2,11 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import Grid from "@material-ui/core/Grid";
-//import HouseListSort from "./HouseListSort";
 import HouseCard from "./HouseCard";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
-
+//import HouseListSort from "./HouseListSort";
 
 const HouseListFeatured = () =>{
 
@@ -45,31 +44,24 @@ if (!contents) {
 return null;
 }
 // articles 값이 유효할때
-//<p>{contents[0].homeStayNum}</p>
-//
-
 return (
 <div>
     {
     
     <Grid container spacing={3}>
       <Grid item xs={12}>
-      
+      {/**<HouseListSort /> */}
       </Grid>
 
       {contents.map(content => (
            <Grid item xs={6} sm={4} md={4} key={content}>
-             
              <HouseCard photoName={content.photoName} title={content.title}
              addr1={content.addr1} price={content.price} countOfReview={content.countOfReview}
              avgOfStar={content.avgOfStar} homeStayNum={content.homeStayNum}/>
         </Grid>
-        
         ))}
-      
     </Grid>
     }
- 
      </div>
   );
 }
