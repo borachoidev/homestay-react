@@ -13,7 +13,7 @@ spring:
   mail:
     default-encoding: UTF-8
     host: smtp.gmail.com
-    password: bit301301
+    password: bit301301@
     port: 587
     properties:
       mail:
@@ -26,7 +26,7 @@ spring:
           protocol: smtp
       mailmime:
         charset: UTF-8
-    username: koreatour301@gmail.com
+    username: raonnaduri@gmail.com
   servlet:
     multipart: 
      maxFileSize: 10MB
