@@ -13,14 +13,13 @@ import HostManageHouse from 'page/HostManageHouse';
 import HostMain from 'page/HostMain';
 import HostMyBooks from 'page/HostMyBooks';
 import HouseListFeatured from 'components/HouseListFeatured';
-import NavBar from 'components/NavBar';
+
 import AdminHouseDetail from 'components/AdminHouseDetail';
 
 function RouteMain(props) {
   return (
     <div>
       {/* 네브바 */}
-      <Route path="/homestay/navbar" component={NavBar} />
 
       {/* 메인 */}
       <Route exact path="/homestay" component={Home} />
@@ -48,7 +47,7 @@ function RouteMain(props) {
       />
       {/* 호스트페이지 */}
       <Route path="/homestay/host" component={HostMain} />
-      <Route path="/homestay/host/books" component={HostMyBooks} />
+      <Route exact path="/homestay/host/books" component={HostMyBooks} />
       <Route path="/homestay/host/manage/books" component={HostPenddingBooks} />
       <Route path="/homestay/host/books/:num" component={HostBookDetail} />
       <Route path="/homestay/host/manage/house" component={HostManageHouse} />
