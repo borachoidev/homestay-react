@@ -64,7 +64,6 @@ public class HomeStayMarkController implements SessionNames {
 			Double avgOfStars = homeStayListService.getAvgOfStar(homeStayNum);
 			mdto.setAvgOfStars(avgOfStars);
 		}
-		System.out.println(marks);
 		
 		return new JsonMypageMarkList(marks, totalCount, totalPage);
 	}
