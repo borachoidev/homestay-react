@@ -9,7 +9,7 @@ export default function GoogleButton({ onSocial }) {
     const name = res.profileObj.name;
     const avatar = res.profileObj.imageUrl;
     const id = res.googleId;
-    const type = 'google';
+    const type = 'GOOGLE';
     const data = {
       name: name,
       id: id,
