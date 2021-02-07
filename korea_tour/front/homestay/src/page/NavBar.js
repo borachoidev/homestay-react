@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import Switch from '@material-ui/core/Switch';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import GoogleButton from 'components/GoogleButton';
@@ -26,16 +26,11 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function NavBar() {
+const NavBar = ({ auth }) => {
   const classes = useStyles();
   const [user, setUserData] = React.useState('');
-  const [auth, setAuth] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-
-  const handleChange = event => {
-    setAuth(event.target.checked);
-  };
 
   const handleMenu = event => {
     setAnchorEl(event.currentTarget);
@@ -51,13 +46,6 @@ export default function NavBar() {
       <Toolbar>
         <Typography variant="h6" className={classes.title}>
           라온 홈스테이
-          <div className={classes.root}>
-            <Switch
-              checked={auth}
-              onChange={handleChange}
-              aria-label="login switch"
-            />
-          </div>
         </Typography>
         {!auth && (
           <div>
@@ -128,4 +116,9 @@ export default function NavBar() {
       </Toolbar>
     </AppBar>
   );
-}
+};
+
+const mapStateToProps = auth => ({
+  auth: KakaoButton.auth,
+});
+export default connect(mapStateToProps, null)(NavBar);

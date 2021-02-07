@@ -7,7 +7,7 @@ function NaverButton(props) {
     const id = res.id;
     const name = res.name;
     const avatar = res.profile_image;
-    const type = 'naver';
+    const type = 'NAVER';
     const data = {
       name: name,
       id: id,
