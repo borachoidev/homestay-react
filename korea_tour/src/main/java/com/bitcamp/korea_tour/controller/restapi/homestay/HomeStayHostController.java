@@ -92,8 +92,16 @@ public class HomeStayHostController {
 			if(approval==1) {
 			message.setSubject(name+"님의 예약이 완료되었습니다.");
 			
-		    message.setText("아래의 예약 내용을 확인 해주세요" +"\n"+"\n"+"체크인 날짜 : "+cid+"\n"+"체크아웃 날짜 : "+cod+"\n"+ "예약 인원 : "+numberOfPeople+"명"+"\n"+"총 금액 : "+price+"원"+"\n"+"예약 날짜 : "+wd+"\n"+"\n"+" 자세한 문의는 아래의 연락처로 주시길 바랍니다."
-					  +"\n" +"\n" +"호스트 연락처" +"\n"+"Email : "+hEmail1+"@"+hEmail2+"\n"+"Hp : "+hp1+"-"+hp2+"-"+hp3);
+		    message.setText("아래의 예약 내용을 확인해 주세요" +"\n"+"\n"
+		    			+"체크인 날짜 : "+cid+"\n"
+		    			+"체크아웃 날짜 : "+cod+"\n"
+		    			+ "예약 인원 : "+numberOfPeople+"명"+"\n"
+		    			+"총 금액 : "+price+"원"+"\n"
+		    			+"예약 날짜 : "+wd+"\n"+"\n"
+		    			+" 자세한 문의는 아래의 연락처로 주시길 바랍니다."+"\n" +"\n"
+		    			+"호스트 연락처" +"\n"
+		    			+"Email : "+hEmail1+"@"+hEmail2+"\n"
+		    			+"Hp : "+hp1+"-"+hp2+"-"+hp3);
 			message.setRecipients(MimeMessage.RecipientType.TO,
 					InternetAddress.parse(email1+"@"+email2));
 			}
