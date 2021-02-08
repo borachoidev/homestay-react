@@ -120,9 +120,9 @@ public class HomeStayHostController {
 		} catch (MessagingException e) 	{
 			System.out.println("알수없는 오류로 인한 메일 전송 실패");
 		} catch (StringIndexOutOfBoundsException e) {
-			System.out.println("메일전송 실패. 호스트나 회원 정보 확인");
+			System.out.println("메일전송 실패. 호스트나 회원 정보에 잘못입력된값 있음");
 		} catch (NullPointerException e) {
-			System.out.println("메일전송 실패. 호스트나 회원 정보에 비어있는곳 확인");
+			System.out.println("메일전송 실패. 호스트나 회원 정보에 비어있는곳 있음");
 		}
 
 	}
