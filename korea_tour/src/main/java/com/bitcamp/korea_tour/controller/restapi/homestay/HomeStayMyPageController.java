@@ -228,7 +228,7 @@ public class HomeStayMyPageController implements SessionNames{
 	}
 	
 	/**
-	 * 특정 유저의 후기 리스트
+	 * 유저의 후기 리스트
 	 */
 	@GetMapping("/mypage/reviews/{loginNum}/{currentPage}")
 	public JsonReviewsByLoginNum getReviewListByLoginNum(
@@ -262,5 +262,27 @@ public class HomeStayMyPageController implements SessionNames{
 		}
 		
 		return new JsonReviewsByLoginNum(reviews, totalCount, totalPage);
+	}
+	
+	/**
+	 * 유저 후기 상세
+	 */
+	@GetMapping("/mypage/review/{homeStayReviewNum}")
+	public JsonReviewWithPhotos getReviewDetail(
+			@PathVariable(name="homeStayReviewNum") int homeStayReviewNum) {
+		HomeStayReviewDto rdto = reviewService.getReviewByHomeStayReviewNum(homeStayReviewNum);
+		int hostNum = rdto.getUserNum();
+		int homeStayNum = rdto.getHomeStayNum();
+		int relevel = rdto.getRelevel();
+		int regroup = rdto.getRegroup();
+		int loginNum = rdto.getLoginNum();
+		String loginId = rdto.getLoginId();
+		String loginPhoto = rdto.getLoginPhoto();
+		String content = rdto.getContent();
+		Date writeday = rdto.getWriteday();
+		int deleted = rdto.getDeleted();
+		List<HomeStayReviewPhotoDto> reviewPhotos = reviewPhotoService.getPhotosByHomeStayReviewNum(homeStayReviewNum);
+		return new JsonReviewWithPhotos(homeStayReviewNum, hostNum, homeStayNum, relevel, regroup, loginNum,
+				loginId, loginPhoto, content, writeday, deleted, reviewPhotos);
 	}
 }
