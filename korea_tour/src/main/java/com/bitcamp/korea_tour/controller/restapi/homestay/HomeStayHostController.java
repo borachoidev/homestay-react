@@ -81,7 +81,7 @@ public class HomeStayHostController {
 			if(approval==1) {
 			message.setSubject(name+"님의 예약이 완료되었습니다.");
 			
-		    message.setText("체크인 날짜는 "+to+" 입니다." + " 자세한 문의는 아래의 연락처로 주시길 바랍니다."
+		    message.setText("체크인 날짜는 "+to+"입니다." + " 자세한 문의는 아래의 연락처로 주시길 바랍니다."
 					  +"\n" +"\n" +"호스트 연락처" +"\n"+"Email : "+hEmail1+"@"+hEmail2+"\n"+"Hp : "+hp1+"-"+hp2+"-"+hp3);
 			message.setRecipients(MimeMessage.RecipientType.TO,
 					InternetAddress.parse(email1+"@"+email2));
