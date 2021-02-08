@@ -2,6 +2,7 @@ package com.bitcamp.korea_tour.controller.restapi.homestay;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -17,11 +18,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bitcamp.korea_tour.model.UserDto;
 import com.bitcamp.korea_tour.model.homestay.HomeStayReservationDto;
+import com.bitcamp.korea_tour.model.homestay.HomeStayReviewDto;
+import com.bitcamp.korea_tour.model.homestay.HomeStayReviewPhotoDto;
 import com.bitcamp.korea_tour.model.homestay.JoinHomeStayReservationDto;
 import com.bitcamp.korea_tour.model.homestay.JoinHomeStaySummary;
 import com.bitcamp.korea_tour.model.homestay.JoinMypageReviewWithPhotoDto;
 import com.bitcamp.korea_tour.model.homestay.JoinReservationDetail;
 import com.bitcamp.korea_tour.model.service.homestay.HomeStayReservationService;
+import com.bitcamp.korea_tour.model.service.homestay.HomeStayReviewPhotoService;
+import com.bitcamp.korea_tour.model.service.homestay.HomeStayReviewService;
 import com.bitcamp.korea_tour.model.service.login.setting.SessionNames;
 import com.bitcamp.korea_tour.model.service.paging.PagingService;
 
@@ -35,6 +40,8 @@ import lombok.RequiredArgsConstructor;
 public class HomeStayMyPageController implements SessionNames{
 
 	private final HomeStayReservationService reservationService;
+	private final HomeStayReviewService reviewService;
+	private final HomeStayReviewPhotoService reviewPhotoService;
 	private final PagingService pagingService;
 	int totalCount = 0;
 	int start = 0;
@@ -45,6 +52,31 @@ public class HomeStayMyPageController implements SessionNames{
 	static class JsonReservationDataList {
 		private List<JoinHomeStayReservationDto> reservations;
 		private int totalCount;
+	}
+	
+	@Data
+	@AllArgsConstructor
+	static class JsonReviewsByLoginNum {
+		private List<JsonReviewWithPhotos> reviews;
+		private int totalCount;
+		private int totalPage;
+	}
+	
+	@Data
+	@AllArgsConstructor
+	static class JsonReviewWithPhotos {
+		private int homeStayReviewNum;
+		private int hostNum;
+		private int homeStayNum;
+		private int relevel;
+		private int regroup;
+		private int loginNum;
+		private String loginId;
+		private String loginPhoto;
+		private String content;
+		private Date writeday;
+		private int deleted;
+		private List<HomeStayReviewPhotoDto> reviewPhotos;
 	}
 	
 	/*
@@ -193,5 +225,42 @@ public class HomeStayMyPageController implements SessionNames{
 		}
 		
 		return new JsonReservationsForReview(reservations, totalCount, totalPage);
+	}
+	
+	/**
+	 * 특정 유저의 후기 리스트
+	 */
+	@GetMapping("/mypage/reviews/{loginNum}/{currentPage}")
+	public JsonReviewsByLoginNum getReviewListByLoginNum(
+			@PathVariable(name="loginNum") int loginNum,
+			@PathVariable(name="currentPage") int currentPage) {
+		int totalCount = reviewService.getTotalCountOfReviewsByLoginNum(loginNum);
+		int totalPage = pagingService.getPagingData(totalCount, currentPage).get("totalPage");
+		int start = pagingService.getPagingData(totalCount, currentPage).get("start");
+		int perPage = pagingService.getPagingData(totalCount, currentPage).get("perPage");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("loginNum", loginNum);
+		map.put("start", start);
+		map.put("perPage", perPage);
+		List<HomeStayReviewDto> rlist = reviewService.getReviewByloginNum(map);
+		List<JsonReviewWithPhotos> reviews = new ArrayList<HomeStayMyPageController.JsonReviewWithPhotos>();
+		for(HomeStayReviewDto rdto: rlist) {
+			int homeStayReviewNum = rdto.getHomeStayReviewNum();
+			int hostNum = rdto.getUserNum();
+			int homeStayNum = rdto.getHomeStayNum();
+			int relevel = rdto.getRelevel();
+			int regroup = rdto.getRegroup();
+			String loginId = rdto.getLoginId();
+			String loginPhoto = rdto.getLoginPhoto();
+			String content = rdto.getContent();
+			Date writeday = rdto.getWriteday();
+			int deleted = rdto.getDeleted();
+			List<HomeStayReviewPhotoDto> reviewPhotos = reviewPhotoService.getPhotosByHomeStayReviewNum(homeStayReviewNum);
+			JsonReviewWithPhotos review = new JsonReviewWithPhotos(homeStayReviewNum, hostNum, homeStayNum,
+					relevel, regroup, loginNum, loginId, loginPhoto, content, writeday, deleted, reviewPhotos);
+			reviews.add(review);
+		}
+		
+		return new JsonReviewsByLoginNum(reviews, totalCount, totalPage);
 	}
 }
