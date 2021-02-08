@@ -5,7 +5,8 @@ import Grid from "@material-ui/core/Grid";
 import HouseCard from "./HouseCard";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
-//import HouseListSort from "./HouseListSort";
+import HouseListSort from "./HouseListSort";
+import Button from '@material-ui/core/Button';
 
 const HouseListFeatured = () =>{
 
@@ -43,14 +44,37 @@ if (loading) {
 if (!contents) {
 return null;
 }
+
+const byCost = async () => {
+  try {
+    const response = await axios.post(
+      `/homestays/price/1`
+    );
+    console.log("성공");
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+const byStars = async () => {
+  try {
+    const response = await axios.post(
+      `/homestays/review/1`
+    );
+    console.log("성공2");
+  } catch (e) {
+    console.log(e);
+  }
+};
 // articles 값이 유효할때
 return (
 <div>
     {
-    
     <Grid container spacing={3}>
       <Grid item xs={12}>
-      {/**<HouseListSort /> */}
+      <HouseListSort />
+      <Button variant="contained" size="small" onClick={byCost}>요금순</Button>&nbsp;&nbsp;
+      <Button variant="contained" color="secondary" size="small" id="orderByStars" onClick={byStars}>평점순</Button>
       </Grid>
 
       {contents.map(content => (
