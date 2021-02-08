@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { connect } from 'react-redux';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
@@ -118,7 +116,9 @@ const NavBar = () => {
               open={open}
               onClose={handleClose}
             >
-              <MenuItem onClick={handleClose}>마이페이지</MenuItem>
+              <MenuItem onClick={handleClose}>
+                <Link to="/homestay/mypage">마이페이지</Link>
+              </MenuItem>
               {host == 'N' && (
                 <MenuItem>
                   <Link to="/homestay/apply">호스트되기 </Link>
@@ -126,7 +126,7 @@ const NavBar = () => {
               )}
               {host == 'Y' && (
                 <MenuItem onClick={handleClose}>
-                  <Link to="/homestay/manage/host">호스트관리</Link>
+                  <Link to="/homestay/host">호스트관리</Link>
                 </MenuItem>
               )}
               <MenuItem onClick={handleClose}>로그아웃</MenuItem>
