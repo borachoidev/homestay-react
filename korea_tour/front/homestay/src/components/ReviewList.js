@@ -27,7 +27,7 @@ function ReviewList(props) {
                 setError(null);
                 setLoading(true);
                 const response = await axios.get(
-                    `http://localhost:9003/homestays/${courseNum}/star`
+                    `http://localhost:9003/homestays/mypage/reservations-for-review/681/1`
                     );
                     setContent(response.data);
                     console.log(response.data);
