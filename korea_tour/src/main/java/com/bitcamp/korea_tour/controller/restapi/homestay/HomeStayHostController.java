@@ -158,7 +158,6 @@ public class HomeStayHostController {
 		JoinHomeStayDetailDto dto = hsas.getHomeStayData(userNum);
 		JoinHomeStayDetailDto ddto = hsas.getHomeStayDetailData(userNum);
 		int homeStayNum = dto.getHomeStayNum();
-		/* int userNum = dto.getUserNum(); */
 		String title = dto.getTitle();
 		String addr1 = dto.getAddr1();
 		String addr2 = dto.getAddr2();
@@ -172,27 +171,30 @@ public class HomeStayHostController {
 		String ypos = dto.getYpos();
 		int price = dto.getPrice();
 		int open = dto.getOpen();
-
-
-		int dogOk = dto.getDogOk();
-		int smokingOk = dto.getSmokingOk();
-		int maxPeople = dto.getMaxPeople();
-		String email1 = dto.getEmail1();
-		String email2 = dto.getEmail2();
-		String hp = dto.getHp();
-		int wifi = dto.getWifi();
-		int towel = dto.getTowel();
-		int breakfast = dto.getBreakfast();
-		int aircon = dto.getAircon();
-		int elecProduct = dto.getElecProduct();
-		int kitchen = dto.getKitchen();
-		int bathroom = dto.getBathroom();
-		int parking = dto.getParking();
-		return new JsonData(homeStayNum,parking, title,addr1,addr2,content,parking, checkIn1
-				,checkIn2,checkOut1,checkOut2,xpos,ypos,price,open,dogOk,smokingOk,
-				maxPeople,parking, email1,email2,hp,wifi,towel,breakfast,aircon,elecProduct,kitchen,bathroom,parking);
+		System.out.println(userNum);
+		
+		int homeStayDetailNum = ddto.getHomeStayDetailNum();
+		int dogOk = ddto.getDogOk();
+		int smokingOk = ddto.getSmokingOk();
+		int maxPeople = ddto.getMaxPeople();
+		String email1 = ddto.getEmail1();
+		String email2 = ddto.getEmail2();
+		String hp = ddto.getHp();
+		int wifi = ddto.getWifi();
+		int towel = ddto.getTowel();
+		int breakfast = ddto.getBreakfast();
+		int aircon = ddto.getAircon();
+		int elecProduct = ddto.getElecProduct();
+		int kitchen = ddto.getKitchen();
+		int bathroom = ddto.getBathroom();
+		int parking = ddto.getParking();
+		System.out.println(userNum);
+		return new JsonData(homeStayNum,userNum, title,addr1,addr2,content,approval, checkIn1
+				,checkIn2,checkOut1,checkOut2,xpos,ypos,price,open,homeStayDetailNum,dogOk,smokingOk,
+				maxPeople,email1,email2,hp,wifi,towel,breakfast,aircon,elecProduct,kitchen,bathroom,parking);
+		
 	}
-
+	
 
 
 	/**
