@@ -155,43 +155,9 @@ public class HomeStayHostController {
 	 */
 	@GetMapping("/homestays/house/{userNum}")
 	public JsonData getHomeStayData(@PathVariable(value = "userNum")int userNum) {
-		JoinHomeStayDetailDto dto = hsas.getHomeStayData(userNum);
-		JoinHomeStayDetailDto ddto = hsas.getHomeStayDetailData(userNum);
-		int homeStayNum = dto.getHomeStayNum();
-		String title = dto.getTitle();
-		String addr1 = dto.getAddr1();
-		String addr2 = dto.getAddr2();
-		String content = dto.getContent();
-		int approval = dto.getApproval();
-		String checkIn1 = dto.getCheckIn1();
-		String checkIn2 = dto.getCheckIn2();
-		String checkOut1 = dto.getCheckOut1();
-		String checkOut2 = dto.getCheckOut2();
-		String xpos = dto.getXpos();
-		String ypos = dto.getYpos();
-		int price = dto.getPrice();
-		int open = dto.getOpen();
-		System.out.println(userNum);
+		JoinHomeStayDetailDto dto = hsas.getHomeStayAllData(userNum);
 		
-		int homeStayDetailNum = ddto.getHomeStayDetailNum();
-		int dogOk = ddto.getDogOk();
-		int smokingOk = ddto.getSmokingOk();
-		int maxPeople = ddto.getMaxPeople();
-		String email1 = ddto.getEmail1();
-		String email2 = ddto.getEmail2();
-		String hp = ddto.getHp();
-		int wifi = ddto.getWifi();
-		int towel = ddto.getTowel();
-		int breakfast = ddto.getBreakfast();
-		int aircon = ddto.getAircon();
-		int elecProduct = ddto.getElecProduct();
-		int kitchen = ddto.getKitchen();
-		int bathroom = ddto.getBathroom();
-		int parking = ddto.getParking();
-		System.out.println(userNum);
-		return new JsonData(homeStayNum,userNum, title,addr1,addr2,content,approval, checkIn1
-				,checkIn2,checkOut1,checkOut2,xpos,ypos,price,open,homeStayDetailNum,dogOk,smokingOk,
-				maxPeople,email1,email2,hp,wifi,towel,breakfast,aircon,elecProduct,kitchen,bathroom,parking);
+		return new JsonData(dto);
 		
 	}
 	
@@ -271,37 +237,7 @@ public class HomeStayHostController {
 	@Data
 	@AllArgsConstructor
 	static class JsonData{
-		private int homeStayNum;
-		private int userNum;
-		private String title;
-		private String addr1;
-		private String addr2;
-		private String content;
-		private int approval;
-		private String checkIn1;
-		private String checkIn2;
-		private String checkOut1;
-		private String checkOut2;
-		private String xpos;
-		private String ypos;
-		private int price;
-		private int open;
-
-		private int homeStayDetailNum;
-		private int dogOk;
-		private int smokingOk;
-		private int maxPeople;
-		private String email1;
-		private String email2;
-		private String hp;
-		private int wifi;
-		private int towel;
-		private int breakfast;
-		private int aircon;
-		private int elecProduct;
-		private int kitchen;
-		private int bathroom;
-		private int parking;
+			private JoinHomeStayDetailDto dto;
 	}
 	@Data
 	@AllArgsConstructor
