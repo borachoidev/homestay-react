@@ -45,7 +45,7 @@ public class HomeStayHostController {
 	@Autowired
 	private JavaMailSender mailSender;
 
-	
+
 	/**
 	 * 예약 승인,거절(호스트용)
 	 * @param homeStayReservationNum
@@ -57,75 +57,80 @@ public class HomeStayHostController {
 			@PathVariable(value="approval") int approval) {
 		hsas.updateApproval(homeStayReservationNum,approval);
 		HomeStayReservationDto dto = hsrs.getData(homeStayReservationNum);
-		String name= dto.getName();
-		String email1 = dto.getEmail1();
-		String email2 = dto.getEmail2();
-		Date checkInDay = dto.getCheckInDay();
-		Date checkOutDay = dto.getCheckOutDay();
-		int numberOfPeople = dto.getNumberOfPeople();
-		int totalPrice = dto.getTotalPrice();
-		Date writeDay = dto.getWriteday();
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
-		String cid = sdf.format(checkInDay);
-		String cod = sdf.format(checkOutDay);
-		String wd = sdf.format(writeDay);
-		
-		DecimalFormat dcf = new DecimalFormat("###,###,###,###");
-		String price = dcf.format(totalPrice);
-		
-		int homeStayNum = dto.getHomeStayNum();
-		int userNum = hsas.getUserNum(homeStayNum);
-		JoinHomeStayDetailDto ddto = hsas.getHomeStayDetailData(userNum);
-		String hEmail1 = ddto.getEmail1();
-		String hEmail2 = ddto.getEmail2();
-		String hp = ddto.getHp();
-		String hp1 = hp.substring(0,3);
-		String hp2 = hp.substring(3,7);
-		String hp3 = hp.substring(7,11);
-		
+
 		MimeMessage message=mailSender.createMimeMessage();
 
-		
+
 		try {
+			String name= dto.getName();
+			String email1 = dto.getEmail1();
+			String email2 = dto.getEmail2();
+			Date checkInDay = dto.getCheckInDay();
+			Date checkOutDay = dto.getCheckOutDay();
+			int numberOfPeople = dto.getNumberOfPeople();
+			int totalPrice = dto.getTotalPrice();
+			Date writeDay = dto.getWriteday();
+
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
+			String cid = sdf.format(checkInDay);
+			String cod = sdf.format(checkOutDay);
+			String wd = sdf.format(writeDay);
+
+			DecimalFormat dcf = new DecimalFormat("###,###,###,###");
+			String price = dcf.format(totalPrice);
+
+			int homeStayNum = dto.getHomeStayNum();
+			int userNum = hsas.getUserNum(homeStayNum);
+			JoinHomeStayDetailDto ddto = hsas.getHomeStayDetailData(userNum);
+			String hEmail1 = ddto.getEmail1();
+			String hEmail2 = ddto.getEmail2();
+			String hp = ddto.getHp();
+			String hp1 = hp.substring(0,3);
+			String hp2 = hp.substring(3,7);
+			String hp3 = hp.substring(7,11);
 			//메일제목
 			if(approval==1) {
-			message.setSubject(name+"님의 예약이 완료되었습니다.");
-			
-		    message.setText("아래의 예약 내용을 확인해 주세요" +"\n"+"\n"
-		    			+"체크인 날짜 : "+cid+"\n"
-		    			+"체크아웃 날짜 : "+cod+"\n"
-		    			+ "예약 인원 : "+numberOfPeople+"명"+"\n"
-		    			+"총 금액 : "+price+"원"+"\n"
-		    			+"예약 날짜 : "+wd+"\n"+"\n"
-		    			+" 자세한 문의는 아래의 연락처로 주시길 바랍니다."+"\n" +"\n"
-		    			+"호스트 연락처" +"\n"
-		    			+"Email : "+hEmail1+"@"+hEmail2+"\n"
-		    			+"Hp : "+hp1+"-"+hp2+"-"+hp3);
-			message.setRecipients(MimeMessage.RecipientType.TO,
-					InternetAddress.parse(email1+"@"+email2));
+				message.setSubject(name+"님의 예약이 완료되었습니다.");
+
+				message.setText("아래의 예약 내용을 확인해 주세요" +"\n"+"\n"
+						+"체크인 날짜 : "+cid+"\n"
+						+"체크아웃 날짜 : "+cod+"\n"
+						+ "예약 인원 : "+numberOfPeople+"명"+"\n"
+						+"총 금액 : "+price+"원"+"\n"
+						+"예약 날짜 : "+wd+"\n"+"\n"
+						+" 자세한 문의는 아래의 연락처로 주시길 바랍니다."+"\n" +"\n"
+						+"호스트 연락처" +"\n"
+						+"Email : "+hEmail1+"@"+hEmail2+"\n"
+						+"Hp : "+hp1+"-"+hp2+"-"+hp3);
+				message.setRecipients(MimeMessage.RecipientType.TO,
+						InternetAddress.parse(email1+"@"+email2));
 			}
 			if(approval==2) {
-			message.setSubject(name+"님의 예약 신청이 거절되었습니다.");			
-			//메일 본문
-			message.setText("호스트의 개인 사정으로 예약신청이 거절 되었습니다. 죄송합니다.");
-			//받을 메일 주소
-			message.setRecipients(MimeMessage.RecipientType.TO,
-					InternetAddress.parse(email1+"@"+email2));
-			//메일전송
+				message.setSubject(name+"님의 예약 신청이 거절되었습니다.");			
+				//메일 본문
+				message.setText("호스트의 개인 사정으로 예약신청이 거절 되었습니다. 죄송합니다.");
+				//받을 메일 주소
+				message.setRecipients(MimeMessage.RecipientType.TO,
+						InternetAddress.parse(email1+"@"+email2));
+				//메일전송
 			}
 			mailSender.send(message);
 			//포워드파일로 메세지 보내기
 		} catch (MessagingException e) 	{
-		
+			System.out.println("알수없는 오류로 인한 메일 전송 실패");
+		} catch (StringIndexOutOfBoundsException e) {
+			System.out.println("메일전송 실패. 호스트나 회원 정보에 잘못입력된값 있음");
+		} catch (NullPointerException e) {
+			System.out.println("메일전송 실패. 호스트나 회원 정보에 비어있는곳 있음");
 		}
-	
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 	/**
 	 * 호스트 집정보 수정
 	 * @param userNum
@@ -140,9 +145,9 @@ public class HomeStayHostController {
 		hsas.updateHomeStay(dto, homeStayNum);
 		hsas.updateHomeStayDetail(dto, homeStayNum);
 	}
-	
-	
-	
+
+
+
 	/**
 	 * userNum으로 집정보 얻기(수정폼에서 사용)
 	 * @param userNum
@@ -188,8 +193,8 @@ public class HomeStayHostController {
 				maxPeople,parking, email1,email2,hp,wifi,towel,breakfast,aircon,elecProduct,kitchen,bathroom,parking);
 	}
 
-	
-	
+
+
 	/**
 	 * 호스트 집 사진 올리기
 	 * @param userNum
@@ -223,7 +228,7 @@ public class HomeStayHostController {
 			hshps.insertPhoto(dto);
 		}
 	}
-	
+
 
 	/**
 	 * 호스트 집 사진 삭제하기
@@ -244,14 +249,14 @@ public class HomeStayHostController {
 		// db데이터 삭제
 		hshps.deletePhoto(homeStayPhotoNum);
 	}
-	
-	
+
+
 	/**
 	 * 호스트 집 사진정보 얻기
 	 * @param userNum
 	 * @param request
 	 */
-	
+
 	@GetMapping("/homestays/photo/{userNum}")
 	public JsonName<List<HomeStayPhotoDto>> getPhotoName(@PathVariable(name="userNum")int userNum
 			,HttpServletRequest request) {
