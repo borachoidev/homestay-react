@@ -49,7 +49,7 @@
 	<select id="getHomeStayDetail" parameterType="int" resultType="joinreservationdetail">
 		select r.homeStayReservationNum, u.name as customName, r.email1, r.email2, r.writeday, r.checkInDay, r.checkOutDay, r.numberOfPeople,
 		r.totalPrice, r.approval, r.deleted from homeStayReservation r 
-		left join user u on (r.userNum = u.userNum) where homeStayReservationNum = #{homeStayReservationNum}
+		left join user u on (r.loginNum = u.userNum) where homeStayReservationNum = #{homeStayReservationNum}
 	</select>
 	<select id="getData" parameterType="int" resultType="homestayreservation">
 		select * from homeStayReservation where homeStayReservationNum = #{homeStayReservationNum} 
