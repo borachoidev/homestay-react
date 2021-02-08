@@ -1,12 +1,19 @@
 import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from '_reducers';
 import { applyMiddleware, createStore } from 'redux';
+import { persistReducer } from 'redux-persist';
 import promiseMiddlerware from 'redux-promise';
 import reduxThunk from 'redux-thunk';
+import storage from 'redux-persist/lib/storage';
 
-const store = createStore(
-  rootReducer,
+const persistConfig = {
+  key: 'root',
+  storage,
+};
+
+const enhancedReducer = persistReducer(persistConfig, rootReducer);
+
+export default createStore(
+  enhancedReducer,
   composeWithDevTools(applyMiddleware(promiseMiddlerware, reduxThunk))
 );
-
-export default store;
