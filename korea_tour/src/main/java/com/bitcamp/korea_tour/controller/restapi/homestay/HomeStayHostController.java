@@ -2,6 +2,7 @@ package com.bitcamp.korea_tour.controller.restapi.homestay;
 
 import java.io.File;
 import java.sql.Date;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -60,8 +61,18 @@ public class HomeStayHostController {
 		String email1 = dto.getEmail1();
 		String email2 = dto.getEmail2();
 		Date checkInDay = dto.getCheckInDay();
+		Date checkOutDay = dto.getCheckOutDay();
+		int numberOfPeople = dto.getNumberOfPeople();
+		int totalPrice = dto.getTotalPrice();
+		Date writeDay = dto.getWriteday();
+		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
-		String to = sdf.format(checkInDay);
+		String cid = sdf.format(checkInDay);
+		String cod = sdf.format(checkOutDay);
+		String wd = sdf.format(writeDay);
+		
+		DecimalFormat dcf = new DecimalFormat("###,###,###,###");
+		String price = dcf.format(totalPrice);
 		
 		int homeStayNum = dto.getHomeStayNum();
 		int userNum = hsas.getUserNum(homeStayNum);
@@ -81,7 +92,7 @@ public class HomeStayHostController {
 			if(approval==1) {
 			message.setSubject(name+"님의 예약이 완료되었습니다.");
 			
-		    message.setText("체크인 날짜는 "+to+"입니다." + " 자세한 문의는 아래의 연락처로 주시길 바랍니다."
+		    message.setText("아래의 예약 내용을 확인 해주세요" +"\n"+"\n"+"체크인 날짜:"+cid+"\n"+"체크아웃 날짜:"+cod+"\n"+ "예약 인원:"+numberOfPeople+"명"+"\n"+"예약 날짜:"+wd+"\n"+"총 금액:"+price+"원"+"\n"+"\n"+" 자세한 문의는 아래의 연락처로 주시길 바랍니다."
 					  +"\n" +"\n" +"호스트 연락처" +"\n"+"Email : "+hEmail1+"@"+hEmail2+"\n"+"Hp : "+hp1+"-"+hp2+"-"+hp3);
 			message.setRecipients(MimeMessage.RecipientType.TO,
 					InternetAddress.parse(email1+"@"+email2));
@@ -89,8 +100,7 @@ public class HomeStayHostController {
 			if(approval==2) {
 			message.setSubject(name+"님의 예약 신청이 거절되었습니다.");			
 			//메일 본문
-			message.setText(" 자세한 문의는 아래의 연락처로 주시길 바랍니다."
-					+"\n" +"\n" +"호스트 연락처" +"\n"+"Email : "+hEmail1+"@"+hEmail2+"\n"+"Hp : "+hp1+"-"+hp2+"-"+hp3);
+			message.setText("호스트의 개인 사정으로 예약신청이 거절 되었습니다. 죄송합니다.");
 			//받을 메일 주소
 			message.setRecipients(MimeMessage.RecipientType.TO,
 					InternetAddress.parse(email1+"@"+email2));
