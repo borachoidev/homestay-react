@@ -11,8 +11,9 @@ import GoogleButton from 'components/GoogleButton';
 import KakaoButton from 'components/KakaoButton';
 import NaverButton from 'components/NaverButton';
 import Avatar from '@material-ui/core/Avatar';
+import { connect } from 'react-redux';
+import { signOut } from '_actions/user';
 import store from '_store/Store';
-
 import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
@@ -27,7 +28,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const NavBar = () => {
+const NavBar = ({ signOut }) => {
   const classes = useStyles();
   const auth = store.getState().userReducer.auth;
   const host = store.getState().userReducer.host;
@@ -43,8 +44,11 @@ const NavBar = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  console.log(store.getState().userReducer);
-  console.log(host);
+  const logOut = () => {
+    signOut();
+    setAnchorEl(null);
+    console.log('로그아웃');
+  };
 
   return (
     <AppBar>
@@ -129,7 +133,7 @@ const NavBar = () => {
                   <Link to="/homestay/host">호스트관리</Link>
                 </MenuItem>
               )}
-              <MenuItem onClick={handleClose}>로그아웃</MenuItem>
+              <MenuItem onClick={logOut}>로그아웃</MenuItem>
             </Menu>
           </div>
         )}
@@ -138,4 +142,6 @@ const NavBar = () => {
   );
 };
 
-export default NavBar;
+export default connect(null, dispatch => ({
+  signOut: () => dispatch(signOut()),
+}))(NavBar);

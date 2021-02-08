@@ -16,6 +16,7 @@ export default function userReducer(state = initialState, action) {
       const avatar = action.APIdata.img;
       const name = action.APIdata.nickname;
       const auth = true;
+      console.log(action);
       return {
         ...initialState,
         num: userNum,
@@ -25,7 +26,7 @@ export default function userReducer(state = initialState, action) {
         auth: auth,
       };
     case SIGN_OUT:
-      return { ...initialState, success: action.payload };
+      return { ...initialState };
 
     default:
       return state;
