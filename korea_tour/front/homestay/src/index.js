@@ -3,17 +3,9 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import { Provider } from 'react-redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
 import reportWebVitals from './reportWebVitals';
-import rootReducer from '_reducers';
-import { applyMiddleware, createStore } from 'redux';
-import promiseMiddlerware from 'redux-promise';
-import reduxThunk from 'redux-thunk';
+import store from '_store/Store';
 
-const store = createStore(
-  rootReducer,
-  composeWithDevTools(applyMiddleware(promiseMiddlerware, reduxThunk))
-);
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
