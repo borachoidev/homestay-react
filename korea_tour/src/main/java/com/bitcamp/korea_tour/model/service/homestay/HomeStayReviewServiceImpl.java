@@ -71,4 +71,10 @@ public class HomeStayReviewServiceImpl implements HomeStayReviewService{
 		return m.getTotalCountOfReviewsByLoginNum(loginNum);
 	}
 
+	@Override
+	public HomeStayReviewDto getReviewByHomeStayReviewNum(int homeStayReviewNum) {
+		// TODO Auto-generated method stub
+		return m.getReviewByHomeStayReviewNum(homeStayReviewNum);
+	}
+
 }
