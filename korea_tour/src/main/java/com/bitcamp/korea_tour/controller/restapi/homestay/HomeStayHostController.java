@@ -2,6 +2,7 @@ package com.bitcamp.korea_tour.controller.restapi.homestay;
 
 import java.io.File;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.mail.MessagingException;
@@ -59,6 +60,8 @@ public class HomeStayHostController {
 		String email1 = dto.getEmail1();
 		String email2 = dto.getEmail2();
 		Date checkInDay = dto.getCheckInDay();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
+		String to = sdf.format(checkInDay);
 		
 		int homeStayNum = dto.getHomeStayNum();
 		int userNum = hsas.getUserNum(homeStayNum);
@@ -66,6 +69,9 @@ public class HomeStayHostController {
 		String hEmail1 = ddto.getEmail1();
 		String hEmail2 = ddto.getEmail2();
 		String hp = ddto.getHp();
+		String hp1 = hp.substring(0,3);
+		String hp2 = hp.substring(3,7);
+		String hp3 = hp.substring(7,11);
 		
 		MimeMessage message=mailSender.createMimeMessage();
 
@@ -75,19 +81,16 @@ public class HomeStayHostController {
 			if(approval==1) {
 			message.setSubject(name+"님의 예약이 완료되었습니다.");
 			
-		    message.setText("예약 날짜는 "+checkInDay+"입니다." + " 자세한 문의는 아래의 연락처로 주시길 바랍니다."
-					  +"\n" +"\n" +"호스트 연락처" +"\n"+"email:"+hEmail1+"@"+hEmail2+"\n"+"hp:"+hp);
-		
-			
-			
+		    message.setText("체크인 날짜는 "+to+" 입니다." + " 자세한 문의는 아래의 연락처로 주시길 바랍니다."
+					  +"\n" +"\n" +"호스트 연락처" +"\n"+"Email : "+hEmail1+"@"+hEmail2+"\n"+"Hp : "+hp1+"-"+hp2+"-"+hp3);
 			message.setRecipients(MimeMessage.RecipientType.TO,
 					InternetAddress.parse(email1+"@"+email2));
 			}
 			if(approval==2) {
-			message.setSubject(name+"님의 예약신청이 거절 되었습니다.");			
+			message.setSubject(name+"님의 예약 신청이 거절되었습니다.");			
 			//메일 본문
 			message.setText(" 자세한 문의는 아래의 연락처로 주시길 바랍니다."
-					  +"\n" +"\n" +"호스트 연락처" +"\n"+"Email:"+hEmail1+"@"+hEmail2+"\n"+"Hp:"+hp);
+					+"\n" +"\n" +"호스트 연락처" +"\n"+"Email : "+hEmail1+"@"+hEmail2+"\n"+"Hp : "+hp1+"-"+hp2+"-"+hp3);
 			//받을 메일 주소
 			message.setRecipients(MimeMessage.RecipientType.TO,
 					InternetAddress.parse(email1+"@"+email2));
