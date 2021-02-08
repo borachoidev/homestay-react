@@ -15,6 +15,8 @@ import NaverButton from 'components/NaverButton';
 import Avatar from '@material-ui/core/Avatar';
 import store from '_store/Store';
 
+import { Link } from 'react-router-dom';
+
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
@@ -27,17 +29,13 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const NavBar = ({ auth }) => {
+const NavBar = () => {
   const classes = useStyles();
-  const [logged, setLogged] = useState(false);
+  const auth = store.getState().userReducer.auth;
+  const host = store.getState().userReducer.host;
+  const avatar = store.getState().userReducer.avatar;
   const [anchorEl, setAnchorEl] = useState(null);
-  const [user, setUser] = useState({
-    num: '',
-    avatar: '',
-    name: '',
-    host: 0,
-    auth: false,
-  });
+
   const open = Boolean(anchorEl);
 
   const handleMenu = event => {
@@ -47,17 +45,8 @@ const NavBar = ({ auth }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
-  store.subscribe(() => {
-    console.log('user subscribe()', store.getState().userReducer);
-    setUser({
-      num: store.getState().userReducer.num,
-      avatar: store.getState().userReducer.avatar,
-      name: store.getState().userReducer.name,
-      host: store.getState().userReducer.host,
-      auth: store.getState().userReducer.auth,
-    });
-  });
+  console.log(store.getState().userReducer);
+  console.log(host);
 
   return (
     <AppBar>
@@ -65,7 +54,7 @@ const NavBar = ({ auth }) => {
         <Typography variant="h6" className={classes.title}>
           라온 홈스테이
         </Typography>
-        {!user.auth && (
+        {!auth && (
           <div>
             <IconButton
               aria-label="account of current user"
@@ -103,7 +92,7 @@ const NavBar = ({ auth }) => {
             </Menu>
           </div>
         )}
-        {user.auth && (
+        {auth && (
           <div>
             <IconButton
               aria-label="account of current user"
@@ -112,7 +101,7 @@ const NavBar = ({ auth }) => {
               onClick={handleMenu}
               color="inherit"
             >
-              <Avatar alt="avatar" src={user.avatar} />
+              <Avatar alt="avatar" src={avatar} />
             </IconButton>
             <Menu
               id="menu-appbar"
@@ -130,9 +119,17 @@ const NavBar = ({ auth }) => {
               onClose={handleClose}
             >
               <MenuItem onClick={handleClose}>마이페이지</MenuItem>
-              {user.host == 'N' && (
-                <MenuItem onClick={handleClose}>호스트되기</MenuItem>
+              {host == 'N' && (
+                <MenuItem>
+                  <Link to="/homestay/apply">호스트되기 </Link>
+                </MenuItem>
               )}
+              {host == 'Y' && (
+                <MenuItem onClick={handleClose}>
+                  <Link to="/homestay/manage/host">호스트관리</Link>
+                </MenuItem>
+              )}
+              <MenuItem onClick={handleClose}>로그아웃</MenuItem>
             </Menu>
           </div>
         )}
