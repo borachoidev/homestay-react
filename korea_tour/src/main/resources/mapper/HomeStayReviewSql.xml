@@ -34,12 +34,12 @@
 	
 	<!-- 이미 후기를 썼는지 체크 -->
 	<select id="checkReviewWritten" parameterType="int" resultType="int">
-		select count(*) from homeStayReview where homeStayNum = #{homeStayNum} and loginNum = #{loginNum}
+		select reviewWrite from homeStayReservation where homeStayReservationNum=#{homeStayReservationNum}
 	</select>
 	
 	<!-- homeStayReviewNum 찾기 -->
 	<select id="getReviewNum" parameterType="hashmap" resultType="int">
-		select homeStayReviewNum from homeStayReview where homeStayNum=#{homeStayNum} and loginNum=#{loginNum}
+		select max(homeStayReviewNum) from homeStayReview where homeStayNum=#{homeStayNum} and loginNum=#{loginNum}
 	</select>
 	
 	<!-- 유저의 리뷰목록 총갯수 출력 -->

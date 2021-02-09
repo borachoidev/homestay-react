@@ -54,9 +54,9 @@ public class HomeStayReviewServiceImpl implements HomeStayReviewService{
 	}
 
 	@Override
-	public int checkReviewWritten(int homeStayNum, int loginNum) {
+	public int checkReviewWritten(int homeStayReservationNum) {
 		// TODO Auto-generated method stub
-		return m.checkReviewWritten(homeStayNum, loginNum);
+		return m.checkReviewWritten(homeStayReservationNum);
 	}
 
 	@Override
