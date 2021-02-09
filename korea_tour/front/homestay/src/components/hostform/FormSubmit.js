@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { URL } from '_utils/api';
 import axios from 'axios';
 import store from '_store/Store';
 
@@ -44,7 +45,7 @@ function FormSubmit(props) {
       setLoading(true);
       try {
         const response = await axios
-          .post(`http://localhost:9003/homestays/house`, data)
+          .post(`${URL}/homestays/house`, data)
           .then(() => {
             alert('완료!');
           });
@@ -56,11 +57,10 @@ function FormSubmit(props) {
     };
     sendData();
   }, []);
-  useEffect(num => {
-    let url = `http://localhost:9003/homestays/photo/${num}`;
-
+  useEffect(() => {
     // async를 사용하는 함수 따로 선언
-    const sendPhoto = async () => {
+    const sendPhoto = async num => {
+      let url = `${URL}/homestays/photo/${num}`;
       setLoading(true);
       try {
         const response = await axios.post(url, imageFile).then(() => {

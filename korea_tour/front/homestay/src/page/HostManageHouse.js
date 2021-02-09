@@ -4,9 +4,10 @@ import FormHostInfo from 'components/hostform/FormHostInfo';
 import FormHouseRules from 'components/hostform/FormHouseRules';
 import FormHouseIntro from 'components/hostform/FormHouseIntro';
 import FormConfirm from 'components/hostform/FormConfirm';
-import FormSubmit from 'components/hostform/FormSubmit';
+import ModifySubmit from 'components/hostform/ModifySubmit';
 import { Stepper, Step, StepLabel } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
+import { URL } from '_utils/api';
 import store from '_store/Store';
 
 export default function HostManageHouse() {
@@ -52,10 +53,9 @@ export default function HostManageHouse() {
     const fatchData = async num => {
       setLoading(true);
       try {
-        const response = await axios.get(
-          `http://localhost:9003/homestays/house/${num}`
-        );
+        const response = await axios.get(`${URL}/house/${num}`);
         const data = response.data.dto;
+        console.log(data);
         setHostInfo({
           addr1: data.addr1,
           addr2: data.addr2,
@@ -140,7 +140,7 @@ export default function HostManageHouse() {
         );
       case 4:
         return (
-          <FormSubmit
+          <ModifySubmit
             info={hostInfo}
             rules={houseRules}
             amenity={amenities}
@@ -167,13 +167,6 @@ export default function HostManageHouse() {
 
   return (
     <>
-      {approval == 0 && <span>승인대기중입니다</span>}
-      {approval == 1 && (
-        <span>호스트 신청이 반려되었습니다. 다시 신청해주세요</span>
-      )}
-      {approval == 2 && (
-        <span>정보수정후 승인 대기기간동안은 예약을 받을 수 없습니다.</span>
-      )}
       <Stepper activeStep={step} alternativeLabel>
         {steps.map(label => (
           <Step key={label}>
@@ -181,6 +174,13 @@ export default function HostManageHouse() {
           </Step>
         ))}
       </Stepper>
+      {approval == '0' && <span>승인대기중입니다</span>}
+      {approval == '1' && (
+        <span>호스트 신청이 반려되었습니다. 다시 신청해주세요</span>
+      )}
+      {approval == '2' && (
+        <span>정보수정후 승인 대기기간동안은 예약을 받을 수 없습니다.</span>
+      )}
       <div>{showStep(step)}</div>
       <div>
         {step === steps.length ? (
