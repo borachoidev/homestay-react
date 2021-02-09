@@ -30,7 +30,7 @@ function RouteMain(props) {
       <Route path="/apply" component={HostForm} />
       {/* 집목록 */}
       <Route
-        path="/:area/:checkin/:checkout/:guest"
+        path="/search/:area/:checkin/:checkout/:guest"
         component={HouseListFeatured}
       />
       {/* 관리자페이지 */}
@@ -41,11 +41,11 @@ function RouteMain(props) {
       {/* 마이페이지 */}
       <Route path="/mypage" component={Mypage} />
       <Route path="/mypage/reviewlist" component={MyReviewList} />
-      <Route path="/mypage/reviewwrite:num" component={ReviewForm} />
+      <Route path="/mypage/reviewwrite/:num" component={ReviewForm} />
       <Route path="/mypage/likeList" component={LikeList} />
       <Route path="/mypage/Reservation" component={ReservationList} />
       <Route
-        path="/mypage/Reservationdetail:num"
+        path="/mypage/Reservationdetail/:num"
         component={ReservationDetail}
       />
       {/* 호스트페이지 */}
