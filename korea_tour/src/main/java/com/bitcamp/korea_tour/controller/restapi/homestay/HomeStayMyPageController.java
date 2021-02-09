@@ -216,13 +216,6 @@ public class HomeStayMyPageController implements SessionNames{
 		map.put("start", start);
 		map.put("perPage", perPage);
 		List<JoinMypageReviewWithPhotoDto> reservations = reservationService.getDoneReservationsByUser(map);
-		for(JoinMypageReviewWithPhotoDto dto: reservations) {
-			if(reservationService.checkReviewWritten(dto) == 0) {
-				dto.setReviewWrite(0);
-			}else if(reservationService.checkReviewWritten(dto) >= 1) {
-				dto.setReviewWrite(1);
-			}
-		}
 		
 		return new JsonReservationsForReview(reservations, totalCount, totalPage);
 	}
