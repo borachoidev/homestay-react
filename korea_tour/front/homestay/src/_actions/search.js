@@ -1,35 +1,36 @@
 import axios from 'axios';
 import {
-  SEARCH,
-  CHANGE_LOCATION,
+  CHANGE_AREA,
   CHANGE_CHECKIN,
   CHANGE_CHECKOUT,
   CHANGE_COUNT,
 } from './types';
-export function changeLocation() {
+
+export function changeArea(area) {
   return {
-    type: CHANGE_LOCATION,
+    type: CHANGE_AREA,
+    area
   };
 }
 
-export function search() {
-  let url = `http://localhost:9003/homestays/signin/`;
-  return function (dispatch) {
-    axios
-      .post(url, APIdata)
-      .then(response => {
-        const userData = response.data;
-        return dispatch({
-          type: SEARCH,
-          APIdata,
-          userData,
-        });
-      })
-      .catch(response =>
-        dispatch({
-          type: SEARCH,
-          error: response.error,
-        })
-      );
+export function changeCheckin(checkin) {
+  return {
+    type: CHANGE_CHECKIN,
+    checkin
   };
 }
+
+export function changeCheckout(checkout) {
+  return {
+    type: CHANGE_CHECKOUT,
+    checkout
+  };
+}
+
+export function changeCount(count) {
+  return {
+    type: CHANGE_COUNT,
+    count
+  };
+}
+

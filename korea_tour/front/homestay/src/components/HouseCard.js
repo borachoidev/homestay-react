@@ -17,6 +17,7 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import { pink } from '@material-ui/core/colors';
 import { withRouter } from 'react-router-dom';
 import './HouseCard.css';
+import store from '_store/Store';
 
 
 const useStyles = makeStyles(() => ({
@@ -31,10 +32,13 @@ function HouseCard(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState(2);
   const [state, setState] = useState(true);
+  
+  const userNum = store.getState().userReducer.num;
+  console.log(userNum)
 
   const UpdateMark = async () => {
     try {
-     const url=`http://localhost:9003/homestays/mark?homeStayNum=${props.homeStayNum}`
+     const url=`http://localhost:9003/homestays/mark?homeStayNum=${props.homeStayNum}&userNum=${userNum}`
       console.log(url);
       const response = await axios.post(
         url
@@ -49,7 +53,7 @@ function HouseCard(props) {
   const DeleteMark = async () => {
     try {
       const response = await axios.delete(
-        `http://localhost:9003/homestays/mark?homeStayNum=${props.homeStayNum}`
+        `http://localhost:9003/homestays/mark?homeStayNum=${props.homeStayNum}&userNum=${userNum}`
       );
       console.log("삭제성공");
        

@@ -7,18 +7,24 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
 import HouseListSort from "./HouseListSort";
 import Button from '@material-ui/core/Button';
+//import Pagination2 from './Pagination2';
+import store from '_store/Store';
+
 
 const HouseListFeatured = () =>{
 
   const [contents,setContents] = useState(null);
   const [loading,setLoading] = useState(false);
+  const userNum = store.getState().userReducer.num;
+  console.log(userNum)
 
 useEffect(() =>{
   const startday =new Date("2021-02-04");
   const endday=new Date("2021-02-14");
   const data={ keyword:"서울",maxPeople:"1",
   checkInDay:"2021-02-23",
-  checkOutDay:"2021-02-26"}
+  checkOutDay:"2021-02-26",
+  userNum:1}
   console.log(data)
   const fatchData = async ()=> {
       setLoading(true);
@@ -86,6 +92,8 @@ return (
         ))}
     </Grid>
     }
+    {/*<Pagination2 /> */}
+
      </div>
   );
 }
