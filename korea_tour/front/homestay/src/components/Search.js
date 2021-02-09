@@ -19,6 +19,7 @@ const useStyles = makeStyles(theme => ({
   input: {
     marginLeft: theme.spacing(1),
     flex: 1,
+    border: 0,
   },
   iconButton: {
     padding: 10,
@@ -45,7 +46,7 @@ function Search(props) {
     area: '',
     checkin: defaultStart,
     checkout: defaultEnd,
-    guest: 0,
+    guest: 1,
   });
 
   const getCheckinday = date => {
@@ -88,6 +89,7 @@ function Search(props) {
         selectsStart
         startDate={startDate}
         endDate={endDate}
+        className={classes.input}
         minDate={new Date()}
         placeholderText="날짜를 선택해 주세요"
       />
@@ -99,6 +101,7 @@ function Search(props) {
         selectsEnd
         startDate={startDate}
         endDate={endDate}
+        className={classes.input}
         minDate={addDays(startDate, 1)}
         placeholderText="날짜를 선택해 주세요"
       />
@@ -107,7 +110,7 @@ function Search(props) {
         placeholder="인원"
         value={keyword.guest}
         onChange={e => setKeyword({ ...keyword, guest: e.target.value })}
-        inputProps={{ type: 'number' }}
+        inputProps={{ type: 'number', min: 1 }}
       />
       <IconButton type="submit" className={classes.iconButton}>
         <SearchIcon

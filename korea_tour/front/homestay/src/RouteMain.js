@@ -16,7 +16,6 @@ import HostManageHouse from 'page/HostManageHouse';
 import HostMain from 'page/HostMain';
 import HostMyBooks from 'page/HostMyBooks';
 import HouseListFeatured from 'components/HouseListFeatured';
-
 import AdminHouseDetail from 'components/AdminHouseDetail';
 
 function RouteMain(props) {
@@ -34,20 +33,17 @@ function RouteMain(props) {
         component={HouseListFeatured}
       />
       {/* 관리자페이지 */}
-      <Route path="/adminhousedetail/:num" component={AdminHouseDetail} />
+      <Route path="/admin/house/:num" component={AdminHouseDetail} />
       {/* 집상세 및 예약 */}
       <Route path="/housedetail" component={HouseDetail} />
       <Route path="/reservationconfirm" component={ReservationConfirm} />
       {/* 마이페이지 */}
       <Route path="/mypage" component={Mypage} />
-      <Route path="/mypage/reviewlist" component={MyReviewList} />
-      <Route path="/mypage/reviewwrite/:num" component={ReviewForm} />
-      <Route path="/mypage/likeList" component={LikeList} />
-      <Route path="/mypage/Reservation" component={ReservationList} />
-      <Route
-        path="/mypage/Reservationdetail/:num"
-        component={ReservationDetail}
-      />
+      <Route exact path="/mypage/review" component={MyReviewList} />
+      <Route path="/mypage/review/:num " component={ReviewForm} />
+      <Route exact path="/mypage/like" component={LikeList} />
+      <Route exact path="/mypage/reservation" component={ReservationList} />
+      <Route path="/mypage/reservation/:num" component={ReservationDetail} />
       {/* 호스트페이지 */}
       <Route path="/host" component={HostMain} />
       <Route exact path="/host/books" component={HostMyBooks} />
