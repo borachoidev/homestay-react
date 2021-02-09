@@ -10,7 +10,7 @@ function MyBookRow(props) {
       const response = await axios.patch(
         `http://localhost:9003/homestays/reservation/${num}/2`
       );
-      props.history.push(`/homestay/host/manage/books`);
+      props.history.push(`/host/manage/books`);
     } catch (e) {
       console.log(e);
     }
