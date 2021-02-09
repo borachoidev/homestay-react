@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { URL } from '_utils/api';
 import axios from 'axios';
 import store from '_store/Store';
 
@@ -45,7 +46,7 @@ function ModifySubmit(props) {
       setLoading(true);
       try {
         const response = await axios
-          .post(`http://localhost:9003/homestays/house/${num}`, data)
+          .put(`${URL}/house/${num}`, data)
           .then(() => {
             alert('완료!');
           });
@@ -59,11 +60,10 @@ function ModifySubmit(props) {
   }, []);
 
   // 사진업로드
-  useEffect(num => {
-    let url = `http://localhost:9003/homestays/photo/${num}`;
-
+  useEffect(() => {
     // async를 사용하는 함수 따로 선언
-    const sendPhoto = async () => {
+    const sendPhoto = async num => {
+      let url = `${URL}/photo/${num}`;
       setLoading(true);
       try {
         const response = await axios.post(url, imageFile).then(() => {
@@ -79,13 +79,12 @@ function ModifySubmit(props) {
   }, []);
 
   //사진삭제
-  useEffect(photonum => {
-    let url = `http://localhost:9003/homestays/photo/${photonum}`;
-
-    const deletePhoto = async () => {
+  useEffect(() => {
+    const deletePhoto = async photonum => {
+      let url = `${URL}/photo/${photonum}`;
       setLoading(true);
       try {
-        const response = await axios.delete(url, imageFile).then(() => {
+        const response = await axios.delete(url).then(() => {
           alert('완료!');
         });
         console.log(data);
