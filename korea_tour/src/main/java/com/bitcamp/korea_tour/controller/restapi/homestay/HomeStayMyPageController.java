@@ -52,6 +52,7 @@ public class HomeStayMyPageController implements SessionNames{
 	static class JsonReservationDataList {
 		private List<JoinHomeStayReservationDto> reservations;
 		private int totalCount;
+		private int totalPage;
 	}
 	
 	@Data
@@ -88,6 +89,7 @@ public class HomeStayMyPageController implements SessionNames{
 			@PathVariable(name="currentPage") int currentPage
 			) {
 		int totalCount = reservationService.getTotalCount(loginNum);
+		int totalPage = pagingService.getPagingData(totalCount, currentPage).get("totalPage");
 		int start = pagingService.getPagingData(totalCount, currentPage).get("start");
 		int perPage = pagingService.getPagingData(totalCount, currentPage).get("perPage");
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -96,7 +98,7 @@ public class HomeStayMyPageController implements SessionNames{
 		map.put("perPage", perPage);
 		List<JoinHomeStayReservationDto> list = reservationService.getAllDatas(map);
 		
-		return new JsonReservationDataList(list, totalCount);
+		return new JsonReservationDataList(list, totalCount, totalPage);
 	}
 	
 	/*
@@ -108,6 +110,7 @@ public class HomeStayMyPageController implements SessionNames{
 			@PathVariable(name="currentPage") int currentPage
 			) {
 		int totalCount = reservationService.getCountByWating(loginNum);
+		int totalPage = pagingService.getPagingData(totalCount, currentPage).get("totalPage");
 		int start = pagingService.getPagingData(totalCount, currentPage).get("start");
 		int perPage = pagingService.getPagingData(totalCount, currentPage).get("perPage");
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -115,7 +118,7 @@ public class HomeStayMyPageController implements SessionNames{
 		map.put("start", start);
 		map.put("perPage", perPage);
 		List<JoinHomeStayReservationDto> list = reservationService.getDatasByWating(map);
-		return new JsonReservationDataList(list, totalCount);
+		return new JsonReservationDataList(list, totalCount, totalPage);
 	}
 	
 	// 예약확인 리스트 출력(예약취소)
@@ -125,6 +128,7 @@ public class HomeStayMyPageController implements SessionNames{
 			@PathVariable(name="currentPage") int currentPage
 			) {
 		int totalCount = reservationService.getCountByCancel(loginNum);
+		int totalPage = pagingService.getPagingData(totalCount, currentPage).get("totalPage");
 		int start = pagingService.getPagingData(totalCount, currentPage).get("start");
 		int perPage = pagingService.getPagingData(totalCount, currentPage).get("perPage");
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -132,7 +136,7 @@ public class HomeStayMyPageController implements SessionNames{
 		map.put("start", start);
 		map.put("perPage", perPage);
 		List<JoinHomeStayReservationDto> list = reservationService.getDatasByCancel(map);
-		return new JsonReservationDataList(list, totalCount);
+		return new JsonReservationDataList(list, totalCount, totalPage);
 	}
 	
 	/*
@@ -144,6 +148,7 @@ public class HomeStayMyPageController implements SessionNames{
 			@PathVariable(name="currentPage") int currentPage
 			) {
 		int totalCount = reservationService.getCountByApproved(loginNum);
+		int totalPage = pagingService.getPagingData(totalCount, currentPage).get("totalPage");
 		int start = pagingService.getPagingData(totalCount, currentPage).get("start");
 		int perPage = pagingService.getPagingData(totalCount, currentPage).get("perPage");
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -151,7 +156,7 @@ public class HomeStayMyPageController implements SessionNames{
 		map.put("start", start);
 		map.put("perPage", perPage);
 		List<JoinHomeStayReservationDto> list = reservationService.getDatasByApproved(map);
-		return new JsonReservationDataList(list, totalCount);
+		return new JsonReservationDataList(list, totalCount, totalPage);
 	}
 	
 	/*
