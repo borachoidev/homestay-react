@@ -7,14 +7,21 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import HouseListSort from './HouseListSort';
 import Button from '@material-ui/core/Button';
-//import Pagination2 from './Pagination2';
 import store from '_store/Store';
+
+
+import Pagination from './Pagination';
 
 const HouseListFeatured = () => {
   const [contents, setContents] = useState(null);
   const [loading, setLoading] = useState(false);
   const userNum = store.getState().userReducer.num;
   console.log(userNum);
+
+  //페이징
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage, setPostsPerPage] = useState(5);
+
   let { area, checkin, checkout, guest } = useParams();
 
   useEffect(() => {
@@ -30,7 +37,7 @@ const HouseListFeatured = () => {
       setLoading(true);
       try {
         const response = await axios.post(
-          'http://localhost:9003/homestays/price/1',
+          'http://localhost:9003/homestays/price/'+currentPage,
           data
         );
         setContents(response.data.list);
@@ -61,11 +68,11 @@ const HouseListFeatured = () => {
     };
     try {
       const response = await axios.post(
-        `http://localhost:9003//homestays/price/1`,
+        `http://localhost:9003/homestays/price/`+currentPage,
         data
       );
       setContents(response.data.list);
-      console.log('성공');
+      console.log('금액별 성공');
     } catch (e) {
       console.log(e);
     }
@@ -81,16 +88,25 @@ const HouseListFeatured = () => {
     };
     try {
       const response = await axios.post(
-        `http://localhost:9003//homestays/review/1`,
+        `http://localhost:9003/homestays/review/`+currentPage,
         data
       );
       setContents(response.data.list);
-      console.log('성공2');
+      console.log('평점별 성공');
     } catch (e) {
       console.log(e);
     }
   };
-  // articles 값이 유효할때
+
+  /* 페이징 추가 부분2 */
+const indexOfLast = currentPage * postsPerPage;
+const indexOfFirst = indexOfLast - postsPerPage;
+function currentPosts(tmp) {
+  let currentPosts = 0;
+  currentPosts = tmp.slice(indexOfFirst, indexOfLast);
+  return currentPosts;
+}
+
   return (
     <div>
       {
@@ -112,7 +128,7 @@ const HouseListFeatured = () => {
             </Button>
           </Grid>
 
-          {contents.map(content => (
+          {currentPosts(contents).map(content => (
             <Grid item xs={6} sm={4} md={4} key={content}>
               <HouseCard
                 photoName={content.photoName}
@@ -127,7 +143,8 @@ const HouseListFeatured = () => {
           ))}
         </Grid>
       }
-      {/*<Pagination2 /> */}
+      {/*<Pagination/> */}
+    <Pagination postsPerPage={postsPerPage} totalPosts={contents.length} paginate={setCurrentPage}  align="center"></Pagination>
     </div>
   );
 };
