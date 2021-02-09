@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { URL } from '_utils/api';
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -38,7 +39,7 @@ function HouseCard(props) {
 
   const UpdateMark = async () => {
     try {
-     const url=`http://localhost:9003/homestays/mark?homeStayNum=${props.homeStayNum}&userNum=${userNum}`
+     const url=`${URL}/mark?homeStayNum=${props.homeStayNum}&userNum=${userNum}`
       console.log(url);
       const response = await axios.post(
         url
@@ -53,7 +54,7 @@ function HouseCard(props) {
   const DeleteMark = async () => {
     try {
       const response = await axios.delete(
-        `http://localhost:9003/homestays/mark?homeStayNum=${props.homeStayNum}&userNum=${userNum}`
+        `${URL}/mark?homeStayNum=${props.homeStayNum}&userNum=${userNum}`
       );
       console.log("삭제성공");
        

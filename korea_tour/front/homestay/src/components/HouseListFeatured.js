@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { withRouter, useParams } from 'react-router-dom';
+import { URL } from '_utils/api';
 import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
 import HouseCard from './HouseCard';
@@ -8,7 +9,6 @@ import Container from '@material-ui/core/Container';
 import HouseListSort from './HouseListSort';
 import Button from '@material-ui/core/Button';
 import store from '_store/Store';
-
 
 import Pagination from './Pagination';
 
@@ -37,7 +37,7 @@ const HouseListFeatured = () => {
       setLoading(true);
       try {
         const response = await axios.post(
-          'http://localhost:9003/homestays/price/'+currentPage,
+          `${URL}/price/`+currentPage,
           data
         );
         setContents(response.data.list);
@@ -68,7 +68,7 @@ const HouseListFeatured = () => {
     };
     try {
       const response = await axios.post(
-        `http://localhost:9003/homestays/price/`+currentPage,
+        `${URL}/price/`+currentPage,
         data
       );
       setContents(response.data.list);
@@ -88,7 +88,7 @@ const HouseListFeatured = () => {
     };
     try {
       const response = await axios.post(
-        `http://localhost:9003/homestays/review/`+currentPage,
+        `${URL}/review/`+currentPage,
         data
       );
       setContents(response.data.list);
