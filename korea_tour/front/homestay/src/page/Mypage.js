@@ -14,10 +14,10 @@ const Mypage  =()=> {
            <Link to="/mypage/Reservation">
            <button className="click-btn">예약 내역</button>
            </Link>
-           <Link to="/mypage/likeList">
+           <Link to="/mypage/like">
            <button className="click-btn">내가 찜한 홈스테이</button>
            </Link>
-           <Link to="/mypage/reviewlist">
+           <Link to="/mypage/review">
            <button className="click-btn">리뷰쓰기</button>
            </Link>
            <Link to="/mypage/reviewlist">

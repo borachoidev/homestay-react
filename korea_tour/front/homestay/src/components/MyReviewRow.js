@@ -19,7 +19,7 @@ const MyReviewRow  =(props)=> {
                      ? 
                      <button onClick={() => {
                         props.history.push(
-                          `/mypage/reviewwrite/${props.homeStayNum}/${props.ReservationNum}`
+                          `/mypage/review/${props.homeStayNum}/${props.ReservationNum}`
                         );
                       }}>리뷰작성</button>
                      : (props.review===1
