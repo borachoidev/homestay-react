@@ -37,7 +37,7 @@ export default function HoverRating(props) {
     let starValue= star.replace(",","");
     starValue = Number(starValue);
     setValue({...value,[e.target.name]:starValue})
-    /*console.log("star=",starValue)*/
+    console.log("star=",starValue)
   };
   
   
