@@ -18,8 +18,8 @@ function AdminHouseDetail({match,history}) {
       const response = await axios.patch(
         url
       ).then(res=>{console.log(res)});
-     
-       history.push(`/admin/host/list?currentPage=1`);
+      console.log("승인완료")
+       
     } catch (e) {
       console.log(e);
     }
@@ -32,7 +32,7 @@ function AdminHouseDetail({match,history}) {
       const response = await axios.patch(
         `http://localhost:9003/homestays/admin/${detailnum}/deny`
       );
-      history.push(`/admin/host/list?currentPage=1`);
+      console.log("거절완료")
     } catch (e) {
       console.log(e);
     }
