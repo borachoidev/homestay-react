@@ -5,25 +5,42 @@ import Star from './StarRating';
 const StarRating = (props) => {
         
     const [value,setValue] = useState({
-        clean:0,
-        communicate:0,
-        checkIn:0,
-        accuracy:0,
-        location:0,
-        contentment:0
+        clean:props.clean,
+        communicate:props.communicate,
+        checkIn:props.checkIn,
+        accuracy:props.accuracy,
+        location:props.location,
+        contentment:props.contentment
 
     })
     const [name,setName]=useState({
-        clean:"clean",
-        communicate:"communicate",
+        clean:"cleanliness",
+        communicate:"communication",
         checkIn:"checkIn",
         accuracy:"accuracy",
         location:"location",
-        contentment:"contentment"
+        contentment:"satisfactionForPrice"
     })
     
+    const onSearchSubmit=(value)=> {
+    	console.log(value);
+    }
 
- 
+    const changeText = e => {
+       
+        setValue({...value,[e.target.name]:e.target.value})
+    };
+
+    /*const handleFavFlaverChange = (value) => {
+        this.setValue({clean:clean.value})
+     }
+    */
+    console.log("star=",value.clean)
+    console.log("star=",value.communicate)
+    console.log("star=",value.checkIn)
+    console.log("star=",value.accuracy)
+    console.log("star=",value.location)
+    console.log("star=",value.contentment)
 
     return (
         <div>
