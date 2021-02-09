@@ -13,7 +13,7 @@ import NaverButton from 'components/NaverButton';
 import Avatar from '@material-ui/core/Avatar';
 import { connect } from 'react-redux';
 import { signOut } from '_actions/user';
-import {changeArea} from "_actions/search"
+import { changeArea } from '_actions/search';
 import store from '_store/Store';
 import { Link } from 'react-router-dom';
 import Paper from '@material-ui/core/Paper';
@@ -41,17 +41,17 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const NavBar = ({ signOut ,changeArea}) => {
+const NavBar = ({ signOut, changeArea }) => {
   const classes = useStyles();
   const auth = store.getState().userReducer.auth;
   const host = store.getState().userReducer.host;
   const avatar = store.getState().userReducer.avatar;
   const [anchorEl, setAnchorEl] = useState(null);
-  console.log(store.getState().searchReducer)
+  console.log(store.getState().searchReducer);
   const area = store.getState().searchReducer.area;
-  const  checkin =store.getState().searchReducer.checkin;
-  const  checkout= store.getState().searchReducer.checkout;
-  const  count=store.getState().searchReducer.count;
+  const checkin = store.getState().searchReducer.checkin;
+  const checkout = store.getState().searchReducer.checkout;
+  const count = store.getState().searchReducer.count;
   const open = Boolean(anchorEl);
 
   const handleMenu = event => {
@@ -68,42 +68,44 @@ const NavBar = ({ signOut ,changeArea}) => {
   };
 
   return (
-    <AppBar>
+    <AppBar position="static">
       <Toolbar>
         <Typography variant="h6" className={classes.title}>
-          라온 홈스테이
+          <Link to="/homestay">라온 홈스테이</Link>
         </Typography>
         <Paper>
-        <InputBase
-       className={classes.input}
-       placeholder="장소"
-       value={area}
-       onChange={(e)=>{console.log(e.target.value) ;changeArea(e.target.value)}}
-       inputProps={{ 'aria-label': '' }}
-     />
-      <InputBase
-       className={classes.input}
-       placeholder="체크인"
-       value={checkin}
-       inputProps={{ 'aria-label': '' }}
-     />
-      <InputBase
-       className={classes.input}
-       placeholder="체크아웃"
-       value={checkout}
-       inputProps={{ 'aria-label': '' }}
-     />
-     <InputBase
-       className={classes.input}
-       placeholder="인원"
-       value={count}
-       inputProps={{ 'aria-label': '' }}
-     />
-     <IconButton type="submit" className={classes.iconButton} 
-      >
-       <SearchIcon />
-     </IconButton>
-     </Paper>
+          <InputBase
+            className={classes.input}
+            placeholder="장소"
+            value={area}
+            onChange={e => {
+              console.log(e.target.value);
+              changeArea(e.target.value);
+            }}
+            inputProps={{ 'aria-label': '' }}
+          />
+          <InputBase
+            className={classes.input}
+            placeholder="체크인"
+            value={checkin}
+            inputProps={{ 'aria-label': '' }}
+          />
+          <InputBase
+            className={classes.input}
+            placeholder="체크아웃"
+            value={checkout}
+            inputProps={{ 'aria-label': '' }}
+          />
+          <InputBase
+            className={classes.input}
+            placeholder="인원"
+            value={count}
+            inputProps={{ 'aria-label': '' }}
+          />
+          <IconButton type="submit" className={classes.iconButton}>
+            <SearchIcon />
+          </IconButton>
+        </Paper>
         {!auth && (
           <div>
             <IconButton
@@ -192,5 +194,5 @@ const NavBar = ({ signOut ,changeArea}) => {
 
 export default connect(null, dispatch => ({
   signOut: () => dispatch(signOut()),
-  changeArea:()=>dispatch(changeArea(data))
+  changeArea: () => dispatch(changeArea(data)),
 }))(NavBar);
