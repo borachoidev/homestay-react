@@ -113,7 +113,7 @@ function Search(props) {
         <SearchIcon
           onClick={() => {
             history.push(
-              `search/${keyword.area}/${keyword.checkin}/${keyword.checkout}/${keyword.guest}`
+              `/search/${keyword.area}/${keyword.checkin}/${keyword.checkout}/${keyword.guest}`
             );
           }}
         />
