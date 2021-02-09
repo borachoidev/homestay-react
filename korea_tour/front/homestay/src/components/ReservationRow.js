@@ -9,7 +9,7 @@ const ReservationRow  =(props)=> {
         ?
             <tr className="ReservationRow" onClick={() => {
                 props.history.push(
-                  `/mypage/Reservationdetail/${props.homeStayNum}`
+                  `/mypage/reservation/${props.homeStayNum}`
                 );
               }}> 
                 <td>{props.writeday}</td>

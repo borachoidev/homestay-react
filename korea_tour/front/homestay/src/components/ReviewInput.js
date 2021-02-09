@@ -12,6 +12,8 @@ import "./ReviewInput.css"
 import StarRating from './AllStarRating';
 import ReTextarea from './ReviewTextarea';
 import ReviewFileUpload from './ReviewFileUpload';
+
+
 const ReviewInput = () => {
     const [star,setStar] = useState({
         clean: 0,
@@ -39,37 +41,7 @@ const ReviewInput = () => {
     let loginNum = store.getState().userReducer.num;
     let loginId = store.getState().userReducer.name;
     let loginPhoto = store.getState().userReducer.avatar;
-    console.log(star.clean);
 
-
-    const reviewUpdate = async () => {
-        try {
-          const response = await axios.post(
-            `http://localhost:9003/homestays/mypage/review`,{
-                data: {
-                    cleanliness:star.clean,
-                    communication:star.communicate,
-                    checkIn:star.checkIn,
-                    accuracy:star.accuracy,
-                    location:star.location,
-                    satisfactionForPrice:star.contentment,
-                    photos: upload.photo,
-                    content:text.content,
-                    homeStayReservationNum : Number(ReservationNum),
-                    homeStayNum : Number(reviewHomestayNum),
-                    loginNum : loginNum,
-                    loginPhoto : loginPhoto,              
-                    loginId : loginId,
-                }
-              }
-          ).then(res=>{console.log(res)});
-          } catch (e) {
-             console.log(e);
-          }
-      
-          };
-
-    
         return (
             <div>
                 <form action="http://localhost:9003/homestays/mypage/review" method="POST" enctype="multipart/form-data">

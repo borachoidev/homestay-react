@@ -40,7 +40,7 @@ function RouteMain(props) {
       {/* 마이페이지 */}
       <Route path="/mypage" component={Mypage} />
       <Route exact path="/mypage/review" component={MyReviewList} />
-      <Route path="/mypage/review/:num " component={ReviewForm} />
+      <Route path="/mypage/review/:num/:num" component={ReviewForm} />
       <Route exact path="/mypage/like" component={LikeList} />
       <Route exact path="/mypage/reservation" component={ReservationList} />
       <Route path="/mypage/reservation/:num" component={ReservationDetail} />
