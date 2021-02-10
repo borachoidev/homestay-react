@@ -28,7 +28,7 @@
 	    ORDER BY price ASC
 	    LIMIT #{start},#{perPage}
 	</select>
-	<select id="getTotalHomeStayList" resultType="int">
+	<select id="getTotalHomeStayList" parameterType="HashMap" resultType="int">
 		SELECT count(*) FROM homeStay 
 		WHERE homeStay.homeStayNum 
 		IN
