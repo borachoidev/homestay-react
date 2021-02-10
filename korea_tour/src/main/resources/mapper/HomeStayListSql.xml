@@ -30,9 +30,9 @@
 	</select>
 	<select id="getTotalHomeStayList" resultType="int">
 		SELECT count(*) FROM homeStay 
-		WHERE homeStayNum 
+		WHERE homeStay.homeStayNum 
 		IN
-		(SELECT distinct homeStayNum FROM homeStay
+		(SELECT distinct homeStay.homeStayNum FROM homeStay
 		JOIN homeStayDetail 
 		ON homeStay.homeStayNum=homeStayDetail.homeStayNum
         AND homeStay.approval=2 AND homeStay.open=1 
