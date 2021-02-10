@@ -34,11 +34,30 @@ function HouseCard(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState(2);
   const [state, setState] = useState(true);
-  
+
+  const [likeBtn, setLikeBtn] = useState(0);
+
   const userNum = store.getState().userReducer.num;
   console.log(userNum)
 
-  const UpdateMark = async () => {
+  useEffect( () => {
+    const getMarked = async () => {
+        try {
+            setLikeBtn(null);
+            const response = await axios.get(
+                `${URL}/${props.homeStayNum}/mark?userNum=${userNum}`
+            );
+            setLikeBtn(response.data);
+        } catch(e) {
+           
+        }
+       
+    };
+    getMarked();
+}, []);
+  
+
+  const addLike = async () => {
     try {
      const url=`${URL}/mark?homeStayNum=${props.homeStayNum}&userNum=${userNum}`
       console.log(url);
@@ -52,7 +71,7 @@ function HouseCard(props) {
     }
   };
 
-  const DeleteMark = async () => {
+  const DeleteLike = async () => {
     try {
       const response = await axios.delete(
         `${URL}/mark?homeStayNum=${props.homeStayNum}&userNum=${userNum}`
@@ -72,11 +91,14 @@ function HouseCard(props) {
       <CardHeader
         action={
           <IconButton aria-label="add to favorites">
-           <div onClick={function toggle() {
-            setState(!state);
-            }}>
-             {state ? <span onClick={UpdateMark}><FavoriteBorderIcon /></span> : <span onClick={DeleteMark}><FavoriteIcon style={{ color: pink[500] }} /></span>}
-            </div> 
+           { userNum === 0
+                ? <span  onClick={ ()=>{ alert("로그인을 해주세요!!") } }><FavoriteBorderIcon/></span>
+                :
+                    likeBtn === 0
+                    ? <span  onClick={ ()=>{ setLikeBtn(1);addLike();alert("즐겨찾기 추가했습니다!!") } }><FavoriteBorderIcon/></span>
+                    : <span onClick={ ()=>{ setLikeBtn(0);DeleteLike();alert("즐겨찾기 삭제했습니다..") } }><FavoriteIcon style={{ color: pink[500] }} /></span>
+              }
+           
           </IconButton>
         }
         title={props.title}
