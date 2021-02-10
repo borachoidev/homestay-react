@@ -139,6 +139,7 @@ function currentPosts(tmp) {
                 countOfReview={content.countOfReview}
                 avgOfStar={content.avgOfStar}
                 homeStayNum={content.homeStayNum}
+                isMarked={content.isMarked}
               />
             </Grid>
           ))}
