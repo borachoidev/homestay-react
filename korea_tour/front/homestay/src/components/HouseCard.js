@@ -20,6 +20,7 @@ import { withRouter } from 'react-router-dom';
 import './HouseCard.css';
 import store from '_store/Store';
 
+import { img } from '_utils/api';
 
 const useStyles = makeStyles(() => ({
   root: { maxwidth: 365 },
@@ -82,7 +83,7 @@ function HouseCard(props) {
       />
       <CardMedia
         className={classes.media}
-        image={"http://localhost:9003/homeStayImg/"+props.photoName}
+        image={`${img}/${props.photoName}`}
       />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
