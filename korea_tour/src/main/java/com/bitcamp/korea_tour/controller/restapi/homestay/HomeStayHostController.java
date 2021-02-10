@@ -147,7 +147,11 @@ public class HomeStayHostController {
 		hsas.updateHomeStay(dto, homeStayNum);
 		hsas.updateHomeStayDetail(dto, homeStayNum);
 	}
-	
+	/**
+	 * 홈스테이 오픈여부 수정
+	 * @param userNum
+	 * @param map
+	 */
 	@PatchMapping("/homestays/house/{userNum}")
 	public void updateHouseOpen(@PathVariable(value = "userNum") int userNum,
 			@RequestBody Map<String, Object> map) {
