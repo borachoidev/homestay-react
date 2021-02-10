@@ -4,6 +4,8 @@ import axios from 'axios';
 import store from '_store/Store';
 
 function ModifySubmit(props) {
+  const deletePhotos = props.deletePhotos;
+  console.log(deletePhotos);
   const num = store.getState().userReducer.num;
   const hostInfo = props.info;
   const houseIntro = props.intro;
@@ -29,10 +31,10 @@ function ModifySubmit(props) {
     wifi: amenities.wifi ? 1 : 0,
     smokingOk: amenities.smokingOk ? 1 : 0,
     bathroom: amenities.bathroom ? 1 : 0,
-    parking: amenities.parkin ? 1 : 0,
+    parking: amenities.parking ? 1 : 0,
     towel: amenities.towel ? 1 : 0,
-    breakfast: amenities.breackfast ? 1 : 0,
-    aircon: amenities.aricon ? 1 : 0,
+    breakfast: amenities.breakfast ? 1 : 0,
+    aircon: amenities.aircon ? 1 : 0,
     elecProduct: amenities.elecProduct ? 1 : 0,
     kitchen: amenities.kitchen ? 1 : 0,
     title: houseIntro.title,
@@ -63,7 +65,7 @@ function ModifySubmit(props) {
   useEffect(() => {
     // async를 사용하는 함수 따로 선언
     const sendPhoto = async num => {
-      let url = `${URL}/photo/${num}`;
+      let url = `${URL}/photo/${parseInt(num)}`;
       setLoading(true);
       try {
         const response = await axios.post(url, imageFile).then(() => {
@@ -80,20 +82,22 @@ function ModifySubmit(props) {
 
   //사진삭제
   useEffect(() => {
-    const deletePhoto = async photonum => {
-      let url = `${URL}/photo/${photonum}`;
-      setLoading(true);
-      try {
-        const response = await axios.delete(url).then(() => {
-          alert('완료!');
-        });
-        console.log(data);
-      } catch (e) {
-        console.log(e);
-      }
-      setLoading(false);
-    };
-    deletePhoto(photonum);
+    for (const photonum of deletePhotos) {
+      const deletePhoto = async photonum => {
+        let url = `${URL}/photo/${photonum}`;
+        setLoading(true);
+        try {
+          const response = await axios.delete(url).then(() => {
+            alert('완료!');
+          });
+          console.log(data);
+        } catch (e) {
+          console.log(e);
+        }
+        setLoading(false);
+      };
+      deletePhoto(photonum);
+    }
   }, []);
 
   if (loading) {
