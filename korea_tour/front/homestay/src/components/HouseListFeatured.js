@@ -9,6 +9,7 @@ import Container from '@material-ui/core/Container';
 import HouseListSort from './HouseListSort';
 import Button from '@material-ui/core/Button';
 import store from '_store/Store';
+import './HouseListFeatured.css';
 
 import Pagination from './Pagination';
 
@@ -112,19 +113,17 @@ function currentPosts(tmp) {
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <HouseListSort />
-            <Button variant="contained" size="small" onClick={byCost}>
+            <div class="buttons">
+            <Button class="byBtn" onClick={byCost}>
               요금순
             </Button>
-            &nbsp;&nbsp;
-            <Button
-              variant="contained"
-              color="secondary"
-              size="small"
-              id="orderByStars"
+            
+            <Button  class="byBtn"
               onClick={byStars}
             >
               평점순
             </Button>
+            </div>
           </Grid>
           {/*페이징 추가부분 3*/ }
           

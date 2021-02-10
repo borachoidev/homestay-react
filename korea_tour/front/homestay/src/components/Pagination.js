@@ -1,5 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import './Pagination.css';
+
 
 
 const Pagination = ({postsPerPage, totalPosts, paginate}) => {
@@ -11,14 +13,14 @@ const Pagination = ({postsPerPage, totalPosts, paginate}) => {
 
   return (
     <div>
-    <div>
-      <div>
+    <div class="center">
+      <div class="pagination">
         {pageNumbers.map(number => (
-          <div key={number}>
-            <div onClick={() => paginate(number)} >
+          <a class="items" key={number}>
+            <a onClick={() => paginate(number)} >
               {number}
-            </div>
-          </div>
+            </a>
+          </a>
         ))}
       </div>
     </div>
