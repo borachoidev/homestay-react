@@ -98,7 +98,7 @@ function HouseCard(props) {
       <div class="goDetail">
       <Button  color="secondary" onClick={() => {
         props.history.push(
-        `/homestay/housedetail/${props.homeStayNum}` )
+        `/housedetail/num=${props.homeStayNum}` )
       }}>자세히보기>></Button></div>
 
     </Card>
