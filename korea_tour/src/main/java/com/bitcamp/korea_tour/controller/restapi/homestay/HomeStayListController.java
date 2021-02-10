@@ -6,16 +6,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bitcamp.korea_tour.model.UserDto;
 import com.bitcamp.korea_tour.model.homestay.HomeStayListDto;
 import com.bitcamp.korea_tour.model.service.homestay.HomeStayListService;
 import com.bitcamp.korea_tour.model.service.homestay.HomeStayService;
@@ -51,9 +46,8 @@ public class HomeStayListController implements SessionNames {
 	 * @param request
 	 * @return Json(list)
 	 */
-	@PostMapping(value="/price/{currentPage}", produces = "application/json;charset=utf8")
+	@PostMapping(value="/price", produces = "application/json;charset=utf8")
 	public JsonList<List<HomeStayListDto>> getHomeStayListByPrice (
-			@PathVariable(value="currentPage") int currentPage,
 			@RequestBody Map<String, Object> json
 			) {
 
@@ -68,14 +62,10 @@ public class HomeStayListController implements SessionNames {
 		map.put("maxPeople", maxPeople);
 		map.put("checkInDay", checkInDay);
 		map.put("checkOutDay", checkOutDay);
-		start=pagingService.getPagingStart(currentPage, perPage);
+		list=homeStayListService.getAllHomeStayList(map);
 		totalCount=homeStayListService.getTotalHomeStayList(map);
 		totalPage=pagingService.getPagingTotalPage(totalCount, perPage);
-		System.out.println(totalCount);
-		
-		map.put("start", start);
-		map.put("perPage", perPage);
-		list=homeStayListService.getAllHomeStayList(map);
+
 
 
 		for(HomeStayListDto dto:list) {
@@ -103,9 +93,8 @@ public class HomeStayListController implements SessionNames {
 	 * @param request
 	 * @return
 	 */
-	@PostMapping(value="/review/{currentPage}", produces = "application/json;charset=utf8")
+	@PostMapping(value="/review", produces = "application/json;charset=utf8")
 	public JsonList<List<HomeStayListDto>> getHomeStayListByReview (
-			@PathVariable(value="currentPage") int currentPage,
 			@RequestBody Map<String, Object> json
 			) {
 
@@ -120,14 +109,9 @@ public class HomeStayListController implements SessionNames {
 		map.put("maxPeople", maxPeople);
 		map.put("checkInDay", checkInDay);
 		map.put("checkOutDay", checkOutDay);
-		start=pagingService.getPagingStart(currentPage, perPage);
+		list=homeStayListService.getAllHomeStayList(map);
 		totalCount=homeStayListService.getTotalHomeStayList(map);
 		totalPage=pagingService.getPagingTotalPage(totalCount, perPage);
-		System.out.println(totalCount);
-		
-		map.put("start", start);
-		map.put("perPage", perPage);
-		list=homeStayListService.getAllHomeStayList(map);
 
 		for(HomeStayListDto dto:list) {
 			int homeStayNum=dto.getHomeStayNum();
