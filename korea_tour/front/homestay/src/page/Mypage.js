@@ -11,7 +11,7 @@ const Mypage  =()=> {
            <h1>마이페이지 출력란</h1>
            <hr/>
            <div className="mypage-btn">
-           <Link to="/mypage/Reservation">
+           <Link to="/mypage/reservation">
            <button className="click-btn">예약 내역</button>
            </Link>
            <Link to="/mypage/like">
@@ -20,7 +20,7 @@ const Mypage  =()=> {
            <Link to="/mypage/review">
            <button className="click-btn">리뷰쓰기</button>
            </Link>
-           <Link to="/mypage/reviewlist">
+           <Link to="/mypage/myreview">
            <button className="click-btn">내가 쓴 리뷰</button>
            </Link>
            </div>

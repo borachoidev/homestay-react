@@ -2,9 +2,8 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 
 const ReservationRow  =(props)=> {
-    
   let stayNum=props.homeStayNum;
-
+ 
         return (stayNum)
         ?
             <tr className="ReservationRow" onClick={() => {
@@ -19,7 +18,7 @@ const ReservationRow  =(props)=> {
                     {props.approval===0
                      ? 
                      "예약대기"
-                     : (props.approval===1
+                     : (props.approval===1||props.cancle===1
                      ? "예약취소"
                      :"예약승인")
                     } 
