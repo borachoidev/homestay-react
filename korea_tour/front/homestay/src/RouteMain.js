@@ -10,6 +10,7 @@ import ReservationDetail from 'page/ReservationDetail';
 import Mypage from 'page/Mypage';
 import LikeList from 'page/LikeList';
 import MyReviewList from 'page/MyReviewList';
+import MyWriteReview from 'page/MyWriteReview';
 import HostPenddingBooks from 'page/HostPenddingBooks';
 import HostBookDetail from 'page/HostBookDetail';
 import HostManageHouse from 'page/HostManageHouse';
@@ -40,6 +41,7 @@ function RouteMain(props) {
       {/* 마이페이지 */}
       <Route path="/mypage" component={Mypage} />
       <Route exact path="/mypage/review" component={MyReviewList} />
+      <Route exact path="/mypage/myreview" component={MyWriteReview} />
       <Route path="/mypage/review/:num/:num" component={ReviewForm} />
       <Route exact path="/mypage/like" component={LikeList} />
       <Route exact path="/mypage/reservation" component={ReservationList} />
