@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import FormHostInfo from 'components/hostform/FormHostInfo';
 import FormHouseRules from 'components/hostform/FormHouseRules';
-import FormHouseIntro from 'components/hostform/FormHouseIntro';
+import FormHouseIntroModify from 'components/hostform/FormHouseIntroModify';
 import FormConfirm from 'components/hostform/FormConfirm';
 import ModifySubmit from 'components/hostform/ModifySubmit';
 import { Stepper, Step, StepLabel } from '@material-ui/core';
@@ -14,6 +14,7 @@ export default function HostManageHouse() {
   const num = store.getState().userReducer.num;
   const [loading, setLoading] = useState(true);
   const [approval, setApprovl] = useState(false);
+  const [deletePhotos, setDeletePhotos] = useState([]);
   const [hostInfo, setHostInfo] = useState({
     addr1: '',
     addr2: '',
@@ -47,6 +48,7 @@ export default function HostManageHouse() {
     photo: '',
   });
   const [imageFile, setImageFile] = useState('');
+  const [photos, setPhotos] = useState();
   const [step, setStep] = useState(0);
   useEffect(() => {
     // async를 사용하는 함수 따로 선언
@@ -86,7 +88,6 @@ export default function HostManageHouse() {
         setHouseIntro({
           title: data.title,
           content: data.content,
-          photo: data.photo,
         });
         setApprovl(data.appoval);
         console.log(response.data.dto);
@@ -96,6 +97,23 @@ export default function HostManageHouse() {
       setLoading(false);
     };
     fatchData(num);
+  }, []);
+
+  //사진 가져오기
+  useEffect(() => {
+    const getPhoto = async num => {
+      setLoading(true);
+      try {
+        const response = await axios.get(`${URL}/photo/${num}`);
+        const data = response.data.list;
+        console.log(data);
+        setPhotos(data);
+      } catch (e) {
+        console.log(e);
+      }
+      setLoading(false);
+    };
+    getPhoto(num);
   }, []);
 
   if (loading) {
@@ -124,9 +142,11 @@ export default function HostManageHouse() {
         );
       case 2:
         return (
-          <FormHouseIntro
+          <FormHouseIntroModify
             intro={[houseIntro, setHouseIntro]}
             setImageFile={setImageFile}
+            photos={photos}
+            delete={[deletePhotos, setDeletePhotos]}
           />
         );
       case 3:
@@ -146,6 +166,7 @@ export default function HostManageHouse() {
             amenity={amenities}
             intro={houseIntro}
             image={imageFile}
+            deletePhotos={deletePhotos}
           />
         );
     }
