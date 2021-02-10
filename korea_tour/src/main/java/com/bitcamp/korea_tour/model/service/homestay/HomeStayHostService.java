@@ -15,6 +15,7 @@ public interface HomeStayHostService {
 	   void insertHomeStayDetail(int homestayNum, JoinHomeStayDetailDto dto);
 	   void updateHomeStay(JoinHomeStayDetailDto dto,int homeStayNum);
 	   void updateHomeStayDetail(JoinHomeStayDetailDto dto,int homeStayNum);
+	   void updateHomeStayOpen(int userNum, int open);
 	   int getTotalCount(int userNum, int approval);
 	   List<HomeStayReservationDto> getAllReservation(int userNum,int approval,int start, int perPage);
 	   int getApprovalCount(int homeStayNum);
