@@ -1,10 +1,11 @@
 import React from 'react';
 
 import { Link } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
+import { useTheme, makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import ListIcon from '@material-ui/icons/List';
 import EventBusyIcon from '@material-ui/icons/EventBusy';
+
 
 
 
@@ -12,21 +13,27 @@ const useStyles = makeStyles((theme) => ({
   button: {
     margin: theme.spacing(1),
   },
+  root: ({ secondary }) => ({
+    backgroundColor: secondary.main,
+    widht: "50px",
+    height: "50px",
+  }),
 }));
 
 
 
 export default function ReservationButton(props) {
-
-  const classes = useStyles();
-  
+  const { palette } = useTheme();
+  const classes = useStyles({
+    secondary: palette.secondary
+  });
   return (
     <div>
   
     <Button
       variant="contained"
-      color="default"
-      className={classes.button}
+      color="secondary"
+      className={classes.button,classes.root}
       startIcon={<ListIcon />}
     >
        <Link to="/mypage/reservation"> 
@@ -35,8 +42,8 @@ export default function ReservationButton(props) {
     </Button>
     <Button
      variant="contained"
-     color="default"
-     className={classes.button}
+     color="secondary"
+     className={classes.button,classes.root}
      startIcon={<EventBusyIcon />}
      onClick={props.patchNum}
     >

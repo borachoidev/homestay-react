@@ -8,18 +8,19 @@ const GlobalTheme = createMuiTheme({
           main: "#f16664",
         },
       secondary: {
-            main: "#fff6e6",
+            main: "#00A699",
           },
-      error: {
-            main: "#79cccd",
-          },
-      info: {
-            main: "#6bb7b9",
-          },
-      success: {
-            main: "#007b8c",
+      Arches: {
+            main: "#FC642D",
+            },
+      Hof:{
+            main: "#484848"
         },
+      info:{
+          main: "#fff6e6"
+      },
     },
+   
   });
 
 
