@@ -22,6 +22,7 @@ import Bathtub from '@material-ui/icons/Bathtub';
 import BathtubOutlined from '@material-ui/icons/BathtubOutlined';
 import WifiOff from '@material-ui/icons/WifiOff';
 import Wifi from '@material-ui/icons/Wifi';
+import { Box } from '@material-ui/core';
 
 export default function FormAmenities(props) {
   const [amenities, setAmenities] = props.amenity;
@@ -34,127 +35,138 @@ export default function FormAmenities(props) {
   };
 
   return (
-    <FormGroup column="true">
-      <FormControlLabel
-        control={
-          <Checkbox
-            checked={amenities.dogOk}
-            icon={<PetsOutlinedIcon />}
-            checkedIcon={<PetsIcon />}
-            name="dogOk"
-            onClick={handleChange}
-          />
-        }
-        label="반려동물동반"
-      />
-      <FormControlLabel
-        control={
-          <Checkbox
-            checked={amenities.smokingOk}
-            icon={<SmokeFreeIcon />}
-            checkedIcon={<SmokingRoomsIcon />}
-            name="smokingOk"
-            onClick={handleChange}
-          />
-        }
-        label="흡연가능"
-      />
-      <FormControlLabel
-        control={
-          <Checkbox
-            checked={amenities.wifi}
-            icon={<WifiOff />}
-            checkedIcon={<Wifi />}
-            name="wifi"
-            onClick={handleChange}
-          />
-        }
-        label="무선인터넷(Wifi)"
-      />
-      <FormControlLabel
-        control={
-          <Checkbox
-            checked={amenities.towel}
-            icon={<BathtubOutlined />}
-            checkedIcon={<Bathtub />}
-            name="towel"
-            onClick={handleChange}
-          />
-        }
-        label="욕실용품"
-      />
-      <FormControlLabel
-        control={
-          <Checkbox
-            checked={amenities.breakfast}
-            icon={<EmojiFoodBeverageOutlined />}
-            checkedIcon={<EmojiFoodBeverage />}
-            name="breakfast"
-            onClick={handleChange}
-          />
-        }
-        label="조식제공"
-      />
-      <FormControlLabel
-        control={
-          <Checkbox
-            checked={amenities.aircon}
-            icon={<AcUnitOutlined />}
-            checkedIcon={<AcUnit />}
-            name="aircon"
-            onClick={handleChange}
-          />
-        }
-        label="에어컨"
-      />
-      <FormControlLabel
-        control={
-          <Checkbox
-            checked={amenities.elecProduct}
-            icon={<OfflineBoltOutlined />}
-            checkedIcon={<OfflineBolt />}
-            name="elecProduct"
-            onClick={handleChange}
-          />
-        }
-        label="가전제품"
-      />
-      <FormControlLabel
-        control={
-          <Checkbox
-            checked={amenities.kitchen}
-            icon={<KitchenOutlined />}
-            checkedIcon={<Kitchen />}
-            name="kitchen"
-            onClick={handleChange}
-          />
-        }
-        label="주방이용"
-      />
-      <FormControlLabel
-        control={
-          <Checkbox
-            checked={amenities.bathroom}
-            icon={<WcOutlined />}
-            checkedIcon={<Wc />}
-            name="bathroom"
-            onClick={handleChange}
-          />
-        }
-        label="개별화장실"
-      />
-      <FormControlLabel
-        control={
-          <Checkbox
-            checked={amenities.parking}
-            icon={<LocalParkingOutlined />}
-            checkedIcon={<LocalParking />}
-            name="parking"
-            onClick={handleChange}
-          />
-        }
-        label="주차시설"
-      />
-    </FormGroup>
+    <Box display="flex" justifyContent="space-around" flexWrap="wrap">
+      <FormGroup column="true">
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={amenities.dogOk}
+              icon={<PetsOutlinedIcon />}
+              checkedIcon={<PetsIcon />}
+              name="dogOk"
+              onClick={handleChange}
+            />
+          }
+          label="반려동물동반"
+        />
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={amenities.smokingOk}
+              icon={<SmokeFreeIcon />}
+              checkedIcon={<SmokingRoomsIcon />}
+              name="smokingOk"
+              onClick={handleChange}
+            />
+          }
+          label="흡연가능"
+        />
+      </FormGroup>
+      <FormGroup>
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={amenities.wifi}
+              icon={<WifiOff />}
+              checkedIcon={<Wifi />}
+              name="wifi"
+              onClick={handleChange}
+            />
+          }
+          label="무선인터넷(wifi)"
+        />
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={amenities.towel}
+              icon={<BathtubOutlined />}
+              checkedIcon={<Bathtub />}
+              name="towel"
+              onClick={handleChange}
+            />
+          }
+          label="욕실용품 제공"
+        />
+      </FormGroup>
+      <FormGroup>
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={amenities.breakfast}
+              icon={<EmojiFoodBeverageOutlined />}
+              checkedIcon={<EmojiFoodBeverage />}
+              name="breakfast"
+              onClick={handleChange}
+            />
+          }
+          label="조식 제공"
+        />
+
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={amenities.aircon}
+              icon={<AcUnitOutlined />}
+              checkedIcon={<AcUnit />}
+              name="aircon"
+              onClick={handleChange}
+            />
+          }
+          label="에어컨 설비"
+        />
+      </FormGroup>
+      <FormGroup>
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={amenities.elecProduct}
+              icon={<OfflineBoltOutlined />}
+              checkedIcon={<OfflineBolt />}
+              name="elecProduct"
+              onClick={handleChange}
+            />
+          }
+          label="가전제품 이용"
+        />
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={amenities.kitchen}
+              icon={<KitchenOutlined />}
+              checkedIcon={<Kitchen />}
+              name="kitchen"
+              onClick={handleChange}
+            />
+          }
+          label="주방 이용"
+        />
+      </FormGroup>
+      <FormGroup>
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={amenities.bathroom}
+              icon={<WcOutlined />}
+              checkedIcon={<Wc />}
+              name="bathroom"
+              onClick={handleChange}
+            />
+          }
+          label="단독 화장실"
+        />
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={amenities.parking}
+              icon={<LocalParkingOutlined />}
+              checkedIcon={<LocalParking />}
+              name="parking"
+              onClick={handleChange}
+            />
+          }
+          label="주차 시설"
+        />
+      </FormGroup>
+    </Box>
   );
 }

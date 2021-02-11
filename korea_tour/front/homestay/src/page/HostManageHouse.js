@@ -9,9 +9,37 @@ import { Stepper, Step, StepLabel } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import { URL } from '_utils/api';
 import store from '_store/Store';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
+import { makeStyles } from '@material-ui/core/styles';
 
+const useStyles = makeStyles(theme => ({
+  root: {
+    minHeight: '55vh',
+    marginTop: '2%',
+    marginBottom: '2%',
+  },
+}));
 export default function HostManageHouse() {
+  const classes = useStyles();
   const num = store.getState().userReducer.num;
+  const [open, setOpen] = React.useState(true);
+  const handleChange = event => {
+    setOpen(event.target.checked);
+    const setisOpened = async num => {
+      setLoading(true);
+      const data = { open: event.target.checked ? 1 : 0 };
+      try {
+        const response = await axios.patch(`${URL}/house/${num}`, data);
+      } catch (e) {
+        console.log(e);
+      }
+      setLoading(false);
+    };
+    setisOpened(num);
+  };
+
   const [loading, setLoading] = useState(true);
   const [approval, setApprovl] = useState(false);
   const [deletePhotos, setDeletePhotos] = useState([]);
@@ -89,8 +117,10 @@ export default function HostManageHouse() {
           title: data.title,
           content: data.content,
         });
-        setApprovl(data.appoval);
-        console.log(response.data.dto);
+        const isOpened = data.open == 1 ? true : false;
+        setOpen(isOpened);
+        setApprovl(data.approval);
+        console.log(data.approval);
       } catch (e) {
         console.log(e);
       }
@@ -188,6 +218,26 @@ export default function HostManageHouse() {
 
   return (
     <>
+      <FormGroup row>
+        <FormControlLabel
+          control={
+            <Switch
+              checked={open}
+              onChange={handleChange}
+              name="open"
+              color="secondary"
+            />
+          }
+          label={open ? '홈스테이공개' : '홈스테이비공개'}
+        />
+      </FormGroup>
+      {approval == '0' && <span>승인대기중입니다. </span>}
+      {approval == '1' && (
+        <span>호스트 신청이 반려되었습니다. 다시 신청해주세요</span>
+      )}
+      {approval == '2' && (
+        <span>정보수정후 승인 대기 기간 동안은 예약을 받을 수 없습니다.</span>
+      )}
       <Stepper activeStep={step} alternativeLabel>
         {steps.map(label => (
           <Step key={label}>
@@ -195,14 +245,8 @@ export default function HostManageHouse() {
           </Step>
         ))}
       </Stepper>
-      {approval == '0' && <span>승인대기중입니다</span>}
-      {approval == '1' && (
-        <span>호스트 신청이 반려되었습니다. 다시 신청해주세요</span>
-      )}
-      {approval == '2' && (
-        <span>정보수정후 승인 대기기간동안은 예약을 받을 수 없습니다.</span>
-      )}
-      <div>{showStep(step)}</div>
+
+      <div className={classes.root}>{showStep(step)}</div>
       <div>
         {step === steps.length ? (
           <div>

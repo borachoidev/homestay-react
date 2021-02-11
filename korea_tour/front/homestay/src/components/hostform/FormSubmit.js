@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { URL } from '_utils/api';
 import axios from 'axios';
 import store from '_store/Store';
+import { useHistory } from 'react-router-dom';
 
 function FormSubmit(props) {
+  const history = useHistory();
   const num = store.getState().userReducer.num;
   const hostInfo = props.info;
   const houseIntro = props.intro;
@@ -45,7 +47,7 @@ function FormSubmit(props) {
       setLoading(true);
       try {
         const response = await axios.post(`${URL}/house`, data).then(() => {
-          alert('완료!');
+          alert('등록이 완료되었습니다');
         });
         console.log(data);
       } catch (e) {
@@ -62,7 +64,7 @@ function FormSubmit(props) {
       setLoading(true);
       try {
         const response = await axios.post(url, imageFile).then(() => {
-          alert('완료!');
+          history.push('/');
         });
         console.log(data);
       } catch (e) {

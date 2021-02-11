@@ -8,12 +8,12 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
     display: 'flex',
-    width: '80%',
+    width: '65%',
     flexDirection: 'column',
     margin: 'auto',
   },
   input: {
-    width: '17vw',
+    width: '13.8vw',
   },
 }));
 export default function FormHouseRules(props) {

@@ -9,7 +9,6 @@ export function signIn(APIdata) {
       .post(url, APIdata)
       .then(response => {
         const userData = response.data;
-
         return dispatch({
           type: SIGN_IN,
           APIdata,
