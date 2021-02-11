@@ -8,13 +8,15 @@ import HouseName from './HouseName';
 import HouseAddr from './HouseAddr';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
+
 
 function AdminHouseDetail({match,history}) {
-  const{num}=match.params;
-  const detailnum=num.split("=")[1];
+  let {houseNum}=useParams()
+  
   const handleConfirm = async () => {
     try {
-      const url=`${URL}/admin/${detailnum}/approve`
+      const url=`${URL}/admin/${houseNum}/approve`
       console.log(url);
       const response = await axios.patch(
         url
@@ -29,9 +31,9 @@ function AdminHouseDetail({match,history}) {
   const handleDeny = async () => {
     try {
      
-      console.log(detailnum);
+      console.log(houseNum);
       const response = await axios.patch(
-        `${URL}/admin/${detailnum}/deny`
+        `${URL}/admin/${houseNum}/deny`
       );
       console.log("거절완료")
     } catch (e) {
@@ -43,7 +45,7 @@ function AdminHouseDetail({match,history}) {
         <div>
            
             {/* header */}
-            {/* HouseName -> AdminHouseName 으로 custom을 하였으나 custom시 HouseName이  최종본이 아니였음 수정필요 */}
+  
             {/* 집이름,즐겨찾기,별점 */}
             <HouseName /> 
             <HouseAddr /> <br></br>
