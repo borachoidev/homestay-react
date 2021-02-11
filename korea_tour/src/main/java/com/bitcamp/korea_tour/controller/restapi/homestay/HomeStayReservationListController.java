@@ -42,10 +42,7 @@ public class HomeStayReservationListController {
 	  System.out.println(userNum);
 	  
 	  totalCount=hhs.getTotalCount(userNum, approval);
-	  start=pagingService.getPagingData(totalCount, currentPage).get("start");
-	  perPage=pagingService.getPagingData(totalCount, currentPage).get("perPage");
-	  totalPage=pagingService.getPagingData(totalCount,
-	  currentPage).get("totalPage");
+	  totalPage=pagingService.getPagingTotalPage(totalCount, perPage);
 	  
 	  System.out.println("totalcount"+totalCount);
 	  System.out.println("start"+start);
