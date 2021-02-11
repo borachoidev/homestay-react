@@ -18,14 +18,20 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
     display: 'flex',
-    width: '80%',
-    // alignItems: 'center',
+    width: '65%',
     flexDirection: 'column',
     margin: 'auto',
   },
   inline: {
     display: 'flex',
     alignItems: 'center',
+  },
+  select: {
+    display: 'flex',
+    width: '95%',
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+    margin: 'auto',
   },
 }));
 export default function FormHostInfo(props) {
@@ -98,7 +104,7 @@ export default function FormHostInfo(props) {
       />
       <div className={classes.inline}>
         <Typography display="inline">@</Typography>
-        <div className={classes.root}>
+        <div className={classes.select}>
           <InputLabel id="domain" display="inline">
             선택하세요
           </InputLabel>

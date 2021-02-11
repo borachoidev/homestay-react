@@ -1,45 +1,112 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import HostBookDetail from './HostBookDetail';
-import HostManageHouse from './HostManageHouse';
-import HostMyBooks from './HostMyBooks';
-import HostPenddingBooks from './HostPenddingBooks';
-import { makeStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import Divider from '@material-ui/core/Divider';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { URL } from '_utils/api';
+import store from '_store/Store';
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    width: '100%',
-    maxWidth: 500,
-    backgroundColor: theme.palette.background.paper,
-  },
-}));
-function HostMain(props) {
-  const classes = useStyles();
+export default function HostManageHouse() {
+  const num = store.getState().userReducer.num;
+  const [loading, setLoading] = useState(true);
+  const [hostInfo, setHostInfo] = useState({
+    addr1: '',
+    addr2: '',
+    email1: '',
+    email2: '',
+    hp: '',
+  });
+  const [houseRules, setHouseRules] = useState({
+    checkIn1: '',
+    checkIn2: '',
+    checkOut1: '',
+    checkOut2: '',
+    maxPeople: '',
+    price: '',
+  });
+  const [amenities, setAmenities] = useState({
+    dogOk: false,
+    wifi: false,
+    smokingOk: false,
+    bathroom: false,
+    parking: false,
+    towel: false,
+    breakfast: false,
+    aircon: false,
+    elecProduct: false,
+    kitchen: false,
+  });
+  const [houseIntro, setHouseIntro] = useState({
+    title: '',
+    content: '',
+    photo: '',
+  });
+  const [photos, setPhotos] = useState();
 
-  return (
-    <List component="nav" className={classes.root} aria-label="mailbox folders">
-      <Link to="/host/manage/house">
-        <ListItem button>
-          <ListItemText primary="집정보" />
-        </ListItem>
-      </Link>
-      <Divider />
-      <Link to="/host/manage/books">
-        <ListItem button divider>
-          <ListItemText primary="대기중인예약" />
-        </ListItem>
-      </Link>
-      <Link to="/host/books">
-        <ListItem button>
-          <ListItemText primary="확정예약" />
-        </ListItem>
-      </Link>
-    </List>
-  );
+  useEffect(() => {
+    const fatchData = async num => {
+      setLoading(true);
+      try {
+        const response = await axios.get(`${URL}/house/${num}`);
+        const data = response.data.dto;
+        console.log(data);
+        setHostInfo({
+          addr1: data.addr1,
+          addr2: data.addr2,
+          email1: data.email1,
+          email2: data.email2,
+          hp: data.hp,
+        });
+        setHouseRules({
+          checkIn1: data.checkIn1,
+          checkIn2: data.checkIn2,
+          checkOut1: data.checkOut1,
+          checkOut2: data.checkOut2,
+          maxPeople: data.maxPeople,
+          price: data.price,
+        });
+        setAmenities({
+          dogOk: data.dogOk == 1 ? true : false,
+          wifi: data.wifi == 1 ? true : false,
+          smokingOk: data.smokingOk == 1 ? true : false,
+          bathroom: data.bathroom == 1 ? true : false,
+          parking: data.parking == 1 ? true : false,
+          towel: data.towel == 1 ? true : false,
+          breakfast: data.breakfast == 1 ? true : false,
+          aircon: data.aircon == 1 ? true : false,
+          elecProduct: data.elecProduct == 1 ? true : false,
+          kitchen: data.kitchen == 1 ? true : false,
+        });
+        setHouseIntro({
+          title: data.title,
+          content: data.content,
+        });
+        console.log(response.data.dto);
+      } catch (e) {
+        console.log(e);
+      }
+      setLoading(false);
+    };
+    fatchData(num);
+  }, []);
+
+  //사진 가져오기
+  useEffect(() => {
+    const getPhoto = async num => {
+      setLoading(true);
+      try {
+        const response = await axios.get(`${URL}/photo/${num}`);
+        const data = response.data.list;
+        console.log(data);
+        setPhotos(data);
+      } catch (e) {
+        console.log(e);
+      }
+      setLoading(false);
+    };
+    getPhoto(num);
+  }, []);
+
+  if (loading) {
+    return <p>대기중....</p>;
+  }
+
+  return <></>;
 }
-
-export default HostMain;

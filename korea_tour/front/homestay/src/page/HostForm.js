@@ -6,8 +6,20 @@ import FormConfirm from 'components/hostform/FormConfirm';
 import FormSubmit from 'components/hostform/FormSubmit';
 import { Stepper, Step, StepLabel } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
 
+const useStyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1,
+    backgroundColor: theme.palette.background.paper,
+    display: 'flex',
+    flexDirection: 'column',
+    margin: 'auto',
+    minHeight: '60vh',
+  },
+}));
 export default function HostForm() {
+  const classes = useStyles();
   const [step, setStep] = useState(0);
   const [hostInfo, setHostInfo] = useState({
     addr1: '',
@@ -114,7 +126,7 @@ export default function HostForm() {
           </Step>
         ))}
       </Stepper>
-      <div>{showStep(step)}</div>
+      <div className={classes.root}>{showStep(step)}</div>
       <div>
         {step === steps.length ? (
           <div>

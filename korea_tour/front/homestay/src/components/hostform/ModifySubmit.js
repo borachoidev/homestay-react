@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { URL } from '_utils/api';
 import axios from 'axios';
 import store from '_store/Store';
+import { useHistory } from 'react-router-dom';
 
 function ModifySubmit(props) {
+  const history = useHistory();
   const deletePhotos = props.deletePhotos;
-  console.log(deletePhotos);
   const num = store.getState().userReducer.num;
   const hostInfo = props.info;
   const houseIntro = props.intro;
@@ -50,7 +51,7 @@ function ModifySubmit(props) {
         const response = await axios
           .put(`${URL}/house/${num}`, data)
           .then(() => {
-            alert('완료!');
+            alert(' 수정 완료!');
           });
         console.log(data);
       } catch (e) {
@@ -68,9 +69,7 @@ function ModifySubmit(props) {
       let url = `${URL}/photo/${parseInt(num)}`;
       setLoading(true);
       try {
-        const response = await axios.post(url, imageFile).then(() => {
-          alert('완료!');
-        });
+        const response = await axios.post(url, imageFile).then(() => {});
         console.log(data);
       } catch (e) {
         console.log(e);
@@ -87,9 +86,7 @@ function ModifySubmit(props) {
         let url = `${URL}/photo/${photonum}`;
         setLoading(true);
         try {
-          const response = await axios.delete(url).then(() => {
-            alert('완료!');
-          });
+          const response = await axios.delete(url).then(() => {});
           console.log(data);
         } catch (e) {
           console.log(e);
@@ -100,6 +97,7 @@ function ModifySubmit(props) {
     }
   }, []);
 
+  history.push('/');
   if (loading) {
     return <p>대기중....</p>;
   }

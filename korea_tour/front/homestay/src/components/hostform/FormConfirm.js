@@ -57,9 +57,8 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
     display: 'flex',
-    alignItems: 'center',
     height: 224,
-    width: '95%',
+    width: '75%',
     margin: 'auto',
   },
   tabs: {
@@ -98,40 +97,91 @@ export default function FormConfirm(props) {
         {hostInfo.addr2}
         {hostInfo.email1}@{hostInfo.email2}
         {hostInfo.hp}
-        <IconButton aria-label="delete">
-          <EditIcon />
-        </IconButton>
       </TabPanel>
       <TabPanel value={value} index={1}>
         {houseRules.checkIn}
         {houseRules.checkOut}
-        {amenities.dogOk ? (
-          <span>
-            <PetsIcon />
-            반려동물동반
-          </span>
-        ) : (
-          ''
-        )}
-        {amenities.wifi ? <Wifi /> : ''}
-        {amenities.smokingOk ? <SmokingRoomsIcon /> : <SmokeFreeIcon />}
-        {amenities.bathroom ? <Wc /> : ''}
-        {amenities.parking ? <LocalParking /> : ''}
-        {amenities.towel ? <Bathtub /> : ''}
-        {amenities.breakfast ? <EmojiFoodBeverage /> : ''}
-        {amenities.aircon ? <AcUnit /> : ''}
-        {amenities.elecProduct ? <OfflineBolt /> : ''}
-        {amenities.kitchen ? <Kitchen /> : ''}
-        <IconButton aria-label="delete">
-          <EditIcon />
-        </IconButton>
+        <Box display="flex" flexDirection="column">
+          {amenities.dogOk ? (
+            <span>
+              <PetsIcon />
+              반려동물동반
+            </span>
+          ) : (
+            ''
+          )}
+          {amenities.wifi ? (
+            <span>
+              <Wifi /> 무선인터넷(wifi)
+            </span>
+          ) : (
+            ''
+          )}
+          {amenities.smokingOk ? (
+            <span>
+              <SmokingRoomsIcon />
+              흡연 가능
+            </span>
+          ) : (
+            <span>
+              {' '}
+              <SmokeFreeIcon /> 금연 숙소
+            </span>
+          )}
+          {amenities.bathroom ? (
+            <span>
+              <Wc /> 개별화장실
+            </span>
+          ) : (
+            ''
+          )}
+          {amenities.parking ? (
+            <span>
+              <LocalParking /> 주차시설
+            </span>
+          ) : (
+            ''
+          )}
+          {amenities.towel ? (
+            <span>
+              <Bathtub /> 욕실용품
+            </span>
+          ) : (
+            ''
+          )}
+          {amenities.breakfast ? (
+            <span>
+              <EmojiFoodBeverage /> 조식제공
+            </span>
+          ) : (
+            ''
+          )}
+          {amenities.aircon ? (
+            <span>
+              <AcUnit /> 에어컨
+            </span>
+          ) : (
+            ''
+          )}
+          {amenities.elecProduct ? (
+            <span>
+              <OfflineBolt /> 가전제품
+            </span>
+          ) : (
+            ''
+          )}
+          {amenities.kitchen ? (
+            <span>
+              <Kitchen /> 주방이용
+            </span>
+          ) : (
+            ''
+          )}
+        </Box>
       </TabPanel>
       <TabPanel value={value} index={2}>
         {houseIntro.title}
         {houseIntro.content}
-        <IconButton aria-label="delete">
-          <EditIcon />
-        </IconButton>
       </TabPanel>
     </div>
   );
