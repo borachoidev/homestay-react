@@ -26,4 +26,5 @@ public interface HomeStayService {
 	List<HomeStayReservationDto> getDayImpossible(int homeStayNum);
 	String getHostName(int homeStayNum);
 	int getHomeStayPrice(int homeStayNum);
+	HomeStayDto getHouseTime(int homeStayNum);
 }

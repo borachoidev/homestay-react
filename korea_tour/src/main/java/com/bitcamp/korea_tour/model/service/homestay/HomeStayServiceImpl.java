@@ -112,6 +112,11 @@ public class HomeStayServiceImpl implements HomeStayService{
 		// TODO Auto-generated method stub
 		return mapper.getHomeStayPrice(homeStayNum);
 	}
-	
+
+	@Override
+	public HomeStayDto getHouseTime(int homeStayNum) {
+		// TODO Auto-generated method stub
+		return mapper.getHouseTime(homeStayNum);
+	}
 	
 }

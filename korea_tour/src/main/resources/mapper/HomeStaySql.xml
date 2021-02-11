@@ -71,7 +71,7 @@
 	
 	<!-- 예약불가날짜 표시하기(출력) -->
 	<select id="getDayImpossible" parameterType="int" resultType="homestayreservation">
-	SELECT checkInDay,checkOutDay FROM homeStayReservation WHERE homeStayNum=#{homeStayNum} order by checkInDay asc
+	SELECT checkInDay,checkOutDay FROM homeStayReservation WHERE homeStayNum=#{homeStayNum} and approval=2 order by checkInDay asc
 	</select>
 	
 	<!-- Host이름 출력하기 -->
@@ -83,5 +83,10 @@
 	<!-- 집 가격출력하기 -->
 	<select id="getHomeStayPrice" parameterType="int" resultType="int">
 	SELECT price FROM homeStay WHERE homeStayNum=#{homeStayNum}
+	</select>
+	
+	<!-- 체크인 체크아웃시간 출력하기 -->
+	<select id="getHouseTime" parameterType="int" resultType="homestay">
+	SELECT * FROM homeStay WHERE homeStayNum=#{homeStayNum}
 	</select>
 </mapper>
