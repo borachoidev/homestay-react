@@ -12,6 +12,7 @@ import PetsIcon from '@material-ui/icons/Pets'; //반려동물동반
 import SmokingRoomsIcon from '@material-ui/icons/SmokingRooms'; //흡연
 import SmokeFreeIcon from '@material-ui/icons/SmokeFree'; //금연
 import { URL } from '_utils/api';
+import { useParams } from 'react-router-dom';
 
 function HouseService(props) {
 
@@ -19,8 +20,7 @@ function HouseService(props) {
     const [loading,setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    let linkurl = document.location.href;
-    let houseNum = linkurl.split('=')[1];
+    let { houseNum } = useParams();
 
     useEffect( () => {
         const getIcon = async () => {

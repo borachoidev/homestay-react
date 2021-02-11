@@ -4,6 +4,7 @@ import './HouseDetailCss/Review.css';
 import './HouseDetailCss/ReviewList.css';
 import ReviewPhotos from './ReviewPhotos';
 import { URL } from '_utils/api';
+import { useParams } from 'react-router-dom';
 
 
 function ReviewModal(props) {
@@ -11,8 +12,7 @@ function ReviewModal(props) {
     const [loading,setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    let linkurl = document.location.href;
-    let houseNum = linkurl.split('=')[1];
+    let { houseNum } = useParams();
 
     useEffect( () => {
         const getReviews = async () => {
@@ -24,6 +24,7 @@ function ReviewModal(props) {
                     `${URL}/${houseNum}/allreview`
                 );
                 setContent(response.data.reviews);
+                
             } catch(e) {
                 setError(e);
             }
@@ -32,18 +33,21 @@ function ReviewModal(props) {
         getReviews();
     }, []);
 
-    if (loading) return <p>로딩중....</p>;
     if (error) return <p>에러가 발생했습니다.!!</p>;
     if (!content) return null;
 
     console.log(content);
-   
+    
+    // for(let i=0; i<content.length; i++){
+    //     console.log(content[i].relevel)
+    // }
 
     return (
         <>
         <div id="reviewModal__box">
             {
                 content.map((i)=>{
+                   if(i.relevel == 0){
                     return (
                        
                         <div key={i.homeStayReviewNum} className="modal__review-box">
@@ -53,7 +57,7 @@ function ReviewModal(props) {
                                     <div className="writer-writeday">
                                         <p><b>{i.loginId}</b></p>
                                         <p>{i.writeday}</p>
-                                        <p>{i.relevel}</p>
+                                        {i.relevel==0?<p>3</p>:null}
                                     </div>
                                 </div>
 
@@ -66,8 +70,10 @@ function ReviewModal(props) {
                         </div>
                         
                     )
+                }
                 })
             }
+            
         </div>
         
         </>

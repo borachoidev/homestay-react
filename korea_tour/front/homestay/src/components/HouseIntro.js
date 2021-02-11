@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { URL } from '_utils/api';
+import { useParams } from 'react-router-dom';
 
 function HouseIntro(props) {
 
@@ -8,8 +9,7 @@ function HouseIntro(props) {
     const [loading,setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    let linkurl = document.location.href;
-    let houseNum = linkurl.split('=')[1];
+    let { houseNum } = useParams();
 
     useEffect( () => {
         const getIntro = async () => {

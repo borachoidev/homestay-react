@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import RoomIcon from '@material-ui/icons/Room';
 import { URL } from '_utils/api';
+import { useParams } from 'react-router-dom';
 
 function HouseAddr(props) {
 
@@ -9,8 +10,7 @@ function HouseAddr(props) {
     const [loading,setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    let linkurl = document.location.href;
-    let houseNum = linkurl.split('=')[1];
+    let { houseNum } = useParams();
 
     useEffect( () => {
         const getAddress = async () =>{

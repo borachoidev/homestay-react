@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { URL } from '_utils/api';
+import { useParams } from 'react-router-dom';
 
 
 
@@ -10,10 +11,11 @@ function HouseName(props) {
     const [loading,setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    let linkurl = document.location.href;
-    let houseNum = linkurl.split('=')[1];
-    //console.log(courseNum);
+    
+    let { houseNum } = useParams();
 
+    console.log("넘버 함보자")
+    console.log(houseNum);
     
     useEffect( () => {
         const getTitle = async () =>{

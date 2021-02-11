@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { URL } from '_utils/api';
+import { review } from '_utils/api';
+import { useParams } from 'react-router-dom';
 
 function ReviewPhotos(props) {
 
@@ -7,8 +10,7 @@ function ReviewPhotos(props) {
     const [loading,setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    let linkurl = document.location.href;
-    let houseNum = linkurl.split('=')[1];
+    let { houseNum } = useParams();
     const reviewNum = props.reviewNum;
    
     useEffect( () => {
@@ -18,7 +20,7 @@ function ReviewPhotos(props) {
                 setError(null);
                 setLoading(true);
                 const response = await axios.get(
-                    `http://localhost:9003/homestays/${houseNum}/allreview/${reviewNum}`
+                    `${URL}/${houseNum}/allreview/${reviewNum}`
                 );
                 console.log(reviewNum)
                 setContent(response.data.photos);
@@ -40,7 +42,7 @@ function ReviewPhotos(props) {
             {
                 content.map((i)=>{
                     return (
-                        <div key={i.photoNum}>{i.photoName}</div>
+                        <div key={i.photoNum}><img className="review-roomimg" src={review+"/"+i.photoName} /></div>
                     )
                 })
             }

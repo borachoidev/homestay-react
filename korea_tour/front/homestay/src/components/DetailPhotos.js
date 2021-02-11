@@ -3,6 +3,8 @@ import axios from 'axios';
 import './HouseDetailCss/DetailPhotos.css';
 import HouseModal from './HouseModal';
 import { URL } from '_utils/api';
+import { img } from '_utils/api';
+import { useParams } from 'react-router-dom';
 
 function DetailPhotos(props) {
     const [content, setContent] = useState(null);
@@ -11,8 +13,7 @@ function DetailPhotos(props) {
 
     const [modal, setModal] = useState(false);//모달창을 켜고 닫는 스위치
 
-    let linkurl = document.location.href;
-    let houseNum = linkurl.split('=')[1];
+    let { houseNum } = useParams();
 
     useEffect( () => {
         const getPhotos = async () => {
@@ -41,19 +42,19 @@ function DetailPhotos(props) {
     return (
         <>
             <div id="photosMainBox">
-                <div id="photoLeftBox"><img src={"http://localhost:9003/homeStayImg/"+content[0].photoName} width="100%" height="100%"/></div>
+                <div id="photoLeftBox"><img src={img+"/"+content[0].photoName} width="100%" height="100%"/></div>
 
                 <div id="photoRightBox">
                     <div id="photoRightBox-left">
-                        <div className="photo-mini-Box"><img src={"http://localhost:9003/homeStayImg/"+content[1].photoName} width="100%" height="100%"/></div>
-                        <div className="photo-mini-Box"><img src={"http://localhost:9003/homeStayImg/"+content[2].photoName} width="100%" height="100%"/></div>
+                        <div className="photo-mini-Box"><img src={img+"/"+content[1].photoName} width="100%" height="100%"/></div>
+                        <div className="photo-mini-Box"><img src={img+"/"+content[2].photoName} width="100%" height="100%"/></div>
                     </div>
 
                     <div id="photoRightBox-right">
-                        <div className="photo-mini-Box"><img src={"http://localhost:9003/homeStayImg/"+content[3].photoName} width="100%" height="100%"/></div>
+                        <div className="photo-mini-Box"><img src={img+"/"+content[3].photoName} width="100%" height="100%"/></div>
                         
                         <div className="photo-mini-Box">
-                            <div id="ModalBtn" onClick={ ()=>{ setModal(true) } } ><span>+</span></div> <img id="lastImage" src={"http://localhost:9003/homeStayImg/"+content[4].photoName} width="100%" height="100%" />
+                            <div id="ModalBtn" onClick={ ()=>{ setModal(true) } } ><span>+</span></div> <img id="lastImage" src={img+"/"+content[4].photoName} width="100%" height="100%" />
                         </div>
                     </div>
                 </div>

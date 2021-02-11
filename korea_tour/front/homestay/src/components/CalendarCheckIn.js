@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import store from '_store/Store';
 import axios from 'axios';
 import { URL } from '_utils/api';
+import { useParams } from 'react-router-dom';
 
 function CalendarCheckIn(props) {
 
@@ -17,6 +18,7 @@ function CalendarCheckIn(props) {
     
     const linkurl = document.location.href;
     const homeStayNum = linkurl.split('=')[1];
+    let { houseNum } = useParams();
 
     const userNum = store.getState().userReducer.num;
     console.log("유저넘:"+userNum)
@@ -60,7 +62,7 @@ function CalendarCheckIn(props) {
                 setError(null);
                 setLoading(true);
                 const response = await axios.get(
-                    `${URL}/${homeStayNum}/calendar`
+                    `${URL}/${houseNum}/calendar`
                 );
                 setContent(response.data.day);
             } catch(e) {
@@ -148,7 +150,7 @@ function CalendarCheckIn(props) {
         <div id="totalCostBox"><span>₩{housePrice.toLocaleString()} x {Math.ceil(oneNight)}박</span><span>{totalCostWon}</span></div>
 
 
-            <Link to={"/reservation/"+userNum+"/"+homeStayNum+"/"+checkInday+"/"+checkOutday+"/"+numberOfPeople+"/"+totalCost+""} style={{ textDecoration: 'none' }}>
+            <Link to={"/reservation/"+userNum+"/"+houseNum+"/"+checkInday+"/"+checkOutday+"/"+numberOfPeople+"/"+totalCost+""} style={{ textDecoration: 'none' }}>
                 <Button variant="contained" color="secondary">
                     예약하기
                 </Button>

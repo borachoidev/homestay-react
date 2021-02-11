@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { URL } from '_utils/api';
+import { useParams } from 'react-router-dom';
 
 function HouseInfo(props) {
     const [content, setContent] = useState(null);
     const [loading,setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    let linkurl = document.location.href;
-    let houseNum = linkurl.split('=')[1];
+    let { houseNum } = useParams();
 
     useEffect( () => {
         const getHouseInfo = async () => {
@@ -56,7 +56,6 @@ function HouseInfo(props) {
                 <br/>
 
                 <p><b>숙소 이용규칙</b></p>
-                <p>반려동물 동반이나 흡연이 금지되는 숙소입니다.</p>
                 <br/>
                 <hr/>
                 <br/>

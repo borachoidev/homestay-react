@@ -35,7 +35,11 @@
 .room-img{
     width: 100px;
     height: 100px;
-    background-color: #3d3d3d;
+    border: 1px solid red;
+}
+.review-roomimg{
+    width: 100px;
+    height: 100px;
 }
 
 .review-text-box{

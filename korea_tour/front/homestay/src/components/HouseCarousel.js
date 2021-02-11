@@ -5,6 +5,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import './HouseDetailCss/Carousel.css';
 import { URL } from '_utils/api';
+import { img } from '_utils/api';
+import { useParams } from 'react-router-dom';
 
 function HouseCarousel(props) {
     let settings = {
@@ -21,8 +23,7 @@ function HouseCarousel(props) {
     const [error, setError] = useState(null);
 
 
-    let linkurl = document.location.href;
-    let houseNum = linkurl.split('=')[1];
+    let { houseNum } = useParams();
 
     useEffect( () => {
         const getModalPhotos = async () => {
@@ -53,7 +54,7 @@ function HouseCarousel(props) {
             {
                 content.map((i)=>{  
                     return ( <div className="modal-imgbox">
-                    <img src={"http://localhost:9003/homeStayImg/"+i.photoName} className="carousel-img" />
+                    <img src={img+"/"+i.photoName} className="carousel-img" />
                     </div>
                     )
                 })

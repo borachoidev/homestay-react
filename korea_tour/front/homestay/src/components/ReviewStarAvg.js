@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Rating from '@material-ui/lab/Rating';
 import { URL } from '_utils/api';
+import { useParams } from 'react-router-dom';
 
 function ReviewStarAvg(props) {
     const [content, setContent] = useState(null);
@@ -11,8 +12,7 @@ function ReviewStarAvg(props) {
 
     const [value, setValue] = React.useState(2);
 
-    let linkurl = document.location.href;
-    let houseNum = linkurl.split('=')[1];
+    let { houseNum } = useParams();
 
     useEffect( () => {
         const getStarAvg = async () => {

@@ -4,13 +4,13 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import store from '_store/Store';
 import { URL } from '_utils/api';
+import { useParams } from 'react-router-dom';
 
 function HouseLike(props) {
 
     
 
-    const linkurl = document.location.href;
-    const houseNum = linkurl.split('=')[1];
+  let { houseNum } = useParams();
 
     const userNum = store.getState().userReducer.num;
 
