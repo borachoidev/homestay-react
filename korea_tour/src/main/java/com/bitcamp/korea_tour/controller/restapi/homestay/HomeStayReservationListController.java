@@ -22,7 +22,7 @@ public class HomeStayReservationListController {
 
 	int totalCount = 0;
 	int start = 0;
-	int perPage = 15;
+	int perPage = 10;
 	int totalPage = 0;
 	
 	/**
