@@ -3,7 +3,7 @@ import './Home.css'
 
 function Home(props) {
   return <div>홈
-  <div class="site-content">
+  {/* <div class="site-content">
 	
 	<div class="title"><span>Live there.</span> Book unique homes and experience a city like a local.</div>
 	
@@ -53,7 +53,7 @@ function Home(props) {
         </div>
       </div>
     </div>
-    </div>
+    </div> */}
     </div>
   
   
