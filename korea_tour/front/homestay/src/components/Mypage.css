@@ -1,13 +1,16 @@
-.mypage {
-    margin-top: 100px;
-}
 
 .mypage-btn {
     width: 100vw;
     
+    
+}
+
+h1 {
+    margin: 0;
 }
 
 .click-btn {
     float: left;
     flex: 100%;
+    font-size: var(--font-xxl);
 }

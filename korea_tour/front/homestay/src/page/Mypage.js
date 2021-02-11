@@ -1,27 +1,28 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useTheme, makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 
 import "components/Mypage.css";
 
 const Mypage  =()=> {
-    
         return (
            <div className="mypage">
            
            <h1>마이페이지 출력란</h1>
            <hr/>
-           <div className="mypage-btn">
+           <div className="mypage-btn" >
            <Link to="/mypage/reservation">
-           <button className="click-btn">예약 내역</button>
+           <Button variant="contained" color="secondary">예약 내역</Button>
            </Link>
            <Link to="/mypage/like">
-           <button className="click-btn">내가 찜한 홈스테이</button>
+           <Button className="click-btn" color="default">내가 찜한 홈스테이</Button>
            </Link>
            <Link to="/mypage/review">
-           <button className="click-btn">리뷰쓰기</button>
+           <Button className="click-btn">리뷰쓰기</Button>
            </Link>
            <Link to="/mypage/myreview">
-           <button className="click-btn">내가 쓴 리뷰</button>
+           <Button className="click-btn">내가 쓴 리뷰</Button>
            </Link>
            </div>
            </div>
