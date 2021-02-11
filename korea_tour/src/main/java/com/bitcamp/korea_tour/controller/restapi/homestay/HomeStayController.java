@@ -127,6 +127,19 @@ public class HomeStayController {
 		return new JsonHostName(name);
 	}
 	
+	//집 체크인체크아웃시간
+	//Host이름 출력하기
+		@GetMapping("/homestays/{homeStayNum}/hosttime")
+		public JsonTime getHostTime(@PathVariable(value = "homeStayNum")int homeStayNum) {
+			HomeStayDto dto = s.getHouseTime(homeStayNum);
+			String checkIn1 = dto.getCheckIn1();
+			String checkIn2 = dto.getCheckIn2();
+			String checkOut1 = dto.getCheckOut1();
+			String checkOut2 = dto.getCheckOut2();
+			System.out.println(dto);
+			return new JsonTime(checkIn1, checkIn2, checkOut1, checkOut2);
+		}
+	
 ////////////////////////////////////////////////////////////////////////////	
 	@Data
 	@AllArgsConstructor
@@ -200,4 +213,12 @@ public class HomeStayController {
 		private String name;
 	}
 	
+	@Data
+	@AllArgsConstructor
+	static class JsonTime{
+		private String checkIn1;
+		private String checkIn2;
+		private String checkOut1;
+		private String checkOut2;
+	}
 }
