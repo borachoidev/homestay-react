@@ -1,10 +1,21 @@
 import React from 'react';
-import { Button, TextField } from '@material-ui/core';
+import { TextField } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
-import axios from 'axios';
 
+const useStyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1,
+    backgroundColor: theme.palette.background.paper,
+    display: 'flex',
+    width: '80%',
+    flexDirection: 'column',
+    margin: 'auto',
+  },
+}));
 export default function FormHouseIntro(props) {
+  const classes = useStyles();
   const [houseIntro, setHouseIntro] = props.intro;
   const handleChange = e => {
     setHouseIntro({ ...houseIntro, [e.target.name]: e.target.value });
@@ -23,7 +34,7 @@ export default function FormHouseIntro(props) {
     props.setImageFile(imageFile);
   };
   return (
-    <div>
+    <div className={classes.root}>
       <TextField
         label="집 이름"
         margin="normal"
@@ -36,6 +47,7 @@ export default function FormHouseIntro(props) {
         margin="normal"
         value={houseIntro.content}
         name="content"
+        multiline
         onChange={handleChange}
       />
       <input

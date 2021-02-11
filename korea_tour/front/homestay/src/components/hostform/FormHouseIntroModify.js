@@ -8,14 +8,20 @@ import Card from '@material-ui/core/Card';
 import { img } from '_utils/api';
 import CardMedia from '@material-ui/core/CardMedia';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   root: {
-    maxWidth: 345,
+    flexGrow: 1,
+    backgroundColor: theme.palette.background.paper,
+    display: 'flex',
+    width: '80%',
+    flexDirection: 'column',
+    margin: 'auto',
   },
+
   media: {
     height: 140,
   },
-});
+}));
 
 export default function FormHouseIntro(props) {
   const classes = useStyles();
@@ -67,7 +73,7 @@ export default function FormHouseIntro(props) {
   };
 
   return (
-    <div>
+    <div className={classes.root}>
       <TextField
         label="집 이름"
         margin="normal"
@@ -80,6 +86,7 @@ export default function FormHouseIntro(props) {
         margin="normal"
         value={houseIntro.content}
         name="content"
+        multiline
         onChange={handleChange}
       />
       <input

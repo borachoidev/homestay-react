@@ -1,8 +1,9 @@
 import React from 'react';
-import { Button, TextField } from '@material-ui/core';
+import { Button, TextField, Typography } from '@material-ui/core';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
+import { makeStyles } from '@material-ui/core/styles';
 import DaumPostcode from 'react-daum-postcode';
 import {
   Dialog,
@@ -12,7 +13,23 @@ import {
   DialogTitle,
 } from '@material-ui/core';
 
+const useStyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1,
+    backgroundColor: theme.palette.background.paper,
+    display: 'flex',
+    width: '80%',
+    // alignItems: 'center',
+    flexDirection: 'column',
+    margin: 'auto',
+  },
+  inline: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+}));
 export default function FormHostInfo(props) {
+  const classes = useStyles();
   const [hostInfo, setHostInfo] = props.info;
 
   const handleChange = e => {
@@ -33,10 +50,11 @@ export default function FormHostInfo(props) {
   };
 
   return (
-    <div>
+    <div className={classes.root}>
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>
         주소검색
       </Button>
+      {/* 주소검색모달 */}
       <Dialog
         open={open}
         onClose={handleClose}
@@ -55,7 +73,7 @@ export default function FormHostInfo(props) {
           </Button>
         </DialogActions>
       </Dialog>
-
+      {/* 폼입력 */}
       <TextField
         label="주소"
         margin="normal"
@@ -70,6 +88,7 @@ export default function FormHostInfo(props) {
         name="addr2"
         onChange={handleChange}
       />
+
       <TextField
         label="email"
         margin="normal"
@@ -77,6 +96,27 @@ export default function FormHostInfo(props) {
         name="email1"
         onChange={handleChange}
       />
+      <div className={classes.inline}>
+        <Typography display="inline">@</Typography>
+        <div className={classes.root}>
+          <InputLabel id="domain" display="inline">
+            선택하세요
+          </InputLabel>
+          <Select
+            labelId="domain"
+            id="domain-select"
+            value={hostInfo.email2}
+            name="email2"
+            onChange={handleChange}
+          >
+            <MenuItem value="gmail.com">gmail.com</MenuItem>
+            <MenuItem value="naver.com">naver.com</MenuItem>
+            <MenuItem value="hanmail.net">hanmail.net</MenuItem>
+            <MenuItem value="nate.com">nate.com</MenuItem>
+            <MenuItem>직접입력</MenuItem>
+          </Select>
+        </div>
+      </div>
       <TextField
         label="도메인"
         margin="normal"
@@ -84,20 +124,7 @@ export default function FormHostInfo(props) {
         name="email2"
         onChange={handleChange}
       />
-      <InputLabel id="domain">선택하세요</InputLabel>
-      <Select
-        labelId="domain"
-        id="domain-select"
-        value={hostInfo.email2}
-        name="email2"
-        onChange={handleChange}
-      >
-        <MenuItem value="gmail.com">gmail.com</MenuItem>
-        <MenuItem value="naver.com">naver.com</MenuItem>
-        <MenuItem value="hanmail.net">hanmail.net</MenuItem>
-        <MenuItem value="nate.com">nate.com</MenuItem>
-        <MenuItem>직접입력</MenuItem>
-      </Select>
+
       <TextField
         label="연락처"
         margin="normal"
