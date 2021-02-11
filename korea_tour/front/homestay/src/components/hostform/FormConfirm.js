@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
@@ -11,9 +10,6 @@ import EditIcon from '@material-ui/icons/Edit';
 import PetsIcon from '@material-ui/icons/Pets';
 import SmokingRoomsIcon from '@material-ui/icons/SmokingRooms';
 import SmokeFreeIcon from '@material-ui/icons/SmokeFree';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import LocalParking from '@material-ui/icons/LocalParking';
 import OfflineBolt from '@material-ui/icons/OfflineBolt';
 import Kitchen from '@material-ui/icons/Kitchen';
@@ -30,8 +26,8 @@ function TabPanel(props) {
     <div
       role="tabpanel"
       hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
+      id={`vertical-tabpanel-${index}`}
+      aria-labelledby={`vertical-tab-${index}`}
       {...other}
     >
       {value === index && (
@@ -51,8 +47,8 @@ TabPanel.propTypes = {
 
 function a11yProps(index) {
   return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
+    id: `vertical-tab-${index}`,
+    'aria-controls': `vertical-tabpanel-${index}`,
   };
 }
 
@@ -60,33 +56,43 @@ const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
+    display: 'flex',
+    alignItems: 'center',
+    height: 224,
+    width: '95%',
+    margin: 'auto',
+  },
+  tabs: {
+    borderRight: `1px solid ${theme.palette.divider}`,
   },
 }));
 
 export default function FormConfirm(props) {
-  const [value, setValue] = React.useState(0);
-
   const hostInfo = props.info;
   const houseIntro = props.intro;
   const [amenities, setAmenities] = props.amenity;
   const houseRules = props.rules;
+  const classes = useStyles();
+  const [value, setValue] = React.useState(0);
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
   return (
-    <div>
-      <AppBar position="static">
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          aria-label="simple tabs example"
-        >
-          <Tab label="호스트 정보" {...a11yProps(0)} />
-          <Tab label="숙소 정보" {...a11yProps(1)} />
-          <Tab label="홈스테이 소개" {...a11yProps(2)} />
-        </Tabs>
-      </AppBar>
+    <div className={classes.root}>
+      <Tabs
+        orientation="vertical"
+        variant="scrollable"
+        value={value}
+        onChange={handleChange}
+        aria-label="Vertical tabs example"
+        className={classes.tabs}
+      >
+        <Tab label="호스트정보" {...a11yProps(0)} />
+        <Tab label="숙소정보" {...a11yProps(1)} />
+        <Tab label="홈스테이소개" {...a11yProps(2)} />
+      </Tabs>
       <TabPanel value={value} index={0}>
         {hostInfo.addr1}
         {hostInfo.addr2}
