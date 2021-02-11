@@ -7,6 +7,7 @@ import reportWebVitals from './reportWebVitals';
 import store from '_store/Store';
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
+import { GlobalThemeProvider } from "_material_ui/ThemeProvider";
 
 const persistor = persistStore(store);
 
@@ -14,14 +15,16 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
+      <GlobalThemeProvider>
         <App />
+      </GlobalThemeProvider>
       </PersistGate>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
 
-// If you want to start measuring performance in your app, pass a function
+// export default GlobalThemeProvider;If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

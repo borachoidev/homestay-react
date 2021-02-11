@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { withRouter, useParams } from 'react-router-dom';
+import { URL } from '_utils/api';
 import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
 import HouseCard from './HouseCard';
@@ -8,7 +9,7 @@ import Container from '@material-ui/core/Container';
 import HouseListSort from './HouseListSort';
 import Button from '@material-ui/core/Button';
 import store from '_store/Store';
-
+import './HouseListFeatured.css';
 
 import Pagination from './Pagination';
 
@@ -18,10 +19,9 @@ const HouseListFeatured = () => {
   const userNum = store.getState().userReducer.num;
   console.log(userNum);
 
-  //페이징
+  //페이징 추가 부분1 postsPerPage=한페이지에 몇개 뽑을지
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage, setPostsPerPage] = useState(5);
-
+  const [postsPerPage, setPostsPerPage] = useState(6);
   let { area, checkin, checkout, guest } = useParams();
 
   useEffect(() => {
@@ -37,11 +37,11 @@ const HouseListFeatured = () => {
       setLoading(true);
       try {
         const response = await axios.post(
-          'http://localhost:9003/homestays/price/'+currentPage,
+          `${URL}/price`,
           data
         );
-        setContents(response.data.list);
-        console.log(response.data.list);
+        setContents(response.data);
+        console.log(response.data);
       } catch (e) {
         console.log(e);
       }
@@ -68,10 +68,10 @@ const HouseListFeatured = () => {
     };
     try {
       const response = await axios.post(
-        `http://localhost:9003/homestays/price/`+currentPage,
+        `${URL}/price`,
         data
       );
-      setContents(response.data.list);
+      setContents(response.data);
       console.log('금액별 성공');
     } catch (e) {
       console.log(e);
@@ -88,10 +88,10 @@ const HouseListFeatured = () => {
     };
     try {
       const response = await axios.post(
-        `http://localhost:9003/homestays/review/`+currentPage,
+        `${URL}/review`,
         data
       );
-      setContents(response.data.list);
+      setContents(response.data);
       console.log('평점별 성공');
     } catch (e) {
       console.log(e);
@@ -113,22 +113,22 @@ function currentPosts(tmp) {
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <HouseListSort />
-            <Button variant="contained" size="small" onClick={byCost}>
+            <div class="buttons">
+            <Button class="byBtn" onClick={byCost}>
               요금순
             </Button>
-            &nbsp;&nbsp;
-            <Button
-              variant="contained"
-              color="secondary"
-              size="small"
-              id="orderByStars"
+            
+            <Button  class="byBtn"
               onClick={byStars}
             >
               평점순
             </Button>
+            </div>
           </Grid>
-
-          {currentPosts(contents).map(content => (
+          {/*페이징 추가부분 3*/ }
+          
+          {currentPosts(contents.list).map(content => (
+            
             <Grid item xs={6} sm={4} md={4} key={content}>
               <HouseCard
                 photoName={content.photoName}
@@ -138,13 +138,14 @@ function currentPosts(tmp) {
                 countOfReview={content.countOfReview}
                 avgOfStar={content.avgOfStar}
                 homeStayNum={content.homeStayNum}
+                isMarked={content.isMarked}
               />
             </Grid>
           ))}
         </Grid>
       }
-      {/*<Pagination/> */}
-    <Pagination postsPerPage={postsPerPage} totalPosts={contents.length} paginate={setCurrentPage}  align="center"></Pagination>
+      {/*페이징 추가부분 4/ */}
+    <Pagination postsPerPage={postsPerPage} totalPosts={contents.totalCount} paginate={setCurrentPage}  align="center"></Pagination>
     </div>
   );
 };
