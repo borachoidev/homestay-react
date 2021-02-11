@@ -15,7 +15,7 @@ const ReservationRow  =(props)=> {
                 <td>{props.title}</td>
                 <td>{props.checkIn}~{props.checkOut}</td>
                 <td> 
-                    {props.approval===0
+                    {props.approval===0&&props.cancle===0
                      ? 
                      "예약대기"
                      : (props.approval===1||props.cancle===1
