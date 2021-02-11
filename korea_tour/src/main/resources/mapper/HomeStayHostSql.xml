@@ -57,6 +57,7 @@
    	 <if test = 'approval==2'>
    	 	and checkinDay > now() - interval 1 day
    	 </if>
+  
    	 
    </select>
    <select id="getAllReservation" parameterType="hashmap" resultType="homestayreservation">
@@ -71,7 +72,7 @@
    	 	and checkinDay > now() - interval 1 day
    	 </if>
    	 
-   	  order by homeStayReservationNum asc Limit #{start},#{perPage}
+   	  order by checkInDay asc Limit #{start},#{perPage}
    </select>
    <select id="getApprovalCount" parameterType="int" resultType="int">
     select count(*) from homeStayReservation where homeStayNum=#{homeStayNum} and approval=2 and deleted=0
