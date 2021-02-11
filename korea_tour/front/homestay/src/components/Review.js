@@ -3,14 +3,14 @@ import axios from 'axios';
 import './HouseDetailCss/Review.css';
 import ReviewPhotos from './ReviewPhotos';
 import { URL } from '_utils/api';
+import { useParams } from 'react-router-dom';
 
 function Review(props) {
     const [content, setContent] = useState(null);
     const [loading,setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    let linkurl = document.location.href;
-    let houseNum = linkurl.split('=')[1];
+    let { houseNum } = useParams();
 
     useEffect( () => {
         const getReviews = async () => {
@@ -58,7 +58,7 @@ function Review(props) {
         <div className="review-box">
             <div className="review-writer-box">
                 <div className="profile-box">
-                    <div className="profile-img"><img src={content[0].loginPhoto}/></div>
+                    <div className="profile-img"><img src={content[1].loginPhoto}/></div>
                     <div className="writer-writeday">
                         <p><b>{content[1].loginId}</b></p>
                         <p>{content[1].writeday}</p>

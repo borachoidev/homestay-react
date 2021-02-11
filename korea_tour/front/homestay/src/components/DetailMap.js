@@ -2,14 +2,15 @@ import React, { useEffect, useState } from 'react';
 import './HouseDetailCss/DetailMap.css';
 import axios from 'axios';
 import { URL } from '_utils/api';
+import { useParams } from 'react-router-dom';
+
 
 const { kakao } = window;
 
 const DetailMap = () => {
 
 
-    let linkurl = document.location.href;
-    let houseNum = linkurl.split('=')[1];
+  let { houseNum } = useParams();
 
     const [content, setContent] = useState(null);
     const [loading,setLoading] = useState(false);

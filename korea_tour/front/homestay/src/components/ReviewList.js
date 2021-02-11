@@ -7,6 +7,7 @@ import ReviewStarAvg from './ReviewStarAvg';
 import Button from '@material-ui/core/Button';
 import ReviewModal from './ReviewModal';
 import { URL } from '_utils/api';
+import { useParams } from 'react-router-dom';
 
 
 function ReviewList(props) {
@@ -18,8 +19,7 @@ function ReviewList(props) {
 
     
 
-    let linkurl = document.location.href;
-    let houseNum = linkurl.split('=')[1];
+    let { houseNum } = useParams();
 
     useEffect( () => {
         const getStar = async () =>{

@@ -36,7 +36,7 @@ function RouteMain(props) {
       {/* 관리자페이지 */}
       <Route path="/admin/house/:num" component={AdminHouseDetail} />
       {/* 집상세 및 예약 */}
-      <Route path="/house/:num" component={HouseDetail} />
+      <Route path="/house/:houseNum" component={HouseDetail} />
       <Route path="/reservation/:loginNum/:homeStayNum/:checkInDay/:checkOutDay/:numberOfPeople/:totalPrice" component={ReservationConfirm} />
       {/* 마이페이지 */}
       <Route path="/mypage" component={Mypage} />

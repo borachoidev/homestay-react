@@ -33,18 +33,18 @@ const ReservationConfirm=({ match }) => {
                     <h1>예약자 정보</h1>
 
                     <p>이름</p>
-                    <input type="text" name="name" />
+                    <input type="text" name="name" required/>
 
                     <p>전화번호</p>
-                    <input type="text" placeholder="- 를 빼고 입력해주세요." name="hp" />
+                    <input type="text" placeholder="- 를 빼고 입력해주세요." name="hp" required/>
 
                     <p>이메일</p>
-                    <input type="text" name="email1" /><span>@</span><input type="text" name="email2" />
+                    <input type="text" name="email1" required/><span>@</span><input type="text" name="email2" required/>
 
                     <p>생년월일</p>
-                    <input type="number" name="birthYear"/><span>년</span>
-                    <input type="number" name="birthMonth" /><span>월</span>
-                    <input type="number" name="birthDay" /><span>일</span>
+                    <input type="number" name="birthYear" required/><span>년</span>
+                    <input type="number" name="birthMonth" required/><span>월</span>
+                    <input type="number" name="birthDay" required/><span>일</span>
 
                     <p>성별</p>
                     <input type="radio" name="gender" value="M" checked/>

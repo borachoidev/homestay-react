@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import StarIcon from '@material-ui/icons/Star';
 import axios from 'axios';
 import { URL } from '_utils/api';
+import { useParams } from 'react-router-dom';
 
 function HouseStarAvg(props) {
     const [content, setContent] = useState(null);
     const [loading,setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    let linkurl = document.location.href;
-    let houseNum = linkurl.split('=')[1];
+    let { houseNum } = useParams();
 
     useEffect( () => {
         const getStar = async () =>{

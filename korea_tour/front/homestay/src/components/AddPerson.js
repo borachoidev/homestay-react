@@ -5,6 +5,7 @@ import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import CalendarCheckIn from './CalendarCheckIn';
 import { URL } from '_utils/api';
+import { useParams } from 'react-router-dom';
 
 function AddPerson(props) {
   const [count, setCount] = useState(1);
@@ -12,8 +13,7 @@ function AddPerson(props) {
   const [loading,setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-    let linkurl = document.location.href;
-    let houseNum = linkurl.split('=')[1];
+  let { houseNum } = useParams();
 
     useEffect( () => {
         const getMaxPeople = async () => {
