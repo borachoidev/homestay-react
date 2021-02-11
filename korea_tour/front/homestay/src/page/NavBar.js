@@ -14,7 +14,7 @@ import Avatar from '@material-ui/core/Avatar';
 import { connect } from 'react-redux';
 import { signOut } from '_actions/user';
 import store from '_store/Store';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import Search from 'components/Search';
 
 const useStyles = makeStyles(theme => ({
@@ -30,6 +30,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const NavBar = ({ signOut }) => {
+  const history = useHistory();
   const classes = useStyles();
   const auth = store.getState().userReducer.auth;
   const host = store.getState().userReducer.host;
@@ -46,6 +47,7 @@ const NavBar = ({ signOut }) => {
   const logOut = () => {
     signOut();
     setAnchorEl(null);
+    history.push('/');
     console.log('로그아웃');
   };
 
@@ -130,7 +132,7 @@ const NavBar = ({ signOut }) => {
               )}
               {host == 'Y' && (
                 <MenuItem onClick={handleClose}>
-                  <Link to="/host">호스트관리</Link>
+                  <Link to="/host/main">호스트관리</Link>
                 </MenuItem>
               )}
               <MenuItem onClick={logOut}>로그아웃</MenuItem>
