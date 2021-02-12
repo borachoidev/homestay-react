@@ -91,25 +91,30 @@ export default function FormConfirm(props) {
         <Tab label="홈스테이소개" {...a11yProps(2)} />
       </Tabs>
       <TabPanel value={value} index={0}>
+        <h3>주소</h3>
         <p>
           {hostInfo.addr1}
           {hostInfo.addr2}
         </p>
+        <h3>이메일</h3>
         <p>
           {hostInfo.email1}@{hostInfo.email2}
         </p>
+        <h3>연락처</h3>
         <p>{hostInfo.hp}</p>
       </TabPanel>
       <TabPanel value={value} index={1}>
         <p>
-          체크인 시간 : {houseRules.checkIn1} 시
+          <h3>체크인 시간 </h3> {houseRules.checkIn1} 시
           {houseRules.checkIn2 == 0 ? '' : houseRules.checkIn2 + '분'}
         </p>
         <p>
-          체크아웃 시간 :{houseRules.checkOut1} 시
+          <h3>체크아웃 시간 </h3>
+          {houseRules.checkOut1} 시
           {houseRules.checkOut2 == 0 ? '' : houseRules.checkOut2 + '분'}
         </p>
-        <Box display="flex" flexDirection="column">
+        <h3>편의시설</h3>
+        <Box display="flex" justifyContent="space-around" flexWrap="wrap">
           {amenities.dogOk ? (
             <span>
               <PetsIcon />
@@ -188,8 +193,13 @@ export default function FormConfirm(props) {
         </Box>
       </TabPanel>
       <TabPanel value={value} index={2}>
-        {houseIntro.title}
-        <pre> {houseIntro.content}</pre>
+        <h3>하우스명</h3>
+
+        <span> {houseIntro.title}</span>
+
+        <h3>소개내용</h3>
+
+        <p>{houseIntro.content}</p>
       </TabPanel>
     </div>
   );
