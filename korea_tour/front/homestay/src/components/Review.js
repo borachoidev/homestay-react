@@ -34,110 +34,38 @@ function Review(props) {
     if (error) return <p>에러가 발생했습니다.!!</p>;
     if (!content) return null;
 
-    console.log(content[0].photoName);
+    
 
     return (
         <>
-        <div className="review-box">
-            <div className="review-writer-box">
-                <div className="profile-box">
-                    <div className="profile-img"><img src={content[0].loginPhoto}/></div>
-                    <div className="writer-writeday">
-                        <p><b>{content[0].loginId}</b></p>
-                        <p>{content[0].writeday}</p>
-                    </div>
-                </div>
-                <div className="room-img"><ReviewPhotos reviewNum={content[0].homeStayReviewNum}/></div> 
-            </div>
-            <div className="review-text-box">
-                {content[0].content} 
-            </div>
-        </div>
+        {
+                content.map((i,idx)=>{
+                    if(idx<6){
+                    return (
+                        <>
+                        {i.relevel==0?<div className="review-box">
+                            
+                            <div className="review-writer-box">
+                                <div className="profile-box">
+                                    <div className="profile-img"><img src={i.loginPhoto}/></div>
+                                    <div className="writer-writeday">
+                                        <p><b>{i.loginId}</b></p>
+                                        <span className="guest-writeday">{i.writeday}</span>
+                                    </div>
+                                </div>
+                                <div className="room-img"><ReviewPhotos reviewNum={i.homeStayReviewNum}/></div> 
+                            </div>
+                            <div className="review-text-box">
+                                {i.content} 
+                            </div>
+                        </div>:null}
+                        </>
+                     )
+                    }
+                })
+            }
 
-
-        <div className="review-box">
-            <div className="review-writer-box">
-                <div className="profile-box">
-                    <div className="profile-img"><img src={content[1].loginPhoto}/></div>
-                    <div className="writer-writeday">
-                        <p><b>{content[1].loginId}</b></p>
-                        <p>{content[1].writeday}</p>
-                    </div>
-                </div>
-                <div className="room-img"><ReviewPhotos reviewNum={content[1].homeStayReviewNum}/></div>
-            </div>
-            <div className="review-text-box">
-                {content[1].content} 
-            </div>
-        </div>
-
-
-        <div className="review-box">
-            <div className="review-writer-box">
-                <div className="profile-box">
-                    <div className="profile-img"><img src={content[2].loginPhoto}/></div>
-                    <div className="writer-writeday">
-                        <p><b>{content[2].loginId}</b></p>
-                        <p>{content[2].writeday}</p>
-                    </div>
-                </div>
-                <div className="room-img"><ReviewPhotos reviewNum={content[2].homeStayReviewNum}/></div>
-            </div>
-            <div className="review-text-box">
-                {content[2].content} 
-            </div>
-        </div>
-
-
-        <div className="review-box">
-            <div className="review-writer-box">
-                <div className="profile-box">
-                    <div className="profile-img"><img src={content[3].loginPhoto}/></div>
-                    <div className="writer-writeday">
-                        <p><b>{content[3].loginId}</b></p>
-                        <p>{content[3].writeday}</p>
-                    </div>
-                </div>
-                <div className="room-img"><ReviewPhotos reviewNum={content[3].homeStayReviewNum}/></div>
-            </div>
-            <div className="review-text-box">
-                {content[3].content} 
-            </div>
-        </div>
-
-
-        <div className="review-box">
-            <div className="review-writer-box">
-                <div className="profile-box">
-                    <div className="profile-img"><img src={content[4].loginPhoto}/></div>
-                    <div className="writer-writeday">
-                        <p><b>{content[4].loginId}</b></p>
-                        <p>{content[4].writeday}</p>
-                    </div>
-                </div>
-                <div className="room-img"><ReviewPhotos reviewNum={content[4].homeStayReviewNum}/></div>
-            </div>
-            <div className="review-text-box">
-                {content[4].content} 
-            </div>
-        </div>
-
-
-        <div className="review-box">
-            <div className="review-writer-box">
-                <div className="profile-box">
-                    <div className="profile-img"><img src={content[5].loginPhoto}/></div>
-                    <div className="writer-writeday">
-                        <p><b>{content[5].loginId}</b></p>
-                        <p>{content[5].writeday}</p>
-                    </div>
-                </div>
-                <div className="room-img"><ReviewPhotos reviewNum={content[5].homeStayReviewNum}/></div>
-            </div>
-            <div className="review-text-box">
-                {content[5].content} 
-            </div>
-        </div>
+        
         </>
     );
 }

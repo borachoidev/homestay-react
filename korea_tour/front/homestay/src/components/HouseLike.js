@@ -70,10 +70,10 @@ function HouseLike(props) {
         <div>
             <span>
               { userNum === 0
-                ? <span className="favorite" onClick={ ()=>{ alert("로그인을 해주세요!!") } }><FavoriteBorderIcon color="error"/></span>
+                ? <span className="favorite" onClick={ ()=>{ alert("로그인을 해주세요!!") } }><FavoriteBorderIcon /></span>
                 :
                     likeBtn === 0
-                    ? <span className="favorite" onClick={ ()=>{ setLikeBtn(1);addLike();alert("즐겨찾기 추가했습니다!!") } }><FavoriteBorderIcon color="error"/></span>
+                    ? <span className="favorite" onClick={ ()=>{ setLikeBtn(1);addLike();alert("즐겨찾기 추가했습니다!!") } }><FavoriteBorderIcon /></span>
                     : <span className="favorite" onClick={ ()=>{ setLikeBtn(0);DeleteLike();alert("즐겨찾기 삭제했습니다..") } }><FavoriteIcon color="error" /></span>
               }
             </span>

@@ -5,8 +5,11 @@ import { useParams } from 'react-router-dom';
 
 function HouseInfo(props) {
     const [content, setContent] = useState(null);
+    const [contentTime, setContentTime] = useState(null);
     const [loading,setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const [tloading,setTLoading] = useState(false);
+    const [terror, setTError] = useState(null);
 
     let { houseNum } = useParams();
 
@@ -25,13 +28,35 @@ function HouseInfo(props) {
             }
             setLoading(false);
         };
+        
+
+        const getHouseInfoTime = async () => {
+            try {
+                setContentTime(null);
+                setTError(null);
+                setTLoading(true);
+                const response = await axios.get(
+                    `${URL}/${houseNum}/hosttime`
+                );
+                setContentTime(response.data);
+            } catch(e) {
+                setTError(e);
+            }
+            setTLoading(false);
+        };
+        getHouseInfoTime();
         getHouseInfo();
     }, []);
 
+   
     if (loading) return <p>로딩중....</p>;
     if (error) return <p>에러가 발생했습니다.!!</p>;
     if (!content) return null;
-
+    console.log(contentTime)
+    console.log(contentTime.checkIn1);
+    console.log(contentTime.checkIn2);
+    console.log(contentTime.checkOut1);
+    console.log(contentTime.checkOut2);
     return (
         <div>
             <h1 id="HostId">
@@ -39,26 +64,29 @@ function HouseInfo(props) {
                 </h1>
                 <hr/>
 
-                <p><b>집 전체</b></p>
-                <p>주택 전체를 단독으로 사용하시게 됩니다.</p>
+                <p className="info-title"><b>집 전체</b></p>
+                <p className="info-text">게스트용 별채 전체를 단독으로 사용하시게 됩니다.</p>
                 <br/>
 
-                <p><b>청결 강화</b></p>
-                <p>에어비앤비의 강화된 5단계 청소 절차를 준수하겠다고 동의한 호스트입니다.</p>
+                <p className="info-title"><b>청결 강화</b></p>
+                <p className="info-text">코로나19 시대에 에어비앤비가 전문가와 함께 개발한 기준인 강화된 5단계 청소 절차를 준수하겠다고 동의한 호스트입니다.</p>
                 <br/>
 
-                <p><b>셀프 체크인</b></p>
-                <p>열쇠 보관함을 이용해 체크인하세요.</p>
+                <p className="info-title"><b>셀프 체크인</b></p>
+                <p className="info-text">키패드를 이용해 체크인하세요.</p>
                 <br/>
 
-                <p><b>환불 정책</b></p>
-                <p>체크인 30일 전까지 취소하시면 전액이 환불됩니다.</p>
+                <p className="info-title"><b>환불 정책</b></p>
+                <p className="info-text">체크인 30일 전까지 취소하시면 전액이 환불됩니다.</p>
                 <br/>
 
-                <p><b>숙소 이용규칙</b></p>
-                <br/>
+                <p className="info-title"><b>숙소 이용규칙</b></p>
+                {contentTime.checkIn2=="0"?<p>Check-In : {contentTime.checkIn1}시</p>:<p>Check-In : {contentTime.checkIn1}시 {contentTime.checkIn2}분</p>}
+                {contentTime.checkOut2=="0"?<p>Check-Out : {contentTime.checkOut1}시</p>:<p>Check-Out : {contentTime.checkOut1}시 {contentTime.checkOut2}분</p>}
+               
+                <div className="space"></div>
                 <hr/>
-                <br/>
+                
 
                 
         </div>

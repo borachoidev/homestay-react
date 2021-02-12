@@ -50,7 +50,7 @@ function ReviewList(props) {
             <br/>
             <h1>리뷰리스트</h1>
             <span id="star">
-                <StarIcon color="error" /></span><span id="scoreText">{content.allOfAvg}(후기 {content.countOfReview}개)
+                <StarIcon color="error" /></span><span id="scoreText">{content.allOfAvg} (후기 {content.countOfReview}개)
             </span>
 
             <div id="reviewStarAvg">

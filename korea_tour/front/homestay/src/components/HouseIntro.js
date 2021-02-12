@@ -36,10 +36,9 @@ function HouseIntro(props) {
 
     return (
         <div>
-            <h1>House 소개글</h1>
+            <h1 id="introTitle">House 소개글</h1>
             <div id="HouseIntro_content">{content.content}</div>
                 <hr/>
-                <br/>
         </div>
     );
 }

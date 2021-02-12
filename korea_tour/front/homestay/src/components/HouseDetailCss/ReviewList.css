@@ -16,11 +16,11 @@
 
 #reviewPoint{
     display: flex;
+    justify-content: space-between;
     flex-wrap: wrap;
     margin-top: 20px;
 }
 .reviewPoint-box:nth-child(2n){
-    padding-left: 5%;
     padding-top: 1.5%;
     padding-bottom: 1.5%;
     width: 45%;
@@ -29,7 +29,6 @@
 }
 
 .reviewPoint-box:nth-child(2n+1){
-    padding-right: 5%;
     padding-top: 1.5%;
     padding-bottom: 1.5%;
     width: 45%;
@@ -58,22 +57,38 @@
 
 #reviewModal__box{
     background-color: white;
+    margin: auto;
     position: relative;
-    width: 100%;
+    width: 80%;
     height: 80vh;
     z-index: 950;
     overflow-y: scroll;
     border-radius: 50px;
     box-shadow: 3px 3px 4px 1px grey;
+    padding: 20px;
 }
 
 
-  #reviewModal__box::-webkit-scrollbar { display: none; }
-  
-  .modal__review-box{
-    width: 45%;
-    margin-top: 40px;
-    margin-bottom: 40px;
-    margin-left: auto;
-    margin-right: auto;
-  }
+#reviewModal__box::-webkit-scrollbar { display: none; }
+
+.modal__review-box{
+  width: 45%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.modal__review-box-relevel{
+  width: 45%;
+  margin-left: auto;
+  margin-right: 25%;
+}
+
+.modalReviewBox{
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+
+.host-writeday{
+    font-size: 0.7em;
+    margin-bottom: 50px;
+}
