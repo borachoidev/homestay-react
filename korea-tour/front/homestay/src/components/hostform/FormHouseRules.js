@@ -31,7 +31,7 @@ export default function FormHouseRules(props) {
       <div>
         <TextField
           id="checkInHour"
-          label="체크인 시간"
+          label="체크인 시"
           type="number"
           name="checkIn1"
           value={houseRules.checkIn1}
@@ -59,7 +59,7 @@ export default function FormHouseRules(props) {
 
         <TextField
           id="checkOutHour"
-          label="체크아웃 시간"
+          label="체크아웃 시"
           type="number"
           name="checkOut1"
           value={houseRules.checkOut1}

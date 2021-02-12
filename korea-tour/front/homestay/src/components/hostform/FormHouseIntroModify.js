@@ -111,7 +111,7 @@ export default function FormHouseIntro(props) {
         direction="row"
         justify="space-between"
         alignItems="center"
-        spacing={2}
+        spacing={1}
       >
         {/* 수정시 기존 사진 */}
         {photos && <span>기존 이미지를 클릭하면 삭제됩니다</span>}

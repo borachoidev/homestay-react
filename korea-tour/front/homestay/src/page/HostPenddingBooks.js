@@ -3,27 +3,41 @@ import axios from 'axios';
 import { URL } from '_utils/api';
 import MyBookRow from 'components/MyBookRow';
 import store from '_store/Store';
+import { makeStyles } from '@material-ui/core/styles';
+import Pagination from '@material-ui/lab/Pagination';
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    '& > *': {
+      marginTop: theme.spacing(2),
+    },
+  },
+}));
 
 function HostPenddingBooks({ history }) {
   const [contents, setContents] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [totalPage, setTotalPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
   const num = store.getState().userReducer.num;
-
+  const classes = useStyles();
+  const fatchData = async (userNum, currentPage) => {
+    //대기중인 예약일시 0
+    const approval = 0;
+    const url = `${URL}/reservation/${userNum}/${approval}/${currentPage}`;
+    setLoading(true);
+    try {
+      const response = await axios.get(url);
+      setTotalPage(response.data.totalPage);
+      setContents(response.data.list);
+      console.log(url);
+      console.log(response.data.totalPage);
+    } catch (e) {
+      console.log(e);
+    }
+    setLoading(false);
+  };
   useEffect(() => {
-    const fatchData = async (userNum, currentPage) => {
-      //대기중인 예약일시 0
-      const approval = 0;
-      setLoading(true);
-      try {
-        const response = await axios.get(
-          `${URL}/reservation/${userNum}/${approval}/${currentPage}`
-        );
-        setContents(response.data.list);
-      } catch (e) {
-        console.log(e);
-      }
-      setLoading(false);
-    };
     fatchData(num, 1);
   }, []);
 
@@ -59,6 +73,17 @@ function HostPenddingBooks({ history }) {
           ))}
         </tbody>
       </table>
+      <div className={classes.root}>
+        <Pagination
+          count={totalPage}
+          color="secondary"
+          onChange={(e, number) => {
+            fatchData(num, number);
+            setCurrentPage(number);
+          }}
+          page={currentPage}
+        />
+      </div>
     </div>
   );
 }

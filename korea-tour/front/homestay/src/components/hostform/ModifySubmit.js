@@ -97,7 +97,7 @@ function ModifySubmit(props) {
     }
   }, []);
 
-  history.push('/');
+  history.push('/host/main');
   if (loading) {
     return <p>대기중....</p>;
   }

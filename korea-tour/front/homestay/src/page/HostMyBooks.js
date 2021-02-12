@@ -3,27 +3,40 @@ import axios from 'axios';
 import { URL } from '_utils/api';
 import MyBookRow from 'components/MyBookRow';
 import store from '_store/Store';
+import { makeStyles } from '@material-ui/core/styles';
+import Pagination from '@material-ui/lab/Pagination';
 
+const useStyles = makeStyles(theme => ({
+  root: {
+    '& > *': {
+      marginTop: theme.spacing(2),
+    },
+  },
+}));
 function HostMyBooks({ history }) {
+  const [totalPage, setTotalPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
   const [contents, setContents] = useState(null);
   const [loading, setLoading] = useState(false);
   const num = store.getState().userReducer.num;
+  const classes = useStyles();
+  const fatchData = async (userNum, currentPage) => {
+    // 승인된 예약
+    const approval = 2;
+    setLoading(true);
+    try {
+      const response = await axios.get(
+        `${URL}/reservation/${userNum}/${approval}/${currentPage}`
+      );
+      setTotalPage(response.data.totalPage);
+      setContents(response.data.list);
+      console.log(response.data.totalPage);
+    } catch (e) {
+      console.log(e);
+    }
+    setLoading(false);
+  };
   useEffect(() => {
-    // async를 사용하는 함수 따로 선언
-    const fatchData = async (userNum, currentPage) => {
-      // 승인된 예약
-      const approval = 2;
-      setLoading(true);
-      try {
-        const response = await axios.get(
-          `${URL}/reservation/${userNum}/${approval}/${currentPage}`
-        );
-        setContents(response.data.list);
-      } catch (e) {
-        console.log(e);
-      }
-      setLoading(false);
-    };
     fatchData(num, 1);
   }, []);
 
@@ -59,6 +72,17 @@ function HostMyBooks({ history }) {
           ))}
         </tbody>
       </table>
+      <div className={classes.root}>
+        <Pagination
+          count={totalPage}
+          color="secondary"
+          onChange={(e, number) => {
+            fatchData(num, number);
+            setCurrentPage(number);
+          }}
+          page={currentPage}
+        />
+      </div>
     </div>
   );
 }
