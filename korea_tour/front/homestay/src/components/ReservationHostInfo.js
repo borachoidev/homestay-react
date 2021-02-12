@@ -41,7 +41,7 @@ const ReservationHostInfo = () => {
     return (
           <div className="reservation_host_info"  style={{ marginTop: 20 }}>
             <img className="reservation_host_img" src={photo}/>
-            <div className="info-text">
+            <div className="reservation_info-text">
             <p className="host_title"><b>장소명: </b>{hostInfo.homeTitle}</p>
             <br/>
             <p className="host_name"><b>호스트명: </b>{hostInfo.hostName}</p>
