@@ -12,7 +12,7 @@ const ReviewFileUpload = (props) => {
         let uploadFile = props.photo; 
         uploadFile = e.target.files;
         const imageFile = new FormData();
-        if (uploadFile.length >=4 ) {
+        if (uploadFile.length >5 ) {
           alert('사진은 4장 이하만 가능합니다!');
           e.target.value = '';
         }
