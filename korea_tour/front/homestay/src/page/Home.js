@@ -22,7 +22,7 @@ function Home(props) {
     </div>
     </div> 
   <div class="site-content">
-	<div class="title"><span>라온홈스테이 각 지의 호스트들은<br></br> 꼼꼼한 검증 절차를 거치며,<br></br></span> <br></br>호스트가 되고 싶으신 분들도 <br></br>어렵지 않은 신청 절차를 경험하실 수 있습니다.</div>
+	<div class="title"><span>라온홈스테이 각 지의 호스트들은<br></br> 꼼꼼한 검증 절차를 거치며 🕵️‍♂️,<br></br></span> <br></br>호스트가 되고 싶으신 분들은 <br></br>어렵지 않은 신청 절차를 경험하실 수 있습니다 📗.</div>
   </div>
 
 
