@@ -1,8 +1,8 @@
 import  React, { useState } from 'react';
-
+import { URL,img } from '_utils/api';
 import store from '_store/Store';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import StarIcon from '@material-ui/icons/Star';
 
 import IconButton from "@material-ui/core/IconButton";
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -19,7 +19,7 @@ const ListRow  =(props)=> {
     
     try {
       const response = await axios.delete(
-        `http://localhost:9003/homestays/mark?homeStayNum=${props.homeNum}&userNum=${userNum}`,
+        `${URL}/mark?homeStayNum=${props.homeNum}&userNum=${userNum}`,
         { data: { homeStayNum: props.homeNum, userNum: userNum} });
       console.log("삭제성공");
        
@@ -29,24 +29,32 @@ const ListRow  =(props)=> {
     }
   };
 
-  let image= 'http://localhost:9003/homeStayImg/'+props.photo;
+  let image= `${img}/${props.photo}`;
     return (
       <div>
-        <div className="likeList" onClick={() => {
+        <div className="like_list_List" onClick={() => {
             props.history.push(
               `/house/${props.homeNum}`
             );
           }}>
-        <img className="likeImg" src={image}/>
-        <p className="likeHome">{props.title}</p>
-        <p className="likeHost">{props.hostName}</p>
-        <p className="likeAddr">{props.addr}</p>
-        <p className="likeStar">{props.star}</p>
+        <img className="like_list_Img" src={image}/>
+        <div className="like_list_text">
+        <b className="like_list_Home">{props.title}</b>
+        <br/>
+        <b className="like_list_Host">{props.hostName}</b>
+        <br/>
+        <b className="like_list_Addr">{props.addr}</b>
+        <div className="like_list_Star">
+        <b className="star_num">★ </b>
+        <b className="star_avg_num">{props.star}</b>
         </div>
-          <div>
+        </div>
+        
+          <div className="like_list_heart">
           <IconButton aria-label="add to favorites">
           <span onClick={DeleteMark}><FavoriteIcon style={{ color: pink[500] }} /></span>
           </IconButton>
+          </div>
           </div>
       </div>
     );

@@ -6,7 +6,6 @@
 .myReview-Row{
     border-bottom: 2px solid #00A699;
     padding: 2em;
-    height: 30vh;
     width: 60vw;
     display: flex;
     flex-direction:row;
@@ -24,8 +23,9 @@
 
 .myReview-photo img {
     width: 13vw;
-    height: 20vh;
+    height: 10vw;
     float: left;
+    border: 3px solid #FC642D;
     
 }
 

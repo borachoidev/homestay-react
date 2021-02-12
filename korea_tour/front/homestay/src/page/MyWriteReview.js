@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import store from '_store/Store';
+import { URL } from '_utils/api';
 
 import MyWriteReviewRow from 'components/MyWriteReviewRow';
-
+import 'components/MyWriteReview.css'
 const  MyWriteReview = () => {
     
     const [myReview,setMyReview] = useState(null);
@@ -18,7 +19,7 @@ const  MyWriteReview = () => {
         setLoading(true);
         try {
             const response = await axios.get(
-                `http://localhost:9003//homestays/mypage/reviews/${loginNum}/1`
+                `${URL}/mypage/reviews/${loginNum}/1`
             );
             setMyReview(response.data.reviews);
             console.log(response.data.reviews);
@@ -39,7 +40,9 @@ const  MyWriteReview = () => {
    }
    // articles 값이 유효할때 
     return (
-          <div>
+          <div style={{marginTop:30}}>
+              <h1 className="my_write_review_main">내가 쓴 리뷰</h1>
+              <hr className="my_write_review_hr" style={{marginTop:20}}/>
               {myReview.map((myReview,index)=>
                 (<MyWriteReviewRow
                   homeStayReviewNum = {myReview.homeStayReviewNum}
