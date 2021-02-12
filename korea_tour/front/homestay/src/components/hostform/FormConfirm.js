@@ -5,8 +5,6 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import IconButton from '@material-ui/core/IconButton';
-import EditIcon from '@material-ui/icons/Edit';
 import PetsIcon from '@material-ui/icons/Pets';
 import SmokingRoomsIcon from '@material-ui/icons/SmokingRooms';
 import SmokeFreeIcon from '@material-ui/icons/SmokeFree';
@@ -93,14 +91,24 @@ export default function FormConfirm(props) {
         <Tab label="홈스테이소개" {...a11yProps(2)} />
       </Tabs>
       <TabPanel value={value} index={0}>
-        {hostInfo.addr1}
-        {hostInfo.addr2}
-        {hostInfo.email1}@{hostInfo.email2}
-        {hostInfo.hp}
+        <p>
+          {hostInfo.addr1}
+          {hostInfo.addr2}
+        </p>
+        <p>
+          {hostInfo.email1}@{hostInfo.email2}
+        </p>
+        <p>{hostInfo.hp}</p>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        {houseRules.checkIn}
-        {houseRules.checkOut}
+        <p>
+          체크인 시간 : {houseRules.checkIn1} 시
+          {houseRules.checkIn2 == 0 ? '' : houseRules.checkIn2 + '분'}
+        </p>
+        <p>
+          체크아웃 시간 :{houseRules.checkOut1} 시
+          {houseRules.checkOut2 == 0 ? '' : houseRules.checkOut2 + '분'}
+        </p>
         <Box display="flex" flexDirection="column">
           {amenities.dogOk ? (
             <span>
@@ -181,7 +189,7 @@ export default function FormConfirm(props) {
       </TabPanel>
       <TabPanel value={value} index={2}>
         {houseIntro.title}
-        {houseIntro.content}
+        <pre> {houseIntro.content}</pre>
       </TabPanel>
     </div>
   );
