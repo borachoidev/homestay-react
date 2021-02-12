@@ -1,0 +1,61 @@
+.like_list_List{
+    border-bottom: 2px solid #00A699;
+    padding: 2em;
+    height: 25vh;
+    display: flex;
+    flex-direction:row;
+    justify-content:center;
+    align-items:center;
+    margin: auto;
+    width: 60vw;
+    clear: both;
+}
+
+.like_list_title {
+    font-size: var(--font-large);
+    margin-left: 15vw;
+}
+
+.like_list_hr{
+    border-top: 2px solid #00A699;
+    width: 60vw;
+    margin-bottom: 0;
+    margin: auto;
+}
+
+.like_list_Img {
+    float: left;
+    width: 13vw;
+    height: 10vw;
+    border: 3px solid #FC642D;
+}
+
+.like_list_text {
+    width: 40vw;
+    float: left;
+    margin-left: 5vw;
+    font-size: var(--font-medium);
+}
+
+.like_list_Host, .like_list_Addr, .like_list_Star{
+    font-size: var(--font-small);
+}
+
+.like_list_text p {
+    margin-top: 5px;
+}
+
+.star_num {
+    color:#f16664;
+}
+
+.star_num {
+    color:#f16664;
+}
+
+.like_list_Star{
+    margin-top: 5px;
+}
+.like_list_heart{
+    float: right;
+}

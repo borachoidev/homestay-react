@@ -1,0 +1,73 @@
+.my_write_review_main {
+    margin-left: 15vw;
+}
+
+.my_write_review_hr {
+    border-top: 2px solid #00A699;
+    width: 60vw;
+    margin-bottom: 0;
+    margin: auto;
+}
+
+.write_Row {
+    margin: auto;
+    width: 60vw;
+    border-bottom: 2px solid #00A699;
+}
+
+.write_host_name {
+    font-size: var(--font-medium);
+    margin-left: 1em;
+    vertical-align: bottom;
+    margin-top: 2px;
+}
+
+.write_host_img {
+    padding: 1vw;
+    border-bottom: 1px solid #f16664;
+}
+
+.write_host_img img{
+    width: 8vw;
+    height: 5vw;
+    border: 1px solid #FC642D;
+    text-align: center;
+
+}
+
+.write_review_img_list {
+    text-align: center;
+}
+
+.write_review_img img{
+    width: 12vw;
+    height: 10vw;
+    border: 1px solid #FC642D;
+    margin-left: 0.5em;
+}
+.write_review_img  {
+    display: inline-block;
+    margin-right: 1em;
+}
+
+.write_day {
+    float: right;
+}
+
+.write_star b {
+    margin: 0 1em;
+    text-align: center;
+}
+.write_star {
+    text-align: center;
+}
+
+.write_content {
+    margin-top: 1vw;
+    margin-bottom: 1vw;
+    
+}
+
+.MuiTextField-root {
+    margin: auto;
+}

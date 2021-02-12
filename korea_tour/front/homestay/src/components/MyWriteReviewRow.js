@@ -1,16 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { img,review } from '_utils/api';
+import TextField from '@material-ui/core/TextField';
+import { makeStyles } from '@material-ui/core/styles';
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    '& .MuiTextField-root': {
+      margin: theme.spacing(1),
+      width: '60vw',
+    },
+  },
+}));
 
 const MyWriteReviewRow = (props) => {
      
     let photo = props.photoName;
     console.log(photo);
-    /*let photoUrl =`http://localhost:9003/homeStayReviewImg/`+props.reviewPhotos.photoName
-    
-    {photo.map((photo)=>
-                (<img src={"http://localhost:9003/homeStayReviewImg/"+photo.photoName}></img>) 
-                 )}*/
+    const classes = useStyles();
     const photoList = photo.map(
         (photo,i) => (
             <div className="write_review_img">
@@ -28,20 +34,30 @@ const MyWriteReviewRow = (props) => {
           </div>
          
           <br/>
-          
+          <div className="write_review_img_list">
             {photoList}    
-          
+          </div>
           </div> 
-           
-           <b className="write_star">청결도 :</b>{props.cleanliness.toFixed(1)}
-           <b className="write_star">의사소통 :</b>{props.communication.toFixed(1)}
-           <b className="write_star">체크인 :</b>{props.checkIn.toFixed(1)}
-           <b className="write_star">정확성 :</b>{props.accuracy.toFixed(1)}
-           <b className="write_star">위치 :</b>{props.location.toFixed(1)}
-           <b className="write_star">가격대비 만족도: </b>{props.Price.toFixed(1)}
-           <div className="write_content">
-               {props.content}
+           <div className="write_star">
+           <b>청결도 :</b>{props.cleanliness.toFixed(1)}
+           <b>의사소통 :</b>{props.communication.toFixed(1)}
+           <b>체크인 :</b>{props.checkIn.toFixed(1)}
+           <b>정확성 :</b>{props.accuracy.toFixed(1)}
+           <b>위치 :</b>{props.location.toFixed(1)}
+           <b>가격대비 만족도: </b>{props.Price.toFixed(1)}
            </div>
+           <form className={classes.root,"write_content"}>
+           <TextField
+          id="outlined-read-only-input"
+          label="review"
+          defaultValue={props.content}
+          InputProps={{
+            readOnly: true,
+          }}
+          variant="outlined"
+        />
+               
+           </form>
            
           </div>
 

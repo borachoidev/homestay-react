@@ -11,7 +11,7 @@ const  MyWriteReview = () => {
     const [myReview,setMyReview] = useState(null);
     const [loading,setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const [postsPerPage, setPostsPerPage] = useState(10);
+    const [postsPerPage, setPostsPerPage] = useState(5);
 
     let loginNum=store.getState().userReducer.num;
 
