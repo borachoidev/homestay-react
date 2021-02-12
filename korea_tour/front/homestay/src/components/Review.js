@@ -31,7 +31,7 @@ function Review(props) {
     }, []);
 
     if (loading) return <p>로딩중....</p>;
-    if (error) return <p>에러가 발생했습니다.!!</p>;
+    if (error) return null;
     if (!content) return null;
 
     

@@ -41,7 +41,7 @@ function ReviewList(props) {
     }, []);
 
     if (loading) return <p>로딩중....</p>;
-    if (error) return <p>에러가 발생했습니다.</p>;
+    if (error) return <p>등록된 평점이 없습니다.</p>;
     if (!content) return null;
 
     return (

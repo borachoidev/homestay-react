@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import StarIcon from '@material-ui/icons/Star';
 import axios from 'axios';
 import { URL } from '_utils/api';
 import { useParams } from 'react-router-dom';
 
-function HouseStarAvg(props) {
+function HouseCheckInOut(props) {
+
     const [content, setContent] = useState(null);
     const [loading,setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -12,35 +12,35 @@ function HouseStarAvg(props) {
     let { houseNum } = useParams();
 
     useEffect( () => {
-        const getStar = async () =>{
-            try{
+        
+        const getHouseInfoTime = async () => {
+            try {
                 setContent(null);
                 setError(null);
                 setLoading(true);
                 const response = await axios.get(
-                    `${URL}/${houseNum}/star`
-                    );
-                    setContent(response.data);
-                    console.log(response.data);
-            } catch (e){
+                    `${URL}/${houseNum}/hosttime`
+                );
+                setContent(response.data);
+            } catch(e) {
                 setError(e);
             }
             setLoading(false);
         };
-        getStar();
+        getHouseInfoTime();
     }, []);
 
+   
     if (loading) return <p>로딩중....</p>;
-    if (error) return null;
+    if (error) return <p>에러가 발생했습니다.!!</p>;
     if (!content) return null;
 
     return (
         <div>
-            <span>
-                <span id="star"><StarIcon color="error" /></span><span>{content.allOfAvg}(후기 {content.countOfReview}개)</span>
-            </span>
+            {content.checkIn2=="0"?<p>Check-In : {content.checkIn1}시</p>:<p>Check-In : {content.checkIn1}시 {content.checkIn2}분</p>}
+            {content.checkOut2=="0"?<p>Check-Out : {content.checkOut1}시</p>:<p>Check-Out : {content.checkOut1}시 {content.checkOut2}분</p>}
         </div>
     );
 }
 
-export default HouseStarAvg;
+export default HouseCheckInOut;
