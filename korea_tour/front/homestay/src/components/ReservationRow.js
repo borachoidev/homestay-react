@@ -1,20 +1,22 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
+
+
+
 const ReservationRow  =(props)=> {
   let stayNum=props.homeStayNum;
- 
         return (stayNum)
         ?
             <tr className="ReservationRow" onClick={() => {
                 props.history.push(
-                  `/mypage/reservation/${props.homeStayNum}`
+                  `/mypage/reservation/${props.homeStayNum}/${props.approval}`
                 );
               }}> 
-                <td>{props.writeday}</td>
+                <th>{props.writeday}</th>
                 <td>{props.title}</td>
-                <td>{props.checkIn}~{props.checkOut}</td>
-                <td> 
+                <th className="day_td">{props.checkIn}~{props.checkOut}</th>
+                <th> 
                     {props.approval===0&&props.cancle===0
                      ? 
                      "예약대기"
@@ -22,9 +24,12 @@ const ReservationRow  =(props)=> {
                      ? "예약취소"
                      :"예약승인")
                     } 
-                </td>
+                </th>
             </tr>
-          :<div></div>      
+          :(props==null
+            ?
+            <div>예약한 목록이 없습니다</div>
+            :<div></div>)      
     
 }
 export default withRouter(ReservationRow);

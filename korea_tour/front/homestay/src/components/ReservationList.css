@@ -1,23 +1,61 @@
 .reservationTable {
     margin: 0 auto;
-    width: 55vw;
-    border-bottom: 3px solid gray;
     clear: both;
+    width: 60vw;
 
 }
 
-.reservationTable th {
-    border-bottom: 3px solid gray;
+.reservationTable thead th {
+    border-bottom: 3px solid #00A699;
+    border-top: 3px solid #00A699;
 }
 
 #writeDay {
     width: 7vw;
 }
-
 #homestayName {
-    width: 20vw;
+    width: 25vw;
 }
 
 #approval {
-    width: 10vw;
+    width: 5vw;
 }
+.ReservationRow tr{
+    padding: 2em;
+}
+.ReservationRow th{
+    text-align: center;
+    font-weight: 400;
+    border-bottom: 1px solid #00A699;
+    cursor: pointer;
+}
+
+.ReservationRow td{
+    padding: 0.5em;
+    padding-left: 1em;
+    font-weight: 400;
+    border-bottom: 1px solid #00A699;
+    cursor: pointer;
+}
+
+.reservation h1 {
+    margin-left: 15vw;
+    float: left;
+    margin-bottom: 0.5em;
+}
+
+.data_btn button {
+    float: right;
+    background: none;
+    border: none;
+    font-family: 'regular';
+    margin-left: 2vw;
+    border-bottom: 2px solid #FC642D;
+    margin-top: 1.3em;
+}
+
+.data_btn{
+    margin-top: 2em;
+    margin-right: 15vw;  
+}
+

@@ -1,16 +1,14 @@
-
-.mypage-btn {
-    width: 100vw;
-    
-    
+.mypage h1{
+    font-size: var(--font-xl);
 }
 
-h1 {
+.mypage hr {
     margin: 0;
+    margin-bottom: 0px;
+
 }
 
 .click-btn {
     float: left;
     flex: 100%;
-    font-size: var(--font-xxl);
 }

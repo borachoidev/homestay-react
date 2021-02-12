@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { URL } from '_utils/api';
 
 const ReservationContent = () =>{
 
@@ -7,7 +8,7 @@ const ReservationContent = () =>{
        const [loading,setLoading] = useState(false);
        
        let reservationUrl = window.location.href;
-       let reservationNum = reservationUrl.split('reservation/')[1];
+       let reservationNum = reservationUrl.split('/')[6];
 
    useEffect(() =>{
        // async를 사용하는 함수 따로 선언
@@ -15,7 +16,7 @@ const ReservationContent = () =>{
            setLoading(true);
            try {
                const response = await axios.get(
-                   'http://localhost:9003/homestays/mypage/reservation/detail/'+reservationNum
+                   `${URL}/mypage/reservation/detail/${reservationNum}`
                );
                setContent(response.data);
                console.log(response.data)
@@ -38,12 +39,12 @@ const ReservationContent = () =>{
    let approval = content.approval;
    return (
 
-    <div>
+    <div className="raservation_content">
     <b>예약자명 : </b>{content.customName}
     <br/>
     <b>e-mail : </b>{content.email1}@{content.email2}
     <br/>
-    <b>신청날짜 : </b>{content.writeday}
+    <b>예약날짜 : </b>{content.writeday}
     <br/>
     <b>체크인 : </b>{content.checkInDay}
     <br/>
