@@ -9,9 +9,25 @@ import HouseAddr from './HouseAddr';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(theme => ({
+  
+  adminBtns:{
+    fontFamily: 'regular',
+    backgroundColor:'#00A699',
+    fontSize: '13px'
+    
+    
+  },
+  
+
+    
+}));
 
 
 function AdminHouseDetail({match,history}) {
+  const classes = useStyles();
   let {houseNum}=useParams()
   
   const handleConfirm = async () => {
@@ -49,10 +65,10 @@ function AdminHouseDetail({match,history}) {
             {/* 집이름,즐겨찾기,별점 */}
             <HouseName /> 
             <HouseAddr /> <br></br>
-                <Button variant="contained" size="small" onClick={handleConfirm} >
+                <Button className={classes.adminBtns} onClick={handleConfirm} >
                 승인 
                 </Button > {'   '}
-                 <Button variant="contained" size="small" color="secondary" onClick={handleDeny}>
+                 <Button className={classes.adminBtns} onClick={handleDeny}>
                 거절
                 </Button>
             {/* 사진 DetailPhotos */}
