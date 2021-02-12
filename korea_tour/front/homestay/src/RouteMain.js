@@ -18,7 +18,6 @@ import HostMenu from 'page/HostMenu';
 import HostMyBooks from 'page/HostMyBooks';
 import HouseListFeatured from 'components/HouseListFeatured';
 import AdminHouseDetail from 'components/AdminHouseDetail';
-import HostMain from 'page/HostMain';
 
 function RouteMain(props) {
   return (
@@ -52,7 +51,7 @@ function RouteMain(props) {
       <Route path="/mypage/reservation/:num" component={ReservationDetail} />
       {/* 호스트페이지 */}
       <Route path="/host" component={HostMenu} />
-      <Route path="/host/main" component={HostMain} />
+
       <Route exact path="/host/books" component={HostMyBooks} />
       <Route path="/host/manage/books" component={HostPenddingBooks} />
       <Route path="/host/books/:num" component={HostBookDetail} />

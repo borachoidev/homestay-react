@@ -9,7 +9,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
+a {
+  color: black;
+}
+a:-webkit-any-link {
+  text-decoration: none;
+}
 @font-face {
   font-family: 'light';
   src: url(font/SCDream2.otf) format('truetype');

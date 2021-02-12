@@ -17,11 +17,9 @@ import store from '_store/Store';
 import { Link, useHistory } from 'react-router-dom';
 import Search from 'components/Search';
 
-
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
-    
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -29,16 +27,15 @@ const useStyles = makeStyles(theme => ({
   title: {
     flexGrow: 1,
   },
-  logo:{
-    width:130,
-    height:60,
+  logo: {
+    width: 130,
+    height: 60,
   },
-  links:{
+  links: {
     fontFamily: 'regular',
     color: 'inherit',
     textDecoration: 'none',
   },
-  
 }));
 
 const NavBar = ({ signOut }) => {
@@ -67,7 +64,9 @@ const NavBar = ({ signOut }) => {
     <AppBar position="static">
       <Toolbar>
         <Typography variant="h6" className={classes.title}>
-          <Link to="/"><img className={classes.logo} src="Homestay_logo_black.png"/></Link>
+          <Link to="/">
+            <img className={classes.logo} src="Homestay_logo_black.png" />
+          </Link>
         </Typography>
         <Search />
         {!auth && (
@@ -135,19 +134,27 @@ const NavBar = ({ signOut }) => {
               onClose={handleClose}
             >
               <MenuItem onClick={handleClose}>
-                <Link className={classes.links} to="/mypage">마이페이지</Link>
+                <Link className={classes.links} to="/mypage">
+                  마이페이지
+                </Link>
               </MenuItem>
               {host == 'N' && (
                 <MenuItem>
-                  <Link className={classes.links} to="/apply">호스트되기 </Link>
+                  <Link className={classes.links} to="/apply">
+                    호스트되기{' '}
+                  </Link>
                 </MenuItem>
               )}
               {host == 'Y' && (
                 <MenuItem onClick={handleClose}>
-                  <Link className={classes.links} to="/host/main">호스트관리</Link>
+                  <Link className={classes.links} to="/host/manage/house">
+                    호스트관리
+                  </Link>
                 </MenuItem>
               )}
-              <MenuItem className={classes.links} onClick={logOut}>로그아웃</MenuItem>
+              <MenuItem className={classes.links} onClick={logOut}>
+                로그아웃
+              </MenuItem>
             </Menu>
           </div>
         )}

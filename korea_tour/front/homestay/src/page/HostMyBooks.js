@@ -5,7 +5,7 @@ import MyBookRow from 'components/MyBookRow';
 import store from '_store/Store';
 import { makeStyles } from '@material-ui/core/styles';
 import Pagination from '@material-ui/lab/Pagination';
-
+import 'components/hostBook.css';
 const useStyles = makeStyles(theme => ({
   root: {
     '& > *': {
@@ -51,15 +51,15 @@ function HostMyBooks({ history }) {
   let appoval = contents.appoval;
 
   return (
-    <div>
-      호스트 승인된 예약
-      <table>
+    <div className="container">
+      <h1>호스트 승인된 예약</h1>
+      <table className="booking-table">
         <thead>
           <tr>
-            <th>예약자</th>
-            <th>인원</th>
-            <th>체크인시간</th>
-            <th>체크아웃시간</th>
+            <th className="guest">예약자</th>
+            <th className="count">인원</th>
+            <th className="check-in">체크인시간</th>
+            <th className="check-out">체크아웃시간</th>
           </tr>
         </thead>
         <tbody>

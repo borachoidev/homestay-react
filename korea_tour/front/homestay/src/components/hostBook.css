@@ -1,0 +1,56 @@
+@charset "utf-8";
+
+.booking-table {
+  width: 100%;
+}
+
+.guest {
+  width: 20%;
+}
+.count {
+  width: 10%;
+}
+.check-in {
+  width: 20%;
+}
+.check-out {
+  width: 20%;
+}
+.manage {
+  width: 20%;
+}
+table {
+  border-collapse: collapse;
+}
+table td {
+  text-align: center;
+  border-bottom: 1px solid #f16664;
+}
+
+table th {
+  background-color: #f16664;
+  color: aliceblue;
+}
+table tr {
+  height: 2.5rem;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.info {
+  width: 100%;
+  margin: 3% 0;
+}
+h1 {
+  color: #444;
+  font-family: 'bold';
+}
+h3 {
+  color: #f16664;
+  font-family: 'bold';
+}
