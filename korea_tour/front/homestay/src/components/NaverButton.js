@@ -4,6 +4,14 @@ import { connect } from 'react-redux';
 import { signIn } from '_actions/user';
 let data;
 function NaverButton({ signIn }) {
+  const btnStyle = {
+    width: 174,
+    height: 44,
+    color: '#fafefc',
+    backgroundColor: '#5CC75B',
+    border: '1px solid transparent',
+    fontSize: '1rem',
+  };
   const sendApi = async res => {
     const id = res.id;
     const name = res.name;
@@ -17,13 +25,16 @@ function NaverButton({ signIn }) {
     });
   };
   return (
-    <NaverLogin
-      clientId="XsYIxoQxXx7dgXFoawSE"
-      callbackUrl="www.raonhomestay.tk"
-      render={props => <div onClick={props.onClick}>Naver Login</div>}
-      onSuccess={res => sendApi(res).then(signIn)}
-      onFailure={() => console.error()}
-    />
+    <button style={btnStyle}>
+      <NaverLogin
+        clientId="XsYIxoQxXx7dgXFoawSE"
+        // callbackUrl="www.raonhomestay.tk"
+        callbackUrl="http://localhost:3000/"
+        render={props => <div onClick={props.onClick}>Naver Login</div>}
+        onSuccess={res => sendApi(res).then(signIn)}
+        onFailure={() => console.error()}
+      />
+    </button>
   );
 }
 export default connect(null, dispatch => ({
