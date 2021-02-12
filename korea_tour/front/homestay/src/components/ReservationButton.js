@@ -27,8 +27,11 @@ export default function ReservationButton(props) {
   const classes = useStyles({
     secondary: palette.secondary
   });
+
+  let reservationUrl = window.location.href;
+  let reservationNum = reservationUrl.split('/')[7];
   return (
-    <div>
+    <div className="reservation_deteil_btn">
   
     <Button
       variant="contained"
@@ -40,15 +43,29 @@ export default function ReservationButton(props) {
       목록으로
       </Link>
     </Button>
+    {reservationNum==2
+    ?
     <Button
-     variant="contained"
-     color="secondary"
-     className={classes.button,classes.root}
-     startIcon={<EventBusyIcon />}
-     onClick={props.patchNum}
-    >
-      예약취소
-      </Button>
+    variant="contained"
+    disabled
+    className={classes.button,classes.root}
+    startIcon={<EventBusyIcon />}
+    onClick={props.patchNum}
+   >
+     예약취소
+     </Button>
+     :
+     <Button
+    variant="contained"
+    color="secondary"
+    className={classes.button,classes.root}
+    startIcon={<EventBusyIcon />}
+    onClick={props.patchNum}
+   >
+     예약취소
+     </Button>
+     }
+    
   </div>
   );
 }

@@ -2,6 +2,8 @@ import  React, { useState } from 'react';
 
 import store from '_store/Store';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
+
 import IconButton from "@material-ui/core/IconButton";
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import { pink } from '@material-ui/core/colors';
@@ -32,7 +34,7 @@ const ListRow  =(props)=> {
       <div>
         <div className="likeList" onClick={() => {
             props.history.push(
-              `/homestay/housedetail?houseNum=${props.homeNum}`
+              `/house/${props.homeNum}`
             );
           }}>
         <img className="likeImg" src={image}/>

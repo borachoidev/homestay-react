@@ -1,0 +1,87 @@
+.appoval {
+    display: inline;
+}
+
+.reservation_host_img {
+    float: left;
+    width: 20vw;
+    height: 15vw;
+    border: 3px solid #FC642D;
+    
+    
+}
+
+.reservation_host_info {
+    width: 60vw;
+    display: flex;
+   flex-direction:row;
+   justify-content:center;
+   align-items:center;
+   border-top:2px solid #00A699;
+   border-bottom:2px solid #00A699;
+   margin: auto;
+   padding: 2vh;
+   
+}
+
+.info-text{
+    float: left;
+    margin-left: 5vw;
+    
+}
+
+.host_title {
+    font-size: var(--font-medium) ; 
+}
+
+.host_name{
+    font-size: var(--font-medium);
+}
+
+.host_addr{
+    font-size: var(--font-medium);
+}
+
+.raservation_content {
+    clear: both;
+    width:60vw;
+    margin:auto;
+    font-size: var(--font-medium);
+    padding-left: 8vw;
+    padding-top: 2vh;
+    border-bottom: 2px solid #00A699;;
+    padding-bottom: 2vh;
+}
+
+.reservation_all{
+    margin-top: 4vh;
+}
+
+.detail_text {
+    font-size: var(--font-large);
+    margin-left: 15vw;
+    margin-bottom: 1em;
+}
+
+.reservation_deteil_btn {
+    text-align: center;
+}
+
+.reservation_deteil_btn button{
+    margin: 1vw;
+    
+}
+
+.reservation_deteil_btn a:visited{
+    color: white;
+}
+
+@media all and (min-width: 768px) and (max-width: 1023px){
+ 
+}
+@media all and (max-width:767px){
+
+}
+@media all and (max-width: 360px){
+
+}

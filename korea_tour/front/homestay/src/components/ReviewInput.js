@@ -46,33 +46,33 @@ const ReviewInput = () => {
         enctype="multipart/form-data"
       >
         <input
-          type="text"
+          type="hidden"
           name="homeStayReservationNum"
           value={ReservationNum}
         ></input>
-        <input type="text" name="homeStayNum" value={reviewHomestayNum}></input>
-        <input type="text" name="loginNum" value={loginNum}></input>
-        <input type="text" name="loginPhoto" value={loginPhoto}></input>
-        <input type="text" name="loginId" value={loginId}></input>
+        <input type="hidden" name="homeStayNum" value={reviewHomestayNum}></input>
+        <input type="hidden" name="loginNum" value={loginNum}></input>
+        <input type="hidden" name="loginPhoto" value={loginPhoto}></input>
+        <input type="hidden" name="loginId" value={loginId}></input>
 
-        <input type="text" name="cleanliness" value={star.cleanliness}></input>
+        <input type="hidden" name="cleanliness" value={star.cleanliness}></input>
         <input
-          type="text"
+          type="hidden"
           name="communication"
           value={star.communication}
         ></input>
-        <input type="text" name="checkIn" value={star.checkIn}></input>
-        <input type="text" name="accuracy" value={star.accuracy}></input>
-        <input type="text" name="location" value={star.location}></input>
+        <input type="hidden" name="checkIn" value={star.checkIn}></input>
+        <input type="hidden" name="accuracy" value={star.accuracy}></input>
+        <input type="hidden" name="location" value={star.location}></input>
         <input
-          type="text"
+          type="hidden"
           name="satisfactionForPrice"
           value={star.satisfactionForPrice}
         ></input>
 
-        <input type="text" name="photos" value={upload.photo}></input>
+        <input type="hidden" name="photos" value={upload.photo}></input>
 
-        <input type="text" name="text        " value={text.content}></input>
+        <input type="hidden" name="text        " value={text.content}></input>
         <div>
           <StarRating star={[star, setStar]} />
           <ReviewFileUpload />

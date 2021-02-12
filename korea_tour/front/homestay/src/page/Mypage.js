@@ -7,10 +7,9 @@ import "components/Mypage.css";
 
 const Mypage  =()=> {
         return (
-           <div className="mypage">
-           
-           <h1>마이페이지 출력란</h1>
-           <hr/>
+           <div className="mypage" style={{marginTop: 40}}>
+           <h1>마이페이지</h1>
+           <hr className="mypage_hr"/>
            <div className="mypage-btn" >
            <Link to="/mypage/reservation">
            <Button variant="contained" color="secondary">예약 내역</Button>
