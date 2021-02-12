@@ -57,5 +57,5 @@
   },
   "main": "index.js",
   "license": "MIT",
-  "proxy": "http://3.35.248.200:9003"
+  "proxy": "http://3.35.248.200"
 }
