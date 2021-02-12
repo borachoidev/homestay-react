@@ -22,7 +22,7 @@ const MyReviewList =()=>{
         setLoading(true);
         try {
             const response = await axios.get(
-                `${URL}/mypage/reservations-for-review/${userNum}/1`
+                `${URL}/mypage/reservations-for-review/${userNum}`
             );
             setReviewList(response.data);
             console.log(response.data);

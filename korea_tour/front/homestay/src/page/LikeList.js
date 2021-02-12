@@ -1,26 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-
+import { URL } from '_utils/api';
 import store from '_store/Store';
 
 import ListRow from "components/ListRow";
-
+import Pagination from 'components/Pagination';
+import 'components/LikeList.css';
 const LikeList  =()=> {
     
 
     const [likeList,setLikeList] = useState(null);
     const [loading,setLoading] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postsPerPage, setPostsPerPage] = useState(10);
+
       let userNum=store.getState().userReducer.num;
+
    useEffect(() =>{
        // async를 사용하는 함수 따로 선언
        const fatchData = async ()=> {
            setLoading(true);
            try {
                const response = await axios.get(
-                   `http://localhost:9003/homestays/mypage/marks/${userNum}/1`
+                   `${URL}/mypage/marks/${userNum}`
                );
-               setLikeList(response.data.marks);
-               console.log(response.data.marks)
+               setLikeList(response.data);
+
            } catch (e) {
                console.log(e);
            }
@@ -36,36 +41,40 @@ const LikeList  =()=> {
    if (!likeList) {
     return null;
    }
+
+   const indexOfLast = currentPage * postsPerPage;
+    const indexOfFirst = indexOfLast - postsPerPage;
+    function currentPosts(tmp) {
+      let currentPosts = 0;
+      currentPosts = tmp.slice(indexOfFirst, indexOfLast);
+      return currentPosts;
+    }
+     let likeListCount = likeList.marks;
+     let totalCount = likeList.totalCount; 
    // articles 값이 유효할때   
         return (
-           <div>
-           <br/>
-           <br/>
-           <br/>
-           <br/>
-           <br/>
-           <br/>
-           <br/>
-           <br/>
-           <br/>
-           <br/>
-           <b>좋아요 리스트</b>
+            <div style={{marginTop:30}}>
+           <b className="like_list_title">내가 찜한 홈스테이</b>
+           <hr className="like_list_hr" style={{marginTop:20}}/>
            <div className="like-List">
-               {likeList.map((likeList,index)=>
+               {currentPosts(likeListCount).map((likeListCount,index)=>
               (<ListRow
-                likeNum ={likeList.homeStayMarkNum}
-                homeNum = {likeList.homeStayNum}
-                title = {likeList.title}
-                hostNum ={likeList.hostNum}
-                hostName = {likeList.hostName}
-                addr={likeList.addr1}
-                photo={likeList.homeStayPhoto}
-                star={likeList.avgOfStars}
+                likeNum ={likeListCount.homeStayMarkNum}
+                homeNum = {likeListCount.homeStayNum}
+                title = {likeListCount.title}
+                hostNum ={likeListCount.hostNum}
+                hostName = {likeListCount.hostName}
+                addr={likeListCount.addr1}
+                photo={likeListCount.homeStayPhoto}
+                star={likeListCount.avgOfStars}
                 key={index}
               />) 
-               )}
-              
+               )} 
            </div>
+           {totalCount>1
+                ?
+                <Pagination postsPerPage={postsPerPage} totalPosts={totalCount} paginate={setCurrentPage}  align="center"></Pagination>
+                :<Pagination postsPerPage={postsPerPage} totalPosts={9} paginate={1}  align="center"></Pagination>}
            </div>
         );
     

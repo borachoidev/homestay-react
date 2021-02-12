@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import { img,review } from '_utils/api';
 
 
 const MyWriteReviewRow = (props) => {
@@ -13,29 +13,36 @@ const MyWriteReviewRow = (props) => {
                  )}*/
     const photoList = photo.map(
         (photo,i) => (
-            <img key={i} src={"http://localhost:9003/homeStayReviewImg/"+photo.photoName}/>
+            <div className="write_review_img">
+            <img key={i} src={`${review}/${photo.photoName}`}/>
+            </div> 
         )
     );
     return (
-          <div>
-          <div className="hostInfo">
-          <h3>{props.hostName}</h3>
-          <img src={"http://localhost:9003/homeStayImg/"+props.hostPhoto} />        
+          <div className="write_Row">
+          <div className="write_hostInfo">
+          <div className="write_host_img">
+          <img src={`${img}/${props.hostPhoto}`} />    
+          <b className="write_host_name">{props.hostName}</b> 
+          <b className="write_day">{props.writeday}</b>  
           </div>
-          <div>
+         
+          <br/>
+          
             {photoList}    
-          </div>  
-
-           <p>청결도 :</p>{props.cleanliness.toFixed(1)}
-           <p>의사소통 :</p>{props.communication.toFixed(1)}
-           <p>체크인 :</p>{props.checkIn.toFixed(1)}
-           <p>정확성 :</p>{props.accuracy.toFixed(1)}
-           <p>위치 :</p>{props.location.toFixed(1)}
-           <p>가격대비 만족도: </p>{props.Price.toFixed(1)}
-           <div>
+          
+          </div> 
+           
+           <b className="write_star">청결도 :</b>{props.cleanliness.toFixed(1)}
+           <b className="write_star">의사소통 :</b>{props.communication.toFixed(1)}
+           <b className="write_star">체크인 :</b>{props.checkIn.toFixed(1)}
+           <b className="write_star">정확성 :</b>{props.accuracy.toFixed(1)}
+           <b className="write_star">위치 :</b>{props.location.toFixed(1)}
+           <b className="write_star">가격대비 만족도: </b>{props.Price.toFixed(1)}
+           <div className="write_content">
                {props.content}
            </div>
-           <p>{props.writeday}</p>
+           
           </div>
 
       );

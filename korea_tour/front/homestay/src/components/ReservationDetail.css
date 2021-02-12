@@ -27,6 +27,7 @@
 .reservation_info-text{
     float: left;
     margin-left: 5vw;
+    width: 30vw;
     
 }
 
@@ -47,7 +48,7 @@
     width:60vw;
     margin:auto;
     font-size: var(--font-medium);
-    padding-left: 8vw;
+    padding-left: 3vw;
     padding-top: 2vh;
     border-bottom: 2px solid #00A699;;
     padding-bottom: 2vh;

@@ -21,7 +21,7 @@ const ReservationList =()=>{
     const yesData = async ()=> {
         try {
             const response = await axios.get(
-                `${URL}/mypage/reservations/approved/${loginNum}/1`
+                `${URL}/mypage/reservations/approved/${loginNum}`
             );
             setList(response.data);
             console.log(response.data.reservations);
@@ -33,7 +33,7 @@ const ReservationList =()=>{
     const waitData = async ()=> {
         try {
             const response = await axios.get(
-                `${URL}/mypage/reservations/wating/${loginNum}/1`
+                `${URL}/mypage/reservations/wating/${loginNum}`
             );
             setList(response.data);
             console.log(response.data.reservations);
@@ -45,7 +45,7 @@ const ReservationList =()=>{
     const cancleData = async ()=> {
         try {
             const response = await axios.get(
-                `${URL}/mypage/reservations/cancel/${loginNum}/1`
+                `${URL}/mypage/reservations/cancel/${loginNum}`
             );
             setList(response.data);
 
@@ -57,7 +57,7 @@ const ReservationList =()=>{
     const fatchData = async ()=> {
         try {
             const response = await axios.get(
-                `${URL}/mypage/reservations/all/${loginNum}/1`
+                `${URL}/mypage/reservations/all/${loginNum}`
             );
             setList(response.data);
         } catch (e) {
@@ -71,7 +71,7 @@ const ReservationList =()=>{
         setLoading(true);
         try {
             const response = await axios.get(
-                `${URL}/mypage/reservations/all/${loginNum}/1`
+                `${URL}/mypage/reservations/all/${loginNum}`
             );
             setList(response.data);
             console.log(response.data.reservations);
