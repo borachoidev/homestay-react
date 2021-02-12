@@ -6,24 +6,35 @@ import Button from '@material-ui/core/Button';
 import "components/Mypage.css";
 
 const Mypage  =()=> {
+        let mypageUrl = window.location.href;
+        let mypageMain = mypageUrl.split('/mypage')[1];
+        console.log(mypageMain)
         return (
            <div className="mypage" style={{marginTop: 40}}>
-           <h1>마이페이지</h1>
+           <b className="mypage_h1">마이페이지</b>
            <hr className="mypage_hr"/>
            <div className="mypage-btn" >
            <Link to="/mypage/reservation">
-           <Button variant="contained" color="secondary">예약 내역</Button>
+           <button className="click-btn">예약 내역</button>
            </Link>
            <Link to="/mypage/like">
-           <Button className="click-btn" color="default">내가 찜한 홈스테이</Button>
+           <button className="click-btn">내가 찜한 홈스테이</button>
            </Link>
            <Link to="/mypage/review">
-           <Button className="click-btn">리뷰쓰기</Button>
+           <button className="click-btn">리뷰쓰기</button>
            </Link>
            <Link to="/mypage/myreview">
-           <Button className="click-btn">내가 쓴 리뷰</Button>
+           <button className="click-btn">내가 쓴 리뷰</button>
            </Link>
            </div>
+           {mypageMain
+           ?
+           <div></div>
+           :
+           <p className="mypage_title"><b>상단 버튼을 클릭</b>하여 확인하실 정보를 선택해주세요</p>
+           
+        }
+           
            </div>
         );
     

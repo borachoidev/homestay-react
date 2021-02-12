@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { URL,img } from '_utils/api';
+import { URL } from '_utils/api';
 
 
 const ReservationHostInfo = () => {
@@ -36,7 +36,7 @@ const ReservationHostInfo = () => {
    if (!hostInfo) {
     return null;
    }
-   let photo= `${img}/${hostInfo.photoName}` ;
+   let photo= `${hostInfo.photoName}` ;
    // articles 값이 유효할때 
     return (
           <div className="reservation_host_info"  style={{ marginTop: 20 }}>

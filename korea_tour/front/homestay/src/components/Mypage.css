@@ -1,14 +1,37 @@
-.mypage h1{
+.mypage_h1{
     font-size: var(--font-xl);
+    margin-left: 10vw;
 }
 
-.mypage hr {
-    margin: 0;
-    margin-bottom: 0px;
-
+.mypage_hr {
+    margin-top: 3vw;
+    margin-bottom: 2vh;
+    width: 70vw;
+    margin: auto;
+    border-top: 3px solid #f16664;
 }
 
 .click-btn {
     float: left;
     flex: 100%;
+    font-family: 'bold';
+    background: transparent;
+    border: transparent;
+    outline: none;
+}
+
+.mypage-btn {
+    margin-top: 0.5em;
+    margin-bottom: 10vh;
+    margin-left: 10vw;
+}
+
+.mypage_title {
+    font-size: var(--font-large);
+    text-align: center;
+    margin-top: 10vw;
+}
+
+.mypage_title b{
+    color:#f16664;
 }

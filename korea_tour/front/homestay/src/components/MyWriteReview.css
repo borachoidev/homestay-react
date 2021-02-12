@@ -24,13 +24,13 @@
 
 .write_host_img {
     padding: 1vw;
-    border-bottom: 1px solid #f16664;
+    border-bottom: 2px solid #f16664;
 }
 
 .write_host_img img{
     width: 8vw;
     height: 5vw;
-    border: 1px solid #FC642D;
+    border: 2px solid #FC642D;
     text-align: center;
 
 }
@@ -42,7 +42,7 @@
 .write_review_img img{
     width: 12vw;
     height: 10vw;
-    border: 1px solid #FC642D;
+    border: 2px solid #FC642D;
     margin-left: 0.5em;
 }
 .write_review_img  {
@@ -65,9 +65,9 @@
 .write_content {
     margin-top: 1vw;
     margin-bottom: 1vw;
-    
+    text-align: center;
 }
 
-.MuiTextField-root {
-    margin: auto;
+#outlined-read-only-input {
+    width: 55vw;
 }
