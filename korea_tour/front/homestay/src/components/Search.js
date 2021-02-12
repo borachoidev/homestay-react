@@ -10,11 +10,14 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { useHistory } from 'react-router-dom';
 import { ko } from 'date-fns/esm/locale';
 
+
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
   },
-
+  container: {
+    paddingRight:'120px'
+  },
   input: {
     marginLeft: theme.spacing(1),
     flex: 1,
@@ -23,6 +26,7 @@ const useStyles = makeStyles(theme => ({
   iconButton: {
     padding: 10,
   },
+  
 }));
 
 function Search(props) {
@@ -70,7 +74,8 @@ function Search(props) {
     setKeyword({ ...keyword, checkout: checkoutDate });
   };
   return (
-    <Paper>
+    <div className={classes.container}>
+    <Paper >
       <InputBase
         className={classes.input}
         placeholder="장소"
@@ -78,7 +83,7 @@ function Search(props) {
         onChange={e => setKeyword({ ...keyword, area: e.target.value })}
         inputProps={{ 'aria-label': '' }}
       />
-      <DatePicker
+      <DatePicker  wrapperClassName="datePicker"
         locale={ko}
         dateFormat="yyyy-MM-dd"
         selected={startDate}
@@ -91,8 +96,9 @@ function Search(props) {
         className={classes.input}
         minDate={new Date()}
         placeholderText="날짜를 선택해 주세요"
+        
       />
-      <DatePicker
+      <DatePicker wrapperClassName="datePicker"
         locale={ko}
         dateFormat="yyyy-MM-dd"
         selected={endDate}
@@ -121,6 +127,7 @@ function Search(props) {
         />
       </IconButton>
     </Paper>
+    </div>
   );
 }
 

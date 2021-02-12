@@ -108,17 +108,17 @@ function currentPosts(tmp) {
 }
 
   return (
-    <div>
+    <div id="house-list-container">
       {
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <HouseListSort />
-            <div class="buttons">
-            <Button class="byBtn" onClick={byCost}>
+            <div className="buttons">
+            <Button id="byBtn" onClick={byCost}>
               요금순
             </Button>
             
-            <Button  class="byBtn"
+            <Button  id="byBtn"
               onClick={byStars}
             >
               평점순

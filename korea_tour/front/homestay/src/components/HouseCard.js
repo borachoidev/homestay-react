@@ -23,7 +23,8 @@ import store from '_store/Store';
 import { img } from '_utils/api';
 
 const useStyles = makeStyles(() => ({
-  root: { maxwidth: 365 },
+  root: { maxwidth: 365,
+    fontFamily: 'regular' },
   media: {
     height: 0,
     paddingTop: "56.25%",
@@ -105,7 +106,7 @@ function HouseCard(props) {
       />
       <CardMedia
         className={classes.media}
-        image={`${img}/${props.photoName}`}
+        image={props.photoName}
       />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
