@@ -64,7 +64,12 @@ function HostBookDetail(props) {
           <h3>금액</h3> <span>{data.totalPrice}원</span>
         </div>
       </Box>
-      <Button type="button" onClick={history.goBack} color="secondary">
+      <Button
+        type="button"
+        onClick={history.goBack}
+        variant="contained"
+        color="secondary"
+      >
         목록으로
       </Button>
     </div>

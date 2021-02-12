@@ -61,7 +61,9 @@ function HostPenddingBooks({ history }) {
             <th className="count">인원</th>
             <th className="check-in">체크인시간</th>
             <th className="check-out">체크아웃시간</th>
-            <th className="manage">관리</th>
+            <th colspan="2" className="manage">
+              관리
+            </th>
           </tr>
         </thead>
         <tbody>

@@ -27,14 +27,28 @@ function MyBookRow(props) {
   const setButton = approval => {
     if (approval == 0) {
       return (
-        <td>
-          <Button type="button" onClick={handleConfirm} color="primary">
-            승인
-          </Button>
-          <Button type="button" onClick={handleDeny} color="secondary">
-            거절
-          </Button>
-        </td>
+        <>
+          <td>
+            <Button
+              type="button"
+              onClick={handleConfirm}
+              variant="outlined"
+              color="primary"
+            >
+              승인
+            </Button>
+          </td>
+          <td>
+            <Button
+              type="button"
+              onClick={handleDeny}
+              variant="outlined"
+              color="secondary"
+            >
+              거절
+            </Button>
+          </td>
+        </>
       );
     }
   };
