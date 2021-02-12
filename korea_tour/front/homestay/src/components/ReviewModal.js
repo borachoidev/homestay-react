@@ -9,11 +9,14 @@ import store from '_store/Store';
 import Button from '@material-ui/core/Button';
 
 
-function ReviewModal(props) {
+function ReviewModal({ history }) {
     const [content, setContent] = useState(null);
     const [loading,setLoading] = useState(false);
     const [error, setError] = useState(null);
 
+    const goGo = () => {
+        window.location.href=window.location.href;
+    };
     let { houseNum } = useParams();
 
     const postUrl = `${URL}/${houseNum}/insertanswerofreview`;
@@ -81,15 +84,16 @@ function ReviewModal(props) {
                                 </div>
                                 {i.dap==0&&i.userNum==userNum?
                                     <div className="create-reanswer">
-                                        <form action={postUrl} method="POST">
-                                            <input type="text" name="content" required />
+                                        <form action={postUrl} method="POST" target="iframe1">
+                                            <input type="text" name="content" className="reanswer-box" required placeholder="답글 작성란"/>
                                             <input type="hidden" name="userNum" value={userNum} />
                                             <input type="hidden" name="homeStayNum" value={houseNum} />
                                             <input type="hidden" name="regroup" value={i.regroup} />
                                             <input type="hidden" name="loginNum" value={userNum} />
                                             <input type="hidden" name="loginId" value={userName} />
                                             <input type="hidden" name="loginPhoto" value={userAvatar} />
-                                            <Button type="submit" variant="contained" onClick={()=>{ alert("답글달기 완료") }}>답글달기</Button>
+                                            <Button type="submit" variant="contained" onClick={()=>{ alert("답글 작성 완료!!"); goGo() }}>답글달기</Button>
+                                            <iframe id="iframe1" name="iframe1" ></iframe>
                                         </form>
                                     </div>
                                 :null}

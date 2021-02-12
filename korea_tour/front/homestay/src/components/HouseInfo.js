@@ -2,14 +2,12 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { URL } from '_utils/api';
 import { useParams } from 'react-router-dom';
+import HouseCheckInOut from './HouseCheckInOut';
 
 function HouseInfo(props) {
     const [content, setContent] = useState(null);
-    const [contentTime, setContentTime] = useState(null);
     const [loading,setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const [tloading,setTLoading] = useState(false);
-    const [terror, setTError] = useState(null);
 
     let { houseNum } = useParams();
 
@@ -28,23 +26,7 @@ function HouseInfo(props) {
             }
             setLoading(false);
         };
-        
-
-        const getHouseInfoTime = async () => {
-            try {
-                setContentTime(null);
-                setTError(null);
-                setTLoading(true);
-                const response = await axios.get(
-                    `${URL}/${houseNum}/hosttime`
-                );
-                setContentTime(response.data);
-            } catch(e) {
-                setTError(e);
-            }
-            setTLoading(false);
-        };
-        getHouseInfoTime();
+       
         getHouseInfo();
     }, []);
 
@@ -52,11 +34,7 @@ function HouseInfo(props) {
     if (loading) return <p>로딩중....</p>;
     if (error) return <p>에러가 발생했습니다.!!</p>;
     if (!content) return null;
-    console.log(contentTime)
-    console.log(contentTime.checkIn1);
-    console.log(contentTime.checkIn2);
-    console.log(contentTime.checkOut1);
-    console.log(contentTime.checkOut2);
+    
     return (
         <div>
             <h1 id="HostId">
@@ -81,8 +59,7 @@ function HouseInfo(props) {
                 <br/>
 
                 <p className="info-title"><b>숙소 이용규칙</b></p>
-                {contentTime.checkIn2=="0"?<p>Check-In : {contentTime.checkIn1}시</p>:<p>Check-In : {contentTime.checkIn1}시 {contentTime.checkIn2}분</p>}
-                {contentTime.checkOut2=="0"?<p>Check-Out : {contentTime.checkOut1}시</p>:<p>Check-Out : {contentTime.checkOut1}시 {contentTime.checkOut2}분</p>}
+                <HouseCheckInOut />
                
                 <div className="space"></div>
                 <hr/>

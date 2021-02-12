@@ -92,3 +92,12 @@
     font-size: 0.7em;
     margin-bottom: 50px;
 }
+
+#iframe1{
+    display: none;
+}
+
+.reanswer-box{
+    margin-right: 20px;
+    height: 20px;
+}

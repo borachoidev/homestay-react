@@ -54,7 +54,7 @@ function HouseCarousel(props) {
             {
                 content.map((i)=>{  
                     return ( <div className="modal-imgbox">
-                    <img src={img+"/"+i.photoName} className="carousel-img" />
+                    <img src={i.photoName} className="carousel-img" />
                     </div>
                     )
                 })
