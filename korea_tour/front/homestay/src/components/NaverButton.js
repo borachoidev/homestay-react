@@ -29,7 +29,7 @@ function NaverButton({ signIn }) {
       <NaverLogin
         clientId="XsYIxoQxXx7dgXFoawSE"
         // callbackUrl="www.raonhomestay.tk"
-        callbackUrl="http://localhost:3000/"
+        callbackUrl="http://localhost:3000"
         render={props => <div onClick={props.onClick}>Naver Login</div>}
         onSuccess={res => sendApi(res).then(signIn)}
         onFailure={() => console.error()}
