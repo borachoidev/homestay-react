@@ -28,10 +28,10 @@ function MyBookRow(props) {
     if (approval == 0) {
       return (
         <td>
-          <Button type="button" onClick={handleConfirm}>
+          <Button type="button" onClick={handleConfirm} color="primary">
             승인
           </Button>
-          <Button type="button" onClick={handleDeny}>
+          <Button type="button" onClick={handleDeny} color="secondary">
             거절
           </Button>
         </td>
