@@ -147,11 +147,15 @@ function CalendarCheckIn(props) {
             placeholderText="날짜를 선택해 주세요"
             filterDate={reservationDay}
         />
-        <div id="totalCostBox"><span>₩{housePrice.toLocaleString()} x {Math.ceil(oneNight)}박</span><span>{totalCostWon}</span></div>
+        <div id="totalCostBox">
+            <span>₩{housePrice.toLocaleString()} x {Math.ceil(oneNight)}박</span>
+            <hr className="cost-hr"/>
+            <div className="totalcost-box"><span><b>총 합계 {totalCostWon}</b></span></div>
+        </div>
 
 
             <Link to={"/reservation/"+userNum+"/"+houseNum+"/"+checkInday+"/"+checkOutday+"/"+numberOfPeople+"/"+totalCost+""} style={{ textDecoration: 'none' }}>
-                <Button variant="contained" color="secondary">
+                <Button variant="contained" color="secondary" className="reser-btn">
                     예약하기
                 </Button>
             </Link>

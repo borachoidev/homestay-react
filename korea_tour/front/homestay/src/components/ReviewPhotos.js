@@ -40,10 +40,12 @@ function ReviewPhotos(props) {
     return (
         <div id="photoBox">
             {
-                content.map((i)=>{
+                content.map((i,idx)=>{
+                    
                     return (
-                        <div key={i.photoNum}><img className="review-roomimg" src={review+"/"+i.photoName} /></div>
-                    )
+                            <div key={i.photoNum}><img className="review-roomimg" src={review+"/"+i.photoName} /></div>
+                        )
+                    
                 })
             }
         </div>

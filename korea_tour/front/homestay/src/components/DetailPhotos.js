@@ -37,7 +37,7 @@ function DetailPhotos(props) {
     if (error) return <p>에러가 발생했습니다.!!</p>;
     if (!content) return null;
     
-     console.log(content[0].photoName);
+     
 
     return (
         <>
