@@ -6,6 +6,14 @@ import { signIn } from '_actions/user';
 const token = 'ef2b91ef7608dc08c402b6c4764534cd';
 let data;
 const KakaoButton = ({ signIn }) => {
+  const btnStyle = {
+    width: 174,
+    height: 44,
+    color: 'rgb(60,30,30)',
+    backgroundColor: 'rgb(255,235,0)',
+    border: '1px solid transparent',
+    fontSize: '1rem',
+  };
   const sendApi = async res => {
     const id = res.profile.id;
     const nickname = res.profile.properties.nickname;
@@ -28,6 +36,7 @@ const KakaoButton = ({ signIn }) => {
       }}
       onLogout={console.info}
       useLoginForm
+      style={btnStyle}
     />
   );
 };
