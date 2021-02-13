@@ -1,4 +1,4 @@
-import { SIGN_IN, SIGN_OUT } from '_actions/types';
+import { SIGN_IN, SIGN_OUT, HOST_APPLY } from '_actions/types';
 
 const initialState = {
   num: 0,
@@ -26,7 +26,9 @@ export default function userReducer(state = initialState, action) {
       };
     case SIGN_OUT:
       return { ...initialState };
-
+    case HOST_APPLY:
+      console.log('action');
+      return { ...state, host: 'Y' };
     default:
       return state;
   }

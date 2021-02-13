@@ -3,14 +3,16 @@ import { URL } from '_utils/api';
 import axios from 'axios';
 import store from '_store/Store';
 import { useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { hostApply } from '_actions/user';
 
-function FormSubmit(props) {
+function FormSubmit({ info, intro, amenity, rules, image, hostApply }) {
   const history = useHistory();
   const num = store.getState().userReducer.num;
-  const hostInfo = props.info;
-  const houseIntro = props.intro;
-  const amenities = props.amenity;
-  const houseRules = props.rules;
+  const hostInfo = info;
+  const houseIntro = intro;
+  const amenities = amenity;
+  const houseRules = rules;
   const [contents, setContents] = useState(null);
   const [loading, setLoading] = useState(false);
   const data = {
@@ -40,39 +42,40 @@ function FormSubmit(props) {
     content: houseIntro.content,
     photo: houseIntro.photo,
   };
-  const imageFile = props.image;
+  const imageFile = image;
+
   useEffect(() => {
-    // async를 사용하는 함수 따로 선언
     const sendData = async () => {
       setLoading(true);
       try {
         const response = await axios.post(`${URL}/house`, data).then(() => {
           alert('등록이 완료되었습니다');
         });
+
         console.log(data);
       } catch (e) {
         console.log(e);
       }
       setLoading(false);
     };
-    sendData();
-  }, []);
-  useEffect(() => {
-    // async를 사용하는 함수 따로 선언
+    console.log(data);
     const sendPhoto = async num => {
       let url = `${URL}/photo/${parseInt(num)}`;
       setLoading(true);
       try {
-        const response = await axios.post(url, imageFile).then(() => {
-          history.push('/');
-        });
+        const response = await axios.post(url, imageFile);
+
         console.log(data);
       } catch (e) {
         console.log(e);
       }
-      setLoading(false);
     };
-    sendPhoto(num);
+    console.dir(hostApply());
+
+    sendData()
+      .then(() => sendPhoto(num))
+      .then(() => hostApply)
+      .then(() => history.push('/'));
   }, []);
 
   if (loading) {
@@ -87,5 +90,6 @@ function FormSubmit(props) {
 
   return <div></div>;
 }
-
-export default FormSubmit;
+export default connect(null, dispatch => ({
+  hostApply: () => dispatch(hostApply()),
+}))(FormSubmit);

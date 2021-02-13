@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { URL } from '_utils/api';
-import { SIGN_IN, SIGN_OUT } from './types';
+import { SIGN_IN, SIGN_OUT, HOST_APPLY } from './types';
 
 export function signIn(APIdata) {
   let url = `${URL}/signin`;
@@ -27,5 +27,10 @@ export function signIn(APIdata) {
 export function signOut() {
   return {
     type: SIGN_OUT,
+  };
+}
+export function hostApply() {
+  return {
+    type: HOST_APPLY,
   };
 }
