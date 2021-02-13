@@ -31,6 +31,10 @@ const ReviewInput = () => {
     content: '',
   });
 
+  const goGo = () => {
+    window.location.href=window.location.href;
+  };
+
   let reviewUrl = window.location.href;
   let reviewHomestayNum = reviewUrl.split('/')[6];
   let ReservationNum = reviewUrl.split('/')[7];
@@ -47,6 +51,7 @@ const ReviewInput = () => {
         action={`${URL}/mypage/review`}
         method="POST"
         enctype="multipart/form-data"
+        target="iframe1"
       >
         <input
           type="hidden"
@@ -81,7 +86,8 @@ const ReviewInput = () => {
           <ReviewFileUpload />
         </div>
         <ReTextarea />
-        <button type="submit">리뷰작성</button>
+        <button type="submit" onClick={()=>{ alert("리뷰 작성 완료!!"); goGo() }}>리뷰작성</button>
+        <iframe id="iframe1" name="iframe1" ></iframe>
       </form>
       </div>
     </div>
