@@ -90,6 +90,7 @@ export default function FormHouseRules(props) {
         label="가격"
         type="number"
         name="price"
+        inputProps={{ placeholder: '10000', min: '0', step: '10' }}
         value={houseRules.price}
         InputLabelProps={{
           shrink: true,
@@ -101,6 +102,7 @@ export default function FormHouseRules(props) {
         label="수용인원"
         type="number"
         name="maxPeople"
+        inputProps={{ placeholder: '1', min: '1' }}
         value={houseRules.maxPeople}
         InputLabelProps={{
           shrink: true,
