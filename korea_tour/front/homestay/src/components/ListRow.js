@@ -1,8 +1,7 @@
 import  React, { useState } from 'react';
-import { URL,img } from '_utils/api';
+import { URL } from '_utils/api';
 import store from '_store/Store';
 import axios from 'axios';
-import StarIcon from '@material-ui/icons/Star';
 
 import IconButton from "@material-ui/core/IconButton";
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -29,7 +28,7 @@ const ListRow  =(props)=> {
     }
   };
 
-  let image= `${img}/${props.photo}`;
+  let image= `${props.photo}`;
     return (
       <div>
         <div className="like_list_List" onClick={() => {
@@ -46,7 +45,7 @@ const ListRow  =(props)=> {
         <b className="like_list_Addr">{props.addr}</b>
         <div className="like_list_Star">
         <b className="star_num">★ </b>
-        <b className="star_avg_num">{props.star}</b>
+        <b className="star_avg_num">{props.star.toFixed(2)}</b>
         </div>
         </div>
         

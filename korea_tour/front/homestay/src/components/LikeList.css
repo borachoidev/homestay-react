@@ -1,6 +1,6 @@
 .like_list_List{
     border-bottom: 2px solid #00A699;
-    padding: 2em;
+    padding: 1em;
     height: 25vh;
     display: flex;
     flex-direction:row;
@@ -18,7 +18,7 @@
 
 .like_list_hr{
     border-top: 2px solid #00A699;
-    width: 60vw;
+    width: 64vw;
     margin-bottom: 0;
     margin: auto;
 }

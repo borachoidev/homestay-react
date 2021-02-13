@@ -1,13 +1,12 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { img } from '_utils/api';
 import Button from '@material-ui/core/Button';
 
 const MyReviewRow  =(props)=> {
 
     let date1= new Date();
     let date2= new Date(props.checkOut);
-    let photo= `${img}/${props.housePhoto}`;
+    let photo= `${props.housePhoto}`;
         return(
             <div className="myReview-Row"> 
               <div className="myReview-photo">

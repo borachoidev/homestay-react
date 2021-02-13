@@ -50,7 +50,7 @@
     font-size: var(--font-medium);
     padding-left: 3vw;
     padding-top: 2vh;
-    border-bottom: 2px solid #00A699;;
+    border-bottom: 2px solid #00A699;
     padding-bottom: 2vh;
 }
 
@@ -77,12 +77,6 @@
     color: white;
 }
 
-@media all and (min-width: 768px) and (max-width: 1023px){
- 
-}
-@media all and (max-width:767px){
-
-}
-@media all and (max-width: 360px){
-
+.reservation_deteil_btn a{
+    text-decoration: none;
 }
