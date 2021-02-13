@@ -13,6 +13,7 @@ const KakaoButton = ({ signIn }) => {
     backgroundColor: 'rgb(255,235,0)',
     border: '1px solid transparent',
     fontSize: '1rem',
+    cursor: 'pointer',
   };
   const sendApi = async res => {
     const id = res.profile.id;
