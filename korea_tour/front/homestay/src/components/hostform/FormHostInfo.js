@@ -39,6 +39,12 @@ export default function FormHostInfo(props) {
   const [hostInfo, setHostInfo] = props.info;
 
   const handleChange = e => {
+    if (e.target.name == 'hp') {
+      console.log(e.target.value);
+      if (e.target.value.length > 11) {
+        e.target.value = e.target.value.substr(0, 11);
+      }
+    }
     setHostInfo({ ...hostInfo, [e.target.name]: e.target.value });
   };
   const handleCreataeMap = data => {
@@ -130,10 +136,11 @@ export default function FormHostInfo(props) {
         name="email2"
         onChange={handleChange}
       />
-
       <TextField
         label="연락처"
+        type="number"
         margin="normal"
+        inputProps={{ placeholder: '숫자만입력해주세요' }}
         value={hostInfo.hp}
         name="hp"
         onChange={handleChange}
