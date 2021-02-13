@@ -11,6 +11,7 @@ function NaverButton({ signIn }) {
     backgroundColor: '#5CC75B',
     border: '1px solid transparent',
     fontSize: '1rem',
+    cursor: 'pointer',
   };
   const sendApi = async res => {
     const id = res.id;

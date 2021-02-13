@@ -16,6 +16,7 @@
   transition: background-color .3s;
   border: 1px solid #ddd;
   margin: 0 4px;
+  cursor: pointer;
 }
 
 .items.active {
