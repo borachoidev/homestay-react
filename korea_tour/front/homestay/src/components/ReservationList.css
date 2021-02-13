@@ -26,8 +26,10 @@
 .ReservationRow th{
     text-align: center;
     font-weight: 400;
-    border-bottom: 1px solid #00A699;
+    border-bottom: 1px solid #00A699 !important;
     cursor: pointer;
+    background-color: white !important;
+    color: black !important;
 }
 
 .ReservationRow td{
