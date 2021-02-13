@@ -11,7 +11,7 @@ function Home(props) {
       <div className="page-container">
         <div className="text-contrast" >
         <br></br>
-        <h1 className="text-jumbo space-1">이제, 홈스테이도 라온나드리와! </h1>
+        <h1 id="mainTitle" className="text-jumbo space-1">이제, 홈스테이도 라온나드리와! </h1>
         <h3 className="space-6 space-top-1">Book unique homes and experience a city like a local.</h3>
           <div className="landing-enroll-app">
             <div><button type="button" className="btn btn-primary btn-large"><span ><a id="raon-link"target="_blank" href="http://www.raonnadri.tk/">라온나드리 자세히보기 >></a></span></button></div>
