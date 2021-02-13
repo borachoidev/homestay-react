@@ -16,6 +16,7 @@ import { signOut } from '_actions/user';
 import store from '_store/Store';
 import { Link, useHistory } from 'react-router-dom';
 import Search from 'components/Search';
+import logo from 'logo_white.png';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -65,7 +66,7 @@ const NavBar = ({ signOut }) => {
       <Toolbar>
         <Typography variant="h6" className={classes.title}>
           <Link to="/">
-            <img className={classes.logo} src="Homestay_logo_black.png" />
+            <img className={classes.logo} src={logo} />
           </Link>
         </Typography>
         <Search />
