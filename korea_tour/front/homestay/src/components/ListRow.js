@@ -45,7 +45,7 @@ const ListRow  =(props)=> {
         <b className="like_list_Addr">{props.addr}</b>
         <div className="like_list_Star">
         <b className="star_num">★ </b>
-        <b className="star_avg_num">{props.star.toFixed(2)}</b>
+        <b className="star_avg_num">{props.star}</b>
         </div>
         </div>
         

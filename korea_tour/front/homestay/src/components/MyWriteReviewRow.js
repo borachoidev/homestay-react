@@ -28,12 +28,12 @@ const MyWriteReviewRow = (props) => {
           </div>
           </div> 
            <div className="write_star">
-           <b>청결도 :</b>{props.cleanliness.toFixed(1)}
-           <b>의사소통 :</b>{props.communication.toFixed(1)}
-           <b>체크인 :</b>{props.checkIn.toFixed(1)}
-           <b>정확성 :</b>{props.accuracy.toFixed(1)}
-           <b>위치 :</b>{props.location.toFixed(1)}
-           <b>가격대비 만족도: </b>{props.Price.toFixed(1)}
+           <b>청결도 :</b>{props.cleanliness}
+           <b>의사소통 :</b>{props.communication}
+           <b>체크인 :</b>{props.checkIn}
+           <b>정확성 :</b>{props.accuracy}
+           <b>위치 :</b>{props.location}
+           <b>가격대비 만족도: </b>{props.Price}
            </div>
            <div className="write_content">
            <TextField
