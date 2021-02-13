@@ -121,7 +121,7 @@ export default function FormHouseIntro(props) {
               <Card className={classes.root} onClick={deletePhoto}>
                 <CardMedia
                   className={classes.media}
-                  image={img + '/' + photo.photoName}
+                  image={photo.photoName}
                   data={photo.homeStayPhotoNum}
                 />
               </Card>

@@ -42,19 +42,19 @@ function DetailPhotos(props) {
     return (
         <>
             <div id="photosMainBox">
-                <div id="photoLeftBox"><img src={img+"/"+content[0].photoName} width="100%" height="100%"/></div>
+                <div id="photoLeftBox"><img src={content[0].photoName} width="100%" height="100%"/></div>
 
                 <div id="photoRightBox">
                     <div id="photoRightBox-left">
-                        <div className="photo-mini-Box"><img src={img+"/"+content[1].photoName} width="100%" height="100%"/></div>
-                        <div className="photo-mini-Box"><img src={img+"/"+content[2].photoName} width="100%" height="100%"/></div>
+                        <div className="photo-mini-Box"><img src={content[1].photoName} width="100%" height="100%"/></div>
+                        <div className="photo-mini-Box"><img src={content[2].photoName} width="100%" height="100%"/></div>
                     </div>
 
                     <div id="photoRightBox-right">
-                        <div className="photo-mini-Box"><img src={img+"/"+content[3].photoName} width="100%" height="100%"/></div>
+                        <div className="photo-mini-Box"><img src={content[3].photoName} width="100%" height="100%"/></div>
                         
                         <div className="photo-mini-Box">
-                            <div id="ModalBtn" onClick={ ()=>{ setModal(true) } } ><span>+</span></div> <img id="lastImage" src={img+"/"+content[4].photoName} width="100%" height="100%" />
+                            <div id="ModalBtn" onClick={ ()=>{ setModal(true) } } ><span>+</span></div> <img id="lastImage" src={content[4].photoName} width="100%" height="100%" />
                         </div>
                     </div>
                 </div>

@@ -155,7 +155,7 @@ function CalendarCheckIn(props) {
 
 
             <Link to={"/reservation/"+userNum+"/"+houseNum+"/"+checkInday+"/"+checkOutday+"/"+numberOfPeople+"/"+totalCost+""} style={{ textDecoration: 'none' }}>
-                <Button variant="contained" color="secondary" className="reser-btn">
+                <Button variant="contained" color="primary" className="reser-btn">
                     예약하기
                 </Button>
             </Link>

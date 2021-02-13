@@ -20,6 +20,24 @@
     width: 40%;
 }
 
-#reservationBtn button{
-    margin: auto;
+
+#reservationBtn{
+    margin-top: 20px;
+    text-align: center;
+}
+
+
+#iframe1{
+    display: none;
+}
+
+.reservationInfo-text{
+    margin-bottom: 30px;
+}
+
+.input-birth{
+    width: 80px;
+}
+.birth-text{
+    margin-right: 10px;
 }
