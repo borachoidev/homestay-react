@@ -19,8 +19,9 @@ import { pink } from '@material-ui/core/colors';
 import { withRouter } from 'react-router-dom';
 import './HouseCard.css';
 import store from '_store/Store';
+import NumberFormat from 'react-number-format';
 
-import { img } from '_utils/api';
+
 
 const useStyles = makeStyles(() => ({
   root: { maxwidth: 365,
@@ -116,7 +117,7 @@ function HouseCard(props) {
          <Star />
          <Typography component="legend" color="textSecondary"> {props.avgOfStar}({props.countOfReview})</Typography></div>
          <Typography id="rate" variant="legend" color="textSecondary" component="p">
-         ₩ {props.price}원</Typography>
+         <NumberFormat value={props.price} displayType={'text'} thousandSeparator={true} prefix={'￦ '} />원</Typography>
       </CardContent>
      
       <div class="goDetail">
