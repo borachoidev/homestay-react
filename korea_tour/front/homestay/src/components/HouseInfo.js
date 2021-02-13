@@ -47,7 +47,7 @@ function HouseInfo(props) {
                 <br/>
 
                 <p className="info-title"><b>청결 강화</b></p>
-                <p className="info-text">코로나19 시대에 에어비앤비가 전문가와 함께 개발한 기준인 강화된 5단계 청소 절차를 준수하겠다고 동의한 호스트입니다.</p>
+                <p className="info-text">코로나19 시대에 라온나들이가 전문가와 함께 개발한 기준인 강화된 5단계 청소 절차를 준수하겠다고 동의한 호스트입니다.</p>
                 <br/>
 
                 <p className="info-title"><b>셀프 체크인</b></p>

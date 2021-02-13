@@ -35,12 +35,29 @@ function HouseAddr(props) {
     if (error) return <p>에러가 발생했습니다.</p>;
     if (!content) return null;
 
-
+    const addr = content.addr1;
+    const words = addr.split(' ');
+    let str = " ";
+    for(let i=0; i<words.length; i++)
+    {
+        if(isNaN(parseInt(words[i].charAt(0))) && typeof parseInt(words[i].charAt(0))==="number"){
+            words[i] = words[i]+" ";
+        }else{
+            words[i] = " ";
+        }
+        str+=words[i];
+    }
+    
+    // console.log(typeof parseInt(words[4].charAt(0)));
+    // console.log(typeof parseInt(words[0].charAt(0)));
+    // console.log(parseInt(words[4].charAt(0)));
+    // console.log(parseInt(words[0].charAt(0)));
+    // console.log("주소는:"+s);
     return (
         <div>
             <span>
                 <span id="mapicon"><RoomIcon color="error" /></span>
-                <span>{content.addr1}</span>
+                <span>{str}</span>
             </span>
         </div>
     );

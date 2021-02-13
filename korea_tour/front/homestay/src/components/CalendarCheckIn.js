@@ -99,6 +99,7 @@ function CalendarCheckIn(props) {
     
 
     const reservationDay = date => {
+        if(content.length>0){
         let reserDay = new Array(content.length);
         for(let i=0; i<content.length; i++){
             reserDay[i]=[addDays(new Date(content[i].checkInDay),-1),new Date(content[i].checkOutDay)]
@@ -111,16 +112,19 @@ function CalendarCheckIn(props) {
         return eval(c);
         
 
-        
+        }else{
+            let s = "new Date('2050-11-30')>new Date(date)||new Date(date)>new Date('2050-12-31')"
+            return eval(s);
+        }
     }
-    console.log(reservationDay);
+    console.log("reservationDay: "+reservationDay());
 
     
          
 
     return (
         <>
-        <DatePicker
+        체크인 : <DatePicker
             locale={ko}
             dateFormat="yyyy-MM-dd"
             selected={startDate}
@@ -134,7 +138,8 @@ function CalendarCheckIn(props) {
             filterDate={reservationDay}
             
         />
-        <DatePicker
+        <br/>
+        체크아웃 : <DatePicker
             locale={ko}
             dateFormat="yyyy-MM-dd"
             selected={endDate}
