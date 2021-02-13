@@ -47,15 +47,18 @@ const  MyWriteReview = () => {
      let currentPosts = 0;
      currentPosts = tmp.slice(indexOfFirst, indexOfLast);
      return currentPosts;
+     
    }
 
    let reviewsCount = myReview.reviews;
    let totalCount = myReview.totalCount; 
+   console.log(totalCount);
    // articles 값이 유효할때 
     return (
           <div style={{marginTop:30}}>
               <h1 className="my_write_review_main">내가 쓴 리뷰</h1>
               <hr className="my_write_review_hr" style={{marginTop:20}}/>
+              <div>
               {currentPosts(reviewsCount).map((reviewsCount,index)=>
                 (<MyWriteReviewRow
                   homeStayReviewNum = {reviewsCount.homeStayReviewNum}
@@ -75,10 +78,8 @@ const  MyWriteReview = () => {
                   key={index}
                 />) 
                  )}
-                 {totalCount>1
-                ?
+                 </div>
                 <Pagination postsPerPage={postsPerPage} totalPosts={totalCount} paginate={setCurrentPage}  align="center"></Pagination>
-                :<Pagination postsPerPage={postsPerPage} totalPosts={9} paginate={1}  align="center"></Pagination>}
           </div>
 
       );

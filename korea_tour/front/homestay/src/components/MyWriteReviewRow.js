@@ -13,7 +13,7 @@ const MyWriteReviewRow = (props) => {
             </div> 
         )
     );
-    return (
+    return  (
           <div className="write_Row">
           <div className="write_hostInfo">
           <div className="write_host_img">
