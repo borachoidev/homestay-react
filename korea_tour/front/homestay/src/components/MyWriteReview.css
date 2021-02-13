@@ -71,3 +71,7 @@
 #outlined-read-only-input {
     width: 55vw;
 }
+
+.no_write_review {
+    text-align: center;
+}

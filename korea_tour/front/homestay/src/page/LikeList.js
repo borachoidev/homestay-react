@@ -71,10 +71,7 @@ const LikeList  =()=> {
               />) 
                )} 
            </div>
-           {totalCount>1
-                ?
                 <Pagination postsPerPage={postsPerPage} totalPosts={totalCount} paginate={setCurrentPage}  align="center"></Pagination>
-                :<Pagination postsPerPage={postsPerPage} totalPosts={9} paginate={1}  align="center"></Pagination>}
            </div>
         );
     
