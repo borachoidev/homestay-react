@@ -150,6 +150,7 @@ function CalendarCheckIn(props) {
             minDate={addDays(startDate,1)}
             maxDate={addDays(nearDay,-1)}
             placeholderText="날짜를 선택해 주세요"
+            className="endDay-input"
             filterDate={reservationDay}
         />
         <div id="totalCostBox">
@@ -158,12 +159,14 @@ function CalendarCheckIn(props) {
             <div className="totalcost-box"><span><b>총 합계 {totalCostWon}</b></span></div>
         </div>
 
-
-            <Link to={"/reservation/"+userNum+"/"+houseNum+"/"+checkInday+"/"+checkOutday+"/"+numberOfPeople+"/"+totalCost+""} style={{ textDecoration: 'none' }}>
-                <Button variant="contained" color="primary" className="reser-btn">
-                    예약하기
-                </Button>
-            </Link>
+        { userNum === 0 
+        ?<h3 className="login-ok">예약하시려면 로그인을 해주세요!!</h3>
+        :<Link to={"/reservation/"+userNum+"/"+houseNum+"/"+checkInday+"/"+checkOutday+"/"+numberOfPeople+"/"+totalCost+""} style={{ textDecoration: 'none' }}>
+        <Button variant="contained" color="primary" className="reser-btn">
+            예약하기
+        </Button>
+        </Link>}
+            
         </>
     );
 }

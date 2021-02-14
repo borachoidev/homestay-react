@@ -9,6 +9,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useHistory } from 'react-router-dom';
 import { ko } from 'date-fns/esm/locale';
+import './Search.css';
 
 
 const useStyles = makeStyles(theme => ({
