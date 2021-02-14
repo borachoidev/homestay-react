@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   }),
 }));
 
-
+const reservationListUrl =`/mypage/reservation`
 
 export default function ReservationButton(props) {
   const { palette } = useTheme();
@@ -39,7 +39,7 @@ export default function ReservationButton(props) {
       className={classes.button,classes.root}
       startIcon={<ListIcon />}
     >
-       <Link to={`${URL}/mypage/reservation`}> 
+       <Link to={reservationListUrl}> 
       목록으로
       </Link>
     </Button>
