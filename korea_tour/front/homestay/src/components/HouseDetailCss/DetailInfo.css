@@ -83,3 +83,14 @@
 }
 
 
+.login-ok{
+    font-size: 1em;
+}
+
+.startDay-input{
+    cursor: pointer;
+}
+
+.endDay-input{
+    cursor: pointer;
+}
