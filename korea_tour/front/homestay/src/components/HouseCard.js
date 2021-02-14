@@ -5,6 +5,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
 import CardContent from "@material-ui/core/CardContent";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
@@ -21,8 +23,6 @@ import './HouseCard.css';
 import store from '_store/Store';
 import NumberFormat from 'react-number-format';
 
-
-
 const useStyles = makeStyles(() => ({
   root: { maxwidth: 365,
     fontFamily: 'regular' },
@@ -30,6 +30,10 @@ const useStyles = makeStyles(() => ({
     height: 0,
     paddingTop: "56.25%",
   },
+  heartIcon: {
+    padding: "0px !important",
+    height: "35px !important"
+  }
 }));
 
 function HouseCard(props) {
@@ -86,11 +90,14 @@ function HouseCard(props) {
     }
   };
 
+  
 
   return (
     
-    <Card className={classes.root}>
-      <CardHeader
+<Card className={classes.root}>
+
+      <CardActionArea>
+      <CardHeader className={classes.heartIcon}
         action={
           <IconButton aria-label="add to favorites">
            { userNum === 0
@@ -103,30 +110,47 @@ function HouseCard(props) {
            
           </IconButton>
         }
-        title={props.title}
-      />
-      <CardMedia
-        className={classes.media}
-        image={props.photoName}
-      />
-      <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
+        />
+        <CardMedia
+           component="img"
+           height="160"
+           image={props.photoName}
+        />
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="h2">
+          {props.title.substring(0, 10)}...  
+          </Typography>
+         
+          <Typography variant="body2" color="textSecondary" component="p">
          {props.addr1}
         </Typography>
         <div class="starAndReview">
          <Star />
          <Typography component="legend" color="textSecondary"> {props.avgOfStar}({props.countOfReview})</Typography></div>
-         <Typography id="rate" variant="legend" color="textSecondary" component="p">
-         <NumberFormat value={props.price} displayType={'text'} thousandSeparator={true} prefix={'￦ '} />원</Typography>
-      </CardContent>
-     
-      <div class="goDetail">
+        
+         <NumberFormat value={props.price} displayType={'text'} thousandSeparator={true} prefix={'￦ '} />원
+         
+        </CardContent>
+        <div class="goDetail">
       <Button  color="secondary" onClick={() => {
         props.history.push(
         `/house/${props.homeStayNum}` )
       }}>자세히보기>></Button></div>
-
+</CardActionArea>
     </Card>
+      
+      
+    
+     
+       
+        
+        
+        
+      
+      
+     
+     
+      
   );
 }
 

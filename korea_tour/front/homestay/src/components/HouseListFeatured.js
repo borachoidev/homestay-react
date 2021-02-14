@@ -129,7 +129,7 @@ function currentPosts(tmp) {
           
           {currentPosts(contents.list).map(content => (
             
-            <Grid item xs={6} sm={4} md={4} key={content}>
+            <Grid item xs={6} sm={4} md={4} key={content.homeStayNum}>
               <HouseCard
                 photoName={content.photoName}
                 title={content.title}
