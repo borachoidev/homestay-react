@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { URL } from '_utils/api';
 import { Link } from 'react-router-dom';
 import { useTheme, makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -39,7 +39,7 @@ export default function ReservationButton(props) {
       className={classes.button,classes.root}
       startIcon={<ListIcon />}
     >
-       <Link to="/mypage/reservation"> 
+       <Link to={`${URL}/mypage/reservation`}> 
       목록으로
       </Link>
     </Button>
