@@ -68,7 +68,7 @@ function HouseService(props) {
                     {
                         elecProduct===1?
                         <p className="service-info"><span><OfflineBolt color="error" /></span>가전제품</p>
-                        :<p className="service-info"><span><OfflineBolt /></span>이용불가</p>
+                        :<p className="service-info"><span><OfflineBolt /></span>가전제품 이용불가</p>
                     }
                     {
                         kitchen===1?
@@ -93,7 +93,7 @@ function HouseService(props) {
                     {
                         towel===1?
                         <p className="service-info"><span><Bathtub color="error"/></span>욕실용품</p>
-                        :<p className="service-info"><span><Bathtub /></span>공용화장실</p>
+                        :<p className="service-info"><span><Bathtub /></span>욕실용품 미제공</p>
                     }
                     {
                         wifi===1?
