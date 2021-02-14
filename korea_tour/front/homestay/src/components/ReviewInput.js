@@ -31,9 +31,11 @@ const ReviewInput = () => {
     content: '',
   });
 
-  const goGo = () => {
-    window.location.href=window.location.href;
-  };
+  const writeReview = `${URL}/mypage/review`
+
+  //const goGo = () => {
+  //  window.location.href=window.location.href;
+  //};
 
   let reviewUrl = window.location.href;
   let reviewHomestayNum = reviewUrl.split('/')[6];
@@ -48,7 +50,7 @@ const ReviewInput = () => {
       <hr className="input_review_hr"></hr>
       <div className="input_review_form">
       <form
-        action={`${URL}/mypage/review`}
+        action={writeReview}
         method="POST"
         enctype="multipart/form-data"
         target="iframe1"
@@ -86,9 +88,10 @@ const ReviewInput = () => {
           <ReviewFileUpload />
         </div>
         <ReTextarea />
-        <button type="submit" onClick={()=>{ alert("리뷰 작성 완료!!"); goGo() }}>리뷰작성</button>
-        <iframe id="iframe1" name="iframe1" ></iframe>
+        <button type="submit">리뷰작성</button>
+        {/*onClick={()=>{ alert("리뷰 작성 완료!!"); goGo() }} */}
       </form>
+      <iframe id="iframe1" name="iframe1" ></iframe>
       </div>
     </div>
   );
