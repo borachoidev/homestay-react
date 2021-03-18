@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -11,7 +11,7 @@ import GoogleButton from 'components/GoogleButton';
 import KakaoButton from 'components/KakaoButton';
 import NaverButton from 'components/NaverButton';
 import Avatar from '@material-ui/core/Avatar';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { signOut } from '_actions/user';
 import store from '_store/Store';
 import { Link, useHistory } from 'react-router-dom';
@@ -42,18 +42,15 @@ const useStyles = makeStyles(theme => ({
 const NavBar = ({ signOut }) => {
   const history = useHistory();
   const classes = useStyles();
-  const auth = store.getState().userReducer.auth;
-  const host = store.getState().userReducer.host;
-  const avatar = store.getState().userReducer.avatar;
+  // const auth = store.getState().userReducer.auth;
+  // const host = store.getState().userReducer.host;
+  const { auth, host, avatar } = useSelector(state => state.userReducer);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleMenu = event => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
   const logOut = () => {
     signOut();
     setAnchorEl(null);
@@ -61,6 +58,14 @@ const NavBar = ({ signOut }) => {
     console.log('로그아웃');
   };
 
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  useEffect(() => {
+    console.log('avatar', avatar);
+    console.log('open', open);
+    setAnchorEl(null);
+  }, [auth]);
   return (
     <AppBar position="static">
       <Toolbar>
@@ -70,6 +75,57 @@ const NavBar = ({ signOut }) => {
           </Link>
         </Typography>
         <Search />
+        {auth && (
+          <div>
+            <IconButton
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleMenu}
+              color="inherit"
+            >
+              <Avatar alt="avatar" src={avatar} />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={open}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={handleClose}>
+                <Link className={classes.links} to="/mypage">
+                  마이페이지
+                </Link>
+              </MenuItem>
+              {host === 'N' && (
+                <MenuItem>
+                  <Link className={classes.links} to="/apply">
+                    호스트되기{' '}
+                  </Link>
+                </MenuItem>
+              )}
+              {host === 'Y' && (
+                <MenuItem onClick={handleClose}>
+                  <Link className={classes.links} to="/host/manage/house">
+                    호스트관리
+                  </Link>
+                </MenuItem>
+              )}
+              <MenuItem className={classes.links} onClick={logOut}>
+                로그아웃
+              </MenuItem>
+            </Menu>
+          </div>
+        )}
         {!auth && (
           <div>
             <IconButton
@@ -104,57 +160,6 @@ const NavBar = ({ signOut }) => {
               </MenuItem>
               <MenuItem>
                 <GoogleButton />
-              </MenuItem>
-            </Menu>
-          </div>
-        )}
-        {auth && (
-          <div>
-            <IconButton
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleMenu}
-              color="inherit"
-            >
-              <Avatar alt="avatar" src={avatar} />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorEl}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={open}
-              onClose={handleClose}
-            >
-              <MenuItem onClick={handleClose}>
-                <Link className={classes.links} to="/mypage">
-                  마이페이지
-                </Link>
-              </MenuItem>
-              {host == 'N' && (
-                <MenuItem>
-                  <Link className={classes.links} to="/apply">
-                    호스트되기{' '}
-                  </Link>
-                </MenuItem>
-              )}
-              {host == 'Y' && (
-                <MenuItem onClick={handleClose}>
-                  <Link className={classes.links} to="/host/manage/house">
-                    호스트관리
-                  </Link>
-                </MenuItem>
-              )}
-              <MenuItem className={classes.links} onClick={logOut}>
-                로그아웃
               </MenuItem>
             </Menu>
           </div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import RouteMain from './RouteMain';
 import NavBar from 'page/NavBar';
@@ -8,11 +8,9 @@ function App() {
   return (
     <React.Fragment>
       <BrowserRouter basename="/homestay">
-        <div className="Nav">
         <NavBar />
-        </div>
         <div className="Route">
-        <RouteMain />
+          <RouteMain />
         </div>
       </BrowserRouter>
     </React.Fragment>
