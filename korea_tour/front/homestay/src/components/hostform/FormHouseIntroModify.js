@@ -31,9 +31,10 @@ export default function FormHouseIntro(props) {
   const [deletePhotos, setDeletePhotos] = props.delete;
   const deletePhoto = e => {
     const copied = Object.assign([], deletePhotos);
+    const set = new Set([copied]);
     const data = e.target.getAttribute('data');
-    copied.push(data);
-    setDeletePhotos(copied);
+    set.add(data);
+    setDeletePhotos(set);
     e.target.remove();
     console.log(deletePhotos);
   };
