@@ -42,8 +42,6 @@ const useStyles = makeStyles(theme => ({
 const NavBar = ({ signOut }) => {
   const history = useHistory();
   const classes = useStyles();
-  // const auth = store.getState().userReducer.auth;
-  // const host = store.getState().userReducer.host;
   const { auth, host, avatar } = useSelector(state => state.userReducer);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -55,15 +53,12 @@ const NavBar = ({ signOut }) => {
     signOut();
     setAnchorEl(null);
     history.push('/');
-    console.log('로그아웃');
   };
 
   const handleClose = () => {
     setAnchorEl(null);
   };
   useEffect(() => {
-    console.log('avatar', avatar);
-    console.log('open', open);
     setAnchorEl(null);
   }, [auth]);
   return (
